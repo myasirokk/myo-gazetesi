@@ -1,0 +1,68 @@
+{
+  "issue": 1,
+  "date": "21 Ekim 2026, Çarşamba",
+  "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
+  "lead": {
+    "title": "Stress-Testing Gemini 4 Argon: Building a 3D Flutter Kart Game in 15 Prompts with Zero Assets",
+    "deck": "Most AI coding benchmarks test standard web apps or CRUD dashboards. Frontier models can already......",
+    "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak."
+  },
+  "editorial": {
+    "title": "Ajanlar Çağında Kodu Okumak Yazmaktan Değerli",
+    "body": "Kod üretmek ucuzlarken doğru kodu ayırt etmek pahalılaşıyor. Gelecekte iyi mühendis, en çok satır yazan değil, sistemin tasarım amacını ve güvenlik sınırlarını doğru okuyan kişi olacak."
+  },
+  "fact": {
+    "title": "Zero-Shot Inference",
+    "body": "Modelin belirli bir görevi daha önce hiç örnek görmeden sadece bağlam talimatıyla tamamlayabilme yeteneğidir."
+  },
+  "news": {
+    "ai": [
+      {
+        "title": "Stress-Testing Gemini 4 Argon: Building a 3D Flutter Kart Game in 15 Prompts with Zero Assets",
+        "desc": "Most AI coding benchmarks test standard web apps or CRUD dashboards. Frontier models can already......"
+      },
+      {
+        "title": "Generative UI Without the Async Tax: Introducing bloc_signals_genui 1.0",
+        "desc": "Why we built a pure-Dart, 0ms synchronous Generative UI state machine on top of Google's official A2UI protocol—supporting two-way reactive ..."
+      },
+      {
+        "title": "Automated incident triage on GKE with Gemini 4 Argon and Model Context Protocol: Correlating cluster events and VPA logs",
+        "desc": "Automate root-cause incident triage on GKE by combining Gemini 4 Argon multi-step reasoning with the GKE Model Context Protocol server...."
+      },
+      {
+        "title": "Building a cross-platform Flutter festival assistant with llamadart",
+        "desc": "Beyond chat with llamadart · Part 5  Rain starts falling over the village. Dash asks Mo, “Where are......"
+      }
+    ],
+    "oss": [
+      {
+        "title": "DuckLess: serverless DuckDB on Google Cloud, in your own project",
+        "desc": "Serverless DuckDB on Google Cloud, in your own project. Files on GCS, tables in BigQuery (read and write), what I measured, and what I learn..."
+      },
+      {
+        "title": "Linux Çekirdeği Bellek Tahsisatında Yeni Optimizasyon",
+        "desc": "Düşük kaynaklı donanımlarda sayfalama gecikmesi düşürüldü."
+      }
+    ],
+    "web": [
+      {
+        "title": "🌑 Blue October",
+        "desc": "TLDR: A brief summary of how I got here.             The Mindset   For the last 3 years, I have been......"
+      },
+      {
+        "title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi",
+        "desc": "Tarayıcı içi istemci tarafı grafik ve hesaplama kapasitesi arttı."
+      }
+    ],
+    "sec": [
+      {
+        "title": "Kritik Paket Yöneticilerinde Sahte Paket Engelleme Mekanizması",
+        "desc": "Benzer isimli zararlı paket dağıtımlarına karşı otomatik doğrulama geldi."
+      },
+      {
+        "title": "Passkey Desteği Global Web Sitelerinde Yaygınlaşıyor",
+        "desc": "Geleneksel parolaların yerini kriptografik anahtar çiftleri alıyor."
+      }
+    ]
+  }
+}

@@ -5,7 +5,7 @@ const AY = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos
 const GUN = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
 const pad = n => String(n).padStart(2, '0');
 
-/* ---------- İÇERİK HAVUZLARI ---------- */
+/* ---------- YEDEK STATİK İÇERİK HAVUZU ---------- */
 const LEADS = [
  {h:'Çok Modlu Modeller Kod Editörlerini Yeniden Yazıyor', d:'Metin, görsel ve ses tek modelde birleşince IDE deneyimi sohbetten ajanlığa geçiyor.', b:'Geliştirici araçları artık yalnızca kod tamamlamıyor; depoyu okuyor, testi çalıştırıyor, hatayı kendisi düzeltiyor. Bunun arkasında uzun bağlam pencereleri ve araç çağırma yeteneği var. Ekipler için asıl soru, ajanın hangi değişikliği otomatik yapabileceğini sınırlayan izin modelini kurmak. Küçük pull request\'ler, zorunlu test ve insan onayı şimdilik en sağlam üçlü.'},
  {h:'Küçük Dil Modelleri Cihaz Üstüne Taşınıyor', d:'Birkaç milyar parametreli modeller telefonda gecikmesiz çalışıyor.', b:'Nicemleme (quantization) ile modeller 4 bit\'e indiriliyor ve bellek ihtiyacı dörtte bire düşüyor. Çıkarım yerelde yapıldığında gecikme ve gizlilik avantajı doğuyor. Bulut hâlâ ağır akıl yürütme için gerekli; hibrit yönlendirme yaygın bir desen haline geliyor. Geliştiriciler için ders: görevi küçük modele, zor kısmı büyük modele ver.'},
@@ -65,6 +65,8 @@ const NEWS = {
 };
 const CAT = {ai:'Yapay Zeka', oss:'Açık Kaynak', web:'Web Geliştirme', sec:'Siber Güvenlik'};
 
+let liveEdition = null;
+
 /* ---------- BASKI / TARİH ---------- */
 let cur = editionBase(new Date());
 let offset = 0;
@@ -75,6 +77,21 @@ function dateStr(d){ return `${d.getDate()} ${AY[d.getMonth()]} ${d.getFullYear(
 function render(){
   const d = new Date(cur); d.setDate(d.getDate() - offset);
   const i = dayIndex(d);
+  
+  if (offset === 0 && liveEdition) {
+    $('#issueNo').textContent = 'Sayı: ' + liveEdition.issue;
+    $('#dateLine').textContent = liveEdition.date || dateStr(d);
+    $('#quote').textContent = liveEdition.quote || QUOTES[i % QUOTES.length];
+    $('#leadTitle').textContent = liveEdition.lead.title;
+    $('#leadDeck').textContent = liveEdition.lead.deck;
+    $('#leadBody').textContent = liveEdition.lead.body;
+    $('#edTitle').textContent = liveEdition.editorial.title;
+    $('#edBody').textContent = liveEdition.editorial.body;
+    $('#factTitle').textContent = liveEdition.fact.title;
+    $('#factBody').textContent = liveEdition.fact.body;
+    return;
+  }
+
   const L = LEADS[i % LEADS.length], E = EDS[(i + 1) % EDS.length], F = FACTS[(i + 2) % FACTS.length];
   $('#issueNo').textContent = 'Sayı: ' + Math.max(1, i - dayIndex(new Date(2026, 9, 21)) + 1);
   $('#dateLine').textContent = dateStr(d);
@@ -96,7 +113,7 @@ function fillArchive(){
 
 $('#archive').addEventListener('change', e => { offset = +e.target.value; render(); });
 $('#refreshBtn').addEventListener('click', () => {
-  cur = editionBase(new Date()); offset = 0; fillArchive(); render();
+  cur = editionBase(new Date()); offset = 0; fillArchive(); loadEdition();
 });
 
 /* ---------- SAAT ---------- */
@@ -159,10 +176,10 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') setDrawer(fa
 const feed = [];
 const used = {ai:0, oss:0, web:0, sec:0};
 
-function addNews(cat, live){
+function addNews(cat, live, customItem = null){
   const pool = NEWS[cat]; 
-  const item = pool[used[cat] % pool.length]; 
-  used[cat]++;
+  const item = customItem || pool[used[cat] % pool.length]; 
+  if (!customItem) used[cat]++;
   const n = new Date();
   
   const li = document.createElement('li');
@@ -197,9 +214,6 @@ function scheduleNext(){
     scheduleNext();
   }, 120000 + Math.random() * 60000);
 }
-
-Object.keys(NEWS).forEach(k => { addNews(k, false); addNews(k, false); });
-scheduleNext();
 
 /* ---------- BULMACA MOTORU ---------- */
 const WORDS = [
@@ -375,7 +389,31 @@ WORDS.forEach(([w,r,c,d,clue]) => {
   ans.appendChild(row);
 });
 
+/* ---------- DİNAMİK VERİ YÜKLEYİCİ ---------- */
+async function loadEdition(){
+  try {
+    const res = await fetch('data/edition.json?t=' + Date.now());
+    if (!res.ok) throw new Error('Veri alinamadi');
+    liveEdition = await res.json();
+    render();
+    
+    if (liveEdition.news) {
+      Object.keys(liveEdition.news).forEach(cat => {
+        const items = liveEdition.news[cat];
+        if (Array.isArray(items)) {
+          items.forEach(it => addNews(cat, false, [it.title, it.desc]));
+        }
+      });
+    }
+  } catch (err) {
+    console.warn('Statik yedek kullaniliyor:', err);
+    render();
+    Object.keys(NEWS).forEach(k => { addNews(k, false); addNews(k, false); });
+  }
+}
+
 /* ---------- BAŞLAT ---------- */
 fillArchive(); 
-render();
+loadEdition();
+scheduleNext();
 })();
