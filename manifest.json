@@ -1,0 +1,17 @@
+{
+  "name": "MYO Gazetesi",
+  "short_name": "MYO Gazete",
+  "description": "Günlük Bağımsız Teknoloji, Kodlama ve Yapay Zeka Gazetesi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f4ee",
+  "theme_color": "#1c1917",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

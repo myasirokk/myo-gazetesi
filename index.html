@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MYO Gazetesi: Günlük bağımsız teknoloji, kodlama ve yapay zeka gazetesi.">
+<title>MYO GAZETESİ</title>
+
+<!-- PWA & İkon Bağlantıları -->
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-512.png">
+<link rel="apple-touch-icon" href="icon-512.png">
+<meta name="theme-color" content="#1c1917">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Playfair+Display:wght@700;900&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="ticker" aria-label="Canlı Radar">
+  <span class="ticker-tag">CANLI RADAR</span>
+  <div class="ticker-wrap"><div class="ticker-track" id="tickerTrack"></div></div>
+</div>
+
+<header class="masthead">
+  <div class="mast-top">
+    <span id="issueNo">Sayı: 1</span>
+    <span id="dateLine"></span>
+    <span id="clock" aria-live="off">00:00:00</span>
+  </div>
+  <h1>MYO GAZETESİ</h1>
+  <p class="slogan">Günlük Bağımsız Teknoloji, Kodlama ve Yapay Zeka Gazetesi</p>
+  <div class="mast-bottom">
+    <span class="quote" id="quote"></span>
+    <span class="edition-tools">
+      <label for="archive" class="sr">Arşiv</label>
+      <select id="archive"></select>
+    </span>
+  </div>
+</header>
+
+<main>
+  <section class="top-grid">
+    <article class="lead">
+      <h2 id="leadTitle"></h2>
+      <p class="deck" id="leadDeck"></p>
+      <p class="dropcap cols" id="leadBody"></p>
+    </article>
+    <aside class="side">
+      <article class="column-piece">
+        <h3 id="edTitle"></h3>
+        <p class="byline">Köşe Yazısı &middot; Yapay Zeka Editörü</p>
+        <p class="dropcap" id="edBody"></p>
+      </article>
+      <article class="fact-box">
+        <p class="box-title">Günün Hap Bilgisi</p>
+        <h3 id="factTitle"></h3>
+        <p id="factBody"></p>
+      </article>
+    </aside>
+  </section>
+
+  <section class="breaking">
+    <h2 class="section-title">Son Dakika Kolonu</h2>
+    <div class="news-cols">
+      <div><h3>Yapay Zeka</h3><ul id="list-ai"></ul></div>
+      <div><h3>Açık Kaynak</h3><ul id="list-oss"></ul></div>
+      <div><h3>Web Geliştirme</h3><ul id="list-web"></ul></div>
+      <div><h3>Siber Güvenlik</h3><ul id="list-sec"></ul></div>
+    </div>
+  </section>
+
+  <section class="backpage">
+    <h2 class="section-title">Zeka Köşesi</h2>
+    <div class="puzzle-wrap">
+      <div>
+        <div id="grid" class="grid" role="grid" aria-label="Çengel bulmaca"></div>
+        <div class="puzzle-tools">
+          <button type="button" id="checkBtn">Kontrol Et</button>
+          <button type="button" id="clearBtn">Temizle</button>
+          <span id="score" role="status"></span>
+        </div>
+        <p class="hint">Ok tuşları ile gezin, aynı kutuya tekrar tıklayarak yönü değiştirin.</p>
+      </div>
+      <div class="clues">
+        <h3>Yatay</h3><ol id="clueA"></ol>
+        <h3>Aşağı</h3><ol id="clueD"></ol>
+      </div>
+    </div>
+    <details class="answer-key">
+      <summary>Cevapları Göster</summary>
+      <div class="flip" id="answers"></div>
+    </details>
+  </section>
+</main>
+
+<footer>
+  <span>MYO GAZETESİ &mdash; Kurucu ve Künye: <strong>Yasir Ok</strong></span>
+  <a class="insta" href="https://www.instagram.com/yasirokk" target="_blank" rel="noopener noreferrer" aria-label="Yasir Ok Instagram profili">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+    <span>@yasirokk</span>
+  </a>
+</footer>
+
+<aside id="drawer" class="drawer" aria-label="Son gelişmeler" hidden>
+  <div class="drawer-head"><strong>Son Gelişmeler</strong><button type="button" id="drawerX" aria-label="Paneli kapat">&times;</button></div>
+  <ul id="drawerList"><li class="empty">Henüz bildirim yok.</li></ul>
+</aside>
+<button type="button" id="notifBtn" class="notif-btn" aria-expanded="false" aria-controls="drawer">Son Gelişmeler <span id="badge" class="badge" hidden>0</span></button>
+<script src="app.js"></script>
+</body>
+</html>

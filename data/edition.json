@@ -1,0 +1,120 @@
+{
+  "issue": 2,
+  "date": "22 Ekim 2026, Perşembe",
+  "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
+  "lead": {
+    "title": "GKE'de çok katmanlı model yönlendirme: Gemini 4 Argon muhakeme derinliğini gecikme ve maliyetle dengeleme",
+    "deck": "Gemini 4 Argon, Gemini 3.8 Flash ve yerel Gemma arasında istekleri dinamik olarak yönlendirmek için GKE'de yüksek verimli bir model yönlendirme ağ geçidi oluşturun...",
+    "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak."
+  },
+  "editorial": {
+    "title": "Ajanlar Çağında Kodu Okumak Yazmaktan Değerli",
+    "body": "Kod üretmek ucuzlarken doğru kodu ayırt etmek pahalılaşıyor. Gelecekte iyi mühendis, en çok satır yazan değil, sistemin tasarım amacını ve güvenlik sınırlarını doğru okuyan kişi olacak."
+  },
+  "fact": {
+    "title": "Zero-Shot Inference",
+    "body": "Modelin belirli bir görevi daha önce hiç örnek görmeden sadece bağlam talimatıyla tamamlayabilme yeteneğidir."
+  },
+  "news": {
+    "ai": [
+      {
+        "title": "GKE'de çok katmanlı model yönlendirme: Gemini 4 Argon muhakeme derinliğini gecikme ve maliyetle dengeleme",
+        "desc": "Gemini 4 Argon, Gemini 3.8 Flash ve yerel Gemma arasında istekleri dinamik olarak yönlendirmek için GKE'de yüksek verimli bir model yönlendirme ağ geçidi oluşturun..."
+      },
+      {
+        "title": "Gemini 4 Argon ve Model Bağlam Protokolü ile GKE'de otomatik olay önceliklendirmesi: Küme olayları ile VPA günlüklerini ilişkilendirme",
+        "desc": "Gemini 4 Argon çok adımlı akıl yürütmeyi GKE Model Bağlam Protokolü sunucusuyla birleştirerek GKE'de temel neden olay önceliklendirmesini otomatikleştirin...."
+      },
+      {
+        "title": "Llamadart ile platformlar arası Flutter festival asistanı oluşturma",
+        "desc": "Lamadart ile sohbetin ötesinde · Bölüm 5 Köyün üzerine yağmur yağmaya başlıyor. Dash Mo'ya sorar: \"Nerede......"
+      },
+      {
+        "title": "Eşzamansız Vergi Olmadan Üretken Kullanıcı Arayüzü: bloc_signals_genui 1.0 ile Tanışın",
+        "desc": "Neden Google'ın resmi A2UI protokolünü temel alan ve iki yönlü tepkimeyi destekleyen saf Dart, 0 ms eşzamanlı Üretken Kullanıcı Arayüzü durum makinesi geliştirdik?..."
+      }
+    ],
+    "oss": [
+      {
+        "title": "SlothSRE (NapOps): Sabah 03.00 Uyarılarının 418 Satırını 2 Satırlık Sabah Özetine Sıkıştıran Gecelik Gemma 4 ve ADK Ajanı",
+        "desc": "Gece boyunca yığın izlerini tekilleştiren yerel öncelikli açık ağırlık Gemma 4, Google ADK ve Sentry Agent Tracing pipeline'yi nasıl oluşturdum, veri..."
+      },
+      {
+        "title": "DuckLess: Google Cloud'da sunucusuz DuckDB, kendi projenizde",
+        "desc": "Kendi projenizde Google Cloud'da sunucusuz DuckDB. GCS'deki dosyalar, BigQuery'deki tablolar (okuma ve yazma), ölçtüklerim ve öğrendiklerim..."
+      },
+      {
+        "title": "Aşağıdaki yapılandırma: Oracle RAC ve Tek Örnek için bağımlılıklara sahip bir konsol (TUI) yönetimi",
+        "desc": "Bir TUI arayüzünü ve Unicode işaretlerini (┌─┐ / ╔═╗) kullanarak açıklayın, Oracle RAC kümelerini ve yönetim uygulamalarını otomatik olarak tanımlayın..."
+      },
+      {
+        "title": "Temsilciler için Beklemek En Zor Kısımdır",
+        "desc": "Pek çok mühendis, finansal iş akışındaki her adımı haklı olarak potansiyel bir başarısızlık noktası olarak görür......"
+      }
+    ],
+    "web": [
+      {
+        "title": "🌑 Mavi Ekim",
+        "desc": "TLDR: Buraya nasıl geldiğimin kısa bir özeti.             Zihniyet Son 3 yıldır......"
+      },
+      {
+        "title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi",
+        "desc": "Tarayıcı içi istemci tarafı grafik ve hesaplama kapasitesi arttı."
+      }
+    ],
+    "sec": [
+      {
+        "title": "Kritik Paket Yöneticilerinde Sahte Paket Engelleme Mekanizması",
+        "desc": "Benzer isimli zararlı paket dağıtımlarına karşı otomatik doğrulama geldi."
+      },
+      {
+        "title": "Passkey Desteği Global Web Sitelerinde Yaygınlaşıyor",
+        "desc": "Geleneksel parolaların yerini kriptografik anahtar çiftleri alıyor."
+      }
+    ]
+  },
+  "puzzle": [
+    [
+      "FLASK",
+      0,
+      0,
+      "a",
+      "Hafif ve modüler Python web çerçevesi"
+    ],
+    [
+      "FRAME",
+      0,
+      0,
+      "d",
+      "Ağ veya grafik paketindeki tekil çerçeve"
+    ],
+    [
+      "ASYNC",
+      2,
+      0,
+      "a",
+      "Bloklamayan eşzamansız kod yürütme biçimi"
+    ],
+    [
+      "STACK",
+      0,
+      3,
+      "d",
+      "Son giren ilk çıkar (LIFO) veri yapısı"
+    ],
+    [
+      "QUEUE",
+      4,
+      1,
+      "a",
+      "İlk giren ilk çıkar (FIFO) kuyruk yapısı"
+    ],
+    [
+      "EVENT",
+      2,
+      4,
+      "d",
+      "Arayüzde gerçekleşen kullanıcı veya sistem olayı"
+    ]
+  ]
+}
