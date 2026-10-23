@@ -61,7 +61,7 @@ function render(){
   $('#factTitle').textContent = F.t; $('#factBody').textContent = F.b;
 }
 
-// 21 Ekim 2026 öncesini göstermeyen ve gerçek günleri listeleyen arşiv
+// 21 Ekim 2026 öncesini göstermeyen arşiv
 function fillArchive(){
   const sel = $('#archive'); sel.innerHTML = '';
   const firstIssueDate = new Date(2026, 9, 21); // 21 Ekim 2026
@@ -157,8 +157,8 @@ function addNews(cat, live, customItem = null){
   const p = document.createElement('span'); p.textContent = item.desc;
   li.append(time, b, p);
 
-  // Orijinal haber bağlantısı
-  if (item.url && item.url !== '#') {
+  // Sadece metin orijinalinde yarım kalmışsa (isTruncated) ayrı satırda link ekle
+  if (item.url && item.url !== '#' && item.isTruncated) {
     const a = document.createElement('a');
     a.href = item.url;
     a.target = '_blank';
@@ -386,6 +386,30 @@ $('#clearBtn').addEventListener('click', () => {
   selectCell(0, 0); 
 });
 
+/* ---------- ADMİN / EDİTÖR NOTU ---------- */
+async function loadAdminNote() {
+  const box = $('#adminBox');
+  if (!box) return;
+  try {
+    const res = await fetch('data/admin_note.json?t=' + Date.now());
+    if (!res.ok) {
+      box.hidden = true;
+      return;
+    }
+    const data = await res.json();
+    if (data && data.active && data.content) {
+      $('#adminTitle').textContent = data.title || 'Editör Masası';
+      $('#adminAuthor').textContent = data.author || '';
+      $('#adminContent').textContent = data.content;
+      box.hidden = false;
+    } else {
+      box.hidden = true;
+    }
+  } catch (err) {
+    box.hidden = true;
+  }
+}
+
 /* ---------- DİNAMİK VERİ YÜKLEME ---------- */
 async function loadEdition(filePath = 'data/edition.json'){
   try {
@@ -409,7 +433,7 @@ async function loadEdition(filePath = 'data/edition.json'){
       const items = (liveEdition.news && liveEdition.news[cat]) || [];
       items.forEach(it => {
         addNews(cat, false, it);
-        realNewsPool.push({cat, title: it.title, desc: it.desc, url: it.url});
+        realNewsPool.push({cat, title: it.title, desc: it.desc, url: it.url, isTruncated: it.isTruncated});
       });
     });
     
@@ -421,5 +445,6 @@ async function loadEdition(filePath = 'data/edition.json'){
 /* ---------- BAŞLAT ---------- */
 fillArchive(); 
 loadEdition();
+loadAdminNote();
 scheduleNext();
 })();

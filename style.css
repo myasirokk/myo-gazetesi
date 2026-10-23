@@ -780,3 +780,29 @@ footer {
 .news-link:hover {
   opacity: 0.65;
 }
+
+/* Editör / Admin Notu Kartı */
+.admin-box {
+  margin-top: 14px;
+  background-color: #f7f5ef;
+  border: 1px dashed #222;
+  padding: 12px 14px;
+}
+
+.admin-tag {
+  font-family: 'Special Elite', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: #c92a2a;
+  margin-bottom: 4px;
+}
+
+.admin-author {
+  display: block;
+  font-family: 'Merriweather', serif;
+  font-style: italic;
+  font-size: 0.78rem;
+  color: #555;
+  margin-bottom: 6px;
+}
