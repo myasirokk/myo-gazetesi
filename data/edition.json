@@ -1,11 +1,12 @@
 {
-  "issue": 2,
-  "date": "22 Ekim 2026, Perşembe",
+  "issue": 3,
+  "date": "23 Ekim 2026, Cuma",
+  "date_key": "2026-10-23",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "GKE'de çok katmanlı model yönlendirme: Gemini 4 Argon muhakeme derinliğini gecikme ve maliyetle dengeleme",
-    "deck": "Gemini 4 Argon, Gemini 3.8 Flash ve yerel Gemma arasında istekleri dinamik olarak yönlendirmek için GKE'de yüksek verimli bir model yönlendirme ağ geçidi oluşturun...",
-    "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak."
+    "title": "Benimle AI'iniz Arasında Vekil Olmayın",
+    "deck": "Bu konuşmayı itiraf etmek istediğimden daha fazla kez yaptım.  Teknik bir soru soruyorum...",
+    "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
   },
   "editorial": {
     "title": "Ajanlar Çağında Kodu Okumak Yazmaktan Değerli",
@@ -18,44 +19,44 @@
   "news": {
     "ai": [
       {
+        "title": "Benimle AI'iniz Arasında Vekil Olmayın",
+        "desc": "Bu konuşmayı itiraf etmek istediğimden daha fazla kez yaptım.  Teknik bir soru soruyorum..."
+      },
+      {
         "title": "GKE'de çok katmanlı model yönlendirme: Gemini 4 Argon muhakeme derinliğini gecikme ve maliyetle dengeleme",
-        "desc": "Gemini 4 Argon, Gemini 3.8 Flash ve yerel Gemma arasında istekleri dinamik olarak yönlendirmek için GKE'de yüksek verimli bir model yönlendirme ağ geçidi oluşturun..."
+        "desc": "Gemini 4 Argon, Gemini 3.8 Flash ve yerel Gemma 4 modelleri arasında istekleri dinamik olarak yönlendirmek için GKE'de yüksek verimli bir model yönlendirme ağ geçidi oluşturun."
       },
       {
-        "title": "Gemini 4 Argon ve Model Bağlam Protokolü ile GKE'de otomatik olay önceliklendirmesi: Küme olayları ile VPA günlüklerini ilişkilendirme",
-        "desc": "Gemini 4 Argon çok adımlı akıl yürütmeyi GKE Model Bağlam Protokolü sunucusuyla birleştirerek GKE'de temel neden olay önceliklendirmesini otomatikleştirin...."
+        "title": "GKE'de durum bilgisi olan Gemini 4 Argon aracı oturumlarını ölçeklendirme: Bağlantı boşaltma, başlatma desteği ve oturum kalıcılığı",
+        "desc": "VPA CPU başlatma desteği, GCPBackendPolicy bağlantı boşaltma ve oturum kontrol noktası oluşturma özelliklerini kullanarak uzun süre çalışan Gemini 4 Argon aracı oturumları için GKE'yi tasarlayın."
       },
       {
-        "title": "Llamadart ile platformlar arası Flutter festival asistanı oluşturma",
-        "desc": "Lamadart ile sohbetin ötesinde · Bölüm 5 Köyün üzerine yağmur yağmaya başlıyor. Dash Mo'ya sorar: \"Nerede......"
-      },
-      {
-        "title": "Eşzamansız Vergi Olmadan Üretken Kullanıcı Arayüzü: bloc_signals_genui 1.0 ile Tanışın",
-        "desc": "Neden Google'ın resmi A2UI protokolünü temel alan ve iki yönlü tepkimeyi destekleyen saf Dart, 0 ms eşzamanlı Üretken Kullanıcı Arayüzü durum makinesi geliştirdik?..."
+        "title": "Sanity Challenge'ın Kazananlarını Tebrik ederiz!",
+        "desc": "Sanity ile ortaklığımızın oluşturduğu Sanity Challenge'ın kazananlarını duyurmaktan büyük heyecan duyuyoruz..."
       }
     ],
     "oss": [
       {
         "title": "SlothSRE (NapOps): Sabah 03.00 Uyarılarının 418 Satırını 2 Satırlık Sabah Özetine Sıkıştıran Gecelik Gemma 4 ve ADK Ajanı",
-        "desc": "Gece boyunca yığın izlerini tekilleştiren yerel öncelikli açık ağırlık Gemma 4, Google ADK ve Sentry Agent Tracing pipeline'yi nasıl oluşturdum, veri..."
+        "desc": "Gece boyunca yığın izlerini tekilleştiren, yerel bir pytest sanal alanında git yamalarını doğrulayan ve çağrı üzerine mühendislerin sabah 8'e kadar uyumasını sağlayan, yerel öncelikli bir açık ağırlık Gemma 4, Google ADK ve Sentry Agent Tracing pipeline'i nasıl oluşturdum."
       },
       {
         "title": "DuckLess: Google Cloud'da sunucusuz DuckDB, kendi projenizde",
-        "desc": "Kendi projenizde Google Cloud'da sunucusuz DuckDB. GCS'deki dosyalar, BigQuery'deki tablolar (okuma ve yazma), ölçtüklerim ve öğrendiklerim..."
+        "desc": "Kendi projenizde Google Cloud'da sunucusuz DuckDB. GCS'deki dosyalar, BigQuery'deki tablolar (okuma ve yazma), ölçtüklerim ve öğrendiklerim."
       },
       {
-        "title": "Aşağıdaki yapılandırma: Oracle RAC ve Tek Örnek için bağımlılıklara sahip bir konsol (TUI) yönetimi",
-        "desc": "Bir TUI arayüzünü ve Unicode işaretlerini (┌─┐ / ╔═╗) kullanarak açıklayın, Oracle RAC kümelerini ve yönetim uygulamalarını otomatik olarak tanımlayın..."
+        "title": "Ora-tui'yi nasıl oluşturdum: Go'da Oracle RAC ve Tek Örnek bağımlılıkları olmayan bir konsol yöneticisi (TUI)",
+        "desc": "Oracle Instant Client'a güvenmeden Unicode çerçeveleri (┌─┐ / ╔═╗), Oracle RAC kümesi otomatik keşfi ve ok yönlendirmeli bakım akışlarıyla Go'da bir TUI arayüzünü nasıl tasarlayacağınızı öğrenin."
       },
       {
         "title": "Temsilciler için Beklemek En Zor Kısımdır",
-        "desc": "Pek çok mühendis, finansal iş akışındaki her adımı haklı olarak potansiyel bir başarısızlık noktası olarak görür......"
+        "desc": "Pek çok mühendis, finansal iş akışındaki her adımı haklı olarak potansiyel bir başarısızlık noktası olarak görür..."
       }
     ],
     "web": [
       {
         "title": "🌑 Mavi Ekim",
-        "desc": "TLDR: Buraya nasıl geldiğimin kısa bir özeti.             Zihniyet Son 3 yıldır......"
+        "desc": "TLDR: Buraya nasıl geldiğimin kısa bir özeti.             Zihniyet Son 3 yıldır..."
       },
       {
         "title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi",
@@ -75,46 +76,46 @@
   },
   "puzzle": [
     [
-      "FLASK",
+      "DOCKER",
       0,
       0,
       "a",
-      "Hafif ve modüler Python web çerçevesi"
+      "Konteynerleştirme teknolojisi"
     ],
     [
-      "FRAME",
+      "DEPLOY",
       0,
       0,
       "d",
-      "Ağ veya grafik paketindeki tekil çerçeve"
+      "Uygulamayı sunucuya canlıya alma süreci"
     ],
     [
-      "ASYNC",
+      "COMMIT",
       2,
       0,
       "a",
-      "Bloklamayan eşzamansız kod yürütme biçimi"
+      "Git versiyon kontrolünde anlık kod kaydı"
     ],
     [
-      "STACK",
+      "BRANCH",
       0,
-      3,
+      4,
       "d",
-      "Son giren ilk çıkar (LIFO) veri yapısı"
+      "Kod tabanında bağımsız geliştirme dalı"
     ],
     [
-      "QUEUE",
+      "CIPHER",
       4,
       1,
       "a",
-      "İlk giren ilk çıkar (FIFO) kuyruk yapısı"
+      "Kriptografik şifreleme algoritması"
     ],
     [
-      "EVENT",
-      2,
-      4,
+      "PATCH",
+      3,
+      5,
       "d",
-      "Arayüzde gerçekleşen kullanıcı veya sistem olayı"
+      "Yazılım hatasını kapatan küçük güncelleme"
     ]
   ]
 }

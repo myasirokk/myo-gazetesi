@@ -23,26 +23,30 @@ def translate_to_turkish(text):
 
     placeholders = {}
     def replacer(match):
-        token = f"__TECH_{len(placeholders)}__"
+        token = f"TECHTOKEN{len(placeholders)}X"
         placeholders[token] = match.group(0)
         return token
 
-    masked_text = re.sub(r'\b[a-zA-Z0-9]+_[a-zA-Z0-9_]+\b', replacer, text)
+    # Teknik terimleri çeviriden koru
+    masked_text = text
     for term in TECH_TERMS:
         pattern = r'\b' + re.escape(term) + r'\b'
         masked_text = re.sub(pattern, replacer, masked_text, flags=re.IGNORECASE)
 
     try:
-        url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=tr&dt=t&q=" + urllib.parse.quote(masked_text)
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=10) as response:
+        url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=tr&dt=t&q=" + urllib.parse.quote(masked_text)
+        req = urllib.request.Request(
+            url, 
+            headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'}
+        )
+        with urllib.request.urlopen(req, timeout=12) as response:
             result = json.loads(response.read().decode('utf-8'))
-            translated = "".join([segment[0] for segment in result[0] if segment[0]])
+            translated = "".join([segment[0] for segment in result[0] if segment and segment[0]])
             for token, original in placeholders.items():
                 translated = translated.replace(token, original)
-            return translated
+            return translated.strip()
     except Exception as e:
-        print(f"Çeviri hatası: {e}")
+        print(f"Çeviri uyarısı: {e}")
         return text
 
 PUZZLE_POOLS = [
@@ -108,16 +112,16 @@ PUZZLE_POOLS = [
 ]
 
 def get_current_issue_no():
-    # 19 Ekim 2026 başlangıç tarihi
-    base_date = datetime.date(2026, 10, 19)
+    # 1. Sayı: 21 Ekim 2026
+    base_date = datetime.date(2026, 10, 21)
     today = datetime.date.today()
     delta = (today - base_date).days
     return max(1, delta + 1)
 
 def fetch_json(url):
-    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'})
     try:
-        with urllib.request.urlopen(req, timeout=10) as response:
+        with urllib.request.urlopen(req, timeout=12) as response:
             return json.loads(response.read().decode('utf-8'))
     except Exception as e:
         print(f"Hata ({url}): {e}")
@@ -147,7 +151,7 @@ def fetch_live_tech_news():
             tr_desc = translate_to_turkish(raw_desc)
             news_data[target_cat].append({"title": tr_title, "desc": tr_desc})
 
-    # Yedek havuz: API'den belirli kategoride haber gelmezse sütunlar boş kalmaz
+    # Yedek havuz (Haber gelmediğinde devreye girer)
     fallbacks = {
         "ai": [
             {"title": "Büyük Dil Modellerinde Araç Çağırma Protokolleri Standartlaşıyor", "desc": "Çoklu model ortamlarında arayüz uyumluluğu öne çıkıyor."},
@@ -158,7 +162,7 @@ def fetch_live_tech_news():
             {"title": "Linux Çekirdeği Bellek Tahsisatında Yeni Optimizasyon", "desc": "Düşük kaynaklı donanımlarda sayfalama gecikmesi düşürüldü."}
         ],
         "web": [
-            {"title": "Modern Tarayıcılarda View Transitions API Standardı Oturuyor", "desc": "Bileşenler arası animasyonlar tek satır CSS ile mümkün kılınıyor."},
+            {"title": "Modern Tarayıcılarda Görünüm Geçişleri Standardı Oturuyor", "desc": "Bileşenler arası animasyonlar tek satır CSS ile mümkün kılınıyor."},
             {"title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi", "desc": "Tarayıcı içi istemci tarafı grafik ve hesaplama kapasitesi arttı."}
         ],
         "sec": [
@@ -182,13 +186,19 @@ def main():
     day_of_week = now.weekday()
     puzzle_words = PUZZLE_POOLS[day_of_week % len(PUZZLE_POOLS)]
     
-    print(f"Haberler taranıyor ve aktarılıyor... Sayı: {issue_no}")
+    print(f"Haberler taranıyor... Sayı: {issue_no}")
     live_news = fetch_live_tech_news()
 
     lead_story = {
         "title": live_news["ai"][0]["title"] if live_news["ai"] else "Yapay Zeka Mimarilerinde Yeni Nesil Dönem",
         "deck": live_news["ai"][0]["desc"] if live_news["ai"] else "Geliştirici ekosistemi ve modeller bir araya geliyor.",
-        "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak."
+        "body": (
+            "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. "
+            "IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. "
+            "Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\n"
+            "Öte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. "
+            "Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
+        )
     }
 
     edition = {
@@ -214,17 +224,15 @@ def main():
     archive_dir = os.path.join(data_dir, "archive")
     os.makedirs(archive_dir, exist_ok=True)
 
-    # 1. Güncel baskıyı kaydet
     target_path = os.path.join(data_dir, "edition.json")
     with open(target_path, "w", encoding="utf-8") as f:
         json.dump(edition, f, ensure_ascii=False, indent=2)
 
-    # 2. Geçmiş günün kaybolmaması için arşiv kopyasını kaydet
     archive_path = os.path.join(archive_dir, f"{date_key}.json")
     with open(archive_path, "w", encoding="utf-8") as f:
         json.dump(edition, f, ensure_ascii=False, indent=2)
 
-    print(f"data/edition.json ve data/archive/{date_key}.json başarıyla oluşturuldu.")
+    print(f"Başarılı! data/edition.json ve data/archive/{date_key}.json güncellendi.")
 
 if __name__ == "__main__":
     main()

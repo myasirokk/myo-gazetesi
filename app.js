@@ -52,8 +52,8 @@ function render(){
   }
 
   const L = LEADS[i % LEADS.length], E = EDS[0], F = FACTS[0];
-  // İlk yayın: 19 Ekim 2026
-  $('#issueNo').textContent = 'Sayı: ' + Math.max(1, i - dayIndex(new Date(2026, 9, 19)) + 1);
+  // 1. Sayı: 21 Ekim 2026
+  $('#issueNo').textContent = 'Sayı: ' + Math.max(1, i - dayIndex(new Date(2026, 9, 21)) + 1);
   $('#dateLine').textContent = dateStr(d);
   $('#quote').textContent = QUOTES[i % QUOTES.length];
   $('#leadTitle').textContent = L.h; $('#leadDeck').textContent = L.d; $('#leadBody').textContent = L.b;
@@ -61,10 +61,10 @@ function render(){
   $('#factTitle').textContent = F.t; $('#factBody').textContent = F.b;
 }
 
-// 19 Ekim 2026 öncesini göstermeyen ve gerçek günleri listeleyen arşiv
+// 21 Ekim 2026 öncesini göstermeyen ve gerçek günleri listeleyen arşiv
 function fillArchive(){
   const sel = $('#archive'); sel.innerHTML = '';
-  const firstIssueDate = new Date(2026, 9, 19); // 19 Ekim 2026
+  const firstIssueDate = new Date(2026, 9, 21); // 21 Ekim 2026
   
   for (let k = 0; k < 7; k++){
     const d = new Date(cur); d.setDate(d.getDate() - k);
