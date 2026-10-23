@@ -1,0 +1,47 @@
+{
+  "issue": 1,
+  "date": "21 Ekim 2026, Çarşamba",
+  "date_key": "2026-10-21",
+  "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
+  "lead": {
+    "title": "Çok Modlu Modeller Kod Editörlerini Yeniden Yazıyor",
+    "deck": "Metin, görsel ve ses tek modelde birleşince IDE deneyimi sohbetten otonom ajanlığa geçiyor.",
+    "body": "Geliştirici araçları artık yalnızca tek satır kod tamamlamakla yetinmiyor; projenin tüm bağımlılık ağacını analiz ediyor, otomatik testleri koşturuyor ve yakaladığı hatalara yönelik çözümleri bağımsız birer PR olarak hazırlıyor.\n\nMühendislik takımları için en kritik aşama, yapay zeka ajanlarına verilecek yetki sınırlarının doğru çizilmesi ve kod inceleme süreçlerinin güvenli bir filtreleme protokolüyle güçlendirilmesi olarak öne çıkıyor."
+  },
+  "editorial": {
+    "title": "Yazılım Mühendisliğinde Yeni Sayfa",
+    "body": "MYO Gazetesi olarak teknolojinin ve açık kaynağın nabzını tutmak üzere ilk sayımızla yayındayız. Her sabah en taze gelişmeleri tarafsızca aktarmaya devam edeceğiz."
+  },
+  "fact": {
+    "title": "Attention Mechanism",
+    "body": "Modelin bir kelimeyi işlerken cümledeki diğer kelimelerle olan anlamsal bağını ve ağırlığını hesaplayan temel mekanizmadır."
+  },
+  "news": {
+    "ai": [
+      {"title": "Otonom Kodlama Ajanları Yazılım Döngüsünü Değiştiriyor", "desc": "Depodaki hataları analiz edip otomatik test yazan araçlar yaygınlaşıyor.", "url": "https://dev.to"},
+      {"title": "Büyük Dil Modellerinde RAG Mimarileri Standartlaşıyor", "desc": "Şirket içi dokümanların güvenli aranmasında vektör veritabanları öne çıkıyor.", "url": "https://dev.to"}
+    ],
+    "oss": [
+      {"title": "Git Versiyon Kontrol Sisteminde Yeni Performans Yaması", "desc": "Büyük depoların klonlanma ve diff süreleri optimize edildi.", "url": "https://dev.to"},
+      {"title": "Rust Tabanlı Terminal Araçları Popülerleşiyor", "desc": "Geliştiriciler hız ve bellek güvenliği için sistem araçlarını Rust ile yeniliyor.", "url": "https://dev.to"}
+    ],
+    "web": [
+      {"title": "Modern Tarayıcılarda Görünüm Geçişleri Standardı Oturuyor", "desc": "Sayfalar arası akıcı animasyonlar tek satır CSS ile mümkün kılınıyor.", "url": "https://dev.to"},
+      {"title": "Tailwind CSS Yeni Sürümünde Derleme Hızını Katladı", "desc": "JIT derleyicisi tamamen sıfırdan optimize edildi.", "url": "https://dev.to"}
+    ],
+    "sec": [
+      {"title": "Kritik Paket Yöneticilerinde Sahte Paket Engelleme Sistemi", "desc": "Yazım benzerliğini kullanan zararlı paketler dağıtımdan önce engelleniyor.", "url": "https://dev.to"},
+      {"title": "Sıfır Güven (Zero Trust) Mimarisi Ağ Güvenliğinde Yaygınlaşıyor", "desc": "İç ağlardaki her istek bağımsız olarak doğrulanıyor.", "url": "https://dev.to"}
+    ]
+  },
+  "puzzle": [
+    ["PROMPT", 0, 0, "a", "Yapay zekaya verilen komut metni"],
+    ["PYTHON", 0, 0, "d", "Yapay zeka dünyasının en popüler dili"],
+    ["TOKEN", 0, 5, "d", "Dil modelinin metni böldüğü en küçük birim"],
+    ["OPTION", 4, 0, "a", "Seçenek, ayar"],
+    ["IDE", 4, 3, "d", "Kod yazma ortamı"],
+    ["EPOCH", 6, 3, "a", "Eğitimde veri setinin bir tam geçişi"],
+    ["HASH", 6, 7, "d", "Veriden çıkarılan sabit özet"],
+    ["HTTP", 9, 7, "a", "Web temel iletişim protokolü"]
+  ]
+}

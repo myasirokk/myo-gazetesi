@@ -765,3 +765,18 @@ footer {
     scroll-behavior: auto;
   }
 }
+/* Son Dakika Orijinal Haber Bağlantısı */
+.news-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #111;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s ease;
+}
+
+.news-link:hover {
+  opacity: 0.65;
+}

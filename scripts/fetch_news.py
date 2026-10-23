@@ -27,7 +27,6 @@ def translate_to_turkish(text):
         placeholders[token] = match.group(0)
         return token
 
-    # Teknik terimleri çeviriden koru
     masked_text = text
     for term in TECH_TERMS:
         pattern = r'\b' + re.escape(term) + r'\b'
@@ -48,6 +47,11 @@ def translate_to_turkish(text):
     except Exception as e:
         print(f"Çeviri uyarısı: {e}")
         return text
+
+def clean_text(text):
+    if not text:
+        return ""
+    return text.replace("...", "").strip()
 
 PUZZLE_POOLS = [
     [
@@ -135,6 +139,7 @@ def fetch_live_tech_news():
         tags = art.get("tag_list", [])
         raw_title = art.get("title", "")
         raw_desc = art.get("description", "") or ""
+        article_url = art.get("url", "#")
         
         target_cat = None
         if any(t in ['ai', 'machinelearning', 'python', 'datascience'] for t in tags) and len(news_data["ai"]) < 4:
@@ -148,26 +153,29 @@ def fetch_live_tech_news():
 
         if target_cat:
             tr_title = translate_to_turkish(raw_title)
-            tr_desc = translate_to_turkish(raw_desc)
-            news_data[target_cat].append({"title": tr_title, "desc": tr_desc})
+            tr_desc = clean_text(translate_to_turkish(raw_desc))
+            news_data[target_cat].append({
+                "title": tr_title, 
+                "desc": tr_desc,
+                "url": article_url
+            })
 
-    # Yedek havuz (Haber gelmediğinde devreye girer)
     fallbacks = {
         "ai": [
-            {"title": "Büyük Dil Modellerinde Araç Çağırma Protokolleri Standartlaşıyor", "desc": "Çoklu model ortamlarında arayüz uyumluluğu öne çıkıyor."},
-            {"title": "Cihaz Üstü Yapay Zeka Çıkarımında 4-Bit Nicemleme Yaygınlaşıyor", "desc": "Mobil işlemciler yerel modelleri gecikmesiz çalıştırıyor."}
+            {"title": "Büyük Dil Modellerinde Araç Çağırma Protokolleri Standartlaşıyor", "desc": "Çoklu model ortamlarında arayüz uyumluluğu öne çıkıyor.", "url": "https://dev.to"},
+            {"title": "Cihaz Üstü Yapay Zeka Çıkarımında 4-Bit Nicemleme Yaygınlaşıyor", "desc": "Mobil işlemciler yerel modelleri gecikmesiz çalıştırıyor.", "url": "https://dev.to"}
         ],
         "oss": [
-            {"title": "Açık Kaynak Kod Tabanlarında CI Bağımlılık Taraması Zorunlu Oluyor", "desc": "Paket yöneticisi seviyesinde imza doğrulama adımları güçlendirildi."},
-            {"title": "Linux Çekirdeği Bellek Tahsisatında Yeni Optimizasyon", "desc": "Düşük kaynaklı donanımlarda sayfalama gecikmesi düşürüldü."}
+            {"title": "Açık Kaynak Kod Tabanlarında CI Bağımlılık Taraması Zorunlu Oluyor", "desc": "Paket yöneticisi seviyesinde imza doğrulama adımları güçlendirildi.", "url": "https://dev.to"},
+            {"title": "Linux Çekirdeği Bellek Tahsisatında Yeni Optimizasyon", "desc": "Düşük kaynaklı donanımlarda sayfalama gecikmesi düşürüldü.", "url": "https://dev.to"}
         ],
         "web": [
-            {"title": "Modern Tarayıcılarda Görünüm Geçişleri Standardı Oturuyor", "desc": "Bileşenler arası animasyonlar tek satır CSS ile mümkün kılınıyor."},
-            {"title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi", "desc": "Tarayıcı içi istemci tarafı grafik ve hesaplama kapasitesi arttı."}
+            {"title": "Modern Tarayıcılarda Görünüm Geçişleri Standardı Oturuyor", "desc": "Bileşenler arası animasyonlar tek satır CSS ile mümkün kılınıyor.", "url": "https://dev.to"},
+            {"title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi", "desc": "Tarayıcı içi istemci tarafı grafik ve hesaplama kapasitesi arttı.", "url": "https://dev.to"}
         ],
         "sec": [
-            {"title": "Kritik Paket Yöneticilerinde Sahte Paket Engelleme Mekanizması", "desc": "Benzer isimli zararlı paket dağıtımlarına karşı otomatik doğrulama geldi."},
-            {"title": "Passkey Desteği Global Web Sitelerinde Yaygınlaşıyor", "desc": "Geleneksel parolaların yerini kriptografik anahtar çiftleri alıyor."}
+            {"title": "Kritik Paket Yöneticilerinde Sahte Paket Engelleme Mekanizması", "desc": "Benzer isimli zararlı paket dağıtımlarına karşı otomatik doğrulama geldi.", "url": "https://dev.to"},
+            {"title": "Passkey Desteği Global Web Sitelerinde Yaygınlaşıyor", "desc": "Geleneksel parolaların yerini kriptografik anahtar çiftleri alıyor.", "url": "https://dev.to"}
         ]
     }
 

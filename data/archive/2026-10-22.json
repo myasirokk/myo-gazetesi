@@ -1,0 +1,46 @@
+{
+  "issue": 2,
+  "date": "22 Ekim 2026, Perşembe",
+  "date_key": "2026-10-22",
+  "quote": "\"Ölçmediğin şeyi iyileştiremezsin.\"",
+  "lead": {
+    "title": "Küçük Dil Modelleri Cihaz Üstüne Taşınıyor",
+    "deck": "Birkaç milyar parametreli modeller telefonda ve tarayıcıda gecikmesiz çalışıyor.",
+    "body": "Nicemleme (quantization) teknolojileriyle modeller 4 bit seviyesine indirilirken bellek ihtiyacı dörtte bire düşüyor. Yerel çalışabilen bu yapılar, veri mahremiyetini garanti altına alırken istemci tarafında anlık çıkarım imkanı sağlıyor.\n\nYazılım geliştiriciler için merkezi sunucu maliyetlerini düşüren bu hibrit yaklaşım, internet bağlantısının bulunmadığı ortamlarda bile akıllı asistanların ve kod tamamlama araçlarının kesintisiz görev yapmasına olanak tanıyor."
+  },
+  "editorial": {
+    "title": "Ajanlar Çağında Kodu Okumak Yazmaktan Değerli",
+    "body": "Kod üretmek ucuzlarken doğru kodu ayırt etmek pahalılaşıyor. Gelecekte iyi geliştirici, bir diff'e bakıp niyetle sonucu karşılaştırabilen kişi olacak."
+  },
+  "fact": {
+    "title": "Quantization (Nicemleme)",
+    "body": "Ağırlıkların 32-bit kayan nokta yerine 4-bit veya 8-bit tam sayılara dönüştürülerek bellek tüketiminin azaltılması işlemidir."
+  },
+  "news": {
+    "ai": [
+      {"title": "Cihaz Üstü Yapay Zeka Çıkarımında 4-Bit Standardı", "desc": "Mobil işlemciler yerel modelleri düşük pil tüketimiyle çalıştırıyor.", "url": "https://dev.to"},
+      {"title": "Gemini Nano Modelleri Tarayıcı API'lerine Entegre Edildi", "desc": "Web geliştiricileri artık istemci tarafında metin özetleme yapabiliyor.", "url": "https://dev.to"}
+    ],
+    "oss": [
+      {"title": "Linux Çekirdeği Bellek Yönetiminde Yeni Yama", "desc": "Gecikme süreleri azaltılarak sunucu performansı optimize edildi.", "url": "https://dev.to"},
+      {"title": "Python 3.13 Serbest Thread Mimarisiyle Geldi", "desc": "GIL kilidinin opsiyonel hale getirilmesiyle çok çekirdekli performans arttı.", "url": "https://dev.to"}
+    ],
+    "web": [
+      {"title": "WebAssembly ve WebGPU Çekirdek Standartlara Girdi", "desc": "Tarayıcı içi grafik ve yüksek işlem gücü gerektiren hesaplamalar hızlandı.", "url": "https://dev.to"},
+      {"title": "Next.js 15 Kararlı Sürümü Dağıtıldı", "desc": "Asenkron istek yönetimi ve sunucu bileşenlerinde performans artışı sağlandı.", "url": "https://dev.to"}
+    ],
+    "sec": [
+      {"title": "Passkey Desteği Kurumsal Sistemlerde Standartlaşıyor", "desc": "Geleneksel parolaların yerini kriptografik donanım anahtarları alıyor.", "url": "https://dev.to"},
+      {"title": "Açık Kaynak Bağımlılık Taraması Otomatikleştirildi", "desc": "Tedarik zinciri saldırılarına karşı paket doğrulama mekanizmaları getirildi.", "url": "https://dev.to"}
+    ]
+  },
+  "puzzle": [
+    ["VECTOR", 0, 0, "a", "Gömme uzayındaki yönlü sayı dizisi"],
+    ["VIRTUAL", 0, 0, "d", "Fiziksel olmayan, sanal ortam"],
+    ["ROUTER", 0, 5, "d", "Ağ paketlerini yönlendiren donanım"],
+    ["REACT", 2, 0, "a", "Popüler JavaScript arayüz kütüphanesi"],
+    ["ARRAY", 4, 2, "a", "Aynı türden verileri tutan dizi yapısı"],
+    ["KERNEL", 1, 6, "d", "İşletim sistemi çekirdeği"],
+    ["LINUX", 6, 2, "a", "Açık kaynak işletim sistemi ailesi"]
+  ]
+}

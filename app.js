@@ -153,20 +153,33 @@ function addNews(cat, live, customItem = null){
   const li = document.createElement('li');
   if (live) li.className = 'fresh';
   const time = document.createElement('time'); time.textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}`;
-  const b = document.createElement('b'); b.textContent = item[0];
-  const p = document.createElement('span'); p.textContent = item[1];
+  const b = document.createElement('b'); b.textContent = item.title;
+  const p = document.createElement('span'); p.textContent = item.desc;
   li.append(time, b, p);
+
+  // Orijinal haber bağlantısı
+  if (item.url && item.url !== '#') {
+    const a = document.createElement('a');
+    a.href = item.url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.className = 'news-link';
+    a.textContent = 'Haberi Oku →';
+    li.appendChild(a);
+  }
   
   const ul = $('#list-' + cat); 
-  ul.prepend(li);
-  while (ul.children.length > 6) ul.lastChild.remove();
+  if (ul) {
+    ul.prepend(li);
+    while (ul.children.length > 6) ul.lastChild.remove();
+  }
   
-  feed.unshift(`${CAT[cat]}: ${item[0]}`);
+  feed.unshift(`${CAT[cat]}: ${item.title}`);
   if (feed.length > 12) feed.pop();
   buildTicker();
   
   if (live){ 
-    logNotice(CAT[cat], item[0], item[1]); 
+    logNotice(CAT[cat], item.title, item.desc); 
   }
 }
 
@@ -183,7 +196,7 @@ function scheduleNext(){
   setTimeout(() => {
     if (realNewsPool.length > 0) {
       const randomItem = realNewsPool[Math.floor(Math.random() * realNewsPool.length)];
-      addNews(randomItem.cat, true, [randomItem.title, randomItem.desc]);
+      addNews(randomItem.cat, true, randomItem);
     }
     scheduleNext();
   }, 90000 + Math.random() * 45000);
@@ -381,29 +394,27 @@ async function loadEdition(filePath = 'data/edition.json'){
     liveEdition = await res.json();
     render();
     
-    // Günlük Bulmacayı Yükle
+    // O güne ait bulmaca
     if (liveEdition.puzzle && Array.isArray(liveEdition.puzzle)) {
       initPuzzle(liveEdition.puzzle);
     } else {
       initPuzzle(currentPuzzleWords);
     }
 
-    // Gerçek Haber Havuzunu Doldur
+    // O güne ait haber listesini temizleyip yükle
     realNewsPool = [];
     ['ai', 'oss', 'web', 'sec'].forEach(cat => {
-      $('#list-' + cat).innerHTML = '';
+      const ul = $('#list-' + cat);
+      if (ul) ul.innerHTML = '';
       const items = (liveEdition.news && liveEdition.news[cat]) || [];
       items.forEach(it => {
-        addNews(cat, false, [it.title, it.desc]);
-        realNewsPool.push({cat, title: it.title, desc: it.desc});
+        addNews(cat, false, it);
+        realNewsPool.push({cat, title: it.title, desc: it.desc, url: it.url});
       });
     });
     
   } catch (err) {
-    console.warn('Veri yüklenemedi, statik devreye alındı:', err);
-    liveEdition = null;
-    render();
-    initPuzzle(currentPuzzleWords);
+    console.warn('Veri yüklenemedi:', err);
   }
 }
 
