@@ -8,7 +8,6 @@ import re
 AYLAR = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık']
 GUNLER = ['Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi','Pazar']
 
-# Korunacak teknik terimler ve özel yapılar
 TECH_TERMS = [
     'Database', 'database', 'Framework', 'framework', 'Backend', 'Frontend',
     'Fullstack', 'Open Source', 'API', 'REST', 'GraphQL', 'Docker', 'Kubernetes',
@@ -19,24 +18,16 @@ TECH_TERMS = [
 ]
 
 def translate_to_turkish(text):
-    """
-    Metni Türkçeye çevirir; teknik terimleri ve kod bloklarını korur.
-    """
     if not text or not text.strip():
         return text
 
-    # Kod bloklarını, paket isimlerini (snake_case, camelCase) ve teknik terimleri maskele
     placeholders = {}
-    
     def replacer(match):
         token = f"__TECH_{len(placeholders)}__"
         placeholders[token] = match.group(0)
         return token
 
-    # snake_case (örn: bloc_signals_genui) veya camelCase terimleri koru
     masked_text = re.sub(r'\b[a-zA-Z0-9]+_[a-zA-Z0-9_]+\b', replacer, text)
-    
-    # Bilinen teknik terimleri koru
     for term in TECH_TERMS:
         pattern = r'\b' + re.escape(term) + r'\b'
         masked_text = re.sub(pattern, replacer, masked_text, flags=re.IGNORECASE)
@@ -44,21 +35,14 @@ def translate_to_turkish(text):
     try:
         url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=tr&dt=t&q=" + urllib.parse.quote(masked_text)
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=8) as response:
+        with urllib.request.urlopen(req, timeout=10) as response:
             result = json.loads(response.read().decode('utf-8'))
             translated = "".join([segment[0] for segment in result[0] if segment[0]])
-            
-            # Maskelenen teknik terimleri orijinal haline geri yükle
             for token, original in placeholders.items():
                 translated = translated.replace(token, original)
-            
-            # Özel kurum kuralı düzeltmeleri
-            translated = translated.replace("Oxford University", "Oxford Üniversitesi")
-            translated = translated.replace("Cambridge University", "Cambridge Üniversitesi")
             return translated
     except Exception as e:
-        print(f"Çeviri hatası ({text[:30]}...):", e)
-        # Çeviri servisinde aksama olursa orijinal metin döner, sistem çökmez
+        print(f"Çeviri hatası: {e}")
         return text
 
 PUZZLE_POOLS = [
@@ -124,7 +108,8 @@ PUZZLE_POOLS = [
 ]
 
 def get_current_issue_no():
-    base_date = datetime.date(2026, 10, 21)
+    # 19 Ekim 2026 başlangıç tarihi
+    base_date = datetime.date(2026, 10, 19)
     today = datetime.date.today()
     delta = (today - base_date).days
     return max(1, delta + 1)
@@ -135,17 +120,17 @@ def fetch_json(url):
         with urllib.request.urlopen(req, timeout=10) as response:
             return json.loads(response.read().decode('utf-8'))
     except Exception as e:
-        print(f"Hata ({url}):", e)
+        print(f"Hata ({url}): {e}")
         return None
 
 def fetch_live_tech_news():
     news_data = {"ai": [], "oss": [], "web": [], "sec": []}
-    devto_articles = fetch_json("https://dev.to/api/articles?per_page=35") or []
+    devto_articles = fetch_json("https://dev.to/api/articles?per_page=40") or []
     
     for art in devto_articles:
         tags = art.get("tag_list", [])
         raw_title = art.get("title", "")
-        raw_desc = art.get("description", "") or "Detaylar geliştirici topluluğunda öne çıkıyor."
+        raw_desc = art.get("description", "") or ""
         
         target_cat = None
         if any(t in ['ai', 'machinelearning', 'python', 'datascience'] for t in tags) and len(news_data["ai"]) < 4:
@@ -159,9 +144,10 @@ def fetch_live_tech_news():
 
         if target_cat:
             tr_title = translate_to_turkish(raw_title)
-            tr_desc = translate_to_turkish(raw_desc[:140]) + '...'
+            tr_desc = translate_to_turkish(raw_desc)
             news_data[target_cat].append({"title": tr_title, "desc": tr_desc})
 
+    # Yedek havuz: API'den belirli kategoride haber gelmezse sütunlar boş kalmaz
     fallbacks = {
         "ai": [
             {"title": "Büyük Dil Modellerinde Araç Çağırma Protokolleri Standartlaşıyor", "desc": "Çoklu model ortamlarında arayüz uyumluluğu öne çıkıyor."},
@@ -190,23 +176,25 @@ def fetch_live_tech_news():
 def main():
     now = datetime.datetime.now()
     tarih_str = f"{now.day} {AYLAR[now.month - 1]} {now.year}, {GUNLER[now.weekday()]}"
+    date_key = now.strftime("%Y-%m-%d")
     issue_no = get_current_issue_no()
     
     day_of_week = now.weekday()
     puzzle_words = PUZZLE_POOLS[day_of_week % len(PUZZLE_POOLS)]
     
-    print(f"Haberler taranıyor ve akıllı Türkçe çeviri yapılıyor... Sayı: {issue_no}")
+    print(f"Haberler taranıyor ve aktarılıyor... Sayı: {issue_no}")
     live_news = fetch_live_tech_news()
 
     lead_story = {
-        "title": live_news["ai"][0]["title"] if live_news["ai"] else "Yapay Zeka Mimarilerinde Yeni Nesil Ajan Dönemi",
-        "deck": live_news["ai"][0]["desc"] if live_news["ai"] else "Model ve geliştirici araçları tek ekosistemde birleşiyor.",
+        "title": live_news["ai"][0]["title"] if live_news["ai"] else "Yapay Zeka Mimarilerinde Yeni Nesil Dönem",
+        "deck": live_news["ai"][0]["desc"] if live_news["ai"] else "Geliştirici ekosistemi ve modeller bir araya geliyor.",
         "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak."
     }
 
     edition = {
         "issue": issue_no,
         "date": tarih_str,
+        "date_key": date_key,
         "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
         "lead": lead_story,
         "editorial": {
@@ -221,11 +209,22 @@ def main():
         "puzzle": puzzle_words
     }
 
-    target_path = os.path.join(os.path.dirname(__file__), "..", "data", "edition.json")
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, "data")
+    archive_dir = os.path.join(data_dir, "archive")
+    os.makedirs(archive_dir, exist_ok=True)
+
+    # 1. Güncel baskıyı kaydet
+    target_path = os.path.join(data_dir, "edition.json")
     with open(target_path, "w", encoding="utf-8") as f:
         json.dump(edition, f, ensure_ascii=False, indent=2)
 
-    print("data/edition.json başarıyla güncellendi (Teknik terimler korunarak Türkçe içerikler basıldı).")
+    # 2. Geçmiş günün kaybolmaması için arşiv kopyasını kaydet
+    archive_path = os.path.join(archive_dir, f"{date_key}.json")
+    with open(archive_path, "w", encoding="utf-8") as f:
+        json.dump(edition, f, ensure_ascii=False, indent=2)
+
+    print(f"data/edition.json ve data/archive/{date_key}.json başarıyla oluşturuldu.")
 
 if __name__ == "__main__":
     main()

@@ -26,7 +26,7 @@ const QUOTES = [
 const CAT = {ai:'Yapay Zeka', oss:'Açık Kaynak', web:'Web Geliştirme', sec:'Siber Güvenlik'};
 let liveEdition = null;
 
-/* ---------- BASKI / TARİH & 7 GÜNLÜK HAREKETLİ ARŞİV ---------- */
+/* ---------- BASKI / TARİH & HAREKETLİ ARŞİV ---------- */
 let cur = editionBase(new Date());
 let offset = 0;
 function editionBase(n){ const d = new Date(n.getFullYear(), n.getMonth(), n.getDate()); if (n.getHours() < 7) d.setDate(d.getDate() - 1); return d; }
@@ -37,7 +37,7 @@ function render(){
   const d = new Date(cur); d.setDate(d.getDate() - offset);
   const i = dayIndex(d);
   
-  if (offset === 0 && liveEdition) {
+  if (liveEdition) {
     $('#issueNo').textContent = 'Sayı: ' + liveEdition.issue;
     $('#dateLine').textContent = liveEdition.date || dateStr(d);
     $('#quote').textContent = liveEdition.quote || QUOTES[i % QUOTES.length];
@@ -52,7 +52,8 @@ function render(){
   }
 
   const L = LEADS[i % LEADS.length], E = EDS[0], F = FACTS[0];
-  $('#issueNo').textContent = 'Sayı: ' + Math.max(1, i - dayIndex(new Date(2026, 9, 21)) + 1);
+  // İlk yayın: 19 Ekim 2026
+  $('#issueNo').textContent = 'Sayı: ' + Math.max(1, i - dayIndex(new Date(2026, 9, 19)) + 1);
   $('#dateLine').textContent = dateStr(d);
   $('#quote').textContent = QUOTES[i % QUOTES.length];
   $('#leadTitle').textContent = L.h; $('#leadDeck').textContent = L.d; $('#leadBody').textContent = L.b;
@@ -60,18 +61,34 @@ function render(){
   $('#factTitle').textContent = F.t; $('#factBody').textContent = F.b;
 }
 
-// 7 GÜNLÜK SINIRLAMA: 7 günden eski olanlar otomatik temizlenir
+// 19 Ekim 2026 öncesini göstermeyen ve gerçek günleri listeleyen arşiv
 function fillArchive(){
   const sel = $('#archive'); sel.innerHTML = '';
+  const firstIssueDate = new Date(2026, 9, 19); // 19 Ekim 2026
+  
   for (let k = 0; k < 7; k++){
     const d = new Date(cur); d.setDate(d.getDate() - k);
-    const o = document.createElement('option'); o.value = k;
+    if (d < firstIssueDate) break;
+    
+    const o = document.createElement('option'); 
+    o.value = k;
+    o.dataset.dateKey = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
     o.textContent = (k ? 'Arşiv: ' : 'Bugünkü baskı: ') + `${d.getDate()} ${AY[d.getMonth()]}`;
     sel.appendChild(o);
   }
 }
 
-$('#archive').addEventListener('change', e => { offset = +e.target.value; render(); });
+$('#archive').addEventListener('change', async e => { 
+  offset = +e.target.value;
+  const selectedOption = e.target.options[e.target.selectedIndex];
+  const dateKey = selectedOption.dataset.dateKey;
+
+  if (offset === 0) {
+    await loadEdition('data/edition.json');
+  } else {
+    await loadEdition(`data/archive/${dateKey}.json`);
+  }
+});
 
 /* ---------- SAAT ---------- */
 function tick(){ const n = new Date(); $('#clock').textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`; }
@@ -357,10 +374,10 @@ $('#clearBtn').addEventListener('click', () => {
 });
 
 /* ---------- DİNAMİK VERİ YÜKLEME ---------- */
-async function loadEdition(){
+async function loadEdition(filePath = 'data/edition.json'){
   try {
-    const res = await fetch('data/edition.json?t=' + Date.now());
-    if (!res.ok) throw new Error('Veri alinamadi');
+    const res = await fetch(filePath + '?t=' + Date.now());
+    if (!res.ok) throw new Error('Veri alinamadi: ' + filePath);
     liveEdition = await res.json();
     render();
     
@@ -375,7 +392,7 @@ async function loadEdition(){
     realNewsPool = [];
     ['ai', 'oss', 'web', 'sec'].forEach(cat => {
       $('#list-' + cat).innerHTML = '';
-      const items = liveEdition.news[cat] || [];
+      const items = (liveEdition.news && liveEdition.news[cat]) || [];
       items.forEach(it => {
         addNews(cat, false, [it.title, it.desc]);
         realNewsPool.push({cat, title: it.title, desc: it.desc});
@@ -383,7 +400,8 @@ async function loadEdition(){
     });
     
   } catch (err) {
-    console.warn('Statik veri devrede:', err);
+    console.warn('Veri yüklenemedi, statik devreye alındı:', err);
+    liveEdition = null;
     render();
     initPuzzle(currentPuzzleWords);
   }
