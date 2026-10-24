@@ -1,0 +1,133 @@
+{
+  "issue": 4,
+  "date": "24 Ekim 2026, Cumartesi",
+  "date_key": "2026-10-24",
+  "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
+  "lead": {
+    "title": "926 Adım, İki Lobotomi ve Sıfır Dürtü: Gemini, Claude ve GPT-OSS Genelinde Bağlılık Makinesinin Uçuş Testi",
+    "deck": "2026 yılında Harvard'da 718 şirket üzerinde yapılan bir araştırma, AI temsilcilerinin %30 daha fazla kod yazdığını ve inceleme sürelerinin %49 artması nedeniyle sıfır ek bildirim kapattığını ortaya çıkardı. 1986 Taahhüt Makinemi Gemini, Claude ve GPT-OSS'de canlı prodüksiyona koyduğumda olanlar şunlar oldu.",
+    "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
+  },
+  "editorial": {
+    "title": "Ajanlar Çağında Kodu Okumak Yazmaktan Değerli",
+    "body": "Kod üretmek ucuzlarken doğru kodu ayırt etmek pahalılaşıyor. Gelecekte iyi mühendis, en çok satır yazan değil, sistemin tasarım amacını ve güvenlik sınırlarını doğru okuyan kişi olacak."
+  },
+  "fact": {
+    "title": "Zero-Shot Inference",
+    "body": "Modelin belirli bir görevi daha önce hiç örnek görmeden sadece bağlam talimatıyla tamamlayabilme yeteneğidir."
+  },
+  "news": {
+    "ai": [
+      {
+        "title": "926 Adım, İki Lobotomi ve Sıfır Dürtü: Gemini, Claude ve GPT-OSS Genelinde Bağlılık Makinesinin Uçuş Testi",
+        "desc": "2026 yılında Harvard'da 718 şirket üzerinde yapılan bir araştırma, AI temsilcilerinin %30 daha fazla kod yazdığını ve inceleme sürelerinin %49 artması nedeniyle sıfır ek bildirim kapattığını ortaya çıkardı. 1986 Taahhüt Makinemi Gemini, Claude ve GPT-OSS'de canlı prodüksiyona koyduğumda olanlar şunlar oldu.",
+        "url": "https://dev.to/gde/926-steps-two-lobotomies-and-zero-nudges-flight-testing-the-commitment-machine-across-gemini-55ca"
+      },
+      {
+        "title": "Gemini ve Google Dokümanlar ile Çok Modlu, Öneri Tabanlı bir AI Yazma Koçu Oluşturma",
+        "desc": "Günlük yazılarımızı (teknik raporlar, iş raporları) yeniden okumak için üretken AI'i kullandığımızda",
+        "url": "https://dev.to/gde/building-a-multimodal-suggestion-based-ai-writing-coach-with-gemini-and-google-docs-ea4"
+      },
+      {
+        "title": "Benimle AI'iniz Arasında Vekil Olmayın",
+        "desc": "Bu konuşmayı itiraf etmek istediğimden daha fazla kez yaptım.  Teknik bir soru soruyorum",
+        "url": "https://dev.to/adamthedeveloper/dont-be-a-proxy-between-me-and-your-ai-mcn"
+      },
+      {
+        "title": "GKE'de durum bilgisi olan Gemini 4 Argon aracı oturumlarını ölçeklendirme: Bağlantı boşaltma, başlatma desteği ve oturum kalıcılığı",
+        "desc": "VPA CPU başlatma desteği, GCPBackendPolicy bağlantı boşaltma ve oturum kontrol noktası oluşturma özelliklerini kullanarak uzun süre çalışan Gemini 4 Argon aracı oturumları için GKE'yi tasarlayın.",
+        "url": "https://dev.to/googlecloud/scaling-stateful-gemini-4-argon-agent-sessions-on-gke-connection-draining-startup-boost-and-13ln"
+      }
+    ],
+    "oss": [
+      {
+        "title": "DuckLess: Google Cloud'da sunucusuz DuckDB, kendi projenizde",
+        "desc": "Kendi projenizde Google Cloud'da sunucusuz DuckDB. GCS'deki dosyalar, BigQuery'deki tablolar (okuma ve yazma), ölçtüklerim ve öğrendiklerim.",
+        "url": "https://dev.to/gde/duckless-serverless-duckdb-on-google-cloud-in-your-own-project-4o5a"
+      },
+      {
+        "title": "SlothSRE (NapOps): Sabah 03.00 Uyarılarının 418 Satırını 2 Satırlık Sabah Özetine Sıkıştıran Gecelik Gemma 4 ve ADK Ajanı",
+        "desc": "Gece boyunca yığın izlerini tekilleştiren, yerel bir pytest sanal alanında git yamalarını doğrulayan ve çağrı üzerine mühendislerin sabah 8'e kadar uyumasını sağlayan, yerel öncelikli bir açık ağırlık Gemma 4, Google ADK ve Sentry Agent Tracing pipeline'i nasıl oluşturdum?",
+        "url": "https://dev.to/gde/slothsre-napops-an-overnight-gemma-4-adk-agent-that-compresses-418-lines-of-3-am-alerts-into-a-1pk6"
+      },
+      {
+        "title": "Ora-tui'yi nasıl oluşturdum: Go'da Oracle RAC ve Tek Örnek bağımlılıkları olmayan bir konsol yöneticisi (TUI)",
+        "desc": "Oracle Instant Client'a güvenmeden Unicode çerçeveleri (┌─┐ / ╔═╗), Oracle RAC kümesi otomatik keşfi ve ok yönlendirmeli bakım akışlarıyla Go'da bir TUI arayüzünü nasıl tasarlayacağınızı öğrenin.",
+        "url": "https://dev.to/gde/como-construi-ora-tui-un-gestor-en-consola-tui-en-go-sin-dependencias-para-oracle-rac-y-single-1gc5"
+      },
+      {
+        "title": "Temsilciler için Beklemek En Zor Kısımdır",
+        "desc": "Pek çok mühendis, finansal iş akışındaki her adımı haklı olarak potansiyel bir başarısızlık noktası olarak görür",
+        "url": "https://dev.to/dailycontext/for-agents-waiting-is-the-hardest-part-30ik"
+      }
+    ],
+    "web": [
+      {
+        "title": "🌑 Mavi Ekim",
+        "desc": "TLDR: Buraya nasıl geldiğimin kısa bir özeti.             Zihniyet Son 3 yıldır",
+        "url": "https://dev.to/annavi11arrea1/blue-october-1jia"
+      },
+      {
+        "title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi",
+        "desc": "Tarayıcı içi istemci tarafı grafik ve hesaplama kapasitesi arttı.",
+        "url": "https://dev.to"
+      }
+    ],
+    "sec": [
+      {
+        "title": "Kritik Paket Yöneticilerinde Sahte Paket Engelleme Mekanizması",
+        "desc": "Benzer isimli zararlı paket dağıtımlarına karşı otomatik doğrulama geldi.",
+        "url": "https://dev.to"
+      },
+      {
+        "title": "Passkey Desteği Global Web Sitelerinde Yaygınlaşıyor",
+        "desc": "Geleneksel parolaların yerini kriptografik anahtar çiftleri alıyor.",
+        "url": "https://dev.to"
+      }
+    ]
+  },
+  "puzzle": [
+    [
+      "SERVER",
+      0,
+      0,
+      "a",
+      "İstemcilere veri ve hizmet sağlayan sunucu"
+    ],
+    [
+      "SCRIPT",
+      0,
+      0,
+      "d",
+      "Yorumlanan dillerde yazılan betik dosya"
+    ],
+    [
+      "VERCEL",
+      2,
+      0,
+      "a",
+      "Frontend ve sunucusuz dağıtım platformu"
+    ],
+    [
+      "ROBOTS",
+      0,
+      4,
+      "d",
+      "Arama motoru botlarını yönlendiren metin dosyası"
+    ],
+    [
+      "RECORD",
+      4,
+      2,
+      "a",
+      "Veritabanı tablosundaki tekil satır/kayıt"
+    ],
+    [
+      "INDEX",
+      1,
+      5,
+      "d",
+      "Veritabanında sorguları hızlandıran dizin"
+    ]
+  ]
+}
