@@ -1,11 +1,11 @@
 {
-  "issue": 4,
-  "date": "24 Ekim 2026, Cumartesi",
-  "date_key": "2026-10-24",
+  "issue": 5,
+  "date": "25 Ekim 2026, Pazar",
+  "date_key": "2026-10-25",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "926 Adım, İki Lobotomi ve Sıfır Dürtü: Gemini, Claude ve GPT-OSS Genelinde Bağlılık Makinesinin Uçuş Testi",
-    "deck": "2026 yılında Harvard'da 718 şirket üzerinde yapılan bir araştırma, AI temsilcilerinin %30 daha fazla kod yazdığını ve inceleme sürelerinin %49 artması nedeniyle sıfır ek bildirim kapattığını ortaya çıkardı. 1986 Taahhüt Makinemi Gemini, Claude ve GPT-OSS'de canlı prodüksiyona koyduğumda olanlar şunlar oldu.",
+    "title": "Benimle AI'iniz Arasında Vekil Olmayın",
+    "deck": "Bu konuşmayı itiraf etmek istediğimden daha fazla kez yaptım.  Teknik bir soru soruyorum",
     "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
   },
   "editorial": {
@@ -19,24 +19,24 @@
   "news": {
     "ai": [
       {
-        "title": "926 Adım, İki Lobotomi ve Sıfır Dürtü: Gemini, Claude ve GPT-OSS Genelinde Bağlılık Makinesinin Uçuş Testi",
-        "desc": "2026 yılında Harvard'da 718 şirket üzerinde yapılan bir araştırma, AI temsilcilerinin %30 daha fazla kod yazdığını ve inceleme sürelerinin %49 artması nedeniyle sıfır ek bildirim kapattığını ortaya çıkardı. 1986 Taahhüt Makinemi Gemini, Claude ve GPT-OSS'de canlı prodüksiyona koyduğumda olanlar şunlar oldu.",
-        "url": "https://dev.to/gde/926-steps-two-lobotomies-and-zero-nudges-flight-testing-the-commitment-machine-across-gemini-55ca"
-      },
-      {
-        "title": "Gemini ve Google Dokümanlar ile Çok Modlu, Öneri Tabanlı bir AI Yazma Koçu Oluşturma",
-        "desc": "Günlük yazılarımızı (teknik raporlar, iş raporları) yeniden okumak için üretken AI'i kullandığımızda",
-        "url": "https://dev.to/gde/building-a-multimodal-suggestion-based-ai-writing-coach-with-gemini-and-google-docs-ea4"
-      },
-      {
         "title": "Benimle AI'iniz Arasında Vekil Olmayın",
         "desc": "Bu konuşmayı itiraf etmek istediğimden daha fazla kez yaptım.  Teknik bir soru soruyorum",
         "url": "https://dev.to/adamthedeveloper/dont-be-a-proxy-between-me-and-your-ai-mcn"
       },
       {
-        "title": "GKE'de durum bilgisi olan Gemini 4 Argon aracı oturumlarını ölçeklendirme: Bağlantı boşaltma, başlatma desteği ve oturum kalıcılığı",
-        "desc": "VPA CPU başlatma desteği, GCPBackendPolicy bağlantı boşaltma ve oturum kontrol noktası oluşturma özelliklerini kullanarak uzun süre çalışan Gemini 4 Argon aracı oturumları için GKE'yi tasarlayın.",
-        "url": "https://dev.to/googlecloud/scaling-stateful-gemini-4-argon-agent-sessions-on-gke-connection-draining-startup-boost-and-13ln"
+        "title": "926 Adım, İki Lobotomi ve Sıfır Dürtü: Gemini, Claude ve GPT-OSS Genelinde Bağlılık Makinesinin Uçuş Testi",
+        "desc": "2026 yılında Harvard'da 718 şirket üzerinde yapılan bir araştırma, AI temsilcilerinin %30 daha fazla kod yazdığını ve inceleme sürelerinin %49 artması nedeniyle sıfır ek bildirim kapattığını ortaya çıkardı. 1986 Taahhüt Makinemi Gemini, Claude ve GPT-OSS'de canlı prodüksiyona koyduğumda olanlar şunlar oldu.",
+        "url": "https://dev.to/gde/926-steps-two-lobotomies-and-zero-nudges-flight-testing-the-commitment-machine-across-gemini-55ca"
+      },
+      {
+        "title": "Gemini 4 Argon ve Model Bağlam Protokolü ile GKE'de otomatik olay önceliklendirmesi: Küme olayları ile VPA günlüklerini ilişkilendirme",
+        "desc": "Gemini 4 Argon çok adımlı akıl yürütmeyi GKE Model Bağlam Protokolü sunucusuyla birleştirerek GKE'de temel neden olay önceliklendirmesini otomatikleştirin.",
+        "url": "https://dev.to/googlecloud/automated-incident-triage-on-gke-with-gemini-4-argon-and-model-context-protocol-correlating-24eb"
+      },
+      {
+        "title": "Eşzamansız Vergi Olmadan Üretken Kullanıcı Arayüzü: bloc_signals_genui 1.0 ile tanışın",
+        "desc": "Neden Google'ın resmi A2UI protokolünün üzerinde, iki yönlü reaktif formları, Riverpod/BLoC birlikte çalışmayı, Flutter Material 3'ü ve ANSI terminali TUI'lerini destekleyen saf Dart, 0 ms eşzamanlı Üretken UI durum makinesi oluşturduk?",
+        "url": "https://dev.to/gde/generative-ui-without-the-async-tax-introducing-blocsignalsgenui-10-3gge"
       }
     ],
     "oss": [
@@ -88,46 +88,46 @@
   },
   "puzzle": [
     [
-      "SERVER",
+      "GITHUB",
       0,
       0,
       "a",
-      "İstemcilere veri ve hizmet sağlayan sunucu"
+      "Git tabanlı bulut kod deposu platformu"
     ],
     [
-      "SCRIPT",
+      "GLOBAL",
       0,
       0,
       "d",
-      "Yorumlanan dillerde yazılan betik dosya"
+      "Tüm program kapsamından erişilebilen değişken"
     ],
     [
-      "VERCEL",
+      "IMPORT",
       2,
       0,
       "a",
-      "Frontend ve sunucusuz dağıtım platformu"
+      "Modül veya kütüphaneyi koda dahil etme ifadesi"
     ],
     [
-      "ROBOTS",
+      "BUFFER",
       0,
       4,
       "d",
-      "Arama motoru botlarını yönlendiren metin dosyası"
+      "Veri akışında geçici depolama belleği"
     ],
     [
-      "RECORD",
+      "UPDATE",
       4,
-      2,
-      "a",
-      "Veritabanı tablosundaki tekil satır/kayıt"
-    ],
-    [
-      "INDEX",
       1,
+      "a",
+      "Veritabanında kayıt yenileme SQL komutu"
+    ],
+    [
+      "STREAM",
+      2,
       5,
       "d",
-      "Veritabanında sorguları hızlandıran dizin"
+      "Parça parça kesintisiz akan veri iletimi"
     ]
   ]
 }
