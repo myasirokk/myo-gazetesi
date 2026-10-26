@@ -1,0 +1,147 @@
+{
+  "issue": 6,
+  "date": "26 Ekim 2026, Pazartesi",
+  "date_key": "2026-10-26",
+  "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
+  "lead": {
+    "title": "Let It Die: The Lazy Email Agent on TabPFN, Gemma and Temporal",
+    "deck": "This is a submission for the Hacktoberfest Open-Source AI Challenge Week 3: Slow and Steady",
+    "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
+  },
+  "editorial": {
+    "title": "Ajanlar Çağında Kodu Okumak Yazmaktan Değerli",
+    "body": "Kod üretmek ucuzlarken doğru kodu ayırt etmek pahalılaşıyor. Gelecekte iyi mühendis, en çok satır yazan değil, sistemin tasarım amacını ve güvenlik sınırlarını doğru okuyan kişi olacak."
+  },
+  "fact": {
+    "title": "Zero-Shot Inference",
+    "body": "Modelin belirli bir görevi daha önce hiç örnek görmeden sadece bağlam talimatıyla tamamlayabilme yeteneğidir."
+  },
+  "news": {
+    "ai": [
+      {
+        "title": "Let It Die: The Lazy Email Agent on TabPFN, Gemma and Temporal",
+        "desc": "This is a submission for the Hacktoberfest Open-Source AI Challenge Week 3: Slow and Steady",
+        "url": "https://dev.to/khushighosh/let-it-die-the-lazy-email-agent-on-tabpfn-gemma-and-temporal-10o0"
+      },
+      {
+        "title": "926 Steps, Two Lobotomies, and Zero Nudges: Flight-Testing the Commitment Machine Across Gemini, Claude, and GPT-OSS",
+        "desc": "A 2026 Harvard study of 718 companies found that AI agents write 30% more code and close zero additional tickets because review times jump 49%. Here is what happened when I put my 1986 Commitment Machine into live production across Gemini, Claude, and GPT-OSS.",
+        "url": "https://dev.to/gde/926-steps-two-lobotomies-and-zero-nudges-flight-testing-the-commitment-machine-across-gemini-55ca"
+      },
+      {
+        "title": "Don't Be a Proxy Between Me and Your AI",
+        "desc": "I've had this conversation more times than I'd like to admit.  I raise a technical question in a",
+        "url": "https://dev.to/adamthedeveloper/dont-be-a-proxy-between-me-and-your-ai-mcn"
+      },
+      {
+        "title": "Automated incident triage on GKE with Gemini 4 Argon and Model Context Protocol: Correlating cluster events and VPA logs",
+        "desc": "Automate root-cause incident triage on GKE by combining Gemini 4 Argon multi-step reasoning with the GKE Model Context Protocol server.",
+        "url": "https://dev.to/googlecloud/automated-incident-triage-on-gke-with-gemini-4-argon-and-model-context-protocol-correlating-24eb"
+      }
+    ],
+    "oss": [
+      {
+        "title": "DuckLess: serverless DuckDB on Google Cloud, in your own project",
+        "desc": "Serverless DuckDB on Google Cloud, in your own project. Files on GCS, tables in BigQuery (read and write), what I measured, and what I learned.",
+        "url": "https://dev.to/gde/duckless-serverless-duckdb-on-google-cloud-in-your-own-project-4o5a"
+      },
+      {
+        "title": "SlothSRE (NapOps): An Overnight Gemma 4 & ADK Agent That Compresses 418 Lines of 3 AM Alerts into a 2-Line Morning Digest",
+        "desc": "How I built a local-first open-weights Gemma 4, Google ADK, and Sentry Agent Tracing pipeline that deduplicates overnight stack traces, verifies git patches in a local pytest sandbox, and lets on-call engineers sleep until 8 AM.",
+        "url": "https://dev.to/gde/slothsre-napops-an-overnight-gemma-4-adk-agent-that-compresses-418-lines-of-3-am-alerts-into-a-1pk6"
+      },
+      {
+        "title": "Cómo construí ora-tui: Un gestor en consola (TUI) en Go sin dependencias para Oracle RAC y Single Instance",
+        "desc": "Descubre cómo diseñar una interfaz TUI en Go con marcos Unicode (┌─┐ / ╔═╗), auto-descubrimiento de clusters Oracle RAC y flujos de mantenimiento guiados por flechas sin depender de Oracle Instant Client.",
+        "url": "https://dev.to/gde/como-construi-ora-tui-un-gestor-en-consola-tui-en-go-sin-dependencias-para-oracle-rac-y-single-1gc5"
+      },
+      {
+        "title": "For Agents, Waiting is the Hardest Part",
+        "desc": "Many engineers rightfully view every step in a financial workflow as a potential point of failure,",
+        "url": "https://dev.to/dailycontext/for-agents-waiting-is-the-hardest-part-30ik"
+      }
+    ],
+    "web": [
+      {
+        "title": "🌑 Blue October",
+        "desc": "TLDR: A brief summary of how I got here.             The Mindset   For the last 3 years, I have been",
+        "url": "https://dev.to/annavi11arrea1/blue-october-1jia"
+      },
+      {
+        "title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi",
+        "desc": "Tarayıcı içi istemci tarafı grafik ve hesaplama kapasitesi arttı.",
+        "url": "https://dev.to"
+      }
+    ],
+    "sec": [
+      {
+        "title": "Kritik Paket Yöneticilerinde Sahte Paket Engelleme Mekanizması",
+        "desc": "Benzer isimli zararlı paket dağıtımlarına karşı otomatik doğrulama geldi.",
+        "url": "https://dev.to"
+      },
+      {
+        "title": "Passkey Desteği Global Web Sitelerinde Yaygınlaşıyor",
+        "desc": "Geleneksel parolaların yerini kriptografik anahtar çiftleri alıyor.",
+        "url": "https://dev.to"
+      }
+    ]
+  },
+  "puzzle": [
+    [
+      "PROMPT",
+      0,
+      0,
+      "a",
+      "Yapay zekaya verilen komut metni"
+    ],
+    [
+      "PYTHON",
+      0,
+      0,
+      "d",
+      "Yapay zeka dünyasının en popüler dili"
+    ],
+    [
+      "TOKEN",
+      0,
+      5,
+      "d",
+      "Dil modelinin metni böldüğü en küçük birim"
+    ],
+    [
+      "OPTION",
+      4,
+      0,
+      "a",
+      "Seçenek, ayar (İngilizce)"
+    ],
+    [
+      "IDE",
+      4,
+      3,
+      "d",
+      "Kod yazma ortamı (kısaltma)"
+    ],
+    [
+      "EPOCH",
+      6,
+      3,
+      "a",
+      "Eğitimde veri setinin bir tam geçişi"
+    ],
+    [
+      "HASH",
+      6,
+      7,
+      "d",
+      "Veriden çıkarılan sabit uzunluklu özet"
+    ],
+    [
+      "HTTP",
+      9,
+      7,
+      "a",
+      "Web'in temel iletişim protokolü"
+    ]
+  ]
+}

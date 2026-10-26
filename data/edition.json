@@ -1,11 +1,11 @@
 {
-  "issue": 5,
-  "date": "25 Ekim 2026, Pazar",
-  "date_key": "2026-10-25",
+  "issue": 6,
+  "date": "26 Ekim 2026, Pazartesi",
+  "date_key": "2026-10-26",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "Benimle AI'iniz Arasında Vekil Olmayın",
-    "deck": "Bu konuşmayı itiraf etmek istediğimden daha fazla kez yaptım.  Teknik bir soru soruyorum",
+    "title": "Let It Die: The Lazy Email Agent on TabPFN, Gemma and Temporal",
+    "deck": "This is a submission for the Hacktoberfest Open-Source AI Challenge Week 3: Slow and Steady",
     "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
   },
   "editorial": {
@@ -19,52 +19,52 @@
   "news": {
     "ai": [
       {
-        "title": "Benimle AI'iniz Arasında Vekil Olmayın",
-        "desc": "Bu konuşmayı itiraf etmek istediğimden daha fazla kez yaptım.  Teknik bir soru soruyorum",
-        "url": "https://dev.to/adamthedeveloper/dont-be-a-proxy-between-me-and-your-ai-mcn"
+        "title": "Let It Die: The Lazy Email Agent on TabPFN, Gemma and Temporal",
+        "desc": "This is a submission for the Hacktoberfest Open-Source AI Challenge Week 3: Slow and Steady",
+        "url": "https://dev.to/khushighosh/let-it-die-the-lazy-email-agent-on-tabpfn-gemma-and-temporal-10o0"
       },
       {
-        "title": "926 Adım, İki Lobotomi ve Sıfır Dürtü: Gemini, Claude ve GPT-OSS Genelinde Bağlılık Makinesinin Uçuş Testi",
-        "desc": "2026 yılında Harvard'da 718 şirket üzerinde yapılan bir araştırma, AI temsilcilerinin %30 daha fazla kod yazdığını ve inceleme sürelerinin %49 artması nedeniyle sıfır ek bildirim kapattığını ortaya çıkardı. 1986 Taahhüt Makinemi Gemini, Claude ve GPT-OSS'de canlı prodüksiyona koyduğumda olanlar şunlar oldu.",
+        "title": "926 Steps, Two Lobotomies, and Zero Nudges: Flight-Testing the Commitment Machine Across Gemini, Claude, and GPT-OSS",
+        "desc": "A 2026 Harvard study of 718 companies found that AI agents write 30% more code and close zero additional tickets because review times jump 49%. Here is what happened when I put my 1986 Commitment Machine into live production across Gemini, Claude, and GPT-OSS.",
         "url": "https://dev.to/gde/926-steps-two-lobotomies-and-zero-nudges-flight-testing-the-commitment-machine-across-gemini-55ca"
       },
       {
-        "title": "Gemini 4 Argon ve Model Bağlam Protokolü ile GKE'de otomatik olay önceliklendirmesi: Küme olayları ile VPA günlüklerini ilişkilendirme",
-        "desc": "Gemini 4 Argon çok adımlı akıl yürütmeyi GKE Model Bağlam Protokolü sunucusuyla birleştirerek GKE'de temel neden olay önceliklendirmesini otomatikleştirin.",
-        "url": "https://dev.to/googlecloud/automated-incident-triage-on-gke-with-gemini-4-argon-and-model-context-protocol-correlating-24eb"
+        "title": "Don't Be a Proxy Between Me and Your AI",
+        "desc": "I've had this conversation more times than I'd like to admit.  I raise a technical question in a",
+        "url": "https://dev.to/adamthedeveloper/dont-be-a-proxy-between-me-and-your-ai-mcn"
       },
       {
-        "title": "Eşzamansız Vergi Olmadan Üretken Kullanıcı Arayüzü: bloc_signals_genui 1.0 ile tanışın",
-        "desc": "Neden Google'ın resmi A2UI protokolünün üzerinde, iki yönlü reaktif formları, Riverpod/BLoC birlikte çalışmayı, Flutter Material 3'ü ve ANSI terminali TUI'lerini destekleyen saf Dart, 0 ms eşzamanlı Üretken UI durum makinesi oluşturduk?",
-        "url": "https://dev.to/gde/generative-ui-without-the-async-tax-introducing-blocsignalsgenui-10-3gge"
+        "title": "Automated incident triage on GKE with Gemini 4 Argon and Model Context Protocol: Correlating cluster events and VPA logs",
+        "desc": "Automate root-cause incident triage on GKE by combining Gemini 4 Argon multi-step reasoning with the GKE Model Context Protocol server.",
+        "url": "https://dev.to/googlecloud/automated-incident-triage-on-gke-with-gemini-4-argon-and-model-context-protocol-correlating-24eb"
       }
     ],
     "oss": [
       {
-        "title": "DuckLess: Google Cloud'da sunucusuz DuckDB, kendi projenizde",
-        "desc": "Kendi projenizde Google Cloud'da sunucusuz DuckDB. GCS'deki dosyalar, BigQuery'deki tablolar (okuma ve yazma), ölçtüklerim ve öğrendiklerim.",
+        "title": "DuckLess: serverless DuckDB on Google Cloud, in your own project",
+        "desc": "Serverless DuckDB on Google Cloud, in your own project. Files on GCS, tables in BigQuery (read and write), what I measured, and what I learned.",
         "url": "https://dev.to/gde/duckless-serverless-duckdb-on-google-cloud-in-your-own-project-4o5a"
       },
       {
-        "title": "SlothSRE (NapOps): Sabah 03.00 Uyarılarının 418 Satırını 2 Satırlık Sabah Özetine Sıkıştıran Gecelik Gemma 4 ve ADK Ajanı",
-        "desc": "Gece boyunca yığın izlerini tekilleştiren, yerel bir pytest sanal alanında git yamalarını doğrulayan ve çağrı üzerine mühendislerin sabah 8'e kadar uyumasını sağlayan, yerel öncelikli bir açık ağırlık Gemma 4, Google ADK ve Sentry Agent Tracing pipeline'i nasıl oluşturdum?",
+        "title": "SlothSRE (NapOps): An Overnight Gemma 4 & ADK Agent That Compresses 418 Lines of 3 AM Alerts into a 2-Line Morning Digest",
+        "desc": "How I built a local-first open-weights Gemma 4, Google ADK, and Sentry Agent Tracing pipeline that deduplicates overnight stack traces, verifies git patches in a local pytest sandbox, and lets on-call engineers sleep until 8 AM.",
         "url": "https://dev.to/gde/slothsre-napops-an-overnight-gemma-4-adk-agent-that-compresses-418-lines-of-3-am-alerts-into-a-1pk6"
       },
       {
-        "title": "Ora-tui'yi nasıl oluşturdum: Go'da Oracle RAC ve Tek Örnek bağımlılıkları olmayan bir konsol yöneticisi (TUI)",
-        "desc": "Oracle Instant Client'a güvenmeden Unicode çerçeveleri (┌─┐ / ╔═╗), Oracle RAC kümesi otomatik keşfi ve ok yönlendirmeli bakım akışlarıyla Go'da bir TUI arayüzünü nasıl tasarlayacağınızı öğrenin.",
+        "title": "Cómo construí ora-tui: Un gestor en consola (TUI) en Go sin dependencias para Oracle RAC y Single Instance",
+        "desc": "Descubre cómo diseñar una interfaz TUI en Go con marcos Unicode (┌─┐ / ╔═╗), auto-descubrimiento de clusters Oracle RAC y flujos de mantenimiento guiados por flechas sin depender de Oracle Instant Client.",
         "url": "https://dev.to/gde/como-construi-ora-tui-un-gestor-en-consola-tui-en-go-sin-dependencias-para-oracle-rac-y-single-1gc5"
       },
       {
-        "title": "Temsilciler için Beklemek En Zor Kısımdır",
-        "desc": "Pek çok mühendis, finansal iş akışındaki her adımı haklı olarak potansiyel bir başarısızlık noktası olarak görür",
+        "title": "For Agents, Waiting is the Hardest Part",
+        "desc": "Many engineers rightfully view every step in a financial workflow as a potential point of failure,",
         "url": "https://dev.to/dailycontext/for-agents-waiting-is-the-hardest-part-30ik"
       }
     ],
     "web": [
       {
-        "title": "🌑 Mavi Ekim",
-        "desc": "TLDR: Buraya nasıl geldiğimin kısa bir özeti.             Zihniyet Son 3 yıldır",
+        "title": "🌑 Blue October",
+        "desc": "TLDR: A brief summary of how I got here.             The Mindset   For the last 3 years, I have been",
         "url": "https://dev.to/annavi11arrea1/blue-october-1jia"
       },
       {
@@ -88,46 +88,60 @@
   },
   "puzzle": [
     [
-      "GITHUB",
+      "PROMPT",
       0,
       0,
       "a",
-      "Git tabanlı bulut kod deposu platformu"
+      "Yapay zekaya verilen komut metni"
     ],
     [
-      "GLOBAL",
+      "PYTHON",
       0,
       0,
       "d",
-      "Tüm program kapsamından erişilebilen değişken"
+      "Yapay zeka dünyasının en popüler dili"
     ],
     [
-      "IMPORT",
-      2,
+      "TOKEN",
       0,
-      "a",
-      "Modül veya kütüphaneyi koda dahil etme ifadesi"
-    ],
-    [
-      "BUFFER",
-      0,
-      4,
-      "d",
-      "Veri akışında geçici depolama belleği"
-    ],
-    [
-      "UPDATE",
-      4,
-      1,
-      "a",
-      "Veritabanında kayıt yenileme SQL komutu"
-    ],
-    [
-      "STREAM",
-      2,
       5,
       "d",
-      "Parça parça kesintisiz akan veri iletimi"
+      "Dil modelinin metni böldüğü en küçük birim"
+    ],
+    [
+      "OPTION",
+      4,
+      0,
+      "a",
+      "Seçenek, ayar (İngilizce)"
+    ],
+    [
+      "IDE",
+      4,
+      3,
+      "d",
+      "Kod yazma ortamı (kısaltma)"
+    ],
+    [
+      "EPOCH",
+      6,
+      3,
+      "a",
+      "Eğitimde veri setinin bir tam geçişi"
+    ],
+    [
+      "HASH",
+      6,
+      7,
+      "d",
+      "Veriden çıkarılan sabit uzunluklu özet"
+    ],
+    [
+      "HTTP",
+      9,
+      7,
+      "a",
+      "Web'in temel iletişim protokolü"
     ]
   ]
 }
