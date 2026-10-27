@@ -1,11 +1,11 @@
 {
-  "issue": 6,
-  "date": "26 Ekim 2026, Pazartesi",
-  "date_key": "2026-10-26",
+  "issue": 7,
+  "date": "27 Ekim 2026, Salı",
+  "date_key": "2026-10-27",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "Let It Die: The Lazy Email Agent on TabPFN, Gemma and Temporal",
-    "deck": "This is a submission for the Hacktoberfest Open-Source AI Challenge Week 3: Slow and Steady",
+    "title": "Hacktoberfest Açık Kaynak AI Mücadelesine Katılın: Makinedeki Hayalet! 21 Kazanana 2.850 Dolar Ödül.",
+    "deck": "Hacktoberfest DEV Mücadelelerimizin 4. haftası bugün başlıyor ve bu bizim serideki son mücadelemiz!",
     "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
   },
   "editorial": {
@@ -19,52 +19,42 @@
   "news": {
     "ai": [
       {
-        "title": "Let It Die: The Lazy Email Agent on TabPFN, Gemma and Temporal",
-        "desc": "This is a submission for the Hacktoberfest Open-Source AI Challenge Week 3: Slow and Steady",
-        "url": "https://dev.to/khushighosh/let-it-die-the-lazy-email-agent-on-tabpfn-gemma-and-temporal-10o0"
+        "title": "Hacktoberfest Açık Kaynak AI Mücadelesine Katılın: Makinedeki Hayalet! 21 Kazanana 2.850 Dolar Ödül.",
+        "desc": "Hacktoberfest DEV Mücadelelerimizin 4. haftası bugün başlıyor ve bu bizim serideki son mücadelemiz!",
+        "url": "https://dev.to/devteam/join-the-hacktoberfest-open-source-ai-challenge-ghost-in-the-machine-2850-in-prizes-across-21-3cho"
       },
       {
-        "title": "926 Steps, Two Lobotomies, and Zero Nudges: Flight-Testing the Commitment Machine Across Gemini, Claude, and GPT-OSS",
-        "desc": "A 2026 Harvard study of 718 companies found that AI agents write 30% more code and close zero additional tickets because review times jump 49%. Here is what happened when I put my 1986 Commitment Machine into live production across Gemini, Claude, and GPT-OSS.",
-        "url": "https://dev.to/gde/926-steps-two-lobotomies-and-zero-nudges-flight-testing-the-commitment-machine-across-gemini-55ca"
+        "title": "Google Cloud'da Çıkarım: v5e'den Ironwood'a kadar TPU'da Hassasiyet, Bellek ve Kapasite",
+        "desc": "Konuşmaya eşlik eden: sayı formatı, bellek bant genişliği, dilim şekli ve kapasite kurallarının Cloud TPU v5e ve v6e üzerinde L4, Blackwell, MI300X ve Inferentia'ya karşı Gemma 4'e her birinin maliyetiyle birlikte ne yaptığı.",
+        "url": "https://dev.to/gde/inference-on-google-cloud-precision-memory-and-capacity-on-tpu-from-v5e-to-ironwood-5dlf"
       },
       {
-        "title": "Don't Be a Proxy Between Me and Your AI",
-        "desc": "I've had this conversation more times than I'd like to admit.  I raise a technical question in a",
+        "title": "Benimle AI'iniz Arasında Vekil Olmayın",
+        "desc": "Bu konuşmayı itiraf etmek istediğimden daha fazla kez yaptım.  Teknik bir soru soruyorum",
         "url": "https://dev.to/adamthedeveloper/dont-be-a-proxy-between-me-and-your-ai-mcn"
       },
       {
-        "title": "Automated incident triage on GKE with Gemini 4 Argon and Model Context Protocol: Correlating cluster events and VPA logs",
-        "desc": "Automate root-cause incident triage on GKE by combining Gemini 4 Argon multi-step reasoning with the GKE Model Context Protocol server.",
-        "url": "https://dev.to/googlecloud/automated-incident-triage-on-gke-with-gemini-4-argon-and-model-context-protocol-correlating-24eb"
+        "title": "Ölüm Sonrası: AI Faturamızın Sahibinin Olmadığı Salı",
+        "desc": "Çok sayıda ölüm sonrası yazı okudum. En iyileri suçlamayla ilgili değildir. Bunlar arasındaki boşlukla ilgili",
+        "url": "https://dev.to/gde/postmortem-the-tuesday-our-ai-bill-had-no-owner-34pd"
       }
     ],
     "oss": [
       {
-        "title": "DuckLess: serverless DuckDB on Google Cloud, in your own project",
-        "desc": "Serverless DuckDB on Google Cloud, in your own project. Files on GCS, tables in BigQuery (read and write), what I measured, and what I learned.",
+        "title": "Şeker, Şaka ve Kod: GDGC VTU'nun En İyi Cadılar Bayramı Tüyolarını Vurgulama 🕸️💻",
+        "desc": "#GDGCVTU #HalloweenDevChallenge #TrickOrTreat Merhaba Geliştiriciler, Bu bir özet",
+        "url": "https://dev.to/gdg/trick-treat-and-code-highlighting-gdgc-vtus-best-halloween-hacks-4hpf"
+      },
+      {
+        "title": "DuckLess: Google Cloud'da sunucusuz DuckDB, kendi projenizde",
+        "desc": "Kendi projenizde Google Cloud'da sunucusuz DuckDB. GCS'deki dosyalar, BigQuery'deki tablolar (okuma ve yazma), ölçtüklerim ve öğrendiklerim.",
         "url": "https://dev.to/gde/duckless-serverless-duckdb-on-google-cloud-in-your-own-project-4o5a"
-      },
-      {
-        "title": "SlothSRE (NapOps): An Overnight Gemma 4 & ADK Agent That Compresses 418 Lines of 3 AM Alerts into a 2-Line Morning Digest",
-        "desc": "How I built a local-first open-weights Gemma 4, Google ADK, and Sentry Agent Tracing pipeline that deduplicates overnight stack traces, verifies git patches in a local pytest sandbox, and lets on-call engineers sleep until 8 AM.",
-        "url": "https://dev.to/gde/slothsre-napops-an-overnight-gemma-4-adk-agent-that-compresses-418-lines-of-3-am-alerts-into-a-1pk6"
-      },
-      {
-        "title": "Cómo construí ora-tui: Un gestor en consola (TUI) en Go sin dependencias para Oracle RAC y Single Instance",
-        "desc": "Descubre cómo diseñar una interfaz TUI en Go con marcos Unicode (┌─┐ / ╔═╗), auto-descubrimiento de clusters Oracle RAC y flujos de mantenimiento guiados por flechas sin depender de Oracle Instant Client.",
-        "url": "https://dev.to/gde/como-construi-ora-tui-un-gestor-en-consola-tui-en-go-sin-dependencias-para-oracle-rac-y-single-1gc5"
-      },
-      {
-        "title": "For Agents, Waiting is the Hardest Part",
-        "desc": "Many engineers rightfully view every step in a financial workflow as a potential point of failure,",
-        "url": "https://dev.to/dailycontext/for-agents-waiting-is-the-hardest-part-30ik"
       }
     ],
     "web": [
       {
-        "title": "🌑 Blue October",
-        "desc": "TLDR: A brief summary of how I got here.             The Mindset   For the last 3 years, I have been",
+        "title": "🌑 Mavi Ekim",
+        "desc": "TLDR: Buraya nasıl geldiğimin kısa bir özeti.             Zihniyet Son 3 yıldır",
         "url": "https://dev.to/annavi11arrea1/blue-october-1jia"
       },
       {
@@ -88,60 +78,53 @@
   },
   "puzzle": [
     [
-      "PROMPT",
+      "VECTOR",
       0,
       0,
       "a",
-      "Yapay zekaya verilen komut metni"
+      "Gömme (embedding) uzayındaki yönlü sayı dizisi"
     ],
     [
-      "PYTHON",
+      "VIRTUAL",
       0,
       0,
       "d",
-      "Yapay zeka dünyasının en popüler dili"
+      "Fiziksel olmayan, sanal ortam"
     ],
     [
-      "TOKEN",
+      "ROUTER",
       0,
       5,
       "d",
-      "Dil modelinin metni böldüğü en küçük birim"
+      "Ağ paketlerini yönlendiren donanım/yazılım"
     ],
     [
-      "OPTION",
-      4,
+      "REACT",
+      2,
       0,
       "a",
-      "Seçenek, ayar (İngilizce)"
+      "Popüler bir JavaScript arayüz kütüphanesi"
     ],
     [
-      "IDE",
+      "ARRAY",
       4,
-      3,
-      "d",
-      "Kod yazma ortamı (kısaltma)"
-    ],
-    [
-      "EPOCH",
-      6,
-      3,
+      2,
       "a",
-      "Eğitimde veri setinin bir tam geçişi"
+      "Aynı türden elemanları tutan dizi yapısı"
     ],
     [
-      "HASH",
+      "KERNEL",
+      1,
       6,
-      7,
       "d",
-      "Veriden çıkarılan sabit uzunluklu özet"
+      "İşletim sisteminin donanımı yöneten çekirdeği"
     ],
     [
-      "HTTP",
-      9,
-      7,
+      "LINUX",
+      6,
+      2,
       "a",
-      "Web'in temel iletişim protokolü"
+      "Açık kaynaklı işletim sistemi ailesi"
     ]
   ]
 }
