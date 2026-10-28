@@ -1,11 +1,11 @@
 {
-  "issue": 7,
-  "date": "27 Ekim 2026, Salı",
-  "date_key": "2026-10-27",
+  "issue": 8,
+  "date": "28 Ekim 2026, Çarşamba",
+  "date_key": "2026-10-28",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "Hacktoberfest Açık Kaynak AI Mücadelesine Katılın: Makinedeki Hayalet! 21 Kazanana 2.850 Dolar Ödül.",
-    "deck": "Hacktoberfest DEV Mücadelelerimizin 4. haftası bugün başlıyor ve bu bizim serideki son mücadelemiz!",
+    "title": "Inference on Google Cloud: Precision, Memory and Capacity on TPU, from v5e to Ironwood",
+    "deck": "The companion to the talk: what the number format, memory bandwidth, slice shape and capacity rules do to Gemma 4 on Cloud TPU v5e and v6e, against the L4, Blackwell, MI300X and Inferentia, with the cost of each.",
     "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
   },
   "editorial": {
@@ -19,43 +19,48 @@
   "news": {
     "ai": [
       {
-        "title": "Hacktoberfest Açık Kaynak AI Mücadelesine Katılın: Makinedeki Hayalet! 21 Kazanana 2.850 Dolar Ödül.",
-        "desc": "Hacktoberfest DEV Mücadelelerimizin 4. haftası bugün başlıyor ve bu bizim serideki son mücadelemiz!",
-        "url": "https://dev.to/devteam/join-the-hacktoberfest-open-source-ai-challenge-ghost-in-the-machine-2850-in-prizes-across-21-3cho"
-      },
-      {
-        "title": "Google Cloud'da Çıkarım: v5e'den Ironwood'a kadar TPU'da Hassasiyet, Bellek ve Kapasite",
-        "desc": "Konuşmaya eşlik eden: sayı formatı, bellek bant genişliği, dilim şekli ve kapasite kurallarının Cloud TPU v5e ve v6e üzerinde L4, Blackwell, MI300X ve Inferentia'ya karşı Gemma 4'e her birinin maliyetiyle birlikte ne yaptığı.",
+        "title": "Inference on Google Cloud: Precision, Memory and Capacity on TPU, from v5e to Ironwood",
+        "desc": "The companion to the talk: what the number format, memory bandwidth, slice shape and capacity rules do to Gemma 4 on Cloud TPU v5e and v6e, against the L4, Blackwell, MI300X and Inferentia, with the cost of each.",
         "url": "https://dev.to/gde/inference-on-google-cloud-precision-memory-and-capacity-on-tpu-from-v5e-to-ironwood-5dlf"
       },
       {
-        "title": "Benimle AI'iniz Arasında Vekil Olmayın",
-        "desc": "Bu konuşmayı itiraf etmek istediğimden daha fazla kez yaptım.  Teknik bir soru soruyorum",
+        "title": "Don't Be a Proxy Between Me and Your AI",
+        "desc": "I've had this conversation more times than I'd like to admit.  I raise a technical question in a",
         "url": "https://dev.to/adamthedeveloper/dont-be-a-proxy-between-me-and-your-ai-mcn"
       },
       {
-        "title": "Ölüm Sonrası: AI Faturamızın Sahibinin Olmadığı Salı",
-        "desc": "Çok sayıda ölüm sonrası yazı okudum. En iyileri suçlamayla ilgili değildir. Bunlar arasındaki boşlukla ilgili",
-        "url": "https://dev.to/gde/postmortem-the-tuesday-our-ai-bill-had-no-owner-34pd"
+        "title": "Automated incident triage on GKE with Gemini 4 Argon and Model Context Protocol: Correlating cluster events and VPA logs",
+        "desc": "Automate root-cause incident triage on GKE by combining Gemini 4 Argon multi-step reasoning with the GKE Model Context Protocol server.",
+        "url": "https://dev.to/googlecloud/automated-incident-triage-on-gke-with-gemini-4-argon-and-model-context-protocol-correlating-24eb"
+      },
+      {
+        "title": "Generative UI Without the Async Tax: Introducing bloc_signals_genui 1.0",
+        "desc": "Why we built a pure-Dart, 0ms synchronous Generative UI state machine on top of Google's official A2UI protocol—supporting two-way reactive forms, Riverpod/BLoC interop, Flutter Material 3, and ANSI terminal TUIs.",
+        "url": "https://dev.to/gde/generative-ui-without-the-async-tax-introducing-blocsignalsgenui-10-3gge"
       }
     ],
     "oss": [
       {
-        "title": "Şeker, Şaka ve Kod: GDGC VTU'nun En İyi Cadılar Bayramı Tüyolarını Vurgulama 🕸️💻",
-        "desc": "#GDGCVTU #HalloweenDevChallenge #TrickOrTreat Merhaba Geliştiriciler, Bu bir özet",
+        "title": "Your DEV posts have a beautiful new share card ✨",
+        "desc": "The image that shows up when you share a DEV post just got a brand-new look!  I got to work on",
+        "url": "https://dev.to/devteam/your-dev-posts-have-a-beautiful-new-share-card-4be8"
+      },
+      {
+        "title": "Trick, Treat, and Code: Highlighting GDGC VTU's Best Halloween Hacks 🕸️💻",
+        "desc": "#GDGCVTU #HalloweenDevChallenge #TrickOrTreat      Hello Developers,  That's a wrap on",
         "url": "https://dev.to/gdg/trick-treat-and-code-highlighting-gdgc-vtus-best-halloween-hacks-4hpf"
       },
       {
-        "title": "DuckLess: Google Cloud'da sunucusuz DuckDB, kendi projenizde",
-        "desc": "Kendi projenizde Google Cloud'da sunucusuz DuckDB. GCS'deki dosyalar, BigQuery'deki tablolar (okuma ve yazma), ölçtüklerim ve öğrendiklerim.",
+        "title": "DuckLess: serverless DuckDB on Google Cloud, in your own project",
+        "desc": "Serverless DuckDB on Google Cloud, in your own project. Files on GCS, tables in BigQuery (read and write), what I measured, and what I learned.",
         "url": "https://dev.to/gde/duckless-serverless-duckdb-on-google-cloud-in-your-own-project-4o5a"
       }
     ],
     "web": [
       {
-        "title": "🌑 Mavi Ekim",
-        "desc": "TLDR: Buraya nasıl geldiğimin kısa bir özeti.             Zihniyet Son 3 yıldır",
-        "url": "https://dev.to/annavi11arrea1/blue-october-1jia"
+        "title": "Modern Tarayıcılarda Görünüm Geçişleri Standardı Oturuyor",
+        "desc": "Bileşenler arası animasyonlar tek satır CSS ile mümkün kılınıyor.",
+        "url": "https://dev.to"
       },
       {
         "title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi",
@@ -78,53 +83,46 @@
   },
   "puzzle": [
     [
-      "VECTOR",
+      "TENSOR",
       0,
       0,
       "a",
-      "Gömme (embedding) uzayındaki yönlü sayı dizisi"
+      "Çok boyutlu veri matrisi"
     ],
     [
-      "VIRTUAL",
+      "THREAD",
       0,
       0,
       "d",
-      "Fiziksel olmayan, sanal ortam"
+      "İşlemcinin eşzamanlı çalıştırdığı en küçük iş parçacığı"
     ],
     [
-      "ROUTER",
+      "SOCKET",
+      2,
+      0,
+      "a",
+      "Ağ bağlantı uç noktası"
+    ],
+    [
+      "REST",
       0,
       5,
       "d",
-      "Ağ paketlerini yönlendiren donanım/yazılım"
+      "Web servis mimari standardı"
     ],
     [
-      "REACT",
-      2,
-      0,
-      "a",
-      "Popüler bir JavaScript arayüz kütüphanesi"
-    ],
-    [
-      "ARRAY",
-      4,
-      2,
-      "a",
-      "Aynı türden elemanları tutan dizi yapısı"
-    ],
-    [
-      "KERNEL",
+      "SCHEMA",
+      5,
       1,
-      6,
-      "d",
-      "İşletim sisteminin donanımı yöneten çekirdeği"
+      "a",
+      "Veritabanı yapı ve kural tanımı"
     ],
     [
-      "LINUX",
-      6,
-      2,
-      "a",
-      "Açık kaynaklı işletim sistemi ailesi"
+      "CACHE",
+      4,
+      4,
+      "d",
+      "Hızlı erişim için kullanılan önbellek"
     ]
   ]
 }

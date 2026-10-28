@@ -1,0 +1,128 @@
+{
+  "issue": 8,
+  "date": "28 Ekim 2026, Çarşamba",
+  "date_key": "2026-10-28",
+  "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
+  "lead": {
+    "title": "Inference on Google Cloud: Precision, Memory and Capacity on TPU, from v5e to Ironwood",
+    "deck": "The companion to the talk: what the number format, memory bandwidth, slice shape and capacity rules do to Gemma 4 on Cloud TPU v5e and v6e, against the L4, Blackwell, MI300X and Inferentia, with the cost of each.",
+    "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
+  },
+  "editorial": {
+    "title": "Ajanlar Çağında Kodu Okumak Yazmaktan Değerli",
+    "body": "Kod üretmek ucuzlarken doğru kodu ayırt etmek pahalılaşıyor. Gelecekte iyi mühendis, en çok satır yazan değil, sistemin tasarım amacını ve güvenlik sınırlarını doğru okuyan kişi olacak."
+  },
+  "fact": {
+    "title": "Zero-Shot Inference",
+    "body": "Modelin belirli bir görevi daha önce hiç örnek görmeden sadece bağlam talimatıyla tamamlayabilme yeteneğidir."
+  },
+  "news": {
+    "ai": [
+      {
+        "title": "Inference on Google Cloud: Precision, Memory and Capacity on TPU, from v5e to Ironwood",
+        "desc": "The companion to the talk: what the number format, memory bandwidth, slice shape and capacity rules do to Gemma 4 on Cloud TPU v5e and v6e, against the L4, Blackwell, MI300X and Inferentia, with the cost of each.",
+        "url": "https://dev.to/gde/inference-on-google-cloud-precision-memory-and-capacity-on-tpu-from-v5e-to-ironwood-5dlf"
+      },
+      {
+        "title": "Don't Be a Proxy Between Me and Your AI",
+        "desc": "I've had this conversation more times than I'd like to admit.  I raise a technical question in a",
+        "url": "https://dev.to/adamthedeveloper/dont-be-a-proxy-between-me-and-your-ai-mcn"
+      },
+      {
+        "title": "Automated incident triage on GKE with Gemini 4 Argon and Model Context Protocol: Correlating cluster events and VPA logs",
+        "desc": "Automate root-cause incident triage on GKE by combining Gemini 4 Argon multi-step reasoning with the GKE Model Context Protocol server.",
+        "url": "https://dev.to/googlecloud/automated-incident-triage-on-gke-with-gemini-4-argon-and-model-context-protocol-correlating-24eb"
+      },
+      {
+        "title": "Generative UI Without the Async Tax: Introducing bloc_signals_genui 1.0",
+        "desc": "Why we built a pure-Dart, 0ms synchronous Generative UI state machine on top of Google's official A2UI protocol—supporting two-way reactive forms, Riverpod/BLoC interop, Flutter Material 3, and ANSI terminal TUIs.",
+        "url": "https://dev.to/gde/generative-ui-without-the-async-tax-introducing-blocsignalsgenui-10-3gge"
+      }
+    ],
+    "oss": [
+      {
+        "title": "Your DEV posts have a beautiful new share card ✨",
+        "desc": "The image that shows up when you share a DEV post just got a brand-new look!  I got to work on",
+        "url": "https://dev.to/devteam/your-dev-posts-have-a-beautiful-new-share-card-4be8"
+      },
+      {
+        "title": "Trick, Treat, and Code: Highlighting GDGC VTU's Best Halloween Hacks 🕸️💻",
+        "desc": "#GDGCVTU #HalloweenDevChallenge #TrickOrTreat      Hello Developers,  That's a wrap on",
+        "url": "https://dev.to/gdg/trick-treat-and-code-highlighting-gdgc-vtus-best-halloween-hacks-4hpf"
+      },
+      {
+        "title": "DuckLess: serverless DuckDB on Google Cloud, in your own project",
+        "desc": "Serverless DuckDB on Google Cloud, in your own project. Files on GCS, tables in BigQuery (read and write), what I measured, and what I learned.",
+        "url": "https://dev.to/gde/duckless-serverless-duckdb-on-google-cloud-in-your-own-project-4o5a"
+      }
+    ],
+    "web": [
+      {
+        "title": "Modern Tarayıcılarda Görünüm Geçişleri Standardı Oturuyor",
+        "desc": "Bileşenler arası animasyonlar tek satır CSS ile mümkün kılınıyor.",
+        "url": "https://dev.to"
+      },
+      {
+        "title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi",
+        "desc": "Tarayıcı içi istemci tarafı grafik ve hesaplama kapasitesi arttı.",
+        "url": "https://dev.to"
+      }
+    ],
+    "sec": [
+      {
+        "title": "Kritik Paket Yöneticilerinde Sahte Paket Engelleme Mekanizması",
+        "desc": "Benzer isimli zararlı paket dağıtımlarına karşı otomatik doğrulama geldi.",
+        "url": "https://dev.to"
+      },
+      {
+        "title": "Passkey Desteği Global Web Sitelerinde Yaygınlaşıyor",
+        "desc": "Geleneksel parolaların yerini kriptografik anahtar çiftleri alıyor.",
+        "url": "https://dev.to"
+      }
+    ]
+  },
+  "puzzle": [
+    [
+      "TENSOR",
+      0,
+      0,
+      "a",
+      "Çok boyutlu veri matrisi"
+    ],
+    [
+      "THREAD",
+      0,
+      0,
+      "d",
+      "İşlemcinin eşzamanlı çalıştırdığı en küçük iş parçacığı"
+    ],
+    [
+      "SOCKET",
+      2,
+      0,
+      "a",
+      "Ağ bağlantı uç noktası"
+    ],
+    [
+      "REST",
+      0,
+      5,
+      "d",
+      "Web servis mimari standardı"
+    ],
+    [
+      "SCHEMA",
+      5,
+      1,
+      "a",
+      "Veritabanı yapı ve kural tanımı"
+    ],
+    [
+      "CACHE",
+      4,
+      4,
+      "d",
+      "Hızlı erişim için kullanılan önbellek"
+    ]
+  ]
+}
