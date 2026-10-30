@@ -1,11 +1,11 @@
 {
-  "issue": 9,
-  "date": "29 Ekim 2026, Perşembe",
-  "date_key": "2026-10-29",
+  "issue": 10,
+  "date": "30 Ekim 2026, Cuma",
+  "date_key": "2026-10-30",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "Your Laptop Might Replace Most of Your AI Bill",
-    "deck": "I've never run an AI model on my own machine, and I assumed the cloud was the best way to get good",
+    "title": "Prompt Pad'e hoş geldiniz: Rosendo Pili ile AI İpuçları ve Püf Noktaları",
+    "deck": "AI'e ayak uydurmak tam zamanlı bir iştir. Prompt Pad, biraz ilerlemenize yardımcı olmak için burada",
     "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
   },
   "editorial": {
@@ -19,47 +19,47 @@
   "news": {
     "ai": [
       {
-        "title": "Your Laptop Might Replace Most of Your AI Bill",
-        "desc": "I've never run an AI model on my own machine, and I assumed the cloud was the best way to get good",
+        "title": "Prompt Pad'e hoş geldiniz: Rosendo Pili ile AI İpuçları ve Püf Noktaları",
+        "desc": "AI'e ayak uydurmak tam zamanlı bir iştir. Prompt Pad, biraz ilerlemenize yardımcı olmak için burada",
+        "url": "https://blog.mlh.com/welcome-to-the-prompt-pad-ai-tips-tricks-with-rosendo-pili-2hkl"
+      },
+      {
+        "title": "Dizüstü Bilgisayarınız AI Faturanızın Çoğunun Yerini Alabilir",
+        "desc": "Hiçbir zaman AI modelini kendi makinemde çalıştırmadım ve bulutun iyileşmenin en iyi yolu olduğunu varsaydım",
         "url": "https://dev.to/auth0/your-laptop-might-replace-most-of-your-ai-bill-4o1f"
       },
       {
-        "title": "Inference on Google Cloud: Precision, Memory and Capacity on TPU, from v5e to Ironwood",
-        "desc": "The companion to the talk: what the number format, memory bandwidth, slice shape and capacity rules do to Gemma 4 on Cloud TPU v5e and v6e, against the L4, Blackwell, MI300X and Inferentia, with the cost of each.",
+        "title": "Gemini 4 Carbon, AA Endeksi'nde 1 Numara - Hala Sadece Fairwind: Siber Banklar, 2$/10$4/20$ ve API'ten Önce Ne Yapmalı?",
+        "desc": "Google DeepMind'ın Gemini 4 Carbon'u (28 Ekim), AA Index v5.0'ın 59. sırada ve SOTA siber sıralamasında 1. sırada yer aldığını iddia ediyor - hâlâ Fairwind/siber savunucuları ilk sırada, genel model kimliği yok. Giriş 2 $/10 $ → 4 $/20 $, %95 cache indirimi, API'ten önce inşaatçı kontrol listesi.",
+        "url": "https://dev.to/yong_yu_f98e15562e9b120a0/gemini-4-carbon-is-1-on-aa-index-still-fairwind-only-cyber-benches-210-420-and-what-to-b66"
+      },
+      {
+        "title": "Google Cloud'da Çıkarım: v5e'den Ironwood'a kadar TPU'da Hassasiyet, Bellek ve Kapasite",
+        "desc": "Konuşmaya eşlik eden: sayı formatı, bellek bant genişliği, dilim şekli ve kapasite kurallarının Cloud TPU v5e ve v6e üzerinde L4, Blackwell, MI300X ve Inferentia'ya karşı Gemma 4'e her birinin maliyetiyle birlikte ne yaptığı.",
         "url": "https://dev.to/gde/inference-on-google-cloud-precision-memory-and-capacity-on-tpu-from-v5e-to-ironwood-5dlf"
-      },
-      {
-        "title": "Human-in-the-Loop Agents in Pure Dart: Genkit, MCP and an Approval Gate on Cloud Run",
-        "desc": "1. The problem: an agent that can spend money   Most agent demos stop at \"the model called a",
-        "url": "https://dev.to/gde/human-in-the-loop-agents-in-pure-dart-genkit-mcp-and-an-approval-gate-on-cloud-run-4gmc"
-      },
-      {
-        "title": "Don't Be a Proxy Between Me and Your AI",
-        "desc": "I've had this conversation more times than I'd like to admit.  I raise a technical question in a",
-        "url": "https://dev.to/adamthedeveloper/dont-be-a-proxy-between-me-and-your-ai-mcn"
       }
     ],
     "oss": [
       {
-        "title": "Your DEV posts have a beautiful new share card ✨",
-        "desc": "The image that shows up when you share a DEV post just got a brand-new look!  I got to work on",
+        "title": "DEV gönderilerinizde yeni ve güzel bir paylaşım kartı var ✨",
+        "desc": "Bir DEV gönderisini paylaştığınızda görünen resim yepyeni bir görünüme kavuştu!  Çalışmam lazım",
         "url": "https://dev.to/devteam/your-dev-posts-have-a-beautiful-new-share-card-4be8"
       },
       {
-        "title": "I approved the order. Then my Genkit Dart agent forgot its own tool.",
-        "desc": "My agent asked me \"can I order this part?\". I said yes. And the answer came back as a",
-        "url": "https://dev.to/gde/i-approved-the-order-then-my-genkit-dart-agent-forgot-its-own-tool-3mjp"
+        "title": "DuckLess: Google Cloud'da sunucusuz DuckDB, kendi projenizde",
+        "desc": "Kendi projenizde Google Cloud'da sunucusuz DuckDB. GCS'deki dosyalar, BigQuery'deki tablolar (okuma ve yazma), ölçtüklerim ve öğrendiklerim.",
+        "url": "https://dev.to/gde/duckless-serverless-duckdb-on-google-cloud-in-your-own-project-4o5a"
       },
       {
-        "title": "DuckLess: serverless DuckDB on Google Cloud, in your own project",
-        "desc": "Serverless DuckDB on Google Cloud, in your own project. Files on GCS, tables in BigQuery (read and write), what I measured, and what I learned.",
-        "url": "https://dev.to/gde/duckless-serverless-duckdb-on-google-cloud-in-your-own-project-4o5a"
+        "title": "Siparişi onayladım. Sonra Genkit Dart ajanım kendi aletini unuttu.",
+        "desc": "Temsilcim bana \"Bu parçayı sipariş edebilir miyim?\" diye sordu. Evet dedim. Ve cevap şöyle geldi",
+        "url": "https://dev.to/gde/i-approved-the-order-then-my-genkit-dart-agent-forgot-its-own-tool-3mjp"
       }
     ],
     "web": [
       {
-        "title": "Shipping Flutter Web to Firebase When Your GitHub Actions Budget Hits Zero",
-        "desc": "On October 18, right in the middle of shipping a multi-feature audit and a supplement tracker",
+        "title": "GitHub Eylem Bütçeniz Sıfıra Ulaştığında Flutter Web'i Firebase'e Göndermek",
+        "desc": "18 Ekim'de, çok özellikli bir denetim ve ek izleyicinin gönderiminin tam ortasında",
         "url": "https://dev.to/gde/shipping-flutter-web-to-firebase-when-your-github-actions-budget-hits-zero-2mi5"
       },
       {
@@ -83,46 +83,46 @@
   },
   "puzzle": [
     [
-      "FLASK",
+      "DOCKER",
       0,
       0,
       "a",
-      "Hafif ve modüler Python web çerçevesi"
+      "Konteynerleştirme teknolojisi"
     ],
     [
-      "FRAME",
+      "DEPLOY",
       0,
       0,
       "d",
-      "Ağ veya grafik paketindeki tekil çerçeve"
+      "Uygulamayı sunucuya canlıya alma süreci"
     ],
     [
-      "ASYNC",
+      "COMMIT",
       2,
       0,
       "a",
-      "Bloklamayan eşzamansız kod yürütme biçimi"
+      "Git versiyon kontrolünde anlık kod kaydı"
     ],
     [
-      "STACK",
+      "BRANCH",
       0,
-      3,
+      4,
       "d",
-      "Son giren ilk çıkar (LIFO) veri yapısı"
+      "Kod tabanında bağımsız geliştirme dalı"
     ],
     [
-      "QUEUE",
+      "CIPHER",
       4,
       1,
       "a",
-      "İlk giren ilk çıkar (FIFO) kuyruk yapısı"
+      "Kriptografik şifreleme algoritması"
     ],
     [
-      "EVENT",
-      2,
-      4,
+      "PATCH",
+      3,
+      5,
       "d",
-      "Arayüzde gerçekleşen kullanıcı veya sistem olayı"
+      "Yazılım hatasını kapatan küçük güncelleme"
     ]
   ]
 }
