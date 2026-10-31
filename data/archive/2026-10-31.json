@@ -1,0 +1,128 @@
+{
+  "issue": 11,
+  "date": "31 Ekim 2026, Cumartesi",
+  "date_key": "2026-10-31",
+  "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
+  "lead": {
+    "title": "AI'e Acı Vermek: Sentetik Yaraların Mimarisi ve Hızlı Pişmanlık Madenci",
+    "deck": "AI kodlama hayal kırıklığının neden %90'ı Kota ve Prompt Uyumluluk Ölüm Döngüsünden kaynaklanıyor, Rich Sutton'ın Acı Dersi açık dünya yazılımında neden başarısız oluyor ve uçuş ortasında çarpışmaları 4-Vektörlü Sentetik Yaralar ve Altı Sütunlu Eleştirmen olarak nasıl derliyoruz.",
+    "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
+  },
+  "editorial": {
+    "title": "Ajanlar Çağında Kodu Okumak Yazmaktan Değerli",
+    "body": "Kod üretmek ucuzlarken doğru kodu ayırt etmek pahalılaşıyor. Gelecekte iyi mühendis, en çok satır yazan değil, sistemin tasarım amacını ve güvenlik sınırlarını doğru okuyan kişi olacak."
+  },
+  "fact": {
+    "title": "Zero-Shot Inference",
+    "body": "Modelin belirli bir görevi daha önce hiç örnek görmeden sadece bağlam talimatıyla tamamlayabilme yeteneğidir."
+  },
+  "news": {
+    "ai": [
+      {
+        "title": "AI'e Acı Vermek: Sentetik Yaraların Mimarisi ve Hızlı Pişmanlık Madenci",
+        "desc": "AI kodlama hayal kırıklığının neden %90'ı Kota ve Prompt Uyumluluk Ölüm Döngüsünden kaynaklanıyor, Rich Sutton'ın Acı Dersi açık dünya yazılımında neden başarısız oluyor ve uçuş ortasında çarpışmaları 4-Vektörlü Sentetik Yaralar ve Altı Sütunlu Eleştirmen olarak nasıl derliyoruz.",
+        "url": "https://dev.to/gde/giving-ai-pain-the-architecture-of-synthetic-scars-the-rapid-regret-miner-1740"
+      },
+      {
+        "title": "Gemini 4 Argon'u kullanarak üretim tarzı bir Otonom SRE Komuta Merkezi oluşturun",
+        "desc": "Bir üretim Kubernetes kümesi 5xx hataları atmaya başladığında, olayın en zor kısmı",
+        "url": "https://dev.to/gde/build-a-production-style-autonomous-sre-command-center-using-gemini-4-argon-759"
+      },
+      {
+        "title": "Prompt Pad'e hoş geldiniz: Rosendo Pili ile AI İpuçları ve Püf Noktaları",
+        "desc": "AI'e ayak uydurmak tam zamanlı bir iştir. Prompt Pad, biraz ilerlemenize yardımcı olmak için burada",
+        "url": "https://blog.mlh.com/welcome-to-the-prompt-pad-ai-tips-tricks-with-rosendo-pili-2hkl"
+      },
+      {
+        "title": "Gemini 4 Carbon, AA Endeksi'nde 1 Numara — Hala Fairwind'e Özel: Siber Banklar, 2$/10$4/20$ ve API'ten Önce Ne Yapmalı?",
+        "desc": "Google DeepMind'ın Gemini 4 Carbon'u (28 Ekim), AA Index v5.0'ın 59. sırada ve SOTA siber sıralamasında 1. sırada yer aldığını iddia ediyor - hâlâ Fairwind/siber savunucuları ilk sırada, genel model kimliği yok. Giriş 2 $/10 $ → 4 $/20 $, %95 cache indirimi, API'ten önce inşaatçı kontrol listesi.",
+        "url": "https://dev.to/yong_yu_f98e15562e9b120a0/gemini-4-carbon-is-1-on-aa-index-still-fairwind-only-cyber-benches-210-420-and-what-to-b66"
+      }
+    ],
+    "oss": [
+      {
+        "title": "DEV gönderilerinizde yeni ve güzel bir paylaşım kartı var ✨",
+        "desc": "Bir DEV gönderisini paylaştığınızda görünen resim yepyeni bir görünüme kavuştu!  Çalışmam lazım",
+        "url": "https://dev.to/devteam/your-dev-posts-have-a-beautiful-new-share-card-4be8"
+      },
+      {
+        "title": "DuckLess: Google Cloud'da sunucusuz DuckDB, kendi projenizde",
+        "desc": "Kendi projenizde Google Cloud'da sunucusuz DuckDB. GCS'deki dosyalar, BigQuery'deki tablolar (okuma ve yazma), ölçtüklerim ve öğrendiklerim.",
+        "url": "https://dev.to/gde/duckless-serverless-duckdb-on-google-cloud-in-your-own-project-4o5a"
+      },
+      {
+        "title": "Siparişi onayladım. Sonra Genkit Dart ajanım kendi aletini unuttu.",
+        "desc": "Temsilcim bana \"Bu parçayı sipariş edebilir miyim?\" diye sordu. Evet dedim. Ve cevap şöyle geldi",
+        "url": "https://dev.to/gde/i-approved-the-order-then-my-genkit-dart-agent-forgot-its-own-tool-3mjp"
+      }
+    ],
+    "web": [
+      {
+        "title": "GitHub Eylem Bütçeniz Sıfıra Ulaştığında Flutter Web'i Firebase'e Göndermek",
+        "desc": "18 Ekim'de, çok özellikli bir denetim ve ek izleyicinin gönderiminin tam ortasında",
+        "url": "https://dev.to/gde/shipping-flutter-web-to-firebase-when-your-github-actions-budget-hits-zero-2mi5"
+      },
+      {
+        "title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi",
+        "desc": "Tarayıcı içi istemci tarafı grafik ve hesaplama kapasitesi arttı.",
+        "url": "https://dev.to"
+      }
+    ],
+    "sec": [
+      {
+        "title": "Sıfır Güven CI/CD: Google Cloud'da Anahtarsız Bit Paketi Dağıtımı",
+        "desc": "CI/CD işlem hatlarında statik Hizmet Hesabı (SA) anahtarlarını kullanmak, uzun süredir yaygın bir yöntem olmuştur",
+        "url": "https://dev.to/gde/zero-trust-cicd-keyless-bitbucket-deployment-on-google-cloud-1ka1"
+      },
+      {
+        "title": "Passkey Desteği Global Web Sitelerinde Yaygınlaşıyor",
+        "desc": "Geleneksel parolaların yerini kriptografik anahtar çiftleri alıyor.",
+        "url": "https://dev.to"
+      }
+    ]
+  },
+  "puzzle": [
+    [
+      "SERVER",
+      0,
+      0,
+      "a",
+      "İstemcilere veri ve hizmet sağlayan sunucu"
+    ],
+    [
+      "SCRIPT",
+      0,
+      0,
+      "d",
+      "Yorumlanan dillerde yazılan betik dosya"
+    ],
+    [
+      "VERCEL",
+      2,
+      0,
+      "a",
+      "Frontend ve sunucusuz dağıtım platformu"
+    ],
+    [
+      "ROBOTS",
+      0,
+      4,
+      "d",
+      "Arama motoru botlarını yönlendiren metin dosyası"
+    ],
+    [
+      "RECORD",
+      4,
+      2,
+      "a",
+      "Veritabanı tablosundaki tekil satır/kayıt"
+    ],
+    [
+      "INDEX",
+      1,
+      5,
+      "d",
+      "Veritabanında sorguları hızlandıran dizin"
+    ]
+  ]
+}
