@@ -1,11 +1,11 @@
 {
-  "issue": 11,
-  "date": "31 Ekim 2026, Cumartesi",
-  "date_key": "2026-10-31",
+  "issue": 12,
+  "date": "1 Kasım 2026, Pazar",
+  "date_key": "2026-11-01",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "AI'e Acı Vermek: Sentetik Yaraların Mimarisi ve Hızlı Pişmanlık Madenci",
-    "deck": "AI kodlama hayal kırıklığının neden %90'ı Kota ve Prompt Uyumluluk Ölüm Döngüsünden kaynaklanıyor, Rich Sutton'ın Acı Dersi açık dünya yazılımında neden başarısız oluyor ve uçuş ortasında çarpışmaları 4-Vektörlü Sentetik Yaralar ve Altı Sütunlu Eleştirmen olarak nasıl derliyoruz.",
+    "title": "Giving AI Pain: The Architecture of Synthetic Scars & The Rapid-Regret Miner",
+    "deck": "Why 90% of AI coding frustration comes from the Quota vs. Prompt-Compliance Death Loop, why Rich Sutton's Bitter Lesson fails in open-world software, and how we compile mid-flight collisions into 4-Vector Synthetic Scars and a Six-Pillar Critic.",
     "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
   },
   "editorial": {
@@ -19,47 +19,47 @@
   "news": {
     "ai": [
       {
-        "title": "AI'e Acı Vermek: Sentetik Yaraların Mimarisi ve Hızlı Pişmanlık Madenci",
-        "desc": "AI kodlama hayal kırıklığının neden %90'ı Kota ve Prompt Uyumluluk Ölüm Döngüsünden kaynaklanıyor, Rich Sutton'ın Acı Dersi açık dünya yazılımında neden başarısız oluyor ve uçuş ortasında çarpışmaları 4-Vektörlü Sentetik Yaralar ve Altı Sütunlu Eleştirmen olarak nasıl derliyoruz.",
+        "title": "Giving AI Pain: The Architecture of Synthetic Scars & The Rapid-Regret Miner",
+        "desc": "Why 90% of AI coding frustration comes from the Quota vs. Prompt-Compliance Death Loop, why Rich Sutton's Bitter Lesson fails in open-world software, and how we compile mid-flight collisions into 4-Vector Synthetic Scars and a Six-Pillar Critic.",
         "url": "https://dev.to/gde/giving-ai-pain-the-architecture-of-synthetic-scars-the-rapid-regret-miner-1740"
       },
       {
-        "title": "Gemini 4 Argon'u kullanarak üretim tarzı bir Otonom SRE Komuta Merkezi oluşturun",
-        "desc": "Bir üretim Kubernetes kümesi 5xx hataları atmaya başladığında, olayın en zor kısmı",
-        "url": "https://dev.to/gde/build-a-production-style-autonomous-sre-command-center-using-gemini-4-argon-759"
-      },
-      {
-        "title": "Prompt Pad'e hoş geldiniz: Rosendo Pili ile AI İpuçları ve Püf Noktaları",
-        "desc": "AI'e ayak uydurmak tam zamanlı bir iştir. Prompt Pad, biraz ilerlemenize yardımcı olmak için burada",
-        "url": "https://blog.mlh.com/welcome-to-the-prompt-pad-ai-tips-tricks-with-rosendo-pili-2hkl"
-      },
-      {
-        "title": "Gemini 4 Carbon, AA Endeksi'nde 1 Numara — Hala Fairwind'e Özel: Siber Banklar, 2$/10$4/20$ ve API'ten Önce Ne Yapmalı?",
-        "desc": "Google DeepMind'ın Gemini 4 Carbon'u (28 Ekim), AA Index v5.0'ın 59. sırada ve SOTA siber sıralamasında 1. sırada yer aldığını iddia ediyor - hâlâ Fairwind/siber savunucuları ilk sırada, genel model kimliği yok. Giriş 2 $/10 $ → 4 $/20 $, %95 cache indirimi, API'ten önce inşaatçı kontrol listesi.",
+        "title": "Gemini 4 Carbon Is #1 on AA Index — Still Fairwind-Only: Cyber Benches, $2/$10 $4/$20, and What to Do Before the API",
+        "desc": "Google DeepMind’s Gemini 4 Carbon (Oct 28) claims AA Index v5.0 #1 at 59 and SOTA cyber benches — still Fairwind/cyber-defenders first, no public model ID. Intro $2/$10 → $4/$20, 95% cache off, builder checklist before the API.",
         "url": "https://dev.to/yong_yu_f98e15562e9b120a0/gemini-4-carbon-is-1-on-aa-index-still-fairwind-only-cyber-benches-210-420-and-what-to-b66"
+      },
+      {
+        "title": "Don't Be a Proxy Between Me and Your AI",
+        "desc": "I've had this conversation more times than I'd like to admit.  I raise a technical question in a",
+        "url": "https://dev.to/adamthedeveloper/dont-be-a-proxy-between-me-and-your-ai-mcn"
+      },
+      {
+        "title": "Your Laptop Might Replace Most of Your AI Bill",
+        "desc": "I've never run an AI model on my own machine, and I assumed the cloud was the best way to get good",
+        "url": "https://dev.to/auth0/your-laptop-might-replace-most-of-your-ai-bill-4o1f"
       }
     ],
     "oss": [
       {
-        "title": "DEV gönderilerinizde yeni ve güzel bir paylaşım kartı var ✨",
-        "desc": "Bir DEV gönderisini paylaştığınızda görünen resim yepyeni bir görünüme kavuştu!  Çalışmam lazım",
+        "title": "Your DEV posts have a beautiful new share card ✨",
+        "desc": "The image that shows up when you share a DEV post just got a brand-new look!  I got to work on",
         "url": "https://dev.to/devteam/your-dev-posts-have-a-beautiful-new-share-card-4be8"
       },
       {
-        "title": "DuckLess: Google Cloud'da sunucusuz DuckDB, kendi projenizde",
-        "desc": "Kendi projenizde Google Cloud'da sunucusuz DuckDB. GCS'deki dosyalar, BigQuery'deki tablolar (okuma ve yazma), ölçtüklerim ve öğrendiklerim.",
+        "title": "DuckLess: serverless DuckDB on Google Cloud, in your own project",
+        "desc": "Serverless DuckDB on Google Cloud, in your own project. Files on GCS, tables in BigQuery (read and write), what I measured, and what I learned.",
         "url": "https://dev.to/gde/duckless-serverless-duckdb-on-google-cloud-in-your-own-project-4o5a"
       },
       {
-        "title": "Siparişi onayladım. Sonra Genkit Dart ajanım kendi aletini unuttu.",
-        "desc": "Temsilcim bana \"Bu parçayı sipariş edebilir miyim?\" diye sordu. Evet dedim. Ve cevap şöyle geldi",
+        "title": "I approved the order. Then my Genkit Dart agent forgot its own tool.",
+        "desc": "My agent asked me \"can I order this part?\". I said yes. And the answer came back as a",
         "url": "https://dev.to/gde/i-approved-the-order-then-my-genkit-dart-agent-forgot-its-own-tool-3mjp"
       }
     ],
     "web": [
       {
-        "title": "GitHub Eylem Bütçeniz Sıfıra Ulaştığında Flutter Web'i Firebase'e Göndermek",
-        "desc": "18 Ekim'de, çok özellikli bir denetim ve ek izleyicinin gönderiminin tam ortasında",
+        "title": "Shipping Flutter Web to Firebase When Your GitHub Actions Budget Hits Zero",
+        "desc": "On October 18, right in the middle of shipping a multi-feature audit and a supplement tracker",
         "url": "https://dev.to/gde/shipping-flutter-web-to-firebase-when-your-github-actions-budget-hits-zero-2mi5"
       },
       {
@@ -70,8 +70,8 @@
     ],
     "sec": [
       {
-        "title": "Sıfır Güven CI/CD: Google Cloud'da Anahtarsız Bit Paketi Dağıtımı",
-        "desc": "CI/CD işlem hatlarında statik Hizmet Hesabı (SA) anahtarlarını kullanmak, uzun süredir yaygın bir yöntem olmuştur",
+        "title": "Zero Trust CI/CD: Keyless Bitbucket Deployment on Google Cloud",
+        "desc": "Using static Service Account (SA) keys in CI/CD pipelines has long been a common method for",
         "url": "https://dev.to/gde/zero-trust-cicd-keyless-bitbucket-deployment-on-google-cloud-1ka1"
       },
       {
@@ -83,46 +83,46 @@
   },
   "puzzle": [
     [
-      "SERVER",
+      "GITHUB",
       0,
       0,
       "a",
-      "İstemcilere veri ve hizmet sağlayan sunucu"
+      "Git tabanlı bulut kod deposu platformu"
     ],
     [
-      "SCRIPT",
+      "GLOBAL",
       0,
       0,
       "d",
-      "Yorumlanan dillerde yazılan betik dosya"
+      "Tüm program kapsamından erişilebilen değişken"
     ],
     [
-      "VERCEL",
+      "IMPORT",
       2,
       0,
       "a",
-      "Frontend ve sunucusuz dağıtım platformu"
+      "Modül veya kütüphaneyi koda dahil etme ifadesi"
     ],
     [
-      "ROBOTS",
+      "BUFFER",
       0,
       4,
       "d",
-      "Arama motoru botlarını yönlendiren metin dosyası"
+      "Veri akışında geçici depolama belleği"
     ],
     [
-      "RECORD",
+      "UPDATE",
       4,
-      2,
-      "a",
-      "Veritabanı tablosundaki tekil satır/kayıt"
-    ],
-    [
-      "INDEX",
       1,
+      "a",
+      "Veritabanında kayıt yenileme SQL komutu"
+    ],
+    [
+      "STREAM",
+      2,
       5,
       "d",
-      "Veritabanında sorguları hızlandıran dizin"
+      "Parça parça kesintisiz akan veri iletimi"
     ]
   ]
 }
