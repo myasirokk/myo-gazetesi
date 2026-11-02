@@ -1,7 +1,7 @@
 {
-  "issue": 12,
-  "date": "1 Kasım 2026, Pazar",
-  "date_key": "2026-11-01",
+  "issue": 13,
+  "date": "2 Kasım 2026, Pazartesi",
+  "date_key": "2026-11-02",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
     "title": "Giving AI Pain: The Architecture of Synthetic Scars & The Rapid-Regret Miner",
@@ -34,9 +34,9 @@
         "url": "https://dev.to/adamthedeveloper/dont-be-a-proxy-between-me-and-your-ai-mcn"
       },
       {
-        "title": "Your Laptop Might Replace Most of Your AI Bill",
-        "desc": "I've never run an AI model on my own machine, and I assumed the cloud was the best way to get good",
-        "url": "https://dev.to/auth0/your-laptop-might-replace-most-of-your-ai-bill-4o1f"
+        "title": "Building ora-tui with Google Antigravity & Gemini 4 Argon: An MS-DOS Retro TUI & OpenTelemetry Exporter for Oracle RAC, DB & SAN Multipath",
+        "desc": "How I pair-programmed with Google Antigravity powered by Gemini 4 Argon to build a zero-dependency Go TUI and OpenTelemetry/Prometheus observability stack for Oracle Databases and Linux SAN storage.",
+        "url": "https://dev.to/gde/building-ora-tui-with-google-antigravity-gemini-4-argon-an-ms-dos-retro-tui-opentelemetry-4d02"
       }
     ],
     "oss": [
@@ -83,46 +83,60 @@
   },
   "puzzle": [
     [
-      "GITHUB",
+      "PROMPT",
       0,
       0,
       "a",
-      "Git tabanlı bulut kod deposu platformu"
+      "Yapay zekaya verilen komut metni"
     ],
     [
-      "GLOBAL",
+      "PYTHON",
       0,
       0,
       "d",
-      "Tüm program kapsamından erişilebilen değişken"
+      "Yapay zeka dünyasının en popüler dili"
     ],
     [
-      "IMPORT",
-      2,
+      "TOKEN",
       0,
-      "a",
-      "Modül veya kütüphaneyi koda dahil etme ifadesi"
-    ],
-    [
-      "BUFFER",
-      0,
-      4,
-      "d",
-      "Veri akışında geçici depolama belleği"
-    ],
-    [
-      "UPDATE",
-      4,
-      1,
-      "a",
-      "Veritabanında kayıt yenileme SQL komutu"
-    ],
-    [
-      "STREAM",
-      2,
       5,
       "d",
-      "Parça parça kesintisiz akan veri iletimi"
+      "Dil modelinin metni böldüğü en küçük birim"
+    ],
+    [
+      "OPTION",
+      4,
+      0,
+      "a",
+      "Seçenek, ayar (İngilizce)"
+    ],
+    [
+      "IDE",
+      4,
+      3,
+      "d",
+      "Kod yazma ortamı (kısaltma)"
+    ],
+    [
+      "EPOCH",
+      6,
+      3,
+      "a",
+      "Eğitimde veri setinin bir tam geçişi"
+    ],
+    [
+      "HASH",
+      6,
+      7,
+      "d",
+      "Veriden çıkarılan sabit uzunluklu özet"
+    ],
+    [
+      "HTTP",
+      9,
+      7,
+      "a",
+      "Web'in temel iletişim protokolü"
     ]
   ]
 }
