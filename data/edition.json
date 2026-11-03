@@ -1,11 +1,11 @@
 {
-  "issue": 13,
-  "date": "2 Kasım 2026, Pazartesi",
-  "date_key": "2026-11-02",
+  "issue": 14,
+  "date": "3 Kasım 2026, Salı",
+  "date_key": "2026-11-03",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "Giving AI Pain: The Architecture of Synthetic Scars & The Rapid-Regret Miner",
-    "deck": "Why 90% of AI coding frustration comes from the Quota vs. Prompt-Compliance Death Loop, why Rich Sutton's Bitter Lesson fails in open-world software, and how we compile mid-flight collisions into 4-Vector Synthetic Scars and a Six-Pillar Critic.",
+    "title": "Prompt Pad: Frame Your Persona for Better AI Answers",
+    "deck": "Want better answers from AI? Start by telling it who to be.  In this episode of Prompt Pad,",
     "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
   },
   "editorial": {
@@ -19,24 +19,24 @@
   "news": {
     "ai": [
       {
-        "title": "Giving AI Pain: The Architecture of Synthetic Scars & The Rapid-Regret Miner",
-        "desc": "Why 90% of AI coding frustration comes from the Quota vs. Prompt-Compliance Death Loop, why Rich Sutton's Bitter Lesson fails in open-world software, and how we compile mid-flight collisions into 4-Vector Synthetic Scars and a Six-Pillar Critic.",
-        "url": "https://dev.to/gde/giving-ai-pain-the-architecture-of-synthetic-scars-the-rapid-regret-miner-1740"
+        "title": "Prompt Pad: Frame Your Persona for Better AI Answers",
+        "desc": "Want better answers from AI? Start by telling it who to be.  In this episode of Prompt Pad,",
+        "url": "https://blog.mlh.com/prompt-pad-frame-your-persona-for-better-ai-answers-eg3"
       },
       {
-        "title": "Gemini 4 Carbon Is #1 on AA Index — Still Fairwind-Only: Cyber Benches, $2/$10 $4/$20, and What to Do Before the API",
-        "desc": "Google DeepMind’s Gemini 4 Carbon (Oct 28) claims AA Index v5.0 #1 at 59 and SOTA cyber benches — still Fairwind/cyber-defenders first, no public model ID. Intro $2/$10 → $4/$20, 95% cache off, builder checklist before the API.",
-        "url": "https://dev.to/yong_yu_f98e15562e9b120a0/gemini-4-carbon-is-1-on-aa-index-still-fairwind-only-cyber-benches-210-420-and-what-to-b66"
+        "title": "[Agent Platform in Action (7)] When ADK Go Graph Workflow Meets Google Research Harness (Part 1): Two-Layer Recursive Agent Fram",
+        "desc": "Foreword: After the AI Agent Goes Online, What is the Next Bottleneck?   Welcome back to",
+        "url": "https://dev.to/gde/agent-platform-in-action-7-when-adk-go-graph-workflow-meets-google-research-harness-part-1-28c1"
       },
       {
-        "title": "Don't Be a Proxy Between Me and Your AI",
-        "desc": "I've had this conversation more times than I'd like to admit.  I raise a technical question in a",
-        "url": "https://dev.to/adamthedeveloper/dont-be-a-proxy-between-me-and-your-ai-mcn"
+        "title": "Profile Sprawl: Solving a Problem You Didn't Know You Had",
+        "desc": "Every public profile you own says something slightly different about you. A step by step guide to treating your bio as source code, with one file, one tracker and an agent skill that checks the live sites.",
+        "url": "https://dev.to/gde/profile-sprawl-solving-a-problem-you-didnt-know-you-had-19k5"
       },
       {
-        "title": "Building ora-tui with Google Antigravity & Gemini 4 Argon: An MS-DOS Retro TUI & OpenTelemetry Exporter for Oracle RAC, DB & SAN Multipath",
-        "desc": "How I pair-programmed with Google Antigravity powered by Gemini 4 Argon to build a zero-dependency Go TUI and OpenTelemetry/Prometheus observability stack for Oracle Databases and Linux SAN storage.",
-        "url": "https://dev.to/gde/building-ora-tui-with-google-antigravity-gemini-4-argon-an-ms-dos-retro-tui-opentelemetry-4d02"
+        "title": "All That Glisters Is Softmax: Shiny-Object Interns, Airplane-Magazine Execs, and Why AI Labs Can Only Bake In Half the Scars",
+        "desc": "Why do an eager intern with a Hacker News blog post, a C-level executive stepping off an airplane with an in-flight magazine, and a trillion-parameter LLM all walk straight into the exact same production bog? And why even Google DeepMind can only bake half of our 600 scars into model weights.",
+        "url": "https://dev.to/gde/all-that-glisters-is-softmax-shiny-object-interns-airplane-magazine-execs-and-why-ai-labs-can-18af"
       }
     ],
     "oss": [
@@ -46,26 +46,26 @@
         "url": "https://dev.to/devteam/your-dev-posts-have-a-beautiful-new-share-card-4be8"
       },
       {
+        "title": "Agent Skills Drift: A Feedback Loop for Keeping One True",
+        "desc": "An agent skill goes stale in six separate ways while its checks stay green. A step by step guide to measuring that drift and closing it with a feedback loop, using one publishing skill's own audit.",
+        "url": "https://dev.to/gde/agent-skills-drift-a-feedback-loop-for-keeping-one-true-2il7"
+      },
+      {
         "title": "DuckLess: serverless DuckDB on Google Cloud, in your own project",
         "desc": "Serverless DuckDB on Google Cloud, in your own project. Files on GCS, tables in BigQuery (read and write), what I measured, and what I learned.",
         "url": "https://dev.to/gde/duckless-serverless-duckdb-on-google-cloud-in-your-own-project-4o5a"
-      },
-      {
-        "title": "I approved the order. Then my Genkit Dart agent forgot its own tool.",
-        "desc": "My agent asked me \"can I order this part?\". I said yes. And the answer came back as a",
-        "url": "https://dev.to/gde/i-approved-the-order-then-my-genkit-dart-agent-forgot-its-own-tool-3mjp"
       }
     ],
     "web": [
       {
+        "title": "Securing an Angular Firebase AI App with Email/Password Authentication (Part 1: Emulator, AuthService, and Route Guard) [GDE]",
+        "desc": "Anyone with the public URL can use my tokens to perform image analysis and text-to-speech, which can",
+        "url": "https://dev.to/gde/securing-an-angular-firebase-ai-app-with-emailpassword-authentication-part-1-emulator-4jm"
+      },
+      {
         "title": "Shipping Flutter Web to Firebase When Your GitHub Actions Budget Hits Zero",
         "desc": "On October 18, right in the middle of shipping a multi-feature audit and a supplement tracker",
         "url": "https://dev.to/gde/shipping-flutter-web-to-firebase-when-your-github-actions-budget-hits-zero-2mi5"
-      },
-      {
-        "title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi",
-        "desc": "Tarayıcı içi istemci tarafı grafik ve hesaplama kapasitesi arttı.",
-        "url": "https://dev.to"
       }
     ],
     "sec": [
@@ -83,60 +83,53 @@
   },
   "puzzle": [
     [
-      "PROMPT",
+      "VECTOR",
       0,
       0,
       "a",
-      "Yapay zekaya verilen komut metni"
+      "Gömme (embedding) uzayındaki yönlü sayı dizisi"
     ],
     [
-      "PYTHON",
+      "VIRTUAL",
       0,
       0,
       "d",
-      "Yapay zeka dünyasının en popüler dili"
+      "Fiziksel olmayan, sanal ortam"
     ],
     [
-      "TOKEN",
+      "ROUTER",
       0,
       5,
       "d",
-      "Dil modelinin metni böldüğü en küçük birim"
+      "Ağ paketlerini yönlendiren donanım/yazılım"
     ],
     [
-      "OPTION",
-      4,
+      "REACT",
+      2,
       0,
       "a",
-      "Seçenek, ayar (İngilizce)"
+      "Popüler bir JavaScript arayüz kütüphanesi"
     ],
     [
-      "IDE",
+      "ARRAY",
       4,
-      3,
-      "d",
-      "Kod yazma ortamı (kısaltma)"
-    ],
-    [
-      "EPOCH",
-      6,
-      3,
+      2,
       "a",
-      "Eğitimde veri setinin bir tam geçişi"
+      "Aynı türden elemanları tutan dizi yapısı"
     ],
     [
-      "HASH",
+      "KERNEL",
+      1,
       6,
-      7,
       "d",
-      "Veriden çıkarılan sabit uzunluklu özet"
+      "İşletim sisteminin donanımı yöneten çekirdeği"
     ],
     [
-      "HTTP",
-      9,
-      7,
+      "LINUX",
+      6,
+      2,
       "a",
-      "Web'in temel iletişim protokolü"
+      "Açık kaynaklı işletim sistemi ailesi"
     ]
   ]
 }
