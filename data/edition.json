@@ -1,7 +1,7 @@
 {
-  "issue": 14,
-  "date": "3 Kasım 2026, Salı",
-  "date_key": "2026-11-03",
+  "issue": 15,
+  "date": "4 Kasım 2026, Çarşamba",
+  "date_key": "2026-11-04",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
     "title": "Prompt Pad: Frame Your Persona for Better AI Answers",
@@ -24,6 +24,11 @@
         "url": "https://blog.mlh.com/prompt-pad-frame-your-persona-for-better-ai-answers-eg3"
       },
       {
+        "title": "Prompt Pad: Lock Your AI's Output Schema in Google AI Studio",
+        "desc": "If you've ever tried to parse an LLM response in code, you know the pain: the format changes slightly",
+        "url": "https://blog.mlh.com/prompt-pad-lock-your-ais-output-schema-in-google-ai-studio-53io"
+      },
+      {
         "title": "[Agent Platform in Action (7)] When ADK Go Graph Workflow Meets Google Research Harness (Part 1): Two-Layer Recursive Agent Fram",
         "desc": "Foreword: After the AI Agent Goes Online, What is the Next Bottleneck?   Welcome back to",
         "url": "https://dev.to/gde/agent-platform-in-action-7-when-adk-go-graph-workflow-meets-google-research-harness-part-1-28c1"
@@ -32,11 +37,6 @@
         "title": "Profile Sprawl: Solving a Problem You Didn't Know You Had",
         "desc": "Every public profile you own says something slightly different about you. A step by step guide to treating your bio as source code, with one file, one tracker and an agent skill that checks the live sites.",
         "url": "https://dev.to/gde/profile-sprawl-solving-a-problem-you-didnt-know-you-had-19k5"
-      },
-      {
-        "title": "All That Glisters Is Softmax: Shiny-Object Interns, Airplane-Magazine Execs, and Why AI Labs Can Only Bake In Half the Scars",
-        "desc": "Why do an eager intern with a Hacker News blog post, a C-level executive stepping off an airplane with an in-flight magazine, and a trillion-parameter LLM all walk straight into the exact same production bog? And why even Google DeepMind can only bake half of our 600 scars into model weights.",
-        "url": "https://dev.to/gde/all-that-glisters-is-softmax-shiny-object-interns-airplane-magazine-execs-and-why-ai-labs-can-18af"
       }
     ],
     "oss": [
@@ -83,53 +83,46 @@
   },
   "puzzle": [
     [
-      "VECTOR",
+      "TENSOR",
       0,
       0,
       "a",
-      "Gömme (embedding) uzayındaki yönlü sayı dizisi"
+      "Çok boyutlu veri matrisi"
     ],
     [
-      "VIRTUAL",
+      "THREAD",
       0,
       0,
       "d",
-      "Fiziksel olmayan, sanal ortam"
+      "İşlemcinin eşzamanlı çalıştırdığı en küçük iş parçacığı"
     ],
     [
-      "ROUTER",
+      "SOCKET",
+      2,
+      0,
+      "a",
+      "Ağ bağlantı uç noktası"
+    ],
+    [
+      "REST",
       0,
       5,
       "d",
-      "Ağ paketlerini yönlendiren donanım/yazılım"
+      "Web servis mimari standardı"
     ],
     [
-      "REACT",
-      2,
-      0,
-      "a",
-      "Popüler bir JavaScript arayüz kütüphanesi"
-    ],
-    [
-      "ARRAY",
-      4,
-      2,
-      "a",
-      "Aynı türden elemanları tutan dizi yapısı"
-    ],
-    [
-      "KERNEL",
+      "SCHEMA",
+      5,
       1,
-      6,
-      "d",
-      "İşletim sisteminin donanımı yöneten çekirdeği"
+      "a",
+      "Veritabanı yapı ve kural tanımı"
     ],
     [
-      "LINUX",
-      6,
-      2,
-      "a",
-      "Açık kaynaklı işletim sistemi ailesi"
+      "CACHE",
+      4,
+      4,
+      "d",
+      "Hızlı erişim için kullanılan önbellek"
     ]
   ]
 }
