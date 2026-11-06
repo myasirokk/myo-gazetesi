@@ -31,11 +31,16 @@
   </div>
   <h1>MYO GAZETESİ</h1>
   <p class="slogan">Günlük Bağımsız Teknoloji, Kodlama ve Yapay Zeka Gazetesi</p>
+  <nav class="section-nav" aria-label="Gazete bölümleri">
+    <a href="index.html" class="nav-tab active" aria-current="page">YAPAY ZEKA</a>
+    <a href="elektrik-enerji.html" class="nav-tab">ELEKTRİK &amp; ENERJİ</a>
+  </nav>
   <div class="mast-bottom">
     <span class="quote" id="quote"></span>
     <span class="edition-tools">
       <label for="archive" class="sr">Arşiv</label>
       <select id="archive"></select>
+      <button type="button" id="pdfBtn" onclick="window.print()">📰 PDF İndir</button>
     </span>
   </div>
 </header>
@@ -106,11 +111,6 @@
   <span>MYO GAZETESİ &mdash; Kurucu ve Künye: <strong>Yasir Ok</strong></span>
 </footer>
 
-<aside id="drawer" class="drawer" aria-label="Son gelişmeler" hidden>
-  <div class="drawer-head"><strong>Son Gelişmeler</strong><button type="button" id="drawerX" aria-label="Paneli kapat">&times;</button></div>
-  <ul id="drawerList"><li class="empty">Henüz bildirim yok.</li></ul>
-</aside>
-<button type="button" id="notifBtn" class="notif-btn" aria-expanded="false" aria-controls="drawer">Son Gelişmeler <span id="badge" class="badge" hidden>0</span></button>
 <script src="app.js"></script>
 </body>
 </html>

@@ -1,0 +1,127 @@
+{
+  "issue": 1,
+  "date": "6 Kasım 2026, Cuma",
+  "date_key": "2026-11-06",
+  "quote": "\"Güvenilir şebeke, ölçülen ve yönetilen şebekedir.\"",
+  "lead": {
+    "title": "Akıllı Şebekede Arıza Yeri Dakikalardan Saniyelere İniyor",
+    "deck": "SCADA, hat sensörleri ve dağıtım otomasyonu aynı veri katmanında buluşunca orta gerilim arızaları daha oluştuğu anda bölümlenebiliyor.",
+    "body": "Dağıtım şebekelerinde klasik arıza yönetimi, saha ihbarı ve ekip manevralarına dayanan uzun bir zincirdi. Yeni nesil akıllı şebeke mimarisinde ise fider çıkış ölçümleri, hat üzerindeki arıza gösterge cihazları ve SCADA olay kayıtları zaman damgalı olarak birleştiriliyor. Koruma rölelerinden gelen akım ve gerilim bilgisi, şebeke topolojisiyle eşleştirilerek arızalı bölüm otomatik biçimde daraltılıyor. Böylece operatör, kesicileri uzaktan açıp kapatarak sağlam hat kesimlerini yeniden enerjilendirebiliyor.\n\nBu yaklaşımın güvenilir çalışması yalnızca haberleşme altyapısına bağlı değil. Saha cihazlarının zaman senkronizasyonu, ölçü trafolarının doğruluk sınıfı, röle koordinasyonu ve dağıtım yönetim sistemindeki topoloji modelinin güncelliği aynı derecede kritik. Otomatik FLISR senaryoları devreye alınmadan önce kısa devre seviyeleri, yük aktarım sınırları ve gerilim düşümü her manevra için doğrulanmalı. Dijitalleşmenin gerçek kazanımı, daha fazla veri toplamak değil; güvenli işletme kararını doğrulanmış veriden daha hızlı üretebilmektir."
+  },
+  "editorial": {
+    "title": "Dağıtım Şebekesinin Dijital İkizi Sahadaki Disiplindir",
+    "body": "Bir elektrik mühendisi için dijitalleşme, panoya yeni bir ekran eklemekten ibaret değildir. SCADA'daki tek hat şeması sahadaki gerçek bağlantıyı göstermiyor, sayaç ve röle saatleri eşzamanlı çalışmıyor veya varlık kayıtları güncel tutulmuyorsa en gelişmiş analiz bile yanlış sonuca ulaşır. Dağıtım şebekesinin dijital dönüşümü; doğru ölçüm, düzenli bakım, siber güvenlik ve işletme prosedürlerinin aynı mühendislik disiplini içinde buluşmasıyla değer üretir."
+  },
+  "fact": {
+    "title": "Güç Katsayısı (cosφ)",
+    "body": "Alternatif akım sisteminde cosφ, aktif gücün görünür güce oranıdır. Aynı aktif gücü düşük güç katsayısıyla taşımak daha yüksek akım gerektirir; bu da iletkenlerdeki I²R kayıplarını ve gerilim düşümünü artırır. Endüktif yüklerde uygun kompanzasyon, şebekeden çekilen reaktif gücü azaltır."
+  },
+  "news": {
+    "grid": [
+      {
+        "title": "Fider Otomasyonu Kesinti Alanını Daraltıyor",
+        "desc": "Uzaktan kumandalı ayırıcılar ve arıza göstergeleri, orta gerilim hattındaki arızalı bölümü izole ederek sağlam kesimlerin yeniden enerjilendirilmesini hızlandırıyor.",
+        "url": "#"
+      },
+      {
+        "title": "Dağıtım Trafalarında Çevrim İçi Sıcaklık İzleme Yaygınlaşıyor",
+        "desc": "Sargı sıcaklığı, yük akımı ve ortam koşullarının birlikte izlenmesi aşırı yük riskinin bakım planına daha erken yansıtılmasını sağlıyor.",
+        "url": "#"
+      }
+    ],
+    "ren": [
+      {
+        "title": "Çatı GES Üretim Tahmini Gerilim Yönetimine Bağlanıyor",
+        "desc": "Kısa süreli ışınım tahminleri, dağıtım trafosu yükleriyle birlikte değerlendirilerek ters güç akışı ve gerilim yükselmesi riski önceden hesaplanıyor.",
+        "url": "#"
+      },
+      {
+        "title": "Rüzgâr Santrallerinde Reaktif Güç Desteği Öne Çıkıyor",
+        "desc": "Modern konvertörler, aktif üretim değişirken bağlantı noktasındaki gerilimi desteklemek için dinamik reaktif güç kontrolü uyguluyor.",
+        "url": "#"
+      }
+    ],
+    "bat": [
+      {
+        "title": "Batarya Yönetim Sistemleri Hücre Sapmasını Erken Yakalar",
+        "desc": "Gerilim, sıcaklık ve iç direnç eğilimlerinin izlenmesi dengesiz hücrelerin kapasite ve güvenlik sorunu oluşturmadan belirlenmesine yardımcı oluyor.",
+        "url": "#"
+      },
+      {
+        "title": "Şebeke Ölçekli Depolamada Yangın Bölümlendirmesi Kritik",
+        "desc": "Konteyner yerleşimi, gaz algılama, havalandırma ve termal kaçak yayılımını sınırlayan bölmeler koruma tasarımının temel parçaları arasında.",
+        "url": "#"
+      }
+    ],
+    "mkt": [
+      {
+        "title": "Esneklik Hizmetleri Dağıtım Seviyesine İniyor",
+        "desc": "Tüketim tarafı katılımı ve dağıtık üretim, yerel sıkışıklığın giderilmesi için zaman ve konum bazlı sinyallerle değerlendiriliyor.",
+        "url": "#"
+      },
+      {
+        "title": "Uzlaştırmada Çeyrek Saatlik Ölçüm Verisi Önem Kazanıyor",
+        "desc": "Daha kısa zaman çözünürlüğü, üretim ve tüketim sapmalarının piyasa maliyetlerine daha hassas biçimde yansıtılmasını sağlıyor.",
+        "url": "#"
+      }
+    ]
+  },
+  "puzzle": [
+    [
+      "TRAFO",
+      0,
+      0,
+      "a",
+      "Gerilim seviyesini elektromanyetik indüksiyonla değiştiren elektrik makinesi"
+    ],
+    [
+      "AKIM",
+      0,
+      2,
+      "d",
+      "Elektrik yükünün birim zamandaki akışı"
+    ],
+    [
+      "VOLTAJ",
+      2,
+      4,
+      "a",
+      "İki nokta arasındaki elektriksel potansiyel farkı"
+    ],
+    [
+      "SCADA",
+      0,
+      8,
+      "d",
+      "Şebekenin uzaktan izleme ve kumanda sistemi"
+    ],
+    [
+      "GÜNEŞ",
+      4,
+      0,
+      "a",
+      "Fotovoltaik üretimin birincil enerji kaynağı"
+    ],
+    [
+      "ENERJİ",
+      4,
+      3,
+      "d",
+      "İş yapabilme kapasitesi"
+    ],
+    [
+      "RÖLE",
+      7,
+      3,
+      "a",
+      "Arızayı algılayıp açma komutu üreten koruma cihazı"
+    ],
+    [
+      "BATARYA",
+      9,
+      4,
+      "a",
+      "Elektrik enerjisini elektrokimyasal olarak depolayan sistem"
+    ]
+  ]
+}
