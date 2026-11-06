@@ -25,6 +25,16 @@ body {
   line-height: 1.7;
   background-image: radial-gradient(rgba(120, 100, 60, 0.07) 1px, transparent 1px);
   background-size: 5px 5px;
+  animation: softFadeIn 0.15s ease both;
+}
+
+@keyframes softFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .sr {
@@ -163,6 +173,70 @@ button:hover {
   padding-bottom: 0.6rem;
 }
 
+/* ---------- BÖLÜM SEKMELERİ ---------- */
+.section-nav {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 0;
+  margin: -0.1rem 0 0.65rem;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  background: rgba(28, 25, 23, 0.035);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.nav-tab {
+  position: relative;
+  min-width: 12rem;
+  padding: 0.65rem 1.25rem 0.55rem;
+  color: var(--ink);
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  letter-spacing: 0.075em;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-left: 1px solid #8a8372;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-tab:last-child {
+  border-right: 1px solid #8a8372;
+}
+
+.nav-tab::after {
+  content: "";
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.25rem;
+  left: 0.8rem;
+  border-bottom: 1px dotted #8a8372;
+}
+
+.nav-tab:hover,
+.nav-tab:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.nav-tab.active {
+  background: var(--ink);
+  color: var(--paper);
+  text-shadow: 0 0 0.01px var(--paper);
+}
+
+.nav-tab.active::before {
+  content: "◆";
+  margin-right: 0.45rem;
+  color: var(--red);
+}
+
+.nav-tab.active::after,
+.nav-tab:hover::after {
+  border-color: var(--paper);
+}
+
 .mast-bottom {
   border-top: none;
   border-bottom: 4px double var(--rule);
@@ -174,6 +248,12 @@ button:hover {
   font-family: 'Merriweather', Georgia, serif;
   max-width: 60ch;
   text-align: left;
+}
+
+.edition-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
 }
 
 /* ---------- ANA SAYFA MİZANPAJI ---------- */
@@ -198,6 +278,13 @@ main {
   gap: 1.5rem;
 }
 
+main p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  text-align: left;
+  line-height: 1.65;
+}
+
 .lead {
   border-right: 1px solid var(--rule);
   padding-right: 1.5rem;
@@ -207,25 +294,32 @@ main {
   font-family: 'Playfair Display', Georgia, serif;
   font-weight: 900;
   font-size: clamp(1.9rem, 4.5vw, 3.4rem);
-  line-height: 1.1;
-  margin: 0.2rem 0 0.6rem;
+  line-height: 1.16;
+  letter-spacing: -0.012em;
+  margin: 0.2rem 0 0.75rem;
 }
 
 .deck {
   font-style: italic;
   font-size: 1.1rem;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
   color: var(--mute);
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
-  padding: 0.5rem 0;
+  padding: 0.65rem 0;
+  margin-bottom: 1.1rem;
 }
 
 .cols {
-  column-count: 2;
-  column-gap: 2rem;
-  column-rule: 1px solid #bdb6a6;
-  text-align: justify;
-  hyphens: auto;
+  column-count: 1;
+  column-gap: normal;
+  column-rule: none;
+  text-align: left;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  hyphens: none;
+  overflow-wrap: break-word;
 }
 
 .dropcap::first-letter {
@@ -258,14 +352,20 @@ main {
   color: var(--mute);
 }
 
+.column-piece {
+  border: 1px solid #1c1917;
+  padding: 1.15rem;
+  background: var(--paper2);
+}
+
 .column-piece p:last-child {
-  text-align: justify;
+  text-align: left;
   margin: 0;
 }
 
 .fact-box {
-  border: 4px double var(--ink);
-  padding: 1rem;
+  border: 1px solid #1c1917;
+  padding: 1.15rem;
   background: var(--paper2);
 }
 
@@ -278,61 +378,92 @@ main {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.8rem;
   text-align: center;
-  border-top: 4px double var(--rule);
-  border-bottom: 1px solid var(--rule);
+  border-top: 3px double #1c1917;
+  border-bottom: 1px solid #1c1917;
   padding: 0.4rem 0;
   margin: 2rem 0 1rem;
 }
 
 .news-cols {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
+  align-items: stretch;
 }
 
-.news-cols > div {
-  padding: 0 1rem;
-  border-right: 1px solid #bdb6a6;
-}
-
-.news-cols > div:last-child {
-  border-right: none;
-}
-
-.news-cols h3 {
+.news-grid-heading {
   font-family: 'Special Elite', 'Courier New', monospace;
   font-size: 0.95rem;
   border-bottom: 2px solid var(--ink);
-  margin: 0 0 0.5rem;
+  border-right: 1px solid #d4cebe;
+  margin: 0;
+  padding: 0.45rem 1rem;
+  background: rgba(251, 249, 245, 0.75);
 }
 
-.news-cols ul {
+.news-grid-heading:nth-of-type(4) {
+  border-right: none;
+}
+
+.news-grid-list {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: auto;
+  align-items: stretch;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.news-cols li {
+.news-grid-list li {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: flex-start;
   font-size: 0.9rem;
-  padding: 0.5rem 0;
+  padding: 0.85rem 1rem;
+  line-height: 1.6;
+  letter-spacing: 0.012em;
   border-bottom: 1px dotted #8a8372;
+  border-right: 1px solid #d4cebe;
+  background: rgba(251, 249, 245, 0.58);
 }
 
-.news-cols li b {
+.news-grid-list li:nth-child(4n) {
+  border-right: none;
+}
+
+.news-grid-list li b {
   display: block;
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.05rem;
-  line-height: 1.25;
+  line-height: 1.38;
+  letter-spacing: 0.008em;
+  margin-bottom: 0.4rem;
 }
 
-.news-cols time {
+.news-grid-list li span {
+  display: block;
+}
+
+.news-grid-list time {
+  display: block;
   font-family: 'Special Elite', 'Courier New', monospace;
   font-size: 0.72rem;
-  color: var(--mute);
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  color: #78716c;
+  margin-bottom: 0.35rem;
 }
 
-.news-cols li.fresh {
+.news-grid-list li.fresh {
   animation: flash 2.5s ease-out;
+}
+
+.news-grid-list .news-card-empty {
+  min-height: 100%;
+  background: rgba(251, 249, 245, 0.34);
 }
 
 @keyframes flash {
@@ -493,114 +624,6 @@ main {
   display: none !important;
 }
 
-/* ---------- SON GELİŞMELER BUTONU & AÇILIR PANEL ---------- */
-.notif-btn {
-  position: fixed;
-  right: 1.2rem;
-  bottom: 1.2rem;
-  z-index: 31;
-  background: var(--paper2);
-  color: var(--ink);
-  border: 2px solid var(--ink);
-  box-shadow: 3px 3px 0 var(--ink);
-  font-family: 'Special Elite', 'Courier New', monospace;
-  font-weight: bold;
-  padding: 0.5rem 0.9rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.notif-btn:hover {
-  background: var(--ink);
-  color: var(--paper);
-}
-
-.badge {
-  display: inline-block;
-  background: var(--red);
-  color: #ffffff;
-  border-radius: 10px;
-  padding: 0.1rem 0.45rem;
-  font-size: 0.75rem;
-  font-weight: bold;
-}
-
-.notif-btn:hover .badge {
-  background: #ffffff;
-  color: var(--ink);
-}
-
-.drawer {
-  position: fixed;
-  right: 1.2rem;
-  bottom: 4.2rem;
-  width: min(380px, calc(100vw - 2.4rem));
-  max-height: 60vh;
-  display: flex;
-  flex-direction: column;
-  background: var(--paper2);
-  border: 4px double var(--ink);
-  z-index: 32;
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.25);
-}
-
-.drawer[hidden] {
-  display: none;
-}
-
-.drawer-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.6rem 0.9rem;
-  border-bottom: 2px solid var(--ink);
-  font-family: 'Playfair Display', Georgia, serif;
-}
-
-.drawer-head button {
-  border: 0;
-  background: transparent;
-  font-size: 1.3rem;
-  padding: 0 0.4rem;
-}
-
-.drawer ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  overflow-y: auto;
-}
-
-.drawer li {
-  padding: 0.7rem 0.9rem;
-  border-bottom: 1px dotted #8a8372;
-  font-size: 0.85rem;
-  line-height: 1.5;
-}
-
-.drawer li b {
-  display: block;
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 0.98rem;
-  line-height: 1.3;
-  margin-top: 0.15rem;
-}
-
-.drawer li small {
-  font-family: 'Special Elite', 'Courier New', monospace;
-  color: var(--mute);
-}
-
-.drawer li.empty {
-  color: var(--mute);
-  font-style: italic;
-  padding: 1rem;
-  text-align: center;
-}
-
 /* ---------- ALT BİLGİ (FOOTER) ---------- */
 footer {
   text-align: center;
@@ -643,10 +666,7 @@ footer {
     padding-right: 0;
   }
   .news-cols {
-    grid-template-columns: 1fr 1fr;
-  }
-  .news-cols > div:nth-child(2) {
-    border-right: none;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   .puzzle-wrap {
     grid-template-columns: 1fr;
@@ -656,7 +676,7 @@ footer {
 /* ---------- AKILLI TELEFON / MOBİL DÜZEN (ÖZEL AYARLAR) ---------- */
 @media (max-width: 600px) {
   body {
-    padding-bottom: 70px; /* Alttaki butonun son satırları kapatmasını engeller */
+    padding-bottom: 0;
   }
 
   main {
@@ -679,6 +699,18 @@ footer {
   }
   .slogan {
     font-size: 0.85rem;
+  }
+  .section-nav {
+    flex-direction: column;
+  }
+  .nav-tab {
+    width: 100%;
+    min-width: 0;
+    border-right: 1px solid #8a8372;
+    border-bottom: 1px dotted #8a8372;
+  }
+  .nav-tab:last-child {
+    border-bottom: 0;
   }
   .mast-top {
     font-size: 0.75rem;
@@ -706,7 +738,7 @@ footer {
   }
   .deck {
     font-size: 0.95rem;
-    line-height: 1.45;
+    line-height: 1.6;
   }
   .cols {
     column-count: 1; /* Çift sütunu kaldırıp tek sütun yapıyoruz */
@@ -721,10 +753,25 @@ footer {
   .news-cols {
     grid-template-columns: 1fr;
   }
-  .news-cols > div {
+  .news-grid-heading {
+    display: none;
+  }
+  .news-grid-list {
+    grid-column: 1;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+  .news-grid-list li {
+    height: auto;
+    min-height: 0;
     border-right: none;
-    padding: 0;
-    margin-bottom: 1.2rem;
+  }
+  .news-grid-list li::before {
+    content: attr(data-category);
+    margin-bottom: 0.35rem;
+    font: 700 0.72rem 'Special Elite', 'Courier New', monospace;
+    letter-spacing: 0.04em;
+    color: var(--mute);
   }
 
   /* Bulmaca Izgarası */
@@ -737,23 +784,12 @@ footer {
     padding-top: 4px;
   }
 
-  /* Son Gelişmeler Butonu & Çekmecesi */
-  .notif-btn {
-    right: 0.8rem;
-    bottom: 0.8rem;
-    padding: 0.4rem 0.7rem;
-    font-size: 0.78rem;
-  }
-  .drawer {
-    right: 0.8rem;
-    left: 0.8rem;
-    width: auto;
-    bottom: 3.8rem;
-    max-height: 65vh;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
   .ticker-track {
     animation: none;
     padding-left: 0;
@@ -805,4 +841,283 @@ footer {
   font-size: 0.78rem;
   color: #555;
   margin-bottom: 6px;
+}
+
+/* ---------- TEMİZ A4 / GAZETE YAZDIRMA DÜZENİ ---------- */
+@media print {
+  @page {
+    size: A4;
+    margin: 7mm;
+  }
+
+  html,
+  body {
+    width: 100%;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    background: #ffffff !important;
+    color: #000000 !important;
+    animation: none !important;
+    filter: none !important;
+    transform: none !important;
+    font-size: 8.5pt;
+    line-height: 1.35;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .ticker,
+  #clock,
+  #pdfBtn,
+  #archive,
+  label[for="archive"],
+  .section-nav,
+  .backpage {
+    display: none !important;
+  }
+
+  .masthead,
+  main,
+  footer {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .masthead {
+    padding-top: 0;
+    text-align: center;
+  }
+
+  .mast-top,
+  .mast-bottom {
+    gap: 2mm;
+    padding: 1mm 0;
+    font-size: 7.5pt;
+    line-height: 1.2;
+  }
+
+  .masthead h1 {
+    margin: 1mm 0 0;
+    font-size: 30pt;
+    line-height: 1;
+  }
+
+  .slogan {
+    margin: 0 0 1.2mm;
+    padding-bottom: 1.2mm;
+    font-size: 7.5pt;
+    line-height: 1.25;
+  }
+
+  .mast-bottom {
+    justify-content: center;
+    border-bottom-width: 2px;
+  }
+
+  .quote {
+    max-width: none;
+    margin: 0;
+    text-align: center;
+    font-size: 7.2pt;
+    line-height: 1.25;
+  }
+
+  .edition-tools {
+    display: none !important;
+  }
+
+  main {
+    padding-top: 2mm;
+  }
+
+  .top-grid {
+    grid-template-columns: 1.85fr 1fr;
+    gap: 4mm;
+    align-items: start;
+  }
+
+  .lead {
+    padding-right: 4mm;
+  }
+
+  .lead h2 {
+    margin: 0 0 1.2mm;
+    font-size: 18pt;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .deck {
+    margin: 0 0 1.3mm;
+    padding: 1mm 0;
+    font-size: 9pt;
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+  }
+
+  .cols {
+    column-count: 1;
+    column-gap: normal;
+    column-rule: none;
+    margin: 0 0 1.5mm;
+    text-align: left;
+    line-height: 1.55;
+  }
+
+  .dropcap::first-letter {
+    font-size: 28pt;
+    line-height: 0.78;
+    padding: 0.8mm 1.2mm 0 0;
+  }
+
+  .side {
+    gap: 2.5mm;
+  }
+
+  .column-piece h3,
+  .fact-box h3 {
+    margin: 0 0 0.8mm;
+    font-size: 11.5pt;
+    line-height: 1.15;
+  }
+
+  .column-piece p,
+  .fact-box p,
+  .byline {
+    margin-top: 0;
+    margin-bottom: 1.2mm;
+    text-align: left;
+    line-height: 1.38;
+  }
+
+  .column-piece,
+  .fact-box {
+    padding: 2.7mm;
+    border: 1px solid #1c1917;
+    background: #ffffff !important;
+  }
+
+  .box-title {
+    margin: 0 0 0.8mm;
+    padding-bottom: 0.6mm;
+    font-size: 8pt;
+    line-height: 1.2;
+  }
+
+  .admin-box {
+    margin-top: 1.5mm;
+    padding: 2mm;
+  }
+
+  .section-title {
+    margin: 3mm 0 1.5mm;
+    padding: 1mm 0;
+    font-size: 12pt;
+    line-height: 1.15;
+    border-top: 3px double #1c1917;
+    border-bottom: 1px solid #1c1917;
+  }
+
+  .news-cols {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .news-grid-heading {
+    display: block;
+    margin: 0;
+    padding: 0 1.8mm 0.8mm;
+    font-size: 8.5pt;
+    line-height: 1.15;
+    border-bottom: 2px solid #1c1917;
+    border-right: 1px solid #d4cebe;
+    background: #ffffff !important;
+  }
+
+  .news-grid-heading:first-child {
+    padding-left: 0;
+  }
+
+  .news-grid-heading:nth-of-type(4) {
+    padding-right: 0;
+    border-right: none;
+  }
+
+  .news-grid-list {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: auto;
+    align-items: stretch;
+  }
+
+  .news-grid-list li {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1.1mm 1.8mm;
+    font-size: 7.2pt;
+    line-height: 1.35;
+    letter-spacing: 0.012em;
+    border-right: 1px solid #d4cebe;
+    border-bottom: 1px dotted #8a8372;
+    background: #ffffff !important;
+  }
+
+  .news-grid-list li:nth-child(4n) {
+    border-right: none;
+  }
+
+  .news-grid-list li b {
+    display: block;
+    margin: 0 0 0.5mm;
+    font-size: 8pt;
+    line-height: 1.25;
+    letter-spacing: 0.008em;
+  }
+
+  .news-grid-list li span {
+    display: block;
+  }
+
+  .news-grid-list time {
+    display: block;
+    margin-bottom: 0.4mm;
+    font-size: 6.2pt;
+    line-height: 1.1;
+    color: #6b6862;
+  }
+
+  .news-link {
+    margin-top: 0.5mm;
+    font-size: 6.2pt;
+    line-height: 1.15;
+    color: #000000;
+  }
+
+  .news-link[href]::after {
+    content: none;
+  }
+
+  article,
+  .fact-box,
+  .news-grid-list li,
+  footer {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  footer {
+    margin-top: 3mm;
+    padding-top: 2mm;
+    padding-bottom: 0;
+    font-size: 6.8pt;
+    line-height: 1.2;
+    border-top-width: 2px;
+  }
 }

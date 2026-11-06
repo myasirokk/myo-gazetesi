@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MYO Gazetesi: Günlük bağımsız elektrik, şebeke ve enerji teknolojileri gazetesi.">
+<title>MYO Gazetesi — Elektrik &amp; Enerji</title>
+
+<!-- PWA & İkon Bağlantıları -->
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-512.png">
+<link rel="apple-touch-icon" href="icon-512.png">
+<meta name="theme-color" content="#1c1917">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Playfair+Display:wght@700;900&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="ticker" aria-label="Canlı Radar">
+  <span class="ticker-tag">CANLI RADAR</span>
+  <div class="ticker-wrap"><div class="ticker-track" id="tickerTrack"></div></div>
+</div>
+
+<header class="masthead">
+  <div class="mast-top">
+    <span id="issueNo">Sayı: 1</span>
+    <span id="dateLine"></span>
+    <span id="clock" aria-live="off">00:00:00</span>
+  </div>
+  <h1>MYO GAZETESİ</h1>
+  <p class="slogan">Günlük Bağımsız Elektrik, Şebeke ve Enerji Teknolojileri Gazetesi</p>
+  <nav class="section-nav" aria-label="Gazete bölümleri">
+    <a href="index.html" class="nav-tab">YAPAY ZEKA</a>
+    <a href="elektrik-enerji.html" class="nav-tab active" aria-current="page">ELEKTRİK &amp; ENERJİ</a>
+  </nav>
+  <div class="mast-bottom">
+    <span class="quote" id="quote"></span>
+    <span class="edition-tools">
+      <label for="archive" class="sr">Arşiv</label>
+      <select id="archive"></select>
+      <button type="button" id="pdfBtn" onclick="window.print()">📰 PDF İndir</button>
+    </span>
+  </div>
+</header>
+
+<main>
+  <section class="top-grid">
+    <article class="lead">
+      <h2 id="leadTitle"></h2>
+      <p class="deck" id="leadDeck"></p>
+      <p class="dropcap cols" id="leadBody"></p>
+    </article>
+    <aside class="side">
+      <article class="column-piece">
+        <h3 id="edTitle"></h3>
+        <p class="byline">Elektrik Mühendisi Editör &middot; </p>
+        <p class="dropcap" id="edBody"></p>
+      </article>
+      <article class="fact-box">
+        <p class="box-title">Günün Hap Bilgisi</p>
+        <h3 id="factTitle"></h3>
+        <p id="factBody"></p>
+      </article>
+      <!-- Editör / Admin Notu Köşesi -->
+      <article id="adminBox" class="fact-box admin-box" hidden>
+        <p class="box-title admin-tag">Köşe Yazısı</p>
+        <h3 id="adminTitle">Editör Masası</h3>
+        <p id="adminAuthor" class="byline"> </p>
+        <p id="adminContent"></p>
+      </article>
+    </aside>
+  </section>
+
+  <section class="breaking">
+    <h2 class="section-title">Son Dakika Kolonu</h2>
+    <div class="news-cols">
+      <div><h3>Şebeke &amp; Dağıtım</h3><ul id="list-grid"></ul></div>
+      <div><h3>Yenilenebilir Enerji</h3><ul id="list-ren"></ul></div>
+      <div><h3>Depolama &amp; Batarya</h3><ul id="list-bat"></ul></div>
+      <div><h3>Piyasa &amp; Regülasyon</h3><ul id="list-mkt"></ul></div>
+    </div>
+  </section>
+
+  <section class="backpage">
+    <h2 class="section-title">Günün Kare Bulmacası</h2>
+    <div class="puzzle-wrap">
+      <div>
+        <div id="grid" class="grid" role="grid" aria-label="Çengel bulmaca"></div>
+        <div class="puzzle-tools">
+          <button type="button" id="checkBtn">Kontrol Et</button>
+          <button type="button" id="clearBtn">Temizle</button>
+          <span id="score" role="status"></span>
+        </div>
+        <p class="hint">Ok tuşları ile gezin, aynı kutuya tekrar tıklayarak yönü değiştirin.</p>
+      </div>
+      <div class="clues">
+        <h3>Yatay</h3><ol id="clueA"></ol>
+        <h3>Aşağı</h3><ol id="clueD"></ol>
+      </div>
+    </div>
+    <details class="answer-key">
+      <summary>Cevapları Göster</summary>
+      <div class="flip" id="answers"></div>
+    </details>
+  </section>
+</main>
+
+<footer>
+  <span>MYO GAZETESİ &mdash; Kurucu ve Künye: <strong>Yasir Ok</strong></span>
+</footer>
+
+<script src="app_enerji.js"></script>
+</body>
+</html>

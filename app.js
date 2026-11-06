@@ -1,6 +1,10 @@
 (() => {
 'use strict';
 const $ = s => document.querySelector(s);
+const setText = (selector, value) => {
+  const element = $(selector);
+  if (element) element.textContent = value ?? '';
+};
 const AY = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
 const GUN = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
 const pad = n => String(n).padStart(2, '0');
@@ -23,173 +27,229 @@ const QUOTES = [
  '"Kod bir kez yazılır, defalarca okunur."'
 ];
 
+const FALLBACK_NEWS = {
+  ai: [
+    {title:'Cihaz Üstü Yapay Zeka Yaygınlaşıyor', desc:'Daha küçük ve verimli modeller, kişisel verileri buluta göndermeden yerel donanımda çalışıyor.', url:'#'}
+  ],
+  oss: [
+    {title:'Açık Kaynak Modeller Kurumsal Araçlara Giriyor', desc:'Ekipler, denetlenebilir ve özelleştirilebilir modelleri kendi altyapılarında çalıştırmaya yöneliyor.', url:'#'}
+  ],
+  web: [
+    {title:'Web Uygulamalarında Performans Bütçesi Öne Çıkıyor', desc:'Geliştiriciler yükleme süresi, paket boyutu ve etkileşim gecikmesini birlikte izliyor.', url:'#'}
+  ],
+  sec: [
+    {title:'Yazılım Tedarik Zincirinde İmza Kontrolü Artıyor', desc:'Paket ve derleme çıktılarının kaynağını doğrulayan imzalı yayın süreçleri standartlaşıyor.', url:'#'}
+  ]
+};
+
 const CAT = {ai:'Yapay Zeka', oss:'Açık Kaynak', web:'Web Geliştirme', sec:'Siber Güvenlik'};
 let liveEdition = null;
 
-/* ---------- BASKI / TARİH & HAREKETLİ ARŞİV ---------- */
-let cur = editionBase(new Date());
-let offset = 0;
-function editionBase(n){ const d = new Date(n.getFullYear(), n.getMonth(), n.getDate()); if (n.getHours() < 7) d.setDate(d.getDate() - 1); return d; }
+/* ---------- BASKI / TARİH & SABİT ARŞİV ---------- */
+const CURRENT_EDITION = 'data/edition.json';
+const ARCHIVE_EDITIONS = [
+  {file:'data/archive/2026-10-23.json', label:'23 Ekim 2026'},
+  {file:'data/archive/2026-10-22.json', label:'22 Ekim 2026'},
+  {file:'data/archive/2026-10-21.json', label:'21 Ekim 2026'}
+];
+
 function dayIndex(d){ return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5); }
 function dateStr(d){ return `${d.getDate()} ${AY[d.getMonth()]} ${d.getFullYear()}, ${GUN[d.getDay()]}`; }
 
 function render(){
-  const d = new Date(cur); d.setDate(d.getDate() - offset);
+  const d = new Date();
   const i = dayIndex(d);
+  const L = LEADS[Math.abs(i) % LEADS.length], E = EDS[0], F = FACTS[0];
   
   if (liveEdition) {
-    $('#issueNo').textContent = 'Sayı: ' + liveEdition.issue;
-    $('#dateLine').textContent = liveEdition.date || dateStr(d);
-    $('#quote').textContent = liveEdition.quote || QUOTES[i % QUOTES.length];
-    $('#leadTitle').textContent = liveEdition.lead.title;
-    $('#leadDeck').textContent = liveEdition.lead.deck;
-    $('#leadBody').textContent = liveEdition.lead.body;
-    $('#edTitle').textContent = liveEdition.editorial.title;
-    $('#edBody').textContent = liveEdition.editorial.body;
-    $('#factTitle').textContent = liveEdition.fact.title;
-    $('#factBody').textContent = liveEdition.fact.body;
+    const lead = liveEdition.lead || {};
+    const editorial = liveEdition.editorial || {};
+    const fact = liveEdition.fact || {};
+    setText('#issueNo', 'Sayı: ' + (liveEdition.issue || 1));
+    setText('#dateLine', liveEdition.date || dateStr(d));
+    setText('#quote', liveEdition.quote || QUOTES[Math.abs(i) % QUOTES.length]);
+    setText('#leadTitle', lead.title || L.h);
+    setText('#leadDeck', lead.deck || L.d);
+    setText('#leadBody', lead.body || L.b);
+    setText('#edTitle', editorial.title || E.t);
+    setText('#edBody', editorial.body || E.b);
+    setText('#factTitle', fact.title || F.t);
+    setText('#factBody', fact.body || F.b);
     return;
   }
 
-  const L = LEADS[i % LEADS.length], E = EDS[0], F = FACTS[0];
-  // 1. Sayı: 21 Ekim 2026
-  $('#issueNo').textContent = 'Sayı: ' + Math.max(1, i - dayIndex(new Date(2026, 9, 21)) + 1);
-  $('#dateLine').textContent = dateStr(d);
-  $('#quote').textContent = QUOTES[i % QUOTES.length];
-  $('#leadTitle').textContent = L.h; $('#leadDeck').textContent = L.d; $('#leadBody').textContent = L.b;
-  $('#edTitle').textContent = E.t; $('#edBody').textContent = E.b;
-  $('#factTitle').textContent = F.t; $('#factBody').textContent = F.b;
+  setText('#issueNo', 'Sayı: ' + Math.max(1, i - dayIndex(new Date(2026, 9, 21)) + 1));
+  setText('#dateLine', dateStr(d));
+  setText('#quote', QUOTES[Math.abs(i) % QUOTES.length]);
+  setText('#leadTitle', L.h);
+  setText('#leadDeck', L.d);
+  setText('#leadBody', L.b);
+  setText('#edTitle', E.t);
+  setText('#edBody', E.b);
+  setText('#factTitle', F.t);
+  setText('#factBody', F.b);
 }
 
-// 21 Ekim 2026 öncesini göstermeyen arşiv
+function appendArchiveOption(select, value, label){
+  const option = document.createElement('option');
+  option.value = value;
+  option.textContent = label;
+  select.appendChild(option);
+}
+
 function fillArchive(){
-  const sel = $('#archive'); sel.innerHTML = '';
-  const firstIssueDate = new Date(2026, 9, 21); // 21 Ekim 2026
-  
-  for (let k = 0; k < 7; k++){
-    const d = new Date(cur); d.setDate(d.getDate() - k);
-    if (d < firstIssueDate) break;
-    
-    const o = document.createElement('option'); 
-    o.value = k;
-    o.dataset.dateKey = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-    o.textContent = (k ? 'Arşiv: ' : 'Bugünkü baskı: ') + `${d.getDate()} ${AY[d.getMonth()]}`;
-    sel.appendChild(o);
-  }
+  const select = $('#archive');
+  if (!select) return;
+  select.innerHTML = '';
+  appendArchiveOption(select, CURRENT_EDITION, 'Bugünkü baskı');
+  ARCHIVE_EDITIONS.forEach(item => {
+    appendArchiveOption(select, item.file, 'Arşiv: ' + item.label);
+  });
+  select.value = CURRENT_EDITION;
 }
 
-$('#archive').addEventListener('change', async e => { 
-  offset = +e.target.value;
-  const selectedOption = e.target.options[e.target.selectedIndex];
-  const dateKey = selectedOption.dataset.dateKey;
-
-  if (offset === 0) {
-    await loadEdition('data/edition.json');
-  } else {
-    await loadEdition(`data/archive/${dateKey}.json`);
-  }
-});
+const archiveSelect = $('#archive');
+if (archiveSelect) {
+  archiveSelect.addEventListener('change', async event => {
+    const requestedFile = event.target.value || CURRENT_EDITION;
+    const loaded = await loadEdition(requestedFile);
+    if (!loaded && requestedFile !== CURRENT_EDITION) {
+      event.target.value = CURRENT_EDITION;
+      await loadEdition(CURRENT_EDITION);
+    }
+  });
+}
 
 /* ---------- SAAT ---------- */
-function tick(){ const n = new Date(); $('#clock').textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`; }
-setInterval(tick, 1000); tick();
-
-/* ---------- BİLDİRİM GEÇMİŞİ & SAYAÇ ---------- */
-const log = []; 
-let unread = 0;
-
-function logNotice(cat, title, desc){
+function tick(){
+  const clock = $('#clock');
+  if (!clock) return;
   const n = new Date();
-  log.unshift({cat, title, desc, time: `${pad(n.getHours())}:${pad(n.getMinutes())}`});
-  if (log.length > 50) log.pop();
-  
-  const isOpen = !$('#drawer').hidden;
-  if (!isOpen) unread++;
-  renderLog();
+  clock.textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
 }
-
-function renderLog(){
-  const ul = $('#drawerList'); ul.innerHTML = '';
-  if (!log.length){ 
-    const e = document.createElement('li'); 
-    e.className = 'empty'; 
-    e.textContent = 'Henüz bildirim yok.'; 
-    ul.appendChild(e); 
-  }
-  
-  log.forEach(x => {
-    const li = document.createElement('li');
-    const sm = document.createElement('small'); sm.textContent = `${x.time} · ${x.cat}`;
-    const b = document.createElement('b'); b.textContent = x.title;
-    const d = document.createElement('span'); d.textContent = x.desc;
-    li.append(sm, b, d); 
-    ul.appendChild(li);
-  });
-  
-  const bd = $('#badge'); 
-  bd.textContent = unread; 
-  bd.hidden = unread === 0;
-}
-
-function setDrawer(open){
-  $('#drawer').hidden = !open; 
-  $('#notifBtn').setAttribute('aria-expanded', String(open));
-  if (open){ unread = 0; renderLog(); }
-}
-
-$('#notifBtn').addEventListener('click', () => setDrawer($('#drawer').hidden));
-$('#drawerX').addEventListener('click', () => setDrawer(false));
-document.addEventListener('keydown', e => { if (e.key === 'Escape') setDrawer(false); });
+setInterval(tick, 1000); tick();
 
 /* ---------- CANLI RADAR VE SON DAKİKA AKIŞI ---------- */
 const feed = [];
 let realNewsPool = [];
+const NEWS_CATEGORIES = Object.keys(CAT);
+const newsByCategory = Object.fromEntries(NEWS_CATEGORIES.map(cat => [cat, []]));
+
+function ensureNewsGrid(){
+  const container = $('.news-cols');
+  if (!container) return null;
+  let list = container.querySelector('.news-grid-list');
+  if (list) return list;
+
+  container.innerHTML = '';
+  NEWS_CATEGORIES.forEach(cat => {
+    const heading = document.createElement('h3');
+    heading.className = 'news-grid-heading';
+    heading.textContent = CAT[cat];
+    container.appendChild(heading);
+  });
+
+  list = document.createElement('ul');
+  list.className = 'news-grid-list';
+  list.setAttribute('aria-label', 'Son dakika haberleri');
+  container.appendChild(list);
+  return list;
+}
+
+function createNewsCard(cat, item){
+  const li = document.createElement('li');
+  li.dataset.category = CAT[cat];
+  if (!item) {
+    li.className = 'news-card-empty';
+    li.setAttribute('aria-hidden', 'true');
+    return li;
+  }
+
+  if (item.live) li.classList.add('fresh');
+  const time = document.createElement('time');
+  time.textContent = item.time;
+  const title = document.createElement('b');
+  title.textContent = item.title;
+  const desc = document.createElement('span');
+  desc.textContent = item.desc;
+  li.append(time, title, desc);
+
+  if (item.url && item.url !== '#' && item.isTruncated) {
+    const link = document.createElement('a');
+    link.href = item.url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.className = 'news-link';
+    link.textContent = 'Haberi Oku →';
+    li.appendChild(link);
+  }
+  return li;
+}
+
+function renderNewsGrid(){
+  const list = ensureNewsGrid();
+  if (!list) return;
+  list.innerHTML = '';
+  const rowCount = Math.max(0, ...NEWS_CATEGORIES.map(cat => newsByCategory[cat].length));
+
+  for (let row = 0; row < rowCount; row++) {
+    NEWS_CATEGORIES.forEach(cat => {
+      list.appendChild(createNewsCard(cat, newsByCategory[cat][row] || null));
+    });
+  }
+}
 
 function addNews(cat, live, customItem = null){
   const item = customItem;
-  if (!item) return;
+  if (!item || !newsByCategory[cat]) return;
   const n = new Date();
-  
-  const li = document.createElement('li');
-  if (live) li.className = 'fresh';
-  const time = document.createElement('time'); time.textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}`;
-  const b = document.createElement('b'); b.textContent = item.title;
-  const p = document.createElement('span'); p.textContent = item.desc;
-  li.append(time, b, p);
-
-  // Sadece metin orijinalinde yarım kalmışsa (isTruncated) ayrı satırda link ekle
-  if (item.url && item.url !== '#' && item.isTruncated) {
-    const a = document.createElement('a');
-    a.href = item.url;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.className = 'news-link';
-    a.textContent = 'Haberi Oku →';
-    li.appendChild(a);
-  }
-  
-  const ul = $('#list-' + cat); 
-  if (ul) {
-    ul.prepend(li);
-    while (ul.children.length > 6) ul.lastChild.remove();
-  }
+  const entry = {...item, live, time:`${pad(n.getHours())}:${pad(n.getMinutes())}`};
+  if (live) newsByCategory[cat].unshift(entry);
+  else newsByCategory[cat].push(entry);
+  if (newsByCategory[cat].length > 6) newsByCategory[cat].length = 6;
   
   feed.unshift(`${CAT[cat]}: ${item.title}`);
   if (feed.length > 12) feed.pop();
   buildTicker();
-  
-  if (live){ 
-    logNotice(CAT[cat], item.title, item.desc); 
-  }
+  renderNewsGrid();
 }
 
 function buildTicker(){
-  const t = $('#tickerTrack'); t.innerHTML = '';
+  const t = $('#tickerTrack');
+  if (!t) return;
+  t.innerHTML = '';
   feed.forEach(x => { 
     const s = document.createElement('span'); 
     s.textContent = '\u25CF ' + x; 
     t.appendChild(s); 
   });
+}
+
+function renderNews(news = FALLBACK_NEWS){
+  realNewsPool = [];
+  feed.length = 0;
+  NEWS_CATEGORIES.forEach(cat => { newsByCategory[cat] = []; });
+
+  NEWS_CATEGORIES.forEach(cat => {
+    const suppliedItems = news && Array.isArray(news[cat]) ? news[cat] : [];
+    const items = suppliedItems.length ? suppliedItems : FALLBACK_NEWS[cat];
+    items.forEach(item => {
+      const n = new Date();
+      newsByCategory[cat].push({...item, live:false, time:`${pad(n.getHours())}:${pad(n.getMinutes())}`});
+      feed.unshift(`${CAT[cat]}: ${item.title}`);
+      realNewsPool.push({
+        cat,
+        title: item.title,
+        desc: item.desc,
+        url: item.url,
+        isTruncated: item.isTruncated
+      });
+    });
+  });
+
+  if (feed.length > 12) feed.length = 12;
+  renderNewsGrid();
+  buildTicker();
 }
 
 function scheduleNext(){
@@ -227,11 +287,16 @@ function initPuzzle(words) {
   inputs = {};
   
   const gridEl = $('#grid');
+  if (!gridEl) return;
+  const clueA = $('#clueA');
+  const clueD = $('#clueD');
+  const answers = $('#answers');
+  const score = $('#score');
   gridEl.innerHTML = '';
-  $('#clueA').innerHTML = '';
-  $('#clueD').innerHTML = '';
-  $('#answers').innerHTML = '';
-  $('#score').textContent = '';
+  if (clueA) clueA.innerHTML = '';
+  if (clueD) clueD.innerHTML = '';
+  if (answers) answers.innerHTML = '';
+  if (score) score.textContent = '';
 
   currentPuzzleWords.forEach(([w,r,c,d]) => [...w].forEach((ch,i) => {
     const k = (r + (d === 'd' ? i : 0)) + ',' + (c + (d === 'a' ? i : 0)); 
@@ -296,10 +361,11 @@ function initPuzzle(words) {
     const b = document.createElement('b'); 
     b.textContent = n + '.';
     li.append(b, ' ' + clue + ` (${w.length})`);
-    (d === 'a' ? $('#clueA') : $('#clueD')).appendChild(li);
+    const clueList = d === 'a' ? clueA : clueD;
+    if (clueList) clueList.appendChild(li);
     const row = document.createElement('div'); 
     row.textContent = `${n} ${d === 'a' ? 'Yatay' : 'Aşağı'}: ${w}`;
-    $('#answers').appendChild(row);
+    if (answers) answers.appendChild(row);
   });
 }
 
@@ -353,7 +419,7 @@ function onPuzzleKey(e, r, c, inp){
 
 function clearMarks(){ 
   document.querySelectorAll('.cell.ok,.cell.bad').forEach(x => x.classList.remove('ok', 'bad')); 
-  $('#score').textContent = ''; 
+  setText('#score', '');
 }
 
 function checkPuzzle(){
@@ -374,22 +440,32 @@ function checkPuzzle(){
     }
   });
   
-  $('#score').textContent = ok === total 
+  setText('#score', ok === total 
     ? `Tebrikler! ${ok}/${total} kutu doğru, bulmaca çözüldü.` 
-    : `${ok}/${total} doğru, ${filled - ok} yanlış, ${total - filled} boş.`;
+    : `${ok}/${total} doğru, ${filled - ok} yanlış, ${total - filled} boş.`);
 }
 
-$('#checkBtn').addEventListener('click', checkPuzzle);
-$('#clearBtn').addEventListener('click', () => { 
-  Object.values(inputs).forEach(i => i.value = ''); 
-  clearMarks(); 
-  selectCell(0, 0); 
-});
+const checkButton = $('#checkBtn');
+if (checkButton) checkButton.addEventListener('click', checkPuzzle);
+
+const clearButton = $('#clearBtn');
+if (clearButton) {
+  clearButton.addEventListener('click', () => {
+    Object.values(inputs).forEach(i => i.value = '');
+    clearMarks();
+    selectCell(0, 0);
+  });
+}
 
 /* ---------- ADMİN / EDİTÖR NOTU ---------- */
 async function loadAdminNote() {
   const box = $('#adminBox');
   if (!box) return;
+  const content = $('#adminContent');
+  if (!content) {
+    box.hidden = true;
+    return;
+  }
   try {
     const res = await fetch('data/admin_note.json?t=' + Date.now());
     if (!res.ok) {
@@ -398,9 +474,9 @@ async function loadAdminNote() {
     }
     const data = await res.json();
     if (data && data.active && data.content) {
-      $('#adminTitle').textContent = data.title || 'Editör Masası';
-      $('#adminAuthor').textContent = data.author || '';
-      $('#adminContent').textContent = data.content;
+      setText('#adminTitle', data.title || 'Editör Masası');
+      setText('#adminAuthor', data.author || '');
+      content.textContent = data.content;
       box.hidden = false;
     } else {
       box.hidden = true;
@@ -411,11 +487,20 @@ async function loadAdminNote() {
 }
 
 /* ---------- DİNAMİK VERİ YÜKLEME ---------- */
-async function loadEdition(filePath = 'data/edition.json'){
+function showStaticFallback(){
+  liveEdition = null;
+  render();
+  initPuzzle(currentPuzzleWords);
+  renderNews(FALLBACK_NEWS);
+}
+
+async function loadEdition(filePath = CURRENT_EDITION){
   try {
     const res = await fetch(filePath + '?t=' + Date.now());
     if (!res.ok) throw new Error('Veri alinamadi: ' + filePath);
-    liveEdition = await res.json();
+    const data = await res.json();
+    if (!data || typeof data !== 'object') throw new Error('Gecersiz baski verisi: ' + filePath);
+    liveEdition = data;
     render();
     
     // O güne ait bulmaca
@@ -425,26 +510,19 @@ async function loadEdition(filePath = 'data/edition.json'){
       initPuzzle(currentPuzzleWords);
     }
 
-    // O güne ait haber listesini temizleyip yükle
-    realNewsPool = [];
-    ['ai', 'oss', 'web', 'sec'].forEach(cat => {
-      const ul = $('#list-' + cat);
-      if (ul) ul.innerHTML = '';
-      const items = (liveEdition.news && liveEdition.news[cat]) || [];
-      items.forEach(it => {
-        addNews(cat, false, it);
-        realNewsPool.push({cat, title: it.title, desc: it.desc, url: it.url, isTruncated: it.isTruncated});
-      });
-    });
-    
+    renderNews(liveEdition.news);
+    return true;
   } catch (err) {
-    console.warn('Veri yüklenemedi:', err);
+    console.warn('Veri yüklenemedi, statik içerik gösteriliyor:', err);
+    showStaticFallback();
+    return false;
   }
 }
 
 /* ---------- BAŞLAT ---------- */
-fillArchive(); 
-loadEdition();
+showStaticFallback();
+fillArchive();
+loadEdition('data/edition.json');
 loadAdminNote();
 scheduleNext();
 })();
