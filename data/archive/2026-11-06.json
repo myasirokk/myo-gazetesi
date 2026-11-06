@@ -1,0 +1,138 @@
+{
+  "issue": 17,
+  "date": "6 Kasım 2026, Cuma",
+  "date_key": "2026-11-06",
+  "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
+  "lead": {
+    "title": "Congrats to the Kaggle Benchmarking Challenge Winners!",
+    "deck": "A few weeks ago we teamed up with Kaggle to ask a deceptively simple question: how do you actually",
+    "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
+  },
+  "editorial": {
+    "title": "Ajanlar Çağında Kodu Okumak Yazmaktan Değerli",
+    "body": "Kod üretmek ucuzlarken doğru kodu ayırt etmek pahalılaşıyor. Gelecekte iyi mühendis, en çok satır yazan değil, sistemin tasarım amacını ve güvenlik sınırlarını doğru okuyan kişi olacak."
+  },
+  "fact": {
+    "title": "Zero-Shot Inference",
+    "body": "Modelin belirli bir görevi daha önce hiç örnek görmeden sadece bağlam talimatıyla tamamlayabilme yeteneğidir."
+  },
+  "news": {
+    "ai": [
+      {
+        "title": "Congrats to the Kaggle Benchmarking Challenge Winners!",
+        "desc": "A few weeks ago we teamed up with Kaggle to ask a deceptively simple question: how do you actually",
+        "url": "https://dev.to/devteam/congrats-to-the-kaggle-benchmarking-challenge-winners-2moh"
+      },
+      {
+        "title": "That's a Wrap on Hacktoberfest 2026! 🎃👻",
+        "desc": "Hacktoberfest 2026 wrapped up on October 31st! Thank you to everyone who built, hosted, mentored,",
+        "url": "https://dev.to/devteam/thats-a-wrap-on-hacktoberfest-2026-148k"
+      },
+      {
+        "title": "Crows, Moths, and Makefiles: How 300 Megabytes of Crow DNA Explains Why a 20-Kilobyte Scar File Outsmarts a Terabyte LLM",
+        "desc": "Why do New Caledonian crows bend wire into hooks with zero training while a trillion-parameter LLM flies straight into the same production bug zapper? How Anthony Zador's Genomic Bottleneck explains what 'instinct' really is in AI coding agents.",
+        "url": "https://dev.to/gde/crows-moths-and-makefiles-how-300-megabytes-of-crow-dna-explains-why-a-20-kilobyte-scar-file-36a"
+      },
+      {
+        "title": "Prompt Pad: What Are Open-Weight Models?",
+        "desc": "When people call an AI model \"open,\" they don't always mean the same thing.  On this week's Prompt",
+        "url": "https://blog.mlh.com/prompt-pad-what-are-open-weight-models-1ghh"
+      }
+    ],
+    "oss": [
+      {
+        "title": "Android 17 on a 4.9 Kernel: LineageOS 24.0 on the Pixel 3a",
+        "desc": "The Pixel 3a runs LineageOS 24.0, Android 17, on its original 4.9 kernel with SELinux enforcing and Google apps. One kernel fix, five platform forks and a set of device-tree changes, each traced to a line of a boot log.",
+        "url": "https://dev.to/gde/android-17-on-a-49-kernel-lineageos-240-on-the-pixel-3a-1mok"
+      },
+      {
+        "title": "Profile Sprawl: Solving a Problem You Didn't Know You Had",
+        "desc": "Every public profile you own says something slightly different about you. A step by step guide to treating your bio as source code, with one file, one tracker and an agent skill that checks the live sites.",
+        "url": "https://dev.to/gde/profile-sprawl-solving-a-problem-you-didnt-know-you-had-19k5"
+      },
+      {
+        "title": "Your DEV posts have a beautiful new share card ✨",
+        "desc": "The image that shows up when you share a DEV post just got a brand-new look!  I got to work on",
+        "url": "https://dev.to/devteam/your-dev-posts-have-a-beautiful-new-share-card-4be8"
+      },
+      {
+        "title": "Prompt Pad: What Is Open Source?",
+        "desc": "Chances are you're already using open-source software without realizing it.  In this episode of",
+        "url": "https://blog.mlh.com/prompt-pad-what-is-open-source-23k6"
+      }
+    ],
+    "web": [
+      {
+        "title": "Securing an Angular Firebase AI App with Email/Password Authentication (Part 2: Signal Forms Sign-In Modal) [GDE]",
+        "desc": "In this blog post, we build a Sign-In modal component (SignInModalComponent) using the stable Angular",
+        "url": "https://dev.to/gde/securing-an-angular-firebase-ai-app-with-emailpassword-authentication-part-2-signal-forms-3ll9"
+      },
+      {
+        "title": "Securing an Angular Firebase AI App with Email/Password Authentication (Part 3: Lightweight Home Screen, Lazy CDK Dialog, and Header Navigation)",
+        "desc": "We now have AuthService for authentication and SignInModalComponent for users to enter their email",
+        "url": "https://dev.to/gde/securing-an-angular-firebase-ai-app-with-emailpassword-authentication-part-3-lightweight-home-17dg"
+      },
+      {
+        "title": "Securing an Angular Firebase AI App with Email/Password Authentication (Part 1: Emulator, AuthService, and Route Guard) [GDE]",
+        "desc": "Anyone with the public URL can use my tokens to perform image analysis and text-to-speech, which can",
+        "url": "https://dev.to/gde/securing-an-angular-firebase-ai-app-with-emailpassword-authentication-part-1-emulator-4jm"
+      }
+    ],
+    "sec": [
+      {
+        "title": "Thank you to everyone who pointed out the phishing posts we got yesterday. We're working on improved mechanisms to automatically reject those types of attacks.",
+        "desc": "A post by Ben Halpern",
+        "url": "https://dev.to/ben/thank-you-to-everyone-who-pointed-out-the-phishing-posts-we-got-yesterday-were-working-on-1h9b"
+      },
+      {
+        "title": "Passkey Desteği Global Web Sitelerinde Yaygınlaşıyor",
+        "desc": "Geleneksel parolaların yerini kriptografik anahtar çiftleri alıyor.",
+        "url": "https://dev.to"
+      }
+    ]
+  },
+  "puzzle": [
+    [
+      "DOCKER",
+      0,
+      0,
+      "a",
+      "Konteynerleştirme teknolojisi"
+    ],
+    [
+      "DEPLOY",
+      0,
+      0,
+      "d",
+      "Uygulamayı sunucuya canlıya alma süreci"
+    ],
+    [
+      "COMMIT",
+      2,
+      0,
+      "a",
+      "Git versiyon kontrolünde anlık kod kaydı"
+    ],
+    [
+      "BRANCH",
+      0,
+      4,
+      "d",
+      "Kod tabanında bağımsız geliştirme dalı"
+    ],
+    [
+      "CIPHER",
+      4,
+      1,
+      "a",
+      "Kriptografik şifreleme algoritması"
+    ],
+    [
+      "PATCH",
+      3,
+      5,
+      "d",
+      "Yazılım hatasını kapatan küçük güncelleme"
+    ]
+  ]
+}
