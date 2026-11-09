@@ -1,11 +1,11 @@
 {
-  "issue": 19,
-  "date": "8 Kasım 2026, Pazar",
-  "date_key": "2026-11-08",
+  "issue": 20,
+  "date": "9 Kasım 2026, Pazartesi",
+  "date_key": "2026-11-09",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "Congrats to the Kaggle Benchmarking Challenge Winners!",
-    "deck": "A few weeks ago we teamed up with Kaggle to ask a deceptively simple question: how do you actually",
+    "title": "Kaggle Karşılaştırma Yarışması Kazananlarını tebrik ederiz!",
+    "deck": "Birkaç hafta önce Kaggle ile birlikte yanıltıcı derecede basit bir soru sormak için bir araya geldik: Aslında nasıl",
     "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
   },
   "editorial": {
@@ -19,125 +19,129 @@
   "news": {
     "ai": [
       {
-        "title": "Congrats to the Kaggle Benchmarking Challenge Winners!",
-        "desc": "A few weeks ago we teamed up with Kaggle to ask a deceptively simple question: how do you actually",
+        "title": "Kaggle Karşılaştırma Yarışması Kazananlarını tebrik ederiz!",
+        "desc": "Birkaç hafta önce Kaggle ile birlikte yanıltıcı derecede basit bir soru sormak için bir araya geldik: Aslında nasıl",
         "url": "https://dev.to/devteam/congrats-to-the-kaggle-benchmarking-challenge-winners-2moh"
       },
       {
-        "title": "Crows, Moths, and Makefiles: How 300 Megabytes of Crow DNA Explains Why a 20-Kilobyte Scar File Outsmarts a Terabyte LLM",
-        "desc": "Why do New Caledonian crows bend wire into hooks with zero training while a trillion-parameter LLM flies straight into the same production bug zapper? How Anthony Zador's Genomic Bottleneck explains what 'instinct' really is in AI coding agents.",
-        "url": "https://dev.to/gde/crows-moths-and-makefiles-how-300-megabytes-of-crow-dna-explains-why-a-20-kilobyte-scar-file-36a"
+        "title": "Yüksek Lisans'lardan Matematik Yapmalarını İstemeyi Durdurun: Flutter GenUI'da bloc_signals ile İstemci Tarafı İşlevleri",
+        "desc": "Andrew 'Red' Brogdon'un istemci tarafı işlevlere ilişkin içgörüsü Üretken Kullanıcı Arayüzü için neden kritiktir ve bloc_signals_genui'nin katalog işlevlerini 0 ms eşzamanlı reaktif sinyallere nasıl dönüştürdüğü.",
+        "url": "https://dev.to/gde/stop-asking-llms-to-do-math-client-side-functions-in-flutter-genui-with-blocsignals-23bh"
       },
       {
-        "title": "Prompt Pad: What Are Open-Weight Models?",
-        "desc": "When people call an AI model \"open,\" they don't always mean the same thing.  On this week's Prompt",
+        "title": "Prompt Pad: Açık Ağırlıklı Modeller Nelerdir?",
+        "desc": "İnsanlar bir AI modelini \"açık\" olarak adlandırdıklarında her zaman aynı şeyi kastetmiyorlar.  Bu haftaki Prompt'te",
         "url": "https://blog.mlh.com/prompt-pad-what-are-open-weight-models-1ghh"
       },
       {
-        "title": "What I Learned Managing a Full Project with Antigravity",
-        "desc": "How my workflow evolved from solo prompting in AI Studio to managing a multi-model AI team, running",
+        "title": "Antigravity ile Tam Bir Projeyi Yönetmeyi Öğrendiklerim",
+        "desc": "İş akışım, AI Studio'daki tek başına yönlendirmeden, çok modelli bir AI ekibini yönetmeye kadar nasıl gelişti?",
         "url": "https://dev.to/gde/what-i-learned-managing-a-full-project-with-antigravity-1ppc"
       }
     ],
     "oss": [
       {
-        "title": "Android 17 on a 4.9 Kernel: LineageOS 24.0 on the Pixel 3a",
-        "desc": "The Pixel 3a runs LineageOS 24.0, Android 17, on its original 4.9 kernel with SELinux enforcing and Google apps. One kernel fix, five platform forks and a set of device-tree changes, each traced to a line of a boot log.",
-        "url": "https://dev.to/gde/android-17-on-a-49-kernel-lineageos-240-on-the-pixel-3a-1mok"
+        "title": "Android 17 ve 4.9 Çekirdeğinde Mobil Veri: Pixel 3a'da Google Fi",
+        "desc": "Pixel 3a'daki LineageOS 24.0, dört düzeltmenin ardından yalnızca Google Fi veri SIM'inden mobil veri alıyor: varsayılan olarak mobil veriler açık, operatör ayarlarında bir Fi APN, VoLTE ve IPv4 için bir close_range() destek portu. Her biri radyo kayıtlarından takip edildi.",
+        "url": "https://dev.to/gde/mobile-data-on-android-17-and-a-49-kernel-google-fi-on-the-pixel-3a-4cdc"
       },
       {
-        "title": "That's a Wrap on Hacktoberfest 2026! 🎃👻",
-        "desc": "Hacktoberfest 2026 wrapped up on October 31st! Thank you to everyone who built, hosted, mentored,",
+        "title": "Bu Hacktoberfest 2026'nın Sonu! 🎃👻",
+        "desc": "Hacktoberfest 2026 31 Ekim'de sona erdi! Yapan, ev sahipliği yapan, mentorluk yapan herkese teşekkür ederiz",
         "url": "https://dev.to/devteam/thats-a-wrap-on-hacktoberfest-2026-148k"
       },
       {
-        "title": "Profile Sprawl: Solving a Problem You Didn't Know You Had",
-        "desc": "Every public profile you own says something slightly different about you. A step by step guide to treating your bio as source code, with one file, one tracker and an agent skill that checks the live sites.",
+        "title": "Profil Yayılımı: Sahip Olduğunu Bilmediğiniz Bir Sorunu Çözmek",
+        "desc": "Sahip olduğunuz her genel profil, sizin hakkınızda biraz farklı şeyler söylüyor. Tek dosya, tek izleyici ve canlı siteleri kontrol eden bir temsilci becerisiyle biyografinizi kaynak kodu olarak ele almanıza yönelik adım adım kılavuz.",
         "url": "https://dev.to/gde/profile-sprawl-solving-a-problem-you-didnt-know-you-had-19k5"
       },
       {
-        "title": "Your DEV posts have a beautiful new share card ✨",
-        "desc": "The image that shows up when you share a DEV post just got a brand-new look!  I got to work on",
-        "url": "https://dev.to/devteam/your-dev-posts-have-a-beautiful-new-share-card-4be8"
+        "title": "RailPulse AI Oluşturma: Gemma ve Google Cloud Run ile Açık Kaynaklı Demiryolu Sevkiyat Temsilcisini Dağıtma",
+        "desc": "Yazar: Robina Mirbahar AI/ML Google Geliştirici Uzmanı (GDE) | Google Bulut Şampiyonu Yenilikçi GitHub",
+        "url": "https://dev.to/gde/building-railpulse-ai-deploying-an-open-source-railway-dispatch-agent-with-gemma-and-google-cloud-2b9g"
       }
     ],
     "web": [
       {
-        "title": "Securing an Angular Firebase AI App with Email/Password Authentication (Part 2: Signal Forms Sign-In Modal) [GDE]",
-        "desc": "In this blog post, we build a Sign-In modal component (SignInModalComponent) using the stable Angular",
-        "url": "https://dev.to/gde/securing-an-angular-firebase-ai-app-with-emailpassword-authentication-part-2-signal-forms-3ll9"
-      },
-      {
-        "title": "Securing an Angular Firebase AI App with Email/Password Authentication (Part 3: Lightweight Home Screen, Lazy CDK Dialog, and Header Navigation)",
-        "desc": "We now have AuthService for authentication and SignInModalComponent for users to enter their email",
-        "url": "https://dev.to/gde/securing-an-angular-firebase-ai-app-with-emailpassword-authentication-part-3-lightweight-home-17dg"
-      },
-      {
-        "title": "Securing an Angular Firebase AI App with Email/Password Authentication (Part 1: Emulator, AuthService, and Route Guard) [GDE]",
-        "desc": "Anyone with the public URL can use my tokens to perform image analysis and text-to-speech, which can",
-        "url": "https://dev.to/gde/securing-an-angular-firebase-ai-app-with-emailpassword-authentication-part-1-emulator-4jm"
-      },
-      {
-        "title": "The Fibonacci Spiral Is Secretly a Straight Line",
-        "desc": "I folded it, unfolded it, and watched it flip to the other side. A three.js experiment, the math",
+        "title": "Fibonacci Spirali Gizlice Düz Bir Çizgidir",
+        "desc": "Katladım, açtım ve diğer tarafa dönmesini izledim. Bir three.js deneyi, matematik",
         "url": "https://dev.to/highflyer910/the-fibonacci-spiral-is-secretly-a-straight-line-4b4p"
+      },
+      {
+        "title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi",
+        "desc": "Tarayıcı içi istemci tarafı grafik ve hesaplama kapasitesi arttı.",
+        "url": "https://dev.to"
       }
     ],
     "sec": [
       {
-        "title": "Thank you to everyone who pointed out the phishing posts we got yesterday. We're working on improved mechanisms to automatically reject those types of attacks.",
-        "desc": "A post by Ben Halpern",
+        "title": "Dün aldığımız kimlik avı gönderilerine dikkat çeken herkese teşekkür ederiz. Bu tür saldırıları otomatik olarak reddetmek için geliştirilmiş mekanizmalar üzerinde çalışıyoruz.",
+        "desc": "Ben Halpern'in bir yazısı",
         "url": "https://dev.to/ben/thank-you-to-everyone-who-pointed-out-the-phishing-posts-we-got-yesterday-were-working-on-1h9b"
       },
       {
-        "title": "Passkey Desteği Global Web Sitelerinde Yaygınlaşıyor",
-        "desc": "Geleneksel parolaların yerini kriptografik anahtar çiftleri alıyor.",
-        "url": "https://dev.to"
+        "title": "Pipeline'e Güvenmeyin: Saldırganlar Kümenizi Hacklemeyi Neden Durdurdu ve CI/CD'nizi Kullanmaya Başladı (Ve Google Cloud'da Onları Nasıl Durdurabilirsiniz)",
+        "desc": "Kaynak: \"Pipeline'e Güvenmeyin: Yazılım Teslimatını ve İş Yükü Kimliğini Güvence Altına Alma",
+        "url": "https://dev.to/gde/trust-no-pipeline-why-attackers-stopped-hacking-your-cluster-and-started-riding-your-cicd-and-2m74"
       }
     ]
   },
   "puzzle": [
     [
-      "GITHUB",
+      "PROMPT",
       0,
       0,
       "a",
-      "Git tabanlı bulut kod deposu platformu"
+      "Yapay zekaya verilen komut metni"
     ],
     [
-      "GLOBAL",
+      "PYTHON",
       0,
       0,
       "d",
-      "Tüm program kapsamından erişilebilen değişken"
+      "Yapay zeka dünyasının en popüler dili"
     ],
     [
-      "IMPORT",
-      2,
+      "TOKEN",
       0,
-      "a",
-      "Modül veya kütüphaneyi koda dahil etme ifadesi"
-    ],
-    [
-      "BUFFER",
-      0,
-      4,
-      "d",
-      "Veri akışında geçici depolama belleği"
-    ],
-    [
-      "UPDATE",
-      4,
-      1,
-      "a",
-      "Veritabanında kayıt yenileme SQL komutu"
-    ],
-    [
-      "STREAM",
-      2,
       5,
       "d",
-      "Parça parça kesintisiz akan veri iletimi"
+      "Dil modelinin metni böldüğü en küçük birim"
+    ],
+    [
+      "OPTION",
+      4,
+      0,
+      "a",
+      "Seçenek, ayar (İngilizce)"
+    ],
+    [
+      "IDE",
+      4,
+      3,
+      "d",
+      "Kod yazma ortamı (kısaltma)"
+    ],
+    [
+      "EPOCH",
+      6,
+      3,
+      "a",
+      "Eğitimde veri setinin bir tam geçişi"
+    ],
+    [
+      "HASH",
+      6,
+      7,
+      "d",
+      "Veriden çıkarılan sabit uzunluklu özet"
+    ],
+    [
+      "HTTP",
+      9,
+      7,
+      "a",
+      "Web'in temel iletişim protokolü"
     ]
   ]
 }
