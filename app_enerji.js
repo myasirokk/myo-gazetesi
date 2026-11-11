@@ -1,6 +1,10 @@
 (() => {
 'use strict';
 const $ = s => document.querySelector(s);
+const setText = (selector, value) => {
+  const element = $(selector);
+  if (element) element.textContent = value ?? '';
+};
 const AY = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
 const GUN = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
 const pad = n => String(n).padStart(2, '0');
@@ -21,59 +25,109 @@ const QUOTES = [
  '"Enerjinin sürekliliği, koruma koordinasyonunun hassasiyetinde gizlidir."'
 ];
 
+const FALLBACK_NEWS = {
+  grid: [
+    {title:'Fider Otomasyonu Kesinti Alanını Daraltıyor', desc:'Uzaktan kumandalı ayırıcılar arızalı bölümü izole ederek sağlam kesimlerin yeniden enerjilendirilmesini hızlandırıyor.', url:'#'}
+  ],
+  ren: [
+    {title:'Çatı GES Üretim Tahmini Gerilim Yönetimine Bağlanıyor', desc:'Işınım tahminleri, ters güç akışı ve gerilim yükselmesi riskinin önceden hesaplanmasına yardımcı oluyor.', url:'#'}
+  ],
+  bat: [
+    {title:'Batarya Yönetim Sistemleri Hücre Sapmasını Erken Yakalıyor', desc:'Gerilim ve sıcaklık eğilimleri dengesiz hücrelerin güvenlik sorunu oluşturmadan belirlenmesini sağlıyor.', url:'#'}
+  ],
+  mkt: [
+    {title:'Esneklik Hizmetleri Dağıtım Seviyesine İniyor', desc:'Dağıtık üretim ve tüketim katılımı yerel şebeke ihtiyaçları için birlikte değerlendiriliyor.', url:'#'}
+  ]
+};
+
 // Elektrik & Enerji Kolon Haritası
 const CAT = {grid:'Şebeke & Dağıtım', ren:'Yenilenebilir Enerji', bat:'Depolama & Batarya', mkt:'Piyasa & Regülasyon'};
 let liveEdition = null;
 
 /* ---------- BASKI / TARİH & HAREKETLİ ARŞİV ---------- */
-let cur = editionBase(new Date());
-let offset = 0;
-function editionBase(n){ const d = new Date(n.getFullYear(), n.getMonth(), n.getDate()); if (n.getHours() < 7) d.setDate(d.getDate() - 1); return d; }
+const CURRENT_EDITION = 'data/edition_enerji.json';
+const START_DATE = new Date(2026, 10, 11);
+function editionBase(n){ const d = new Date(n.getFullYear(), n.getMonth(), n.getDate()); if (n.getHours() < 7) d.setDate(d.getDate() - 1); return d < START_DATE ? new Date(START_DATE) : d; }
 function dayIndex(d){ return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5); }
 function dateStr(d){ return `${d.getDate()} ${AY[d.getMonth()]} ${d.getFullYear()}, ${GUN[d.getDay()]}`; }
+function archiveDateStr(d){ return `${d.getDate()} ${AY[d.getMonth()]} ${d.getFullYear()}`; }
+function isoDate(d){ return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; }
 
 function render(){
-  const d = new Date(cur); d.setDate(d.getDate() - offset);
+  const d = editionBase(new Date());
   const i = dayIndex(d);
   
   if (liveEdition) {
-    $('#issueNo').textContent = 'Sayı: ' + liveEdition.issue;
-    $('#dateLine').textContent = liveEdition.date || dateStr(d);
-    $('#quote').textContent = liveEdition.quote || QUOTES[i % QUOTES.length];
-    $('#leadTitle').textContent = liveEdition.lead.title;
-    $('#leadDeck').textContent = liveEdition.lead.deck;
-    $('#leadBody').textContent = liveEdition.lead.body;
-    $('#edTitle').textContent = liveEdition.editorial.title;
-    $('#edBody').textContent = liveEdition.editorial.body;
-    $('#factTitle').textContent = liveEdition.fact.title;
-    $('#factBody').textContent = liveEdition.fact.body;
+    const lead = liveEdition.lead || {};
+    const editorial = liveEdition.editorial || {};
+    const fact = liveEdition.fact || {};
+    setText('#issueNo', 'Sayı: ' + (liveEdition.issue || 1));
+    setText('#dateLine', liveEdition.date || dateStr(d));
+    setText('#quote', liveEdition.quote || QUOTES[Math.abs(i) % QUOTES.length]);
+    setText('#leadTitle', lead.title || LEADS[0].h);
+    setText('#leadDeck', lead.deck || LEADS[0].d);
+    setText('#leadBody', lead.body || LEADS[0].b);
+    setText('#edTitle', editorial.title || EDS[0].t);
+    setText('#edBody', editorial.body || EDS[0].b);
+    setText('#factTitle', fact.title || FACTS[0].t);
+    setText('#factBody', fact.body || FACTS[0].b);
     return;
   }
 
   const L = LEADS[0], E = EDS[0], F = FACTS[0];
-  $('#issueNo').textContent = 'Sayı: 1';
-  $('#dateLine').textContent = dateStr(d);
-  $('#quote').textContent = QUOTES[0];
-  $('#leadTitle').textContent = L.h; $('#leadDeck').textContent = L.d; $('#leadBody').textContent = L.b;
-  $('#edTitle').textContent = E.t; $('#edBody').textContent = E.b;
-  $('#factTitle').textContent = F.t; $('#factBody').textContent = F.b;
+  setText('#issueNo', 'Sayı: ' + Math.max(1, i - dayIndex(START_DATE) + 1));
+  setText('#dateLine', dateStr(d));
+  setText('#quote', QUOTES[Math.abs(i) % QUOTES.length]);
+  setText('#leadTitle', L.h); setText('#leadDeck', L.d); setText('#leadBody', L.b);
+  setText('#edTitle', E.t); setText('#edBody', E.b);
+  setText('#factTitle', F.t); setText('#factBody', F.b);
+}
+
+function appendArchiveOption(select, value, label){
+  const option = document.createElement('option');
+  option.value = value;
+  option.textContent = label;
+  select.appendChild(option);
 }
 
 function fillArchive(){
-  const sel = $('#archive'); sel.innerHTML = '';
-  const o = document.createElement('option');
-  o.value = 0;
-  o.textContent = 'Bugünkü baskı';
-  sel.appendChild(o);
+  const select = $('#archive');
+  if (!select) return;
+  select.innerHTML = '';
+  appendArchiveOption(select, CURRENT_EDITION, 'Bugünkü baskı');
+  const base = editionBase(new Date());
+  const availableArchiveDays = Math.min(7, Math.max(0, dayIndex(base) - dayIndex(START_DATE)));
+  for (let daysAgo = 1; daysAgo <= availableArchiveDays; daysAgo++) {
+    const archiveDate = new Date(base);
+    archiveDate.setDate(archiveDate.getDate() - daysAgo);
+    appendArchiveOption(select, `data/archive/enerji_${isoDate(archiveDate)}.json`, `Arşiv: ${archiveDateStr(archiveDate)}`);
+  }
+  select.value = CURRENT_EDITION;
+}
+
+const archiveSelect = $('#archive');
+if (archiveSelect) {
+  archiveSelect.addEventListener('change', async event => {
+    const requestedFile = event.target.value || CURRENT_EDITION;
+    const loaded = await loadEdition(requestedFile);
+    if (!loaded && requestedFile !== CURRENT_EDITION) {
+      event.target.value = CURRENT_EDITION;
+      await loadEdition(CURRENT_EDITION);
+    }
+  });
 }
 
 /* ---------- SAAT ---------- */
-function tick(){ const n = new Date(); $('#clock').textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`; }
+function tick(){
+  const clock = $('#clock');
+  if (!clock) return;
+  const n = new Date();
+  clock.textContent = `${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
+}
 setInterval(tick, 1000); tick();
 
 /* ---------- CANLI RADAR VE SON DAKİKA AKIŞI ---------- */
 const feed = [];
-let realNewsPool = [];
 const NEWS_CATEGORIES = Object.keys(CAT);
 const newsByCategory = Object.fromEntries(NEWS_CATEGORIES.map(cat => [cat, []]));
 
@@ -140,21 +194,6 @@ function renderNewsGrid(){
   }
 }
 
-function addNews(cat, live, customItem = null){
-  const item = customItem;
-  if (!item || !newsByCategory[cat]) return;
-  const n = new Date();
-  const entry = {...item, live, time:`${pad(n.getHours())}:${pad(n.getMinutes())}`};
-  if (live) newsByCategory[cat].unshift(entry);
-  else newsByCategory[cat].push(entry);
-  if (newsByCategory[cat].length > 6) newsByCategory[cat].length = 6;
-  
-  feed.unshift(`${CAT[cat]}: ${item.title}`);
-  if (feed.length > 12) feed.pop();
-  buildTicker();
-  renderNewsGrid();
-}
-
 function buildTicker(){
   const t = $('#tickerTrack');
   if (!t) return;
@@ -166,38 +205,37 @@ function buildTicker(){
   });
 }
 
-function renderNews(news){
-  realNewsPool = [];
+function renderNews(news = FALLBACK_NEWS){
   feed.length = 0;
   NEWS_CATEGORIES.forEach(cat => { newsByCategory[cat] = []; });
 
+  const leadTitle = liveEdition?.lead?.title || LEADS[0].h;
+  if (leadTitle) feed.push(`Manşet: ${leadTitle}`);
+
   NEWS_CATEGORIES.forEach(cat => {
-    const items = news && Array.isArray(news[cat]) ? news[cat] : [];
+    const suppliedItems = news && Array.isArray(news[cat]) ? news[cat] : [];
+    const items = suppliedItems.length ? suppliedItems : FALLBACK_NEWS[cat];
     items.forEach(item => {
-      const n = new Date();
-      newsByCategory[cat].push({...item, live:false, time:`${pad(n.getHours())}:${pad(n.getMinutes())}`});
-      feed.unshift(`${CAT[cat]}: ${item.title}`);
-      realNewsPool.push({cat, title:item.title, desc:item.desc, url:item.url, isTruncated:item.isTruncated});
+      newsByCategory[cat].push({...item, live:false, time:'07:00'});
+      if (item.title) feed.push(`${CAT[cat]}: ${item.title}`);
     });
   });
 
-  if (feed.length > 12) feed.length = 12;
   renderNewsGrid();
   buildTicker();
 }
 
-function scheduleNext(){
-  setTimeout(() => {
-    if (realNewsPool.length > 0) {
-      const randomItem = realNewsPool[Math.floor(Math.random() * realNewsPool.length)];
-      addNews(randomItem.cat, true, randomItem);
-    }
-    scheduleNext();
-  }, 90000 + Math.random() * 45000);
-}
-
-/* ---------- DİNAMİK BULMACA KÖŞESİ ---------- */
-let currentPuzzleWords = [];
+/* ---------- DİNAMİK ENERJİ KÖŞESİ (KARE BULMACA) ---------- */
+let currentPuzzleWords = [
+  ['TRAFO',0,0,'a','Gerilim seviyesini elektromanyetik indüksiyonla değiştiren elektrik makinesi'],
+  ['AKIM',0,2,'d','Elektrik yükünün birim zamandaki akışı'],
+  ['VOLTAJ',2,4,'a','İki nokta arasındaki elektriksel potansiyel farkı'],
+  ['SCADA',0,8,'d','Şebekenin uzaktan izleme ve kumanda sistemi'],
+  ['GÜNEŞ',4,0,'a','Fotovoltaik üretimin birincil enerji kaynağı'],
+  ['ENERJİ',4,3,'d','İş yapabilme kapasitesi'],
+  ['RÖLE',7,3,'a','Arızayı algılayıp açma komutu üreten koruma cihazı'],
+  ['BATARYA',9,4,'a','Elektrik enerjisini elektrokimyasal olarak depolayan sistem']
+];
 let inputs = {}, cells = {}, nums = {}, pos = {r:0, c:0}, dir = 'a';
 const ROWS = 10, COLS = 11;
 
@@ -206,11 +244,16 @@ function initPuzzle(words) {
   cells = {}; nums = {}; inputs = {};
   
   const gridEl = $('#grid');
+  if (!gridEl) return;
+  const clueA = $('#clueA');
+  const clueD = $('#clueD');
+  const answers = $('#answers');
+  const score = $('#score');
   gridEl.innerHTML = '';
-  $('#clueA').innerHTML = '';
-  $('#clueD').innerHTML = '';
-  $('#answers').innerHTML = '';
-  $('#score').textContent = '';
+  if (clueA) clueA.innerHTML = '';
+  if (clueD) clueD.innerHTML = '';
+  if (answers) answers.innerHTML = '';
+  if (score) score.textContent = '';
 
   currentPuzzleWords.forEach(([w,r,c,d]) => [...w].forEach((ch,i) => {
     const k = (r + (d === 'd' ? i : 0)) + ',' + (c + (d === 'a' ? i : 0)); 
@@ -275,10 +318,11 @@ function initPuzzle(words) {
     const b = document.createElement('b'); 
     b.textContent = n + '.';
     li.append(b, ' ' + clue + ` (${w.length})`);
-    (d === 'a' ? $('#clueA') : $('#clueD')).appendChild(li);
+    const clueList = d === 'a' ? clueA : clueD;
+    if (clueList) clueList.appendChild(li);
     const row = document.createElement('div'); 
     row.textContent = `${n} ${d === 'a' ? 'Yatay' : 'Aşağı'}: ${w}`;
-    $('#answers').appendChild(row);
+    if (answers) answers.appendChild(row);
   });
 }
 
@@ -332,7 +376,7 @@ function onPuzzleKey(e, r, c, inp){
 
 function clearMarks(){ 
   document.querySelectorAll('.cell.ok,.cell.bad').forEach(x => x.classList.remove('ok', 'bad')); 
-  $('#score').textContent = ''; 
+  setText('#score', '');
 }
 
 function checkPuzzle(){
@@ -353,39 +397,87 @@ function checkPuzzle(){
     }
   });
   
-  $('#score').textContent = ok === total 
+  setText('#score', ok === total 
     ? `Tebrikler! ${ok}/${total} kutu doğru, bulmaca çözüldü.` 
-    : `${ok}/${total} doğru, ${filled - ok} yanlış, ${total - filled} boş.`;
+    : `${ok}/${total} doğru, ${filled - ok} yanlış, ${total - filled} boş.`);
 }
 
-$('#checkBtn').addEventListener('click', checkPuzzle);
-$('#clearBtn').addEventListener('click', () => { 
-  Object.values(inputs).forEach(i => i.value = ''); 
-  clearMarks(); 
-  selectCell(0, 0); 
-});
+const checkButton = $('#checkBtn');
+if (checkButton) checkButton.addEventListener('click', checkPuzzle);
+
+const clearButton = $('#clearBtn');
+if (clearButton) {
+  clearButton.addEventListener('click', () => {
+    Object.values(inputs).forEach(i => i.value = '');
+    clearMarks();
+    selectCell(0, 0);
+  });
+}
+
+/* ---------- ADMİN / EDİTÖR NOTU ---------- */
+async function loadAdminNote() {
+  const box = $('#adminBox');
+  if (!box) return;
+  const content = $('#adminContent');
+  if (!content) {
+    box.hidden = true;
+    return;
+  }
+  try {
+    const res = await fetch('data/admin_note.json?t=' + Date.now());
+    if (!res.ok) {
+      box.hidden = true;
+      return;
+    }
+    const data = await res.json();
+    if (data && data.active && data.content) {
+      setText('#adminTitle', data.title || 'Editör Masası');
+      setText('#adminAuthor', data.author || '');
+      content.textContent = data.content;
+      box.hidden = false;
+    } else {
+      box.hidden = true;
+    }
+  } catch (err) {
+    box.hidden = true;
+  }
+}
 
 /* ---------- DİNAMİK VERİ YÜKLEME ---------- */
-async function loadEdition(filePath = 'data/edition_enerji.json'){
+function showStaticFallback(){
+  liveEdition = null;
+  render();
+  initPuzzle(currentPuzzleWords);
+  renderNews(FALLBACK_NEWS);
+}
+
+async function loadEdition(filePath = CURRENT_EDITION){
   try {
     const res = await fetch(filePath + '?t=' + Date.now());
     if (!res.ok) throw new Error('Veri alinamadi: ' + filePath);
-    liveEdition = await res.json();
+    const data = await res.json();
+    if (!data || typeof data !== 'object') throw new Error('Gecersiz baski verisi: ' + filePath);
+    liveEdition = data;
     render();
     
-    if (liveEdition.puzzle && Array.isArray(liveEdition.puzzle)) {
+    if (liveEdition.puzzle && Array.isArray(liveEdition.puzzle) && liveEdition.puzzle.length) {
       initPuzzle(liveEdition.puzzle);
+    } else {
+      initPuzzle(currentPuzzleWords);
     }
 
     renderNews(liveEdition.news || {});
-    
+    return true;
   } catch (err) {
-    console.warn('Enerji verisi yüklenemedi:', err);
+    console.warn('Veri yüklenemedi, statik içerik gösteriliyor:', err);
+    showStaticFallback();
+    return false;
   }
 }
 
 /* ---------- BAŞLAT ---------- */
-fillArchive(); 
-loadEdition();
-scheduleNext();
+showStaticFallback();
+fillArchive();
+loadEdition(CURRENT_EDITION);
+loadAdminNote();
 })();

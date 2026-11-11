@@ -45,19 +45,18 @@ const FALLBACK_NEWS = {
 const CAT = {ai:'Yapay Zeka', oss:'Açık Kaynak', web:'Web Geliştirme', sec:'Siber Güvenlik'};
 let liveEdition = null;
 
-/* ---------- BASKI / TARİH & SABİT ARŞİV ---------- */
+/* ---------- BASKI / TARİH & HAREKETLİ ARŞİV ---------- */
 const CURRENT_EDITION = 'data/edition.json';
-const ARCHIVE_EDITIONS = [
-  {file:'data/archive/2026-10-23.json', label:'23 Ekim 2026'},
-  {file:'data/archive/2026-10-22.json', label:'22 Ekim 2026'},
-  {file:'data/archive/2026-10-21.json', label:'21 Ekim 2026'}
-];
+const START_DATE = new Date(2026, 10, 11);
 
+function editionBase(n){ const d = new Date(n.getFullYear(), n.getMonth(), n.getDate()); if (n.getHours() < 7) d.setDate(d.getDate() - 1); return d < START_DATE ? new Date(START_DATE) : d; }
 function dayIndex(d){ return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5); }
 function dateStr(d){ return `${d.getDate()} ${AY[d.getMonth()]} ${d.getFullYear()}, ${GUN[d.getDay()]}`; }
+function archiveDateStr(d){ return `${d.getDate()} ${AY[d.getMonth()]} ${d.getFullYear()}`; }
+function isoDate(d){ return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; }
 
 function render(){
-  const d = new Date();
+  const d = editionBase(new Date());
   const i = dayIndex(d);
   const L = LEADS[Math.abs(i) % LEADS.length], E = EDS[0], F = FACTS[0];
   
@@ -78,7 +77,7 @@ function render(){
     return;
   }
 
-  setText('#issueNo', 'Sayı: ' + Math.max(1, i - dayIndex(new Date(2026, 9, 21)) + 1));
+  setText('#issueNo', 'Sayı: ' + Math.max(1, i - dayIndex(START_DATE) + 1));
   setText('#dateLine', dateStr(d));
   setText('#quote', QUOTES[Math.abs(i) % QUOTES.length]);
   setText('#leadTitle', L.h);
@@ -102,9 +101,13 @@ function fillArchive(){
   if (!select) return;
   select.innerHTML = '';
   appendArchiveOption(select, CURRENT_EDITION, 'Bugünkü baskı');
-  ARCHIVE_EDITIONS.forEach(item => {
-    appendArchiveOption(select, item.file, 'Arşiv: ' + item.label);
-  });
+  const base = editionBase(new Date());
+  const availableArchiveDays = Math.min(7, Math.max(0, dayIndex(base) - dayIndex(START_DATE)));
+  for (let daysAgo = 1; daysAgo <= availableArchiveDays; daysAgo++) {
+    const archiveDate = new Date(base);
+    archiveDate.setDate(archiveDate.getDate() - daysAgo);
+    appendArchiveOption(select, `data/archive/${isoDate(archiveDate)}.json`, `Arşiv: ${archiveDateStr(archiveDate)}`);
+  }
   select.value = CURRENT_EDITION;
 }
 
@@ -131,7 +134,6 @@ setInterval(tick, 1000); tick();
 
 /* ---------- CANLI RADAR VE SON DAKİKA AKIŞI ---------- */
 const feed = [];
-let realNewsPool = [];
 const NEWS_CATEGORIES = Object.keys(CAT);
 const newsByCategory = Object.fromEntries(NEWS_CATEGORIES.map(cat => [cat, []]));
 
@@ -199,21 +201,6 @@ function renderNewsGrid(){
   }
 }
 
-function addNews(cat, live, customItem = null){
-  const item = customItem;
-  if (!item || !newsByCategory[cat]) return;
-  const n = new Date();
-  const entry = {...item, live, time:`${pad(n.getHours())}:${pad(n.getMinutes())}`};
-  if (live) newsByCategory[cat].unshift(entry);
-  else newsByCategory[cat].push(entry);
-  if (newsByCategory[cat].length > 6) newsByCategory[cat].length = 6;
-  
-  feed.unshift(`${CAT[cat]}: ${item.title}`);
-  if (feed.length > 12) feed.pop();
-  buildTicker();
-  renderNewsGrid();
-}
-
 function buildTicker(){
   const t = $('#tickerTrack');
   if (!t) return;
@@ -226,40 +213,23 @@ function buildTicker(){
 }
 
 function renderNews(news = FALLBACK_NEWS){
-  realNewsPool = [];
   feed.length = 0;
   NEWS_CATEGORIES.forEach(cat => { newsByCategory[cat] = []; });
+
+  const leadTitle = liveEdition?.lead?.title || LEADS[Math.abs(dayIndex(editionBase(new Date()))) % LEADS.length].h;
+  if (leadTitle) feed.push(`Manşet: ${leadTitle}`);
 
   NEWS_CATEGORIES.forEach(cat => {
     const suppliedItems = news && Array.isArray(news[cat]) ? news[cat] : [];
     const items = suppliedItems.length ? suppliedItems : FALLBACK_NEWS[cat];
     items.forEach(item => {
-      const n = new Date();
-      newsByCategory[cat].push({...item, live:false, time:`${pad(n.getHours())}:${pad(n.getMinutes())}`});
-      feed.unshift(`${CAT[cat]}: ${item.title}`);
-      realNewsPool.push({
-        cat,
-        title: item.title,
-        desc: item.desc,
-        url: item.url,
-        isTruncated: item.isTruncated
-      });
+      newsByCategory[cat].push({...item, live:false, time:'07:00'});
+      if (item.title) feed.push(`${CAT[cat]}: ${item.title}`);
     });
   });
 
-  if (feed.length > 12) feed.length = 12;
   renderNewsGrid();
   buildTicker();
-}
-
-function scheduleNext(){
-  setTimeout(() => {
-    if (realNewsPool.length > 0) {
-      const randomItem = realNewsPool[Math.floor(Math.random() * realNewsPool.length)];
-      addNews(randomItem.cat, true, randomItem);
-    }
-    scheduleNext();
-  }, 90000 + Math.random() * 45000);
 }
 
 /* ---------- DİNAMİK ZEKA KÖŞESİ (KARE BULMACA) ---------- */
@@ -457,35 +427,6 @@ if (clearButton) {
   });
 }
 
-/* ---------- ADMİN / EDİTÖR NOTU ---------- */
-async function loadAdminNote() {
-  const box = $('#adminBox');
-  if (!box) return;
-  const content = $('#adminContent');
-  if (!content) {
-    box.hidden = true;
-    return;
-  }
-  try {
-    const res = await fetch('data/admin_note.json?t=' + Date.now());
-    if (!res.ok) {
-      box.hidden = true;
-      return;
-    }
-    const data = await res.json();
-    if (data && data.active && data.content) {
-      setText('#adminTitle', data.title || 'Editör Masası');
-      setText('#adminAuthor', data.author || '');
-      content.textContent = data.content;
-      box.hidden = false;
-    } else {
-      box.hidden = true;
-    }
-  } catch (err) {
-    box.hidden = true;
-  }
-}
-
 /* ---------- DİNAMİK VERİ YÜKLEME ---------- */
 function showStaticFallback(){
   liveEdition = null;
@@ -504,7 +445,7 @@ async function loadEdition(filePath = CURRENT_EDITION){
     render();
     
     // O güne ait bulmaca
-    if (liveEdition.puzzle && Array.isArray(liveEdition.puzzle)) {
+    if (liveEdition.puzzle && Array.isArray(liveEdition.puzzle) && liveEdition.puzzle.length) {
       initPuzzle(liveEdition.puzzle);
     } else {
       initPuzzle(currentPuzzleWords);
@@ -522,7 +463,5 @@ async function loadEdition(filePath = CURRENT_EDITION){
 /* ---------- BAŞLAT ---------- */
 showStaticFallback();
 fillArchive();
-loadEdition('data/edition.json');
-loadAdminNote();
-scheduleNext();
+loadEdition(CURRENT_EDITION);
 })();
