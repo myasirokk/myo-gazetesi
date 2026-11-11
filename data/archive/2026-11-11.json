@@ -4,8 +4,8 @@
   "date_key": "2026-11-11",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "Prompt Pad: What Are Open-Weight Models?",
-    "deck": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+    "title": "Küçük Dil Modelleri Cihaz Üstünde Yaygınlaşıyor",
+    "deck": "Düşük bellek tüketimli modeller kişisel verileri buluta göndermeden yerel donanımda çalışıyor.",
     "body": "Yapay zekâ ve yazılım dünyasında model güvenliği, veri gizliliği, açık kaynak sürdürülebilirliği ve web performansı aynı mühendislik zincirinin parçaları hâline geliyor. Ekipler için temel hedef otomasyonu ölçülebilir kalite kontrolleri ve insan denetimiyle birlikte işletmek.\n\nBu baskı erişilebilen güvenilir kaynakları Türkçe özetler; kaynak kesintisinde ise alanına özel zengin yedek haber havuzunu kullanır."
   },
   "editorial": {
@@ -19,32 +19,27 @@
   "news": {
     "ai": [
       {
-        "title": "Prompt Pad: What Are Open-Weight Models?",
-        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
-        "url": "https://blog.mlh.com/prompt-pad-what-are-open-weight-models-1ghh"
+        "title": "Küçük Dil Modelleri Cihaz Üstünde Yaygınlaşıyor",
+        "desc": "Düşük bellek tüketimli modeller kişisel verileri buluta göndermeden yerel donanımda çalışıyor.",
+        "url": "https://huggingface.co/blog"
       },
       {
-        "title": "Take Claude Code Above Average: Let Antigravity Review It",
-        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
-        "url": "https://dev.to/gde/take-claude-code-above-average-let-antigravity-review-it-1f3g"
+        "title": "Yapay Zekâ Ajanlarında İzin Katmanı Öne Çıkıyor",
+        "desc": "Kurumsal ekipler araç kullanan ajanların erişimini görev ve veri düzeyinde sınırlandırıyor.",
+        "url": "https://ai.googleblog.com/"
       },
       {
-        "title": "Prompt Pad: Lock Your AI's Output Schema in Google AI Studio",
-        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
-        "url": "https://blog.mlh.com/prompt-pad-lock-your-ais-output-schema-in-google-ai-studio-53io"
+        "title": "Çok Modlu Modeller Belge İşleme Süreçlerini Yeniliyor",
+        "desc": "Metin ve görseli birlikte değerlendiren modeller belgelerden yapılandırılmış veri çıkarıyor.",
+        "url": "https://huggingface.co/blog"
       },
       {
-        "title": "That's a Wrap on Hacktoberfest 2026! 🎃👻",
-        "desc": "Hacktoberfest 2026 wrapped up on October 31st! Thank you to everyone who built, hosted, mentored,...",
-        "url": "https://dev.to/devteam/thats-a-wrap-on-hacktoberfest-2026-148k"
+        "title": "Model Değerlendirmesinde Gerçek Görev Testleri Artıyor",
+        "desc": "Kıyaslamalar güvenlik, doğruluk ve araç kullanımı senaryolarına yöneliyor.",
+        "url": "https://news.ycombinator.com/"
       }
     ],
     "oss": [
-      {
-        "title": "RackDoc DCIM v1.1: Background Multi-Protocol Heartbeat, 48-Port CAD Geometry, NOC Kiosk Mode & Decoupled Remote Connect",
-        "desc": "Açık Kaynak alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
-        "url": "https://dev.to/gde/rackdoc-dcim-v11-background-multi-protocol-heartbeat-48-port-cad-geometry-noc-kiosk-mode--2j7k"
-      },
       {
         "title": "Açık Kaynak Projelerde İmzalı Sürüm Zinciri Güçleniyor",
         "desc": "Paket ve derlemelerin kaynağını doğrulayan imza kontrolleri yayın süreçlerine ekleniyor.",
@@ -59,6 +54,11 @@
         "title": "Bağımlılık Güncellemeleri Otomatik Testlerle Birleşiyor",
         "desc": "Paket yükseltmeleri güvenlik taraması ve geriye dönük testlerle doğrulanıyor.",
         "url": "https://github.blog/"
+      },
+      {
+        "title": "Küçük Konteyner İmajları Saldırı Yüzeyini Azaltıyor",
+        "desc": "Daha az paket içeren taban imajlar güvenliği ve dağıtım hızını artırıyor.",
+        "url": "https://www.docker.com/blog/"
       }
     ],
     "web": [
