@@ -331,36 +331,18 @@ main p {
   padding: 0.3rem 0.5rem 0 0;
 }
 
+/* ---------- SAĞ SÜTUN: HAP BİLGİ + ODAK NOTU ---------- */
 .side {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.column-piece h3,
 .fact-box h3 {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.5rem;
   line-height: 1.2;
   margin: 0.2rem 0;
-}
-
-.byline {
-  font-family: 'Special Elite', 'Courier New', monospace;
-  font-size: 0.8rem;
-  margin: 0 0 0.5rem;
-  color: var(--mute);
-}
-
-.column-piece {
-  border: 1px solid #1c1917;
-  padding: 1.15rem;
-  background: var(--paper2);
-}
-
-.column-piece p:last-child {
-  text-align: left;
-  margin: 0;
 }
 
 .fact-box {
@@ -371,6 +353,87 @@ main p {
 
 .fact-box p:last-child {
   margin: 0;
+}
+
+/* Günün Sözü / Odak Notu: sağ sütundaki kalan boşluğu dengeli doldurur */
+.focus-note {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 3px double var(--ink);
+  padding: 1.35rem 1.25rem 1.25rem;
+  background: var(--paper2);
+  text-align: center;
+}
+
+.focus-note .box-title {
+  text-align: center;
+  font-size: 0.95rem;
+  margin-bottom: 0.9rem;
+}
+
+.focus-quote {
+  margin: 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.32;
+  letter-spacing: -0.005em;
+}
+
+.focus-quote::before {
+  content: "“";
+  display: block;
+  height: 2.1rem;
+  font-size: 4rem;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--red);
+}
+
+.focus-note .focus-source {
+  margin: 0.7rem 0 0;
+  text-align: center;
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 0.78rem;
+  color: var(--mute);
+}
+
+.focus-note .focus-ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.15rem 0 0.9rem;
+  font-size: 0.7rem;
+  line-height: 1;
+  color: var(--red);
+}
+
+.focus-note .focus-ornament::before,
+.focus-note .focus-ornament::after {
+  content: "";
+  flex: 1;
+  border-top: 1px dotted #8a8372;
+}
+
+.focus-note .focus-label {
+  margin: 0 0 0.35rem;
+  text-align: center;
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.focus-note .focus-text {
+  margin: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.65;
 }
 
 /* ---------- SON DAKİKA KOLONU ---------- */
@@ -665,6 +728,9 @@ footer {
     border-right: none;
     padding-right: 0;
   }
+  .focus-note {
+    flex: 0 1 auto;
+  }
   .news-cols {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -749,6 +815,14 @@ footer {
     padding-top: 0.1rem;
   }
 
+  /* Sağ sütun kartları */
+  .focus-note {
+    padding: 1.1rem 1rem 1rem;
+  }
+  .focus-quote {
+    font-size: 1.25rem;
+  }
+
   /* Haber Sütunları */
   .news-cols {
     grid-template-columns: 1fr;
@@ -815,32 +889,6 @@ footer {
 
 .news-link:hover {
   opacity: 0.65;
-}
-
-/* Editör / Admin Notu Kartı */
-.admin-box {
-  margin-top: 14px;
-  background-color: #f7f5ef;
-  border: 1px dashed #222;
-  padding: 12px 14px;
-}
-
-.admin-tag {
-  font-family: 'Special Elite', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  font-weight: 700;
-  color: #c92a2a;
-  margin-bottom: 4px;
-}
-
-.admin-author {
-  display: block;
-  font-family: 'Merriweather', serif;
-  font-style: italic;
-  font-size: 0.78rem;
-  color: #555;
-  margin-bottom: 6px;
 }
 
 /* ---------- TEMİZ A4 / GAZETE YAZDIRMA DÜZENİ ---------- */
@@ -937,7 +985,7 @@ footer {
   .top-grid {
     grid-template-columns: 1.85fr 1fr;
     gap: 4mm;
-    align-items: start;
+    align-items: stretch; /* sağ sütun manşet yüksekliğine uzanır */
   }
 
   .lead {
@@ -974,31 +1022,75 @@ footer {
     padding: 0.8mm 1.2mm 0 0;
   }
 
+  /* Sağ sütun: Hap Bilgi + Günün Sözü / Odak Notu */
   .side {
     gap: 2.5mm;
   }
 
-  .column-piece h3,
   .fact-box h3 {
     margin: 0 0 0.8mm;
     font-size: 11.5pt;
     line-height: 1.15;
   }
 
-  .column-piece p,
-  .fact-box p,
-  .byline {
+  .fact-box p {
     margin-top: 0;
     margin-bottom: 1.2mm;
     text-align: left;
     line-height: 1.38;
   }
 
-  .column-piece,
   .fact-box {
     padding: 2.7mm;
     border: 1px solid #1c1917;
     background: #ffffff !important;
+  }
+
+  .focus-note {
+    flex: 1 1 auto;
+    padding: 3mm 2.7mm;
+    border: 3px double #1c1917;
+    background: #ffffff !important;
+  }
+
+  .focus-note .box-title {
+    margin: 0 0 1.6mm;
+    font-size: 8pt;
+  }
+
+  .focus-quote {
+    font-size: 12pt;
+    line-height: 1.28;
+  }
+
+  .focus-quote::before {
+    height: 6.5mm;
+    font-size: 24pt;
+    color: #000000;
+  }
+
+  .focus-note .focus-source {
+    margin: 1.4mm 0 0;
+    font-size: 6.8pt;
+    line-height: 1.25;
+    color: #333333;
+  }
+
+  .focus-note .focus-ornament {
+    margin: 2.8mm 0 2mm;
+    font-size: 6pt;
+    color: #000000;
+  }
+
+  .focus-note .focus-label {
+    margin: 0 0 0.8mm;
+    font-size: 6.8pt;
+    color: #000000;
+  }
+
+  .focus-note .focus-text {
+    font-size: 7.8pt;
+    line-height: 1.4;
   }
 
   .box-title {
@@ -1006,11 +1098,6 @@ footer {
     padding-bottom: 0.6mm;
     font-size: 8pt;
     line-height: 1.2;
-  }
-
-  .admin-box {
-    margin-top: 1.5mm;
-    padding: 2mm;
   }
 
   .section-title {
@@ -1106,6 +1193,7 @@ footer {
 
   article,
   .fact-box,
+  .focus-note,
   .news-grid-list li,
   footer {
     break-inside: avoid;
