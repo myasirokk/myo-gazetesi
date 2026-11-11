@@ -1,0 +1,133 @@
+{
+  "issue": 22,
+  "date": "11 Kasım 2026, Çarşamba",
+  "date_key": "2026-11-11",
+  "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
+  "lead": {
+    "title": "Stop Asking LLMs to Do Math: Client-Side Functions in Flutter GenUI with bloc_signals",
+    "deck": "Why Andrew 'Red' Brogdon's insight on client-side functions is critical for Generative UI—and how bloc_signals_genui turns catalog functions into 0ms synchronous reactive signals.",
+    "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
+  },
+  "editorial": {
+    "title": "Ajanlar Çağında Kodu Okumak Yazmaktan Değerli",
+    "body": "Kod üretmek ucuzlarken doğru kodu ayırt etmek pahalılaşıyor. Gelecekte iyi mühendis, en çok satır yazan değil, sistemin tasarım amacını ve güvenlik sınırlarını doğru okuyan kişi olacak."
+  },
+  "fact": {
+    "title": "Zero-Shot Inference",
+    "body": "Modelin belirli bir görevi daha önce hiç örnek görmeden sadece bağlam talimatıyla tamamlayabilme yeteneğidir."
+  },
+  "news": {
+    "ai": [
+      {
+        "title": "Stop Asking LLMs to Do Math: Client-Side Functions in Flutter GenUI with bloc_signals",
+        "desc": "Why Andrew 'Red' Brogdon's insight on client-side functions is critical for Generative UI—and how bloc_signals_genui turns catalog functions into 0ms synchronous reactive signals.",
+        "url": "https://dev.to/gde/stop-asking-llms-to-do-math-client-side-functions-in-flutter-genui-with-blocsignals-23bh"
+      },
+      {
+        "title": "Prompt Pad: What Are Open-Weight Models?",
+        "desc": "When people call an AI model \"open,\" they don't always mean the same thing.  On this week's Prompt",
+        "url": "https://blog.mlh.com/prompt-pad-what-are-open-weight-models-1ghh"
+      },
+      {
+        "title": "What I Learned Managing a Full Project with Antigravity",
+        "desc": "How my workflow evolved from solo prompting in AI Studio to managing a multi-model AI team, running",
+        "url": "https://dev.to/gde/what-i-learned-managing-a-full-project-with-antigravity-1ppc"
+      },
+      {
+        "title": "Containing the Autonomous Mind: Sub-Second Zero-Trust Execution with GKE Agent Sandbox",
+        "desc": "Why standard Kubernetes pods fail when AI agents start writing code and how to build a sub-second,",
+        "url": "https://dev.to/gde/containing-the-autonomous-mind-sub-second-zero-trust-execution-with-gke-agent-sandbox-5e6b"
+      }
+    ],
+    "oss": [
+      {
+        "title": "That's a Wrap on Hacktoberfest 2026! 🎃👻",
+        "desc": "Hacktoberfest 2026 wrapped up on October 31st! Thank you to everyone who built, hosted, mentored,",
+        "url": "https://dev.to/devteam/thats-a-wrap-on-hacktoberfest-2026-148k"
+      },
+      {
+        "title": "Building RailPulse AI: Deploying an Open-Source Railway Dispatch Agent with Gemma and Google Cloud Run",
+        "desc": "Author: Robina Mirbahar AI/ML Google Developer Expert (GDE) | Google Cloud Champion Innovator GitHub",
+        "url": "https://dev.to/gde/building-railpulse-ai-deploying-an-open-source-railway-dispatch-agent-with-gemma-and-google-cloud-2b9g"
+      },
+      {
+        "title": "Profile Sprawl: Solving a Problem You Didn't Know You Had",
+        "desc": "Every public profile you own says something slightly different about you. A step by step guide to treating your bio as source code, with one file, one tracker and an agent skill that checks the live sites.",
+        "url": "https://dev.to/gde/profile-sprawl-solving-a-problem-you-didnt-know-you-had-19k5"
+      },
+      {
+        "title": "Open-weights models: A case (and first step) for Gemma over Gemini for budget & privacy",
+        "desc": "TL;DR:   Gemini is the premier frontier model (family) from Google DeepMind. In the current",
+        "url": "https://dev.to/gde/open-weights-models-a-case-and-first-step-for-gemma-over-gemini-for-budget-privacy-2gjo"
+      }
+    ],
+    "web": [
+      {
+        "title": "Google AI Classroom Part 1: Architecting a Scale-to-Zero Serverless AI Classroom with Gemini 4, Gemma 4 E2B & Firebase",
+        "desc": "Architecting a scale-to-zero serverless AI platform for teaching, learning, student performance, and proctored assessments on Google Cloud.",
+        "url": "https://dev.to/gde/google-ai-classroom-part-1-solving-the-25-per-exam-problem-architecting-a-sub-002student-fjc"
+      },
+      {
+        "title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi",
+        "desc": "Tarayıcı içi istemci tarafı grafik ve hesaplama kapasitesi arttı.",
+        "url": "https://dev.to"
+      }
+    ],
+    "sec": [
+      {
+        "title": "Kritik Paket Yöneticilerinde Sahte Paket Engelleme Mekanizması",
+        "desc": "Benzer isimli zararlı paket dağıtımlarına karşı otomatik doğrulama geldi.",
+        "url": "https://dev.to"
+      },
+      {
+        "title": "Passkey Desteği Global Web Sitelerinde Yaygınlaşıyor",
+        "desc": "Geleneksel parolaların yerini kriptografik anahtar çiftleri alıyor.",
+        "url": "https://dev.to"
+      }
+    ]
+  },
+  "puzzle": [
+    [
+      "TENSOR",
+      0,
+      0,
+      "a",
+      "Çok boyutlu veri matrisi"
+    ],
+    [
+      "THREAD",
+      0,
+      0,
+      "d",
+      "İşlemcinin eşzamanlı çalıştırdığı en küçük iş parçacığı"
+    ],
+    [
+      "SOCKET",
+      2,
+      0,
+      "a",
+      "Ağ bağlantı uç noktası"
+    ],
+    [
+      "REST",
+      0,
+      5,
+      "d",
+      "Web servis mimari standardı"
+    ],
+    [
+      "SCHEMA",
+      5,
+      1,
+      "a",
+      "Veritabanı yapı ve kural tanımı"
+    ],
+    [
+      "CACHE",
+      4,
+      4,
+      "d",
+      "Hızlı erişim için kullanılan önbellek"
+    ]
+  ]
+}

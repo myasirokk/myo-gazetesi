@@ -1,11 +1,11 @@
 {
-  "issue": 21,
-  "date": "10 Kasım 2026, Salı",
-  "date_key": "2026-11-10",
+  "issue": 22,
+  "date": "11 Kasım 2026, Çarşamba",
+  "date_key": "2026-11-11",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "Agents CLI ile kurulumdan dağıtıma bir Claude Agent SDK aracısı alın",
-    "deck": "Agents CLI'deki Claude uzantısının, sizin için oturumlar, izleme ve değerlendirme ayarlarıyla birlikte bir Claude Agent SDK aracısını kurulumdan doğrulanmış bir Cloud Run dağıtımına nasıl götürdüğü.",
+    "title": "Stop Asking LLMs to Do Math: Client-Side Functions in Flutter GenUI with bloc_signals",
+    "deck": "Why Andrew 'Red' Brogdon's insight on client-side functions is critical for Generative UI—and how bloc_signals_genui turns catalog functions into 0ms synchronous reactive signals.",
     "body": "Geliştirici dünyasında araç kullanımı hızla otomatikleşirken modellerin çevreleriyle kurduğu etkileşim standart bir çerçeveye kavuşuyor. IDE entegrasyonları, otomatik hata ayıklama ve test çalıştırma süreçleri artık bağımsız döngüler halinde yönetiliyor. Ekipler için kritik eşik, otonom kararlar ile geliştirici denetimi arasındaki dengeyi doğru kurgulamak.\n\nÖte yandan yerel çıkarım modellerinin donanım verimliliği arttıkça, buluta bağımlı kalmadan istemci tarafında çalışan hibrit mimariler standartlaşıyor. Kod tabanlarının güvenliği ve veri gizliliği odaklı kurumsal çözümlerde, açık kaynak modellerin özel donanımlarla optimize edilmesi yazılım yaşam döngüsünün merkezine yerleşiyor."
   },
   "editorial": {
@@ -19,53 +19,53 @@
   "news": {
     "ai": [
       {
-        "title": "Agents CLI ile kurulumdan dağıtıma bir Claude Agent SDK aracısı alın",
-        "desc": "Agents CLI'deki Claude uzantısının, sizin için oturumlar, izleme ve değerlendirme ayarlarıyla birlikte bir Claude Agent SDK aracısını kurulumdan doğrulanmış bir Cloud Run dağıtımına nasıl götürdüğü.",
-        "url": "https://dev.to/googlecloud/take-a-claude-agent-sdk-agent-from-install-to-deploy-with-agents-cli-2680"
-      },
-      {
-        "title": "2026'da Geliştirici Deneyimi (DX) Neden Yeterli Değil: Temsilci Deneyimine (AX) İhtiyacınız Var",
-        "desc": "16 GB Mac'inizdeki ve çoklu bulut Ubuntu Dev-Box'ınızdaki en çalışkan kullanıcı, 20'den fazla AI kodlama aracısından oluşan bir filo olduğunda ne olur? 8s Chrome 136+ CDP kilitlenmeleri, 12GB APFS hayalet klonları, WindowServer donmaları ve tmux yeniden başlatma hafıza kaybı için gerçek kıyaslamalar ve düzeltmeler.",
-        "url": "https://dev.to/gde/why-developer-experience-dx-isnt-enough-in-2026-you-need-agent-experience-ax-3dcf"
-      },
-      {
-        "title": "Yüksek Lisans'lardan Matematik Yapmalarını İstemeyi Durdurun: Flutter GenUI'da bloc_signals ile İstemci Tarafı İşlevleri",
-        "desc": "Andrew 'Red' Brogdon'un istemci tarafı işlevlere ilişkin içgörüsü Üretken Kullanıcı Arayüzü için neden kritiktir ve bloc_signals_genui'nin katalog işlevlerini 0 ms eşzamanlı reaktif sinyallere nasıl dönüştürdüğü.",
+        "title": "Stop Asking LLMs to Do Math: Client-Side Functions in Flutter GenUI with bloc_signals",
+        "desc": "Why Andrew 'Red' Brogdon's insight on client-side functions is critical for Generative UI—and how bloc_signals_genui turns catalog functions into 0ms synchronous reactive signals.",
         "url": "https://dev.to/gde/stop-asking-llms-to-do-math-client-side-functions-in-flutter-genui-with-blocsignals-23bh"
       },
       {
-        "title": "Açık ağırlıklı modeller: Bütçe ve mahremiyet açısından Gemma'nın Gemini'ye karşı bir örneği (ve ilk adım)",
-        "desc": "TL;DR: Gemini, Google DeepMind'ın önde gelen sınır modelidir (ailesidir). Şu anda",
-        "url": "https://dev.to/gde/open-weights-models-a-case-and-first-step-for-gemma-over-gemini-for-budget-privacy-2gjo"
+        "title": "Prompt Pad: What Are Open-Weight Models?",
+        "desc": "When people call an AI model \"open,\" they don't always mean the same thing.  On this week's Prompt",
+        "url": "https://blog.mlh.com/prompt-pad-what-are-open-weight-models-1ghh"
+      },
+      {
+        "title": "What I Learned Managing a Full Project with Antigravity",
+        "desc": "How my workflow evolved from solo prompting in AI Studio to managing a multi-model AI team, running",
+        "url": "https://dev.to/gde/what-i-learned-managing-a-full-project-with-antigravity-1ppc"
+      },
+      {
+        "title": "Containing the Autonomous Mind: Sub-Second Zero-Trust Execution with GKE Agent Sandbox",
+        "desc": "Why standard Kubernetes pods fail when AI agents start writing code and how to build a sub-second,",
+        "url": "https://dev.to/gde/containing-the-autonomous-mind-sub-second-zero-trust-execution-with-gke-agent-sandbox-5e6b"
       }
     ],
     "oss": [
       {
-        "title": "Prompt Pad: Açık Ağırlıklı Modeller Nelerdir?",
-        "desc": "İnsanlar bir AI modelini \"açık\" olarak adlandırdıklarında her zaman aynı şeyi kastetmiyorlar.  Bu haftaki Prompt'te",
-        "url": "https://blog.mlh.com/prompt-pad-what-are-open-weight-models-1ghh"
-      },
-      {
-        "title": "Android 17 ve 4.9 Çekirdeğinde Mobil Veri: Pixel 3a'da Google Fi",
-        "desc": "Pixel 3a'daki LineageOS 24.0, dört düzeltmenin ardından yalnızca Google Fi veri SIM'inden mobil veri alıyor: varsayılan olarak mobil veriler açık, operatör ayarlarında bir Fi APN, VoLTE ve IPv4 için bir close_range() desteği. Her biri radyo kayıtlarından takip edildi.",
-        "url": "https://dev.to/gde/mobile-data-on-android-17-and-a-49-kernel-google-fi-on-the-pixel-3a-4cdc"
-      },
-      {
-        "title": "Bu Hacktoberfest 2026'nın Sonu! 🎃👻",
-        "desc": "Hacktoberfest 2026 31 Ekim'de sona erdi! Yapan, ev sahipliği yapan, mentorluk yapan herkese teşekkür ederiz",
+        "title": "That's a Wrap on Hacktoberfest 2026! 🎃👻",
+        "desc": "Hacktoberfest 2026 wrapped up on October 31st! Thank you to everyone who built, hosted, mentored,",
         "url": "https://dev.to/devteam/thats-a-wrap-on-hacktoberfest-2026-148k"
       },
       {
-        "title": "RailPulse AI Oluşturma: Gemma ve Google Cloud Run ile Açık Kaynaklı Demiryolu Sevkiyat Temsilcisini Dağıtma",
-        "desc": "Yazar: Robina Mirbahar AI/ML Google Geliştirici Uzmanı (GDE) | Google Bulut Şampiyonu Yenilikçi GitHub",
+        "title": "Building RailPulse AI: Deploying an Open-Source Railway Dispatch Agent with Gemma and Google Cloud Run",
+        "desc": "Author: Robina Mirbahar AI/ML Google Developer Expert (GDE) | Google Cloud Champion Innovator GitHub",
         "url": "https://dev.to/gde/building-railpulse-ai-deploying-an-open-source-railway-dispatch-agent-with-gemma-and-google-cloud-2b9g"
+      },
+      {
+        "title": "Profile Sprawl: Solving a Problem You Didn't Know You Had",
+        "desc": "Every public profile you own says something slightly different about you. A step by step guide to treating your bio as source code, with one file, one tracker and an agent skill that checks the live sites.",
+        "url": "https://dev.to/gde/profile-sprawl-solving-a-problem-you-didnt-know-you-had-19k5"
+      },
+      {
+        "title": "Open-weights models: A case (and first step) for Gemma over Gemini for budget & privacy",
+        "desc": "TL;DR:   Gemini is the premier frontier model (family) from Google DeepMind. In the current",
+        "url": "https://dev.to/gde/open-weights-models-a-case-and-first-step-for-gemma-over-gemini-for-budget-privacy-2gjo"
       }
     ],
     "web": [
       {
-        "title": "Modern Tarayıcılarda Görünüm Geçişleri Standardı Oturuyor",
-        "desc": "Bileşenler arası animasyonlar tek satır CSS ile mümkün kılınıyor.",
-        "url": "https://dev.to"
+        "title": "Google AI Classroom Part 1: Architecting a Scale-to-Zero Serverless AI Classroom with Gemini 4, Gemma 4 E2B & Firebase",
+        "desc": "Architecting a scale-to-zero serverless AI platform for teaching, learning, student performance, and proctored assessments on Google Cloud.",
+        "url": "https://dev.to/gde/google-ai-classroom-part-1-solving-the-25-per-exam-problem-architecting-a-sub-002student-fjc"
       },
       {
         "title": "WebAssembly ve WebGPU Çekirdek Web Standartlarına Entegre Edildi",
@@ -75,9 +75,9 @@
     ],
     "sec": [
       {
-        "title": "Pipeline'e Güvenmeyin: Saldırganlar Kümenizi Hacklemeyi Neden Durdurdu ve CI/CD'nizi Kullanmaya Başladı (Ve Google Cloud'da Onları Nasıl Durdurabilirsiniz)",
-        "desc": "Kaynak: \"Pipeline'e Güvenmeyin: Yazılım Teslimatını ve İş Yükü Kimliğini Güvence Altına Alma",
-        "url": "https://dev.to/gde/trust-no-pipeline-why-attackers-stopped-hacking-your-cluster-and-started-riding-your-cicd-and-2m74"
+        "title": "Kritik Paket Yöneticilerinde Sahte Paket Engelleme Mekanizması",
+        "desc": "Benzer isimli zararlı paket dağıtımlarına karşı otomatik doğrulama geldi.",
+        "url": "https://dev.to"
       },
       {
         "title": "Passkey Desteği Global Web Sitelerinde Yaygınlaşıyor",
@@ -88,53 +88,46 @@
   },
   "puzzle": [
     [
-      "VECTOR",
+      "TENSOR",
       0,
       0,
       "a",
-      "Gömme (embedding) uzayındaki yönlü sayı dizisi"
+      "Çok boyutlu veri matrisi"
     ],
     [
-      "VIRTUAL",
+      "THREAD",
       0,
       0,
       "d",
-      "Fiziksel olmayan, sanal ortam"
+      "İşlemcinin eşzamanlı çalıştırdığı en küçük iş parçacığı"
     ],
     [
-      "ROUTER",
+      "SOCKET",
+      2,
+      0,
+      "a",
+      "Ağ bağlantı uç noktası"
+    ],
+    [
+      "REST",
       0,
       5,
       "d",
-      "Ağ paketlerini yönlendiren donanım/yazılım"
+      "Web servis mimari standardı"
     ],
     [
-      "REACT",
-      2,
-      0,
-      "a",
-      "Popüler bir JavaScript arayüz kütüphanesi"
-    ],
-    [
-      "ARRAY",
-      4,
-      2,
-      "a",
-      "Aynı türden elemanları tutan dizi yapısı"
-    ],
-    [
-      "KERNEL",
+      "SCHEMA",
+      5,
       1,
-      6,
-      "d",
-      "İşletim sisteminin donanımı yöneten çekirdeği"
+      "a",
+      "Veritabanı yapı ve kural tanımı"
     ],
     [
-      "LINUX",
-      6,
-      2,
-      "a",
-      "Açık kaynaklı işletim sistemi ailesi"
+      "CACHE",
+      4,
+      4,
+      "d",
+      "Hızlı erişim için kullanılan önbellek"
     ]
   ]
 }
