@@ -34,6 +34,23 @@
         "url": "https://blog.mlh.com/prompt-pad-lock-your-ais-output-schema-in-google-ai-studio-53io"
       },
       {
+        "title": "Prompt Pad: What Are Open-Weight Models?",
+        "desc": "When people call an AI model \"open,\" they don't always mean the same thing.  On this week's Prompt",
+        "url": "https://blog.mlh.com/prompt-pad-what-are-open-weight-models-1ghh"
+      },
+      {
+        "title": "What I Learned Managing a Full Project with Antigravity",
+        "desc": "How my workflow evolved from solo prompting in AI Studio to managing a multi-model AI team, running",
+        "url": "https://dev.to/gde/what-i-learned-managing-a-full-project-with-antigravity-1ppc"
+      },
+      {
+        "title": "Containing the Autonomous Mind: Sub-Second Zero-Trust Execution with GKE Agent Sandbox",
+        "desc": "Why standard Kubernetes pods fail when AI agents start writing code and how to build a sub-second,",
+        "url": "https://dev.to/gde/containing-the-autonomous-mind-sub-second-zero-trust-execution-with-gke-agent-sandbox-5e6b"
+      }
+    ],
+    "oss": [
+      {
         "title": "That's a Wrap on Hacktoberfest 2026! 🎃👻",
         "desc": "Hacktoberfest 2026 wrapped up on October 31st! Thank you to everyone who built, hosted, mentored,...",
         "url": "https://dev.to/devteam/thats-a-wrap-on-hacktoberfest-2026-148k"
