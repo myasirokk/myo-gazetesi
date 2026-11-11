@@ -4,65 +4,105 @@
   "date_key": "2026-11-11",
   "quote": "\"Güvenilir şebeke, ölçülen ve yönetilen şebekedir.\"",
   "lead": {
-    "title": "Akıllı Şebekede Arıza Yeri Dakikalardan Saniyelere İniyor",
-    "deck": "SCADA, hat sensörleri ve dağıtım otomasyonu aynı veri katmanında buluşunca orta gerilim arızaları daha oluştuğu anda bölümlenebiliyor.",
-    "body": "Dağıtım şebekelerinde klasik arıza yönetimi, saha ihbarı ve ekip manevralarına dayanan uzun bir zincirdi. Yeni nesil akıllı şebeke mimarisinde ise fider çıkış ölçümleri, hat üzerindeki arıza gösterge cihazları ve SCADA olay kayıtları zaman damgalı olarak birleştiriliyor. Koruma rölelerinden gelen akım ve gerilim bilgisi, şebeke topolojisiyle eşleştirilerek arızalı bölüm otomatik biçimde daraltılıyor. Böylece operatör, kesicileri uzaktan açıp kapatarak sağlam hat kesimlerini yeniden enerjilendirebiliyor.\n\nBu yaklaşımın güvenilir çalışması yalnızca haberleşme altyapısına bağlı değil. Saha cihazlarının zaman senkronizasyonu, ölçü trafolarının doğruluk sınıfı, röle koordinasyonu ve dağıtım yönetim sistemindeki topoloji modelinin güncelliği aynı derecede kritik. Otomatik FLISR senaryoları devreye alınmadan önce kısa devre seviyeleri, yük aktarım sınırları ve gerilim düşümü her manevra için doğrulanmalı. Dijitalleşmenin gerçek kazanımı, daha fazla veri toplamak değil; güvenli işletme kararını doğrulanmış veriden daha hızlı üretebilmektir."
+    "title": "Permitting bill advances in Senate, but election results cast doubt on its future",
+    "deck": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+    "body": "Elektrik şebekesinin dönüşümü koruma, otomasyon, yenilenebilir üretim, depolama ve piyasa tasarımını aynı işletme disiplini içinde buluşturuyor. Doğru zaman damgalı saha verisi hızlı ve güvenli kararın temelidir.\n\nBu baskı erişilebilen enerji kaynaklarını Türkçe özetler; kaynak kesintisinde ise şebeke, trafo, yenilenebilir enerji, batarya ve piyasa havuzunu kullanır."
   },
   "editorial": {
     "title": "Dağıtım Şebekesinin Dijital İkizi Sahadaki Disiplindir",
-    "body": "Bir elektrik mühendisi için dijitalleşme, panoya yeni bir ekran eklemekten ibaret değildir. SCADA'daki tek hat şeması sahadaki gerçek bağlantıyı göstermiyor, sayaç ve röle saatleri eşzamanlı çalışmıyor veya varlık kayıtları güncel tutulmuyorsa en gelişmiş analiz bile yanlış sonuca ulaşır. Dağıtım şebekesinin dijital dönüşümü; doğru ölçüm, düzenli bakım, siber güvenlik ve işletme prosedürlerinin aynı mühendislik disiplini içinde buluşmasıyla değer üretir."
+    "body": "SCADA şeması, koruma ayarları ve fiziksel bağlantılar aynı gerçeği göstermediğinde otomasyon güvenilir sonuç üretemez."
   },
   "fact": {
     "title": "Güç Katsayısı (cosφ)",
-    "body": "Alternatif akım sisteminde cosφ, aktif gücün görünür güce oranıdır. Aynı aktif gücü düşük güç katsayısıyla taşımak daha yüksek akım gerektirir; bu da iletkenlerdeki I²R kayıplarını ve gerilim düşümünü artırır. Endüktif yüklerde uygun kompanzasyon, şebekeden çekilen reaktif gücü azaltır."
+    "body": "Aktif gücün görünür güce oranıdır; düşük değer daha yüksek akım, kayıp ve gerilim düşümü oluşturur."
   },
   "news": {
     "grid": [
       {
-        "title": "Fider Otomasyonu Kesinti Alanını Daraltıyor",
-        "desc": "Uzaktan kumandalı ayırıcılar ve arıza göstergeleri, orta gerilim hattındaki arızalı bölümü izole ederek sağlam kesimlerin yeniden enerjilendirilmesini hızlandırıyor.",
-        "url": "#"
+        "title": "Permitting bill advances in Senate, but election results cast doubt on its future",
+        "desc": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/permitting-bill-advances-in-senate-but-its-future-is-uncertain-after-democ/874250/"
       },
       {
-        "title": "Dağıtım Trafalarında Çevrim İçi Sıcaklık İzleme Yaygınlaşıyor",
-        "desc": "Sargı sıcaklığı, yük akımı ve ortam koşullarının birlikte izlenmesi aşırı yük riskinin bakım planına daha erken yansıtılmasını sağlıyor.",
-        "url": "#"
+        "title": "Beyond megawatts: Nuclear’s other capacity expansion challenge",
+        "desc": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/spons/beyond-megawatts-nuclears-other-capacity-expansion-challenge/873634/"
+      },
+      {
+        "title": "Fider Otomasyonu Kesinti Alanını Daraltıyor",
+        "desc": "Uzaktan kumandalı ayırıcılar sağlam hat kesimlerinin hızla enerjilendirilmesini sağlıyor.",
+        "url": "https://www.power-grid.com/"
+      },
+      {
+        "title": "Dağıtım Trafalarında Çevrim İçi Sıcaklık İzleme Artıyor",
+        "desc": "Sargı sıcaklığı ve yük akımı eğilimleri aşırı yük riskini erken gösteriyor.",
+        "url": "https://www.power-eng.com/"
       }
     ],
     "ren": [
       {
-        "title": "Çatı GES Üretim Tahmini Gerilim Yönetimine Bağlanıyor",
-        "desc": "Kısa süreli ışınım tahminleri, dağıtım trafosu yükleriyle birlikte değerlendirilerek ters güç akışı ve gerilim yükselmesi riski önceden hesaplanıyor.",
-        "url": "#"
+        "title": "Çatı GES Tahminleri Gerilim Yönetimine Bağlanıyor",
+        "desc": "Işınım tahmini ve trafo yükü birlikte değerlendirilerek ters güç akışı hesaplanıyor.",
+        "url": "https://www.renewableenergyworld.com/"
       },
       {
         "title": "Rüzgâr Santrallerinde Reaktif Güç Desteği Öne Çıkıyor",
-        "desc": "Modern konvertörler, aktif üretim değişirken bağlantı noktasındaki gerilimi desteklemek için dinamik reaktif güç kontrolü uyguluyor.",
-        "url": "#"
+        "desc": "Modern konvertörler üretim değişirken bağlantı noktasındaki gerilimi destekliyor.",
+        "url": "https://www.renewableenergyworld.com/"
+      },
+      {
+        "title": "Güneş Santrallerinde İnverter Verisi Bakımı Yönlendiriyor",
+        "desc": "Dizi akımı ve sıcaklık sapmaları üretim kaybına yol açan arızaları erken gösteriyor.",
+        "url": "https://www.pv-magazine.com/"
+      },
+      {
+        "title": "Hibrit Santraller Üretim Profilini Dengeliyor",
+        "desc": "Güneş, rüzgâr ve depolamanın ortak kontrolü bağlantı kapasitesini verimli kullanıyor.",
+        "url": "https://www.renewableenergyworld.com/"
       }
     ],
     "bat": [
       {
-        "title": "Batarya Yönetim Sistemleri Hücre Sapmasını Erken Yakalar",
-        "desc": "Gerilim, sıcaklık ve iç direnç eğilimlerinin izlenmesi dengesiz hücrelerin kapasite ve güvenlik sorunu oluşturmadan belirlenmesine yardımcı oluyor.",
-        "url": "#"
+        "title": "800MWh BESS enters NSW assessment as Recurrent’s 600MWh Sundown project clears Australia’s EPBC Act",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/800mwh-bess-enters-nsw-assessment-as-recurrents-600mwh-sundown-project-clears-australias-epbc-act/"
       },
       {
-        "title": "Şebeke Ölçekli Depolamada Yangın Bölümlendirmesi Kritik",
-        "desc": "Konteyner yerleşimi, gaz algılama, havalandırma ve termal kaçak yayılımını sınırlayan bölmeler koruma tasarımının temel parçaları arasında.",
-        "url": "#"
+        "title": "Western Australia backs Australian Vanadium’s relocatable flow battery electrolyte facility",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/western-australia-backs-australian-vanadiums-relocatable-flow-battery-electrolyte-facility/"
+      },
+      {
+        "title": "BAAJA: US legislation to speed up permitting carries hidden political risk, ‘won’t solve interconnection queue wait’",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/baaja-us-legislation-to-speed-up-permitting-carries-hidden-political-risk-wont-solve-interconnection-queue-wait/"
+      },
+      {
+        "title": "Canada: Alectra-Convergent complete 320MWh portfolio in Ontario, Rodan advances country’s largest BTM BESS",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/canada-alectra-convergent-complete-320mwh-portfolio-in-ontario-rodan-advances-countrys-largest-btm-bess/"
       }
     ],
     "mkt": [
       {
-        "title": "Esneklik Hizmetleri Dağıtım Seviyesine İniyor",
-        "desc": "Tüketim tarafı katılımı ve dağıtık üretim, yerel sıkışıklığın giderilmesi için zaman ve konum bazlı sinyallerle değerlendiriliyor.",
-        "url": "#"
+        "title": "Are data centers really paying their share? AES Indiana’s Google deal highlights a thorny question",
+        "desc": "Piyasa & Regülasyon alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/are-data-centers-really-paying-aes-indianas-google-deal-highlights-a-thor/873040/"
       },
       {
-        "title": "Uzlaştırmada Çeyrek Saatlik Ölçüm Verisi Önem Kazanıyor",
-        "desc": "Daha kısa zaman çözünürlüğü, üretim ve tüketim sapmalarının piyasa maliyetlerine daha hassas biçimde yansıtılmasını sağlıyor.",
-        "url": "#"
+        "title": "Esneklik Hizmetleri Dağıtım Seviyesine İniyor",
+        "desc": "Dağıtık üretim ve tüketim katılımı yerel şebeke sıkışıklığını azaltıyor.",
+        "url": "https://www.utilitydive.com/"
+      },
+      {
+        "title": "Çeyrek Saatlik Ölçüm Verisi Uzlaştırmada Önem Kazanıyor",
+        "desc": "Kısa zaman çözünürlüğü üretim ve tüketim sapmalarını hassas yansıtıyor.",
+        "url": "https://www.utilitydive.com/"
+      },
+      {
+        "title": "Kapasite Planlamasında Dağıtık Kaynaklar Birlikte Ele Alınıyor",
+        "desc": "Elektrikli araç, güneş ve depolama senaryoları şebeke yatırımlarına giriyor.",
+        "url": "https://www.utilitydive.com/"
       }
     ]
   },
@@ -72,7 +112,7 @@
       0,
       0,
       "a",
-      "Gerilim seviyesini elektromanyetik indüksiyonla değiştiren elektrik makinesi"
+      "Gerilim seviyesini değiştiren elektrik makinesi"
     ],
     [
       "AKIM",
@@ -100,7 +140,7 @@
       4,
       0,
       "a",
-      "Fotovoltaik üretimin birincil enerji kaynağı"
+      "Fotovoltaik üretimin birincil kaynağı"
     ],
     [
       "ENERJİ",
@@ -114,14 +154,14 @@
       7,
       3,
       "a",
-      "Arızayı algılayıp açma komutu üreten koruma cihazı"
+      "Arızayı algılayıp açma komutu veren cihaz"
     ],
     [
       "BATARYA",
       9,
       4,
       "a",
-      "Elektrik enerjisini elektrokimyasal olarak depolayan sistem"
+      "Elektrik enerjisini elektrokimyasal depolayan sistem"
     ]
   ]
 }

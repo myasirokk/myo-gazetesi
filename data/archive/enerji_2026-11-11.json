@@ -1,0 +1,167 @@
+{
+  "issue": 1,
+  "date": "11 Kasım 2026, Çarşamba",
+  "date_key": "2026-11-11",
+  "quote": "\"Güvenilir şebeke, ölçülen ve yönetilen şebekedir.\"",
+  "lead": {
+    "title": "Permitting bill advances in Senate, but election results cast doubt on its future",
+    "deck": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+    "body": "Elektrik şebekesinin dönüşümü koruma, otomasyon, yenilenebilir üretim, depolama ve piyasa tasarımını aynı işletme disiplini içinde buluşturuyor. Doğru zaman damgalı saha verisi hızlı ve güvenli kararın temelidir.\n\nBu baskı erişilebilen enerji kaynaklarını Türkçe özetler; kaynak kesintisinde ise şebeke, trafo, yenilenebilir enerji, batarya ve piyasa havuzunu kullanır."
+  },
+  "editorial": {
+    "title": "Dağıtım Şebekesinin Dijital İkizi Sahadaki Disiplindir",
+    "body": "SCADA şeması, koruma ayarları ve fiziksel bağlantılar aynı gerçeği göstermediğinde otomasyon güvenilir sonuç üretemez."
+  },
+  "fact": {
+    "title": "Güç Katsayısı (cosφ)",
+    "body": "Aktif gücün görünür güce oranıdır; düşük değer daha yüksek akım, kayıp ve gerilim düşümü oluşturur."
+  },
+  "news": {
+    "grid": [
+      {
+        "title": "Permitting bill advances in Senate, but election results cast doubt on its future",
+        "desc": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/permitting-bill-advances-in-senate-but-its-future-is-uncertain-after-democ/874250/"
+      },
+      {
+        "title": "Beyond megawatts: Nuclear’s other capacity expansion challenge",
+        "desc": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/spons/beyond-megawatts-nuclears-other-capacity-expansion-challenge/873634/"
+      },
+      {
+        "title": "Fider Otomasyonu Kesinti Alanını Daraltıyor",
+        "desc": "Uzaktan kumandalı ayırıcılar sağlam hat kesimlerinin hızla enerjilendirilmesini sağlıyor.",
+        "url": "https://www.power-grid.com/"
+      },
+      {
+        "title": "Dağıtım Trafalarında Çevrim İçi Sıcaklık İzleme Artıyor",
+        "desc": "Sargı sıcaklığı ve yük akımı eğilimleri aşırı yük riskini erken gösteriyor.",
+        "url": "https://www.power-eng.com/"
+      }
+    ],
+    "ren": [
+      {
+        "title": "Çatı GES Tahminleri Gerilim Yönetimine Bağlanıyor",
+        "desc": "Işınım tahmini ve trafo yükü birlikte değerlendirilerek ters güç akışı hesaplanıyor.",
+        "url": "https://www.renewableenergyworld.com/"
+      },
+      {
+        "title": "Rüzgâr Santrallerinde Reaktif Güç Desteği Öne Çıkıyor",
+        "desc": "Modern konvertörler üretim değişirken bağlantı noktasındaki gerilimi destekliyor.",
+        "url": "https://www.renewableenergyworld.com/"
+      },
+      {
+        "title": "Güneş Santrallerinde İnverter Verisi Bakımı Yönlendiriyor",
+        "desc": "Dizi akımı ve sıcaklık sapmaları üretim kaybına yol açan arızaları erken gösteriyor.",
+        "url": "https://www.pv-magazine.com/"
+      },
+      {
+        "title": "Hibrit Santraller Üretim Profilini Dengeliyor",
+        "desc": "Güneş, rüzgâr ve depolamanın ortak kontrolü bağlantı kapasitesini verimli kullanıyor.",
+        "url": "https://www.renewableenergyworld.com/"
+      }
+    ],
+    "bat": [
+      {
+        "title": "800MWh BESS enters NSW assessment as Recurrent’s 600MWh Sundown project clears Australia’s EPBC Act",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/800mwh-bess-enters-nsw-assessment-as-recurrents-600mwh-sundown-project-clears-australias-epbc-act/"
+      },
+      {
+        "title": "Western Australia backs Australian Vanadium’s relocatable flow battery electrolyte facility",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/western-australia-backs-australian-vanadiums-relocatable-flow-battery-electrolyte-facility/"
+      },
+      {
+        "title": "BAAJA: US legislation to speed up permitting carries hidden political risk, ‘won’t solve interconnection queue wait’",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/baaja-us-legislation-to-speed-up-permitting-carries-hidden-political-risk-wont-solve-interconnection-queue-wait/"
+      },
+      {
+        "title": "Canada: Alectra-Convergent complete 320MWh portfolio in Ontario, Rodan advances country’s largest BTM BESS",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/canada-alectra-convergent-complete-320mwh-portfolio-in-ontario-rodan-advances-countrys-largest-btm-bess/"
+      }
+    ],
+    "mkt": [
+      {
+        "title": "Are data centers really paying their share? AES Indiana’s Google deal highlights a thorny question",
+        "desc": "Piyasa & Regülasyon alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/are-data-centers-really-paying-aes-indianas-google-deal-highlights-a-thor/873040/"
+      },
+      {
+        "title": "Esneklik Hizmetleri Dağıtım Seviyesine İniyor",
+        "desc": "Dağıtık üretim ve tüketim katılımı yerel şebeke sıkışıklığını azaltıyor.",
+        "url": "https://www.utilitydive.com/"
+      },
+      {
+        "title": "Çeyrek Saatlik Ölçüm Verisi Uzlaştırmada Önem Kazanıyor",
+        "desc": "Kısa zaman çözünürlüğü üretim ve tüketim sapmalarını hassas yansıtıyor.",
+        "url": "https://www.utilitydive.com/"
+      },
+      {
+        "title": "Kapasite Planlamasında Dağıtık Kaynaklar Birlikte Ele Alınıyor",
+        "desc": "Elektrikli araç, güneş ve depolama senaryoları şebeke yatırımlarına giriyor.",
+        "url": "https://www.utilitydive.com/"
+      }
+    ]
+  },
+  "puzzle": [
+    [
+      "TRAFO",
+      0,
+      0,
+      "a",
+      "Gerilim seviyesini değiştiren elektrik makinesi"
+    ],
+    [
+      "AKIM",
+      0,
+      2,
+      "d",
+      "Elektrik yükünün birim zamandaki akışı"
+    ],
+    [
+      "VOLTAJ",
+      2,
+      4,
+      "a",
+      "İki nokta arasındaki elektriksel potansiyel farkı"
+    ],
+    [
+      "SCADA",
+      0,
+      8,
+      "d",
+      "Şebekenin uzaktan izleme ve kumanda sistemi"
+    ],
+    [
+      "GÜNEŞ",
+      4,
+      0,
+      "a",
+      "Fotovoltaik üretimin birincil kaynağı"
+    ],
+    [
+      "ENERJİ",
+      4,
+      3,
+      "d",
+      "İş yapabilme kapasitesi"
+    ],
+    [
+      "RÖLE",
+      7,
+      3,
+      "a",
+      "Arızayı algılayıp açma komutu veren cihaz"
+    ],
+    [
+      "BATARYA",
+      9,
+      4,
+      "a",
+      "Elektrik enerjisini elektrokimyasal depolayan sistem"
+    ]
+  ]
+}

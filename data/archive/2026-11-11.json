@@ -1,0 +1,167 @@
+{
+  "issue": 1,
+  "date": "11 Kasım 2026, Çarşamba",
+  "date_key": "2026-11-11",
+  "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
+  "lead": {
+    "title": "Prompt Pad: What Are Open-Weight Models?",
+    "deck": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+    "body": "Yapay zekâ ve yazılım dünyasında model güvenliği, veri gizliliği, açık kaynak sürdürülebilirliği ve web performansı aynı mühendislik zincirinin parçaları hâline geliyor. Ekipler için temel hedef otomasyonu ölçülebilir kalite kontrolleri ve insan denetimiyle birlikte işletmek.\n\nBu baskı erişilebilen güvenilir kaynakları Türkçe özetler; kaynak kesintisinde ise alanına özel zengin yedek haber havuzunu kullanır."
+  },
+  "editorial": {
+    "title": "Ajanlar Çağında Kodu Okumak Yazmaktan Değerli",
+    "body": "Kod üretimi hızlanırken niyeti, güvenlik sınırlarını, testleri ve ortaya çıkan davranışı birlikte değerlendirmek gerekir."
+  },
+  "fact": {
+    "title": "Zero-Shot Inference",
+    "body": "Bir modelin görevi daha önce örnek görmeden yalnızca bağlam ve talimatla tamamlayabilme yeteneğidir."
+  },
+  "news": {
+    "ai": [
+      {
+        "title": "Prompt Pad: What Are Open-Weight Models?",
+        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://blog.mlh.com/prompt-pad-what-are-open-weight-models-1ghh"
+      },
+      {
+        "title": "Take Claude Code Above Average: Let Antigravity Review It",
+        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://dev.to/gde/take-claude-code-above-average-let-antigravity-review-it-1f3g"
+      },
+      {
+        "title": "Prompt Pad: Lock Your AI's Output Schema in Google AI Studio",
+        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://blog.mlh.com/prompt-pad-lock-your-ais-output-schema-in-google-ai-studio-53io"
+      },
+      {
+        "title": "That's a Wrap on Hacktoberfest 2026! 🎃👻",
+        "desc": "Hacktoberfest 2026 wrapped up on October 31st! Thank you to everyone who built, hosted, mentored,...",
+        "url": "https://dev.to/devteam/thats-a-wrap-on-hacktoberfest-2026-148k"
+      }
+    ],
+    "oss": [
+      {
+        "title": "RackDoc DCIM v1.1: Background Multi-Protocol Heartbeat, 48-Port CAD Geometry, NOC Kiosk Mode & Decoupled Remote Connect",
+        "desc": "Açık Kaynak alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://dev.to/gde/rackdoc-dcim-v11-background-multi-protocol-heartbeat-48-port-cad-geometry-noc-kiosk-mode--2j7k"
+      },
+      {
+        "title": "Açık Kaynak Projelerde İmzalı Sürüm Zinciri Güçleniyor",
+        "desc": "Paket ve derlemelerin kaynağını doğrulayan imza kontrolleri yayın süreçlerine ekleniyor.",
+        "url": "https://github.blog/"
+      },
+      {
+        "title": "Linux Sistemlerinde Gözlemlenebilirlik Araçları Sadeleşiyor",
+        "desc": "Çekirdek ve uygulama ölçümleri ortak panolarda düşük ek yükle izleniyor.",
+        "url": "https://www.linuxfoundation.org/blog"
+      },
+      {
+        "title": "Bağımlılık Güncellemeleri Otomatik Testlerle Birleşiyor",
+        "desc": "Paket yükseltmeleri güvenlik taraması ve geriye dönük testlerle doğrulanıyor.",
+        "url": "https://github.blog/"
+      }
+    ],
+    "web": [
+      {
+        "title": "Web Uygulamalarında Etkileşim Gecikmesi Yakından İzleniyor",
+        "desc": "Ekipler yükleme hızının yanında kullanıcı etkileşimlerine verilen yanıt süresini de bütçeliyor.",
+        "url": "https://web.dev/blog/"
+      },
+      {
+        "title": "Tarayıcıda Yerel Yapay Zekâ Denemeleri Hızlanıyor",
+        "desc": "Yeni web arayüzleri küçük modellerin kullanıcı cihazında çalıştırılmasına olanak tanıyor.",
+        "url": "https://developer.chrome.com/blog/"
+      },
+      {
+        "title": "Arayüzlerde Erişilebilirlik Testleri Otomatikleşiyor",
+        "desc": "Klavye ve ekran okuyucu uyumu sürekli entegrasyon aşamasında denetleniyor.",
+        "url": "https://web.dev/blog/"
+      },
+      {
+        "title": "WebAssembly Ortak Çalışma Katmanı Kuruyor",
+        "desc": "Taşınabilir çalışma zamanı performans gerektiren web modüllerinde yaygınlaşıyor.",
+        "url": "https://developer.mozilla.org/"
+      }
+    ],
+    "sec": [
+      {
+        "title": "Yazılım Tedarik Zincirinde Kaynak Doğrulaması Artıyor",
+        "desc": "Bağımlılıkların, derlemelerin ve paketlerin kökeni kayıt altına alınıyor.",
+        "url": "https://www.cisa.gov/"
+      },
+      {
+        "title": "Parolasız Kimlik Doğrulama Kurumsal Uygulamalara Yayılıyor",
+        "desc": "Geçiş anahtarları oltalama saldırılarına karşı donanım destekli oturum açma sağlıyor.",
+        "url": "https://www.cisa.gov/"
+      },
+      {
+        "title": "API Anahtarlarında Kısa Ömürlü Yetkilendirme Öneriliyor",
+        "desc": "Sürekli sırlar yerine görev bazlı ve otomatik yenilenen kimlik bilgileri kullanılıyor.",
+        "url": "https://owasp.org/"
+      },
+      {
+        "title": "Varlık Envanteri Kritik Açıklara Müdahaleyi Hızlandırıyor",
+        "desc": "Güncel bileşen listeleri etkilenen sistemlerin hızla bulunmasını sağlıyor.",
+        "url": "https://www.cisa.gov/"
+      }
+    ]
+  },
+  "puzzle": [
+    [
+      "PROMPT",
+      0,
+      0,
+      "a",
+      "Yapay zekâya verilen komut metni"
+    ],
+    [
+      "PYTHON",
+      0,
+      0,
+      "d",
+      "Yapay zekâ dünyasında yaygın programlama dili"
+    ],
+    [
+      "TOKEN",
+      0,
+      5,
+      "d",
+      "Dil modelinin metni böldüğü en küçük birim"
+    ],
+    [
+      "OPTION",
+      4,
+      0,
+      "a",
+      "Seçenek veya ayar anlamındaki İngilizce sözcük"
+    ],
+    [
+      "IDE",
+      4,
+      3,
+      "d",
+      "Kod geliştirme ortamının kısaltması"
+    ],
+    [
+      "EPOCH",
+      6,
+      3,
+      "a",
+      "Eğitim verisinin bir tam geçişi"
+    ],
+    [
+      "HASH",
+      6,
+      7,
+      "d",
+      "Veriden çıkarılan sabit uzunluklu özet"
+    ],
+    [
+      "HTTP",
+      9,
+      7,
+      "a",
+      "Web iletişiminin temel protokolü"
+    ]
+  ]
+}
