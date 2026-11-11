@@ -2,8 +2,8 @@ name: Günlük Gazete Basımı
 
 on:
   schedule:
-    # Her gün Türkiye saatiyle 06:00'da çalışır (UTC 03:00)
-    - cron: '0 3 * * *'
+    # Her gün Türkiye saati ile 07:00 (UTC 04:00)
+    - cron: '0 4 * * *'
   workflow_dispatch:
 
 permissions:
@@ -21,14 +21,17 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Bağımlılıkları Yükle
+        run: |
+          pip install requests beautifulsoup4
+
       - name: Gazete Verilerini ve Arşivi Güncelle
         run: |
-          python scripts/fetch_news.py
+          python fetch_news.py
 
       - name: Değişiklikleri Kaydet ve Gönder
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data/
-          git commit -m "chore: günlük gazete basımı ve arşiv güncellemesi [skip ci]" || exit 0
-          git push
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: günlük baskı ve arşiv güncellendi [skip ci]" && git push)
