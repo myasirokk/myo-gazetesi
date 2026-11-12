@@ -4,8 +4,8 @@
   "date_key": "2026-11-12",
   "quote": "\"Güvenilir şebeke, ölçülen ve yönetilen şebekedir.\"",
   "lead": {
-    "title": "Fider Otomasyonu Kesinti Alanını Daraltıyor",
-    "deck": "Uzaktan kumandalı ayırıcılar sağlam hat kesimlerinin hızla enerjilendirilmesini sağlıyor.",
+    "title": "Constellation pursues hybrid capacity contracts alongside nuclear uprates",
+    "deck": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
     "body": "Elektrik şebekesinin dönüşümü koruma, otomasyon, yenilenebilir üretim, depolama ve piyasa tasarımını aynı işletme disiplini içinde buluşturuyor. Doğru zaman damgalı saha verisi hızlı ve güvenli kararın temelidir.\n\nBu baskı erişilebilen enerji kaynaklarını Türkçe özetler; kaynak kesintisinde ise şebeke, trafo, yenilenebilir enerji, batarya ve piyasa havuzunu kullanır."
   },
   "editorial": {
@@ -19,24 +19,24 @@
   "news": {
     "grid": [
       {
-        "title": "Fider Otomasyonu Kesinti Alanını Daraltıyor",
-        "desc": "Uzaktan kumandalı ayırıcılar sağlam hat kesimlerinin hızla enerjilendirilmesini sağlıyor.",
-        "url": "https://www.power-grid.com/"
+        "title": "Constellation pursues hybrid capacity contracts alongside nuclear uprates",
+        "desc": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/constellation-pursues-hybrid-nuclearcapacity-contracts-alongside-uprates/874408/"
       },
       {
-        "title": "Dağıtım Trafalarında Çevrim İçi Sıcaklık İzleme Artıyor",
-        "desc": "Sargı sıcaklığı ve yük akımı eğilimleri aşırı yük riskini erken gösteriyor.",
-        "url": "https://www.power-eng.com/"
+        "title": "No home left behind: Scaling VPP participation while maintaining customer control",
+        "desc": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/no-home-left-behind-scaling-vpp-participation-while-maintaining-customer-c/873474/"
       },
       {
-        "title": "SCADA Olay Kayıtlarında Zaman Senkronizasyonu Öne Çıkıyor",
-        "desc": "Ortak zaman damgası röle ve kesici olaylarının doğru analiz edilmesini kolaylaştırıyor.",
-        "url": "https://www.power-grid.com/"
+        "title": "California orders utilities to develop joint DER orchestration framework",
+        "desc": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/california-orders-utilities-to-develop-joint-der-orchestration-framework/874355/"
       },
       {
-        "title": "Orta Gerilim Şebekelerinde Dijital Koruma Yaygınlaşıyor",
-        "desc": "Yeni röleler haberleşme destekli seçicilik ve uzaktan ayar yönetimi sunuyor.",
-        "url": "https://www.power-eng.com/"
+        "title": "GE Vernova to spend $34.5M expanding Louisiana transformer manufacturing capacity",
+        "desc": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/ge-vernova-to-spend-345m-expanding-transformer-manufacturing-capacity-in/874272/"
       }
     ],
     "ren": [
@@ -63,27 +63,32 @@
     ],
     "bat": [
       {
-        "title": "Batarya Yönetim Sistemleri Hücre Sapmasını Erken Yakalıyor",
-        "desc": "Gerilim, sıcaklık ve iç direnç eğilimleri dengesiz hücreleri belirliyor.",
-        "url": "https://www.energy-storage.news/"
+        "title": "German utility to build 7.5MW/30MWh project using Eos’ zinc-bromide battery tech",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/german-utility-to-build-7-5mw-30mwh-project-using-eos-zinc-bromide-battery-tech/"
       },
       {
-        "title": "Şebeke Ölçekli Depolamada Yangın Bölümlendirmesi Kritik",
-        "desc": "Gaz algılama, havalandırma ve termal kaçak sınırları birlikte tasarlanıyor.",
-        "url": "https://www.energy-storage.news/"
+        "title": "Lydian’s 600MWh Utah BESS reaches commercial operation, supporting Meta data centre",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/lydians-600mwh-utah-bess-reaches-commercial-operation-supporting-meta-data-centre/"
       },
       {
-        "title": "Depolama Tesislerinde Çevrim Ömrü Gelir Modelini Etkiliyor",
-        "desc": "Şarj derinliği ve sıcaklık yönetimi kullanılabilir kapasiteyi belirliyor.",
-        "url": "https://www.energy-storage.news/"
+        "title": "800MWh BESS enters NSW assessment as Recurrent’s 600MWh Sundown project clears Australia’s EPBC Act",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/800mwh-bess-enters-nsw-assessment-as-recurrents-600mwh-sundown-project-clears-australias-epbc-act/"
       },
       {
-        "title": "İkinci Ömür Bataryalarda Sağlık Ölçümü Standartlaşıyor",
-        "desc": "Hücre geçmişi ve kapasite testleri yeni kullanım alanına uygunluğu doğruluyor.",
-        "url": "https://www.energy-storage.news/"
+        "title": "Western Australia backs Australian Vanadium’s relocatable flow battery electrolyte facility",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/western-australia-backs-australian-vanadiums-relocatable-flow-battery-electrolyte-facility/"
       }
     ],
     "mkt": [
+      {
+        "title": "Are data centers really paying their share? AES Indiana’s Google deal highlights a thorny question",
+        "desc": "Piyasa & Regülasyon alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/are-data-centers-really-paying-aes-indianas-google-deal-highlights-a-thor/873040/"
+      },
       {
         "title": "Esneklik Hizmetleri Dağıtım Seviyesine İniyor",
         "desc": "Dağıtık üretim ve tüketim katılımı yerel şebeke sıkışıklığını azaltıyor.",
@@ -97,11 +102,6 @@
       {
         "title": "Kapasite Planlamasında Dağıtık Kaynaklar Birlikte Ele Alınıyor",
         "desc": "Elektrikli araç, güneş ve depolama senaryoları şebeke yatırımlarına giriyor.",
-        "url": "https://www.utilitydive.com/"
-      },
-      {
-        "title": "Talep Tarafı Katılımında Doğrulama Ölçütleri Netleşiyor",
-        "desc": "Referans tüketim ve gerçekleşen azaltım piyasa ödemelerinin temelini oluşturuyor.",
         "url": "https://www.utilitydive.com/"
       }
     ]

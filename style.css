@@ -1,3 +1,7 @@
+@view-transition {
+  navigation: auto;
+}
+
 :root {
   --paper: #f7f4ee;
   --paper2: #fbf9f5;
@@ -25,16 +29,6 @@ body {
   line-height: 1.7;
   background-image: radial-gradient(rgba(120, 100, 60, 0.07) 1px, transparent 1px);
   background-size: 5px 5px;
-  animation: softFadeIn 0.15s ease both;
-}
-
-@keyframes softFadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 .sr {
@@ -120,6 +114,7 @@ button:hover {
   white-space: nowrap;
   padding-left: 100%;
   animation: scroll 220s linear infinite;
+  will-change: transform;
 }
 
 .ticker:hover .ticker-track {
@@ -198,7 +193,8 @@ button:hover {
   text-decoration: none;
   text-transform: uppercase;
   border-left: 1px solid #8a8372;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  user-select: none;
+  transition: background-color 0.08s ease, color 0.08s ease;
 }
 
 .nav-tab:last-child {
@@ -276,6 +272,7 @@ main {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 1.5rem;
+  min-height: 360px;
 }
 
 main p {
@@ -452,6 +449,7 @@ main p {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
   align-items: stretch;
+  min-height: 420px;
 }
 
 .news-grid-heading {
@@ -826,6 +824,10 @@ footer {
   /* Haber Sütunları */
   .news-cols {
     grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .top-grid {
+    min-height: auto;
   }
   .news-grid-heading {
     display: none;
@@ -986,6 +988,7 @@ footer {
     grid-template-columns: 1.85fr 1fr;
     gap: 4mm;
     align-items: stretch; /* sağ sütun manşet yüksekliğine uzanır */
+    min-height: auto;
   }
 
   .lead {
@@ -1113,6 +1116,7 @@ footer {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0;
     align-items: stretch;
+    min-height: auto;
   }
 
   .news-grid-heading {
