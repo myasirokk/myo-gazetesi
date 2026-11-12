@@ -1,0 +1,167 @@
+{
+  "issue": 2,
+  "date": "12 Kasım 2026, Perşembe",
+  "date_key": "2026-11-12",
+  "quote": "\"Güvenilir şebeke, ölçülen ve yönetilen şebekedir.\"",
+  "lead": {
+    "title": "Fider Otomasyonu Kesinti Alanını Daraltıyor",
+    "deck": "Uzaktan kumandalı ayırıcılar sağlam hat kesimlerinin hızla enerjilendirilmesini sağlıyor.",
+    "body": "Elektrik şebekesinin dönüşümü koruma, otomasyon, yenilenebilir üretim, depolama ve piyasa tasarımını aynı işletme disiplini içinde buluşturuyor. Doğru zaman damgalı saha verisi hızlı ve güvenli kararın temelidir.\n\nBu baskı erişilebilen enerji kaynaklarını Türkçe özetler; kaynak kesintisinde ise şebeke, trafo, yenilenebilir enerji, batarya ve piyasa havuzunu kullanır."
+  },
+  "editorial": {
+    "title": "Dağıtım Şebekesinin Dijital İkizi Sahadaki Disiplindir",
+    "body": "SCADA şeması, koruma ayarları ve fiziksel bağlantılar aynı gerçeği göstermediğinde otomasyon güvenilir sonuç üretemez."
+  },
+  "fact": {
+    "title": "Güç Katsayısı (cosφ)",
+    "body": "Aktif gücün görünür güce oranıdır; düşük değer daha yüksek akım, kayıp ve gerilim düşümü oluşturur."
+  },
+  "news": {
+    "grid": [
+      {
+        "title": "Fider Otomasyonu Kesinti Alanını Daraltıyor",
+        "desc": "Uzaktan kumandalı ayırıcılar sağlam hat kesimlerinin hızla enerjilendirilmesini sağlıyor.",
+        "url": "https://www.power-grid.com/"
+      },
+      {
+        "title": "Dağıtım Trafalarında Çevrim İçi Sıcaklık İzleme Artıyor",
+        "desc": "Sargı sıcaklığı ve yük akımı eğilimleri aşırı yük riskini erken gösteriyor.",
+        "url": "https://www.power-eng.com/"
+      },
+      {
+        "title": "SCADA Olay Kayıtlarında Zaman Senkronizasyonu Öne Çıkıyor",
+        "desc": "Ortak zaman damgası röle ve kesici olaylarının doğru analiz edilmesini kolaylaştırıyor.",
+        "url": "https://www.power-grid.com/"
+      },
+      {
+        "title": "Orta Gerilim Şebekelerinde Dijital Koruma Yaygınlaşıyor",
+        "desc": "Yeni röleler haberleşme destekli seçicilik ve uzaktan ayar yönetimi sunuyor.",
+        "url": "https://www.power-eng.com/"
+      }
+    ],
+    "ren": [
+      {
+        "title": "Çatı GES Tahminleri Gerilim Yönetimine Bağlanıyor",
+        "desc": "Işınım tahmini ve trafo yükü birlikte değerlendirilerek ters güç akışı hesaplanıyor.",
+        "url": "https://www.renewableenergyworld.com/"
+      },
+      {
+        "title": "Rüzgâr Santrallerinde Reaktif Güç Desteği Öne Çıkıyor",
+        "desc": "Modern konvertörler üretim değişirken bağlantı noktasındaki gerilimi destekliyor.",
+        "url": "https://www.renewableenergyworld.com/"
+      },
+      {
+        "title": "Güneş Santrallerinde İnverter Verisi Bakımı Yönlendiriyor",
+        "desc": "Dizi akımı ve sıcaklık sapmaları üretim kaybına yol açan arızaları erken gösteriyor.",
+        "url": "https://www.pv-magazine.com/"
+      },
+      {
+        "title": "Hibrit Santraller Üretim Profilini Dengeliyor",
+        "desc": "Güneş, rüzgâr ve depolamanın ortak kontrolü bağlantı kapasitesini verimli kullanıyor.",
+        "url": "https://www.renewableenergyworld.com/"
+      }
+    ],
+    "bat": [
+      {
+        "title": "Batarya Yönetim Sistemleri Hücre Sapmasını Erken Yakalıyor",
+        "desc": "Gerilim, sıcaklık ve iç direnç eğilimleri dengesiz hücreleri belirliyor.",
+        "url": "https://www.energy-storage.news/"
+      },
+      {
+        "title": "Şebeke Ölçekli Depolamada Yangın Bölümlendirmesi Kritik",
+        "desc": "Gaz algılama, havalandırma ve termal kaçak sınırları birlikte tasarlanıyor.",
+        "url": "https://www.energy-storage.news/"
+      },
+      {
+        "title": "Depolama Tesislerinde Çevrim Ömrü Gelir Modelini Etkiliyor",
+        "desc": "Şarj derinliği ve sıcaklık yönetimi kullanılabilir kapasiteyi belirliyor.",
+        "url": "https://www.energy-storage.news/"
+      },
+      {
+        "title": "İkinci Ömür Bataryalarda Sağlık Ölçümü Standartlaşıyor",
+        "desc": "Hücre geçmişi ve kapasite testleri yeni kullanım alanına uygunluğu doğruluyor.",
+        "url": "https://www.energy-storage.news/"
+      }
+    ],
+    "mkt": [
+      {
+        "title": "Esneklik Hizmetleri Dağıtım Seviyesine İniyor",
+        "desc": "Dağıtık üretim ve tüketim katılımı yerel şebeke sıkışıklığını azaltıyor.",
+        "url": "https://www.utilitydive.com/"
+      },
+      {
+        "title": "Çeyrek Saatlik Ölçüm Verisi Uzlaştırmada Önem Kazanıyor",
+        "desc": "Kısa zaman çözünürlüğü üretim ve tüketim sapmalarını hassas yansıtıyor.",
+        "url": "https://www.utilitydive.com/"
+      },
+      {
+        "title": "Kapasite Planlamasında Dağıtık Kaynaklar Birlikte Ele Alınıyor",
+        "desc": "Elektrikli araç, güneş ve depolama senaryoları şebeke yatırımlarına giriyor.",
+        "url": "https://www.utilitydive.com/"
+      },
+      {
+        "title": "Talep Tarafı Katılımında Doğrulama Ölçütleri Netleşiyor",
+        "desc": "Referans tüketim ve gerçekleşen azaltım piyasa ödemelerinin temelini oluşturuyor.",
+        "url": "https://www.utilitydive.com/"
+      }
+    ]
+  },
+  "puzzle": [
+    [
+      "TRAFO",
+      0,
+      0,
+      "a",
+      "Gerilim seviyesini değiştiren elektrik makinesi"
+    ],
+    [
+      "AKIM",
+      0,
+      2,
+      "d",
+      "Elektrik yükünün birim zamandaki akışı"
+    ],
+    [
+      "VOLTAJ",
+      2,
+      4,
+      "a",
+      "İki nokta arasındaki elektriksel potansiyel farkı"
+    ],
+    [
+      "SCADA",
+      0,
+      8,
+      "d",
+      "Şebekenin uzaktan izleme ve kumanda sistemi"
+    ],
+    [
+      "GÜNEŞ",
+      4,
+      0,
+      "a",
+      "Fotovoltaik üretimin birincil kaynağı"
+    ],
+    [
+      "ENERJİ",
+      4,
+      3,
+      "d",
+      "İş yapabilme kapasitesi"
+    ],
+    [
+      "RÖLE",
+      7,
+      3,
+      "a",
+      "Arızayı algılayıp açma komutu veren cihaz"
+    ],
+    [
+      "BATARYA",
+      9,
+      4,
+      "a",
+      "Elektrik enerjisini elektrokimyasal depolayan sistem"
+    ]
+  ]
+}
