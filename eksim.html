@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MYO Gazetesi: Günlük kurumsal gelişmeler, enerji ve grup şirketleri gazetesi.">
+<title>MYO Gazetesi — Eksim Holding</title>
+
+<!-- PWA & İkon Bağlantıları -->
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-512.png">
+<link rel="apple-touch-icon" href="icon-512.png">
+<meta name="theme-color" content="#1c1917">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Playfair+Display:wght@700;900&family=Special+Elite&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="ticker" aria-label="Canlı Radar">
+  <span class="ticker-tag">CANLI RADAR</span>
+  <div class="ticker-wrap"><div class="ticker-track" id="tickerTrack"></div></div>
+</div>
+
+<header class="masthead">
+  <div class="mast-top">
+    <span id="issueNo">Sayı: 1</span>
+    <span id="dateLine"></span>
+    <span id="clock" aria-live="off">00:00:00</span>
+  </div>
+  <h1>MYO GAZETESİ</h1>
+  <p class="slogan">Günlük Kurumsal Gelişmeler, Enerji ve Grup Şirketleri Gazetesi</p>
+  <nav class="section-nav" aria-label="Gazete bölümleri">
+    <a href="index.html" class="nav-tab">YAPAY ZEKA</a>
+    <a href="elektrik-enerji.html" class="nav-tab">ELEKTRİK &amp; ENERJİ</a>
+    <a href="eksim.html" class="nav-tab active" aria-current="page">EKSİM</a>
+  </nav>
+  <div class="mast-bottom">
+    <span class="quote" id="quote"></span>
+    <span class="edition-tools">
+      <label for="archive" class="sr">Arşiv</label>
+      <select id="archive"></select>
+      <button type="button" id="pdfBtn" onclick="window.print()">📰 PDF İndir</button>
+    </span>
+  </div>
+</header>
+
+<main>
+  <section class="top-grid">
+    <article class="lead">
+      <h2 id="leadTitle"></h2>
+      <p class="deck" id="leadDeck"></p>
+      <p class="dropcap cols" id="leadBody"></p>
+    </article>
+    <aside class="side">
+      <article class="fact-box">
+        <p class="box-title">Günün Hap Bilgisi</p>
+        <h3 id="factTitle"></h3>
+        <p id="factBody"></p>
+      </article>
+      <!-- Günün Sözü / Odak Notu Kartı -->
+      <article class="focus-note">
+        <p class="box-title">Günün Sözü</p>
+        <blockquote class="focus-quote">Kalıcı değer, insanı ve geleceği aynı vizyonda buluşturur.</blockquote>
+        <p class="focus-source">&mdash; MYO Gazetesi Masası</p>
+        <p class="focus-ornament" aria-hidden="true">&#9670;</p>
+        <p class="focus-label">Odak Notu</p>
+        <p class="focus-text">Eksim Holding ve grup şirketlerinin gündemini sürdürülebilir büyüme, güçlü yönetişim, yenilikçilik ve toplumsal fayda ekseninde okumak ortak kurumsal vizyonu görünür kılar.</p>
+      </article>
+    </aside>
+  </section>
+
+  <section class="breaking">
+    <h2 class="section-title">Son Dakika Kolonu</h2>
+    <div class="news-cols">
+      <div><h3>Eksim Holding</h3><ul id="list-holding"></ul></div>
+      <div><h3>Dicle Elektrik</h3><ul id="list-dicle"></ul></div>
+      <div><h3>Eksim Enerji</h3><ul id="list-enerji"></ul></div>
+      <div><h3>Grup Şirketleri &amp; Basında</h3><ul id="list-grup"></ul></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>MYO GAZETESİ &mdash; Kurucu ve Künye: <strong>Yasir Ok</strong></span>
+</footer>
+
+<script src="app_eksim.js"></script>
+</body>
+</html>

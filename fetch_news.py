@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MYO Gazetesi günlük çift baskı üretim motoru."""
+"""MYO Gazetesi günlük çoklu baskı üretim motoru."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from copy import deepcopy
 from datetime import date, datetime, time, timedelta
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote
+from urllib.parse import quote, urljoin
 from zoneinfo import ZoneInfo
 
 import requests
@@ -39,6 +39,7 @@ SESSION.headers.update({
 
 TECH_LABELS = {"ai": "Yapay Zekâ", "oss": "Açık Kaynak", "web": "Web Geliştirme", "sec": "Siber Güvenlik"}
 ENERGY_LABELS = {"grid": "Şebeke & Dağıtım", "ren": "Yenilenebilir Enerji", "bat": "Depolama & Batarya", "mkt": "Piyasa & Regülasyon"}
+EKSIM_LABELS = {"holding": "Eksim Holding", "dicle": "Dicle Elektrik", "enerji": "Eksim Enerji", "grup": "Grup Şirketleri & Basında"}
 
 
 def item(title: str, desc: str, url: str) -> dict[str, str]:
@@ -96,6 +97,33 @@ ENERGY_FALLBACKS = {
         item("Çeyrek Saatlik Ölçüm Verisi Uzlaştırmada Önem Kazanıyor", "Kısa zaman çözünürlüğü üretim ve tüketim sapmalarını hassas yansıtıyor.", "https://www.utilitydive.com/"),
         item("Kapasite Planlamasında Dağıtık Kaynaklar Birlikte Ele Alınıyor", "Elektrikli araç, güneş ve depolama senaryoları şebeke yatırımlarına giriyor.", "https://www.utilitydive.com/"),
         item("Talep Tarafı Katılımında Doğrulama Ölçütleri Netleşiyor", "Referans tüketim ve gerçekleşen azaltım piyasa ödemelerinin temelini oluşturuyor.", "https://www.utilitydive.com/"),
+    ],
+}
+
+EKSIM_FALLBACKS = {
+    "holding": [
+        item("Eksim Holding Sürdürülebilir Büyüme Odağını Güçlendiriyor", "Holding, enerji, altyapı ve gıda alanlarındaki yatırımlarını uzun vadeli değer üretme yaklaşımıyla sürdürüyor.", "https://eksim.com.tr/"),
+        item("Eksim Holding Kurumsal Dönüşüm Programlarını Yaygınlaştırıyor", "Grup şirketlerinde verimlilik, dijitalleşme ve ortak çalışma kültürünü geliştiren uygulamalar hayata geçiriliyor.", "https://eksim.com.tr/"),
+        item("Eksim Holding Toplumsal Fayda Projelerine Destek Veriyor", "Eğitim, çevre ve sosyal dayanışma odaklı çalışmalar paydaşlarla iş birliği içinde yürütülüyor.", "https://eksim.com.tr/"),
+        item("Eksim Holding İnsan Kaynağına Yatırımı Önceliklendiriyor", "Çalışan gelişimi, iş sağlığı ve güvenliği ile kapsayıcı kurum kültürü grup genelinde destekleniyor.", "https://eksim.com.tr/"),
+    ],
+    "dicle": [
+        item("Dicle Elektrik Şebeke Yatırımlarını Sürdürüyor", "Kayıpsız, kesintisiz ve kaliteli enerji arzı hedefiyle dağıtım altyapısı yenileniyor ve güçlendiriliyor.", "https://www.dicleelektrik.com.tr/"),
+        item("Dicle Elektrik Dijital Şebeke Uygulamalarını Geliştiriyor", "Uzaktan izleme, otomasyon ve veri analitiği çözümleriyle saha operasyonlarının etkinliği artırılıyor.", "https://www.dicleelektrik.com.tr/"),
+        item("Dicle Elektrik Enerji Verimliliği Bilincini Destekliyor", "Tüketicilere yönelik bilgilendirme çalışmalarıyla enerjinin verimli ve güvenli kullanımı teşvik ediliyor.", "https://www.dicleelektrik.com.tr/"),
+        item("Dicle Elektrik Saha Ekipleri Altyapı Çalışmalarını Hızlandırıyor", "Bakım ve yenileme faaliyetleriyle şebeke dayanıklılığı ve hizmet kalitesi geliştiriliyor.", "https://www.dicleelektrik.com.tr/"),
+    ],
+    "enerji": [
+        item("Eksim Enerji Yenilenebilir Üretim Portföyünü Güçlendiriyor", "Rüzgâr ve hidroelektrik santrallerindeki işletme disipliniyle temiz enerji üretimine katkı sağlanıyor.", "https://eksimenerji.com.tr/"),
+        item("Eksim Enerji Santrallerinde Verimlilik Odaklı Çalışmalar Yürütüyor", "Varlık yönetimi ve kestirimci bakım uygulamalarıyla üretim sürekliliği destekleniyor.", "https://eksimenerji.com.tr/"),
+        item("Eksim Enerji Karbonsuzlaşma Hedeflerine Katkı Sunuyor", "Yenilenebilir kaynaklara dayalı üretim faaliyetleri sürdürülebilir gelecek vizyonuyla geliştiriliyor.", "https://eksimenerji.com.tr/"),
+        item("Eksim Enerji İş Sağlığı ve Güvenliğini Önceliklendiriyor", "Santral operasyonlarında güvenli çalışma kültürünü güçlendiren eğitim ve denetimler sürdürülüyor.", "https://eksimenerji.com.tr/"),
+    ],
+    "grup": [
+        item("Eksim Grup Şirketleri Ortak Değer Üretmeye Odaklanıyor", "Farklı sektörlerde faaliyet gösteren şirketler yenilikçilik, kalite ve sürdürülebilirlik ilkeleriyle çalışmalarını sürdürüyor.", "https://eksim.com.tr/"),
+        item("Eksim Ventures Girişimcilik Ekosistemini Destekliyor", "Teknoloji ve yenilik odaklı girişimlerin ölçeklenmesine katkı sunan iş birlikleri geliştiriliyor.", "https://eksim.com.tr/"),
+        item("Grup Şirketlerinde Dijital Dönüşüm Uygulamaları Yaygınlaşıyor", "Veriye dayalı karar alma ve süreç otomasyonu farklı iş kollarında verimliliği artırıyor.", "https://eksim.com.tr/"),
+        item("Eksim Şirketlerinin Çalışmaları Basında Yer Buluyor", "Grubun yatırım, istihdam ve sürdürülebilirlik faaliyetleri kamuoyu ve sektör yayınları tarafından izleniyor.", "https://eksim.com.tr/"),
     ],
 }
 
@@ -282,6 +310,65 @@ def fetch_energy_news() -> dict[str, list[dict[str, str]]]:
     return complete(news, ENERGY_FALLBACKS)
 
 
+def classify_eksim(title: str, desc: str, default: str = "holding") -> str:
+    text = f"{title} {desc}".casefold()
+    if any(word in text for word in ("dicle elektrik", "elektrik dağıtım", "dağıtım şebeke")):
+        return "dicle"
+    if any(word in text for word in ("eksim enerji", "rüzgâr", "rüzgar", "hidroelektrik", "santral", "yenilenebilir")):
+        return "enerji"
+    if any(word in text for word in ("eksim ventures", "grup şirket", "basın", "medya", "girişim")):
+        return "grup"
+    return default
+
+
+def eksim_site_articles() -> list[dict[str, str]]:
+    base_url = "https://eksim.com.tr/"
+    pages = [base_url]
+    seen_pages: set[str] = set()
+    articles: list[dict[str, str]] = []
+    section_words = ("haber", "medya", "duyuru", "basin", "basın", "bulten", "bülten")
+    for page_url in pages:
+        if page_url in seen_pages or len(seen_pages) >= 8:
+            continue
+        seen_pages.add(page_url)
+        page = get_text(page_url)
+        if not page:
+            continue
+        soup = BeautifulSoup(page, "html.parser")
+        for anchor in soup.find_all("a", href=True):
+            full_url = urljoin(page_url, anchor.get("href", ""))
+            if not full_url.startswith(base_url):
+                continue
+            path_text = full_url.casefold()
+            if any(word in path_text for word in section_words) and full_url not in pages and len(pages) < 8:
+                pages.append(full_url)
+            title = clean_text(anchor.get_text(" ", strip=True), 180)
+            if len(title) < 12 or full_url.rstrip("/") == page_url.rstrip("/"):
+                continue
+            container = anchor.find_parent(["article", "li", "div"])
+            summary_tag = container.find("p") if container else None
+            desc = clean_text(summary_tag.get_text(" ", strip=True) if summary_tag else "", 280)
+            if any(word in path_text for word in section_words) or (container and container.find(["h1", "h2", "h3", "h4"])):
+                articles.append(item(title, desc, full_url))
+    return articles
+
+
+def fetch_eksim_news() -> dict[str, list[dict[str, str]]]:
+    news = {key: [] for key in EKSIM_LABELS}
+    for raw in eksim_site_articles():
+        category = classify_eksim(raw["title"], raw["desc"])
+        desc = clean_text(raw["desc"], 280) or f"{EKSIM_LABELS[category]} bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı."
+        add_unique(news[category], item(clean_text(raw["title"], 180), desc, raw["url"]))
+    queries = {"holding": '"Eksim Holding"', "dicle": '"Dicle Elektrik"', "enerji": '"Eksim Enerji"', "grup": '("Eksim Ventures" OR "Eksim" şirketleri)'}
+    for category, query in queries.items():
+        rss_url = "https://news.google.com/rss/search?q=" + quote(query) + "&hl=tr&gl=TR&ceid=TR:tr"
+        for raw in parse_rss(get_text(rss_url)):
+            title = re.sub(r"\s+-\s+[^-]+$", "", raw["title"]).strip()
+            desc = clean_text(raw["desc"], 280) or f"{EKSIM_LABELS[category]} hakkında yayımlanan güncel gelişme sektör gündeminde yer aldı."
+            add_unique(news[category], item(clean_text(title, 180), desc, raw["url"]))
+    return complete(news, EKSIM_FALLBACKS)
+
+
 def validate_puzzle(words: list[list[Any]], rows: int = 10, cols: int = 11) -> None:
     grid: dict[tuple[int, int], str] = {}
     if not words:
@@ -306,13 +393,22 @@ def make_edition(kind: str, edition_date: date, issue: int, news: dict[str, list
         editorial = item("Ajanlar Çağında Kodu Okumak Yazmaktan Değerli", "Kod üretimi hızlanırken niyeti, güvenlik sınırlarını, testleri ve ortaya çıkan davranışı birlikte değerlendirmek gerekir.", "")
         fact = item("Zero-Shot Inference", "Bir modelin görevi daha önce örnek görmeden yalnızca bağlam ve talimatla tamamlayabilme yeteneğidir.", "")
         body = "Yapay zekâ ve yazılım dünyasında model güvenliği, veri gizliliği, açık kaynak sürdürülebilirliği ve web performansı aynı mühendislik zincirinin parçaları hâline geliyor. Ekipler için temel hedef otomasyonu ölçülebilir kalite kontrolleri ve insan denetimiyle birlikte işletmek.\n\nBu baskı erişilebilen güvenilir kaynakları Türkçe özetler; kaynak kesintisinde ise alanına özel zengin yedek haber havuzunu kullanır."
-    else:
+    elif kind == "energy":
         puzzle, lead = deepcopy(ENERGY_PUZZLE), news["grid"][0]
         quote_text = "\"Güvenilir şebeke, ölçülen ve yönetilen şebekedir.\""
         editorial = item("Dağıtım Şebekesinin Dijital İkizi Sahadaki Disiplindir", "SCADA şeması, koruma ayarları ve fiziksel bağlantılar aynı gerçeği göstermediğinde otomasyon güvenilir sonuç üretemez.", "")
         fact = item("Güç Katsayısı (cosφ)", "Aktif gücün görünür güce oranıdır; düşük değer daha yüksek akım, kayıp ve gerilim düşümü oluşturur.", "")
         body = "Elektrik şebekesinin dönüşümü koruma, otomasyon, yenilenebilir üretim, depolama ve piyasa tasarımını aynı işletme disiplini içinde buluşturuyor. Doğru zaman damgalı saha verisi hızlı ve güvenli kararın temelidir.\n\nBu baskı erişilebilen enerji kaynaklarını Türkçe özetler; kaynak kesintisinde ise şebeke, trafo, yenilenebilir enerji, batarya ve piyasa havuzunu kullanır."
-    validate_puzzle(puzzle)
+    elif kind == "eksim":
+        puzzle, lead = [], news["holding"][0]
+        quote_text = "\"İnsana, topluma ve geleceğe değer katan yatırımlar kalıcı iz bırakır.\""
+        editorial = item("Ortak Vizyon, Sürdürülebilir Değer", "Eksim Holding ve grup şirketlerinin farklı sektörlerdeki yetkinliği; güven, yenilikçilik ve sorumlu büyüme yaklaşımıyla ortak bir kurumsal vizyonda buluşuyor.", "")
+        fact = item("Sürdürülebilir Değer", "Bir kurumun ekonomik performansını çevresel sorumluluk, toplumsal fayda ve güçlü yönetişimle birlikte uzun vadeli olarak geliştirmesidir.", "")
+        body = "Eksim Holding ve grup şirketleri; enerji, elektrik dağıtımı, gıda ve girişimcilik alanlarındaki faaliyetlerini sürdürülebilir büyüme ve toplumsal fayda anlayışıyla yürütüyor. Kurumsal yetkinliklerin paylaşılması, dijital dönüşüm ve insan kaynağına yatırım bu ortak vizyonun temelini oluşturuyor.\n\nBu baskı Eksim'in kurumsal kanalları ile güncel Türkçe basın kaynaklarını bir araya getirir; kaynak kesintisinde ise kategoriye özel kurumsal yedek haber havuzunu kullanır."
+    else:
+        raise ValueError(f"Bilinmeyen baskı türü: {kind}")
+    if kind != "eksim":
+        validate_puzzle(puzzle)
     return {
         "issue": issue,
         "date": date_label(edition_date),
@@ -337,7 +433,7 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
 
 def cleanup_archives(edition_date: date) -> list[str]:
     deleted = []
-    pattern = re.compile(r"^(?:enerji_)?(\d{4}-\d{2}-\d{2})\.json$")
+    pattern = re.compile(r"^(?:enerji_|eksim_)?(\d{4}-\d{2}-\d{2})\.json$")
     if not ARCHIVE_DIR.exists():
         return deleted
     for path in ARCHIVE_DIR.iterdir():
@@ -367,18 +463,26 @@ def generate() -> None:
     except Exception as exc:
         print(f"Enerji akışı yedek havuza geçti: {exc}")
         energy_news = complete({key: [] for key in ENERGY_LABELS}, ENERGY_FALLBACKS)
+    try:
+        eksim_news = fetch_eksim_news()
+    except Exception as exc:
+        print(f"Eksim akışı yedek havuza geçti: {exc}")
+        eksim_news = complete({key: [] for key in EKSIM_LABELS}, EKSIM_FALLBACKS)
 
     tech = make_edition("tech", edition_date, issue, tech_news)
     energy = make_edition("energy", edition_date, issue, energy_news)
+    eksim = make_edition("eksim", edition_date, issue, eksim_news)
     key = edition_date.isoformat()
     write_json(DATA_DIR / "edition.json", tech)
     write_json(DATA_DIR / "edition_enerji.json", energy)
+    write_json(DATA_DIR / "edition_eksim.json", eksim)
     write_json(ARCHIVE_DIR / f"{key}.json", tech)
     write_json(ARCHIVE_DIR / f"enerji_{key}.json", energy)
+    write_json(ARCHIVE_DIR / f"eksim_{key}.json", eksim)
     deleted = cleanup_archives(edition_date)
     if deleted:
         print("Silinen eski arşivler: " + ", ".join(sorted(deleted)))
-    print(f"Tamamlandı: Sayı {issue}; iki güncel baskı ve iki arşiv üretildi.")
+    print(f"Tamamlandı: Sayı {issue}; üç güncel baskı ve üç arşiv üretildi.")
 
 
 def main() -> int:
@@ -391,13 +495,17 @@ def main() -> int:
             edition_date, issue = edition_info()
             tech_news = complete({key: [] for key in TECH_LABELS}, TECH_FALLBACKS)
             energy_news = complete({key: [] for key in ENERGY_LABELS}, ENERGY_FALLBACKS)
+            eksim_news = complete({key: [] for key in EKSIM_LABELS}, EKSIM_FALLBACKS)
             key = edition_date.isoformat()
             tech = make_edition("tech", edition_date, issue, tech_news)
             energy = make_edition("energy", edition_date, issue, energy_news)
+            eksim = make_edition("eksim", edition_date, issue, eksim_news)
             write_json(DATA_DIR / "edition.json", tech)
             write_json(DATA_DIR / "edition_enerji.json", energy)
+            write_json(DATA_DIR / "edition_eksim.json", eksim)
             write_json(ARCHIVE_DIR / f"{key}.json", tech)
             write_json(ARCHIVE_DIR / f"enerji_{key}.json", energy)
+            write_json(ARCHIVE_DIR / f"eksim_{key}.json", eksim)
             cleanup_archives(edition_date)
             print("Acil durum yedek havuzuyla geçerli baskılar üretildi.")
             return 0
