@@ -1,11 +1,11 @@
 {
-  "issue": 2,
-  "date": "12 Kasım 2026, Perşembe",
-  "date_key": "2026-11-12",
+  "issue": 3,
+  "date": "13 Kasım 2026, Cuma",
+  "date_key": "2026-11-13",
   "quote": "\"İnsana, topluma ve geleceğe değer katan yatırımlar kalıcı iz bırakır.\"",
   "lead": {
-    "title": "Tüm haberleri gör",
-    "deck": "Eksim Holding bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
+    "title": "Eksim Holding Sürdürülebilir Büyüme Odağını Güçlendiriyor",
+    "deck": "Holding, enerji, altyapı ve gıda alanlarındaki yatırımlarını uzun vadeli değer üretme yaklaşımıyla sürdürüyor.",
     "body": "Eksim Holding ve grup şirketleri; enerji, elektrik dağıtımı, gıda ve girişimcilik alanlarındaki faaliyetlerini sürdürülebilir büyüme ve toplumsal fayda anlayışıyla yürütüyor. Kurumsal yetkinliklerin paylaşılması, dijital dönüşüm ve insan kaynağına yatırım bu ortak vizyonun temelini oluşturuyor.\n\nBu baskı Eksim'in kurumsal kanalları ile güncel Türkçe basın kaynaklarını bir araya getirir; kaynak kesintisinde ise kategoriye özel kurumsal yedek haber havuzunu kullanır."
   },
   "editorial": {
@@ -19,90 +19,90 @@
   "news": {
     "holding": [
       {
-        "title": "Tüm haberleri gör",
-        "desc": "Eksim Holding bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler"
+        "title": "Eksim Holding Sürdürülebilir Büyüme Odağını Güçlendiriyor",
+        "desc": "Holding, enerji, altyapı ve gıda alanlarındaki yatırımlarını uzun vadeli değer üretme yaklaşımıyla sürdürüyor.",
+        "url": "https://eksim.com.tr/"
       },
       {
-        "title": "Forbes Kasım Sayısı Eksim Holding Yönetim Kurulu Başkanı Ebubekir Tivnikli Kapağı İle Yayınlandı 06 Kas 2026",
-        "desc": "Eksim Holding bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/forbes-kasim-sayisi-eksim-holding-yonetim-kurulu-baskani-ebubekir-tivnikli-kapagi-ile-yayinlandi"
+        "title": "Eksim Holding Kurumsal Dönüşüm Programlarını Yaygınlaştırıyor",
+        "desc": "Grup şirketlerinde verimlilik, dijitalleşme ve ortak çalışma kültürünü geliştiren uygulamalar hayata geçiriliyor.",
+        "url": "https://eksim.com.tr/"
       },
       {
-        "title": "Eksim Holding’den 40. Yılına Özel Cilt Sanatı ve Restorasyon Sergisi 01 Eki 2026",
-        "desc": "Eksim Holding bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/eksim-holding-den-40-yilina-ozel-mucellit-sergisi"
+        "title": "Eksim Holding Toplumsal Fayda Projelerine Destek Veriyor",
+        "desc": "Eğitim, çevre ve sosyal dayanışma odaklı çalışmalar paydaşlarla iş birliği içinde yürütülüyor.",
+        "url": "https://eksim.com.tr/"
       },
       {
-        "title": "Gençlerin İşi Bugünden Hazır! 21 Oca 2026",
-        "desc": "Eksim Holding bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/genclerin-isi-bugunden-hazir"
+        "title": "Eksim Holding İnsan Kaynağına Yatırımı Önceliklendiriyor",
+        "desc": "Çalışan gelişimi, iş sağlığı ve güvenliği ile kapsayıcı kurum kültürü grup genelinde destekleniyor.",
+        "url": "https://eksim.com.tr/"
       }
     ],
     "dicle": [
       {
-        "title": "Dicle Elektrik’ten Güneydoğu’ya 100 Milyar TL’lik Yeni Yatırım 17 May 2026",
-        "desc": "Dicle Elektrik bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/dicle-elektrik-ten-guneydogu-ya-100-milyar-tl-lik-yeni-yatirim"
+        "title": "Dicle Elektrik Şebeke Yatırımlarını Sürdürüyor",
+        "desc": "Kayıpsız, kesintisiz ve kaliteli enerji arzı hedefiyle dağıtım altyapısı yenileniyor ve güçlendiriliyor.",
+        "url": "https://www.dicleelektrik.com.tr/"
       },
       {
-        "title": "Dicle Elektrik’ten Güneydoğu’ya 120 Milyar TL’lik Yatırım 29 May 2025",
-        "desc": "Dicle Elektrik bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/dicle-elektrik-ten-guneydogu-ya-120-milyar-tl-lik-yatirim"
+        "title": "Dicle Elektrik Dijital Şebeke Uygulamalarını Geliştiriyor",
+        "desc": "Uzaktan izleme, otomasyon ve veri analitiği çözümleriyle saha operasyonlarının etkinliği artırılıyor.",
+        "url": "https://www.dicleelektrik.com.tr/"
       },
       {
-        "title": "Dicle Elektrik Mühendisleri Kendini Temizleyen Akıllı İzolatör Geliştirdi 16 Ağu 2023",
-        "desc": "Dicle Elektrik bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/dicle-elektrik-muhendisleri-kendini-temizleyen-akilli-izolator-gelistirdi"
+        "title": "Dicle Elektrik Enerji Verimliliği Bilincini Destekliyor",
+        "desc": "Tüketicilere yönelik bilgilendirme çalışmalarıyla enerjinin verimli ve güvenli kullanımı teşvik ediliyor.",
+        "url": "https://www.dicleelektrik.com.tr/"
       },
       {
-        "title": "Dicle Elektrik Ve Depsaş Enerji’den “10 Yılın Yolculuğu” Reklam Kampanyası 01 Ara 2023",
-        "desc": "Dicle Elektrik bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/dicle-elektrik-ve-depsas-enerji-den-10-yilin-yolculugu-reklam-kampanyasi"
+        "title": "Dicle Elektrik Saha Ekipleri Altyapı Çalışmalarını Hızlandırıyor",
+        "desc": "Bakım ve yenileme faaliyetleriyle şebeke dayanıklılığı ve hizmet kalitesi geliştiriliyor.",
+        "url": "https://www.dicleelektrik.com.tr/"
       }
     ],
     "enerji": [
       {
-        "title": "2025 Eksim Enerji’nin yılı oldu! 23 Oca 2026",
-        "desc": "Eksim Enerji bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/2025-eksim-enerji-nin-yili-oldu"
+        "title": "Eksim Enerji Yenilenebilir Üretim Portföyünü Güçlendiriyor",
+        "desc": "Rüzgâr ve hidroelektrik santrallerindeki işletme disipliniyle temiz enerji üretimine katkı sağlanıyor.",
+        "url": "https://eksimenerji.com.tr/"
       },
       {
-        "title": "World Combat Games’te Depsaş Enerji Spor Kulübü Rüzgarı 25 Eyl 2023",
-        "desc": "Eksim Enerji bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/world-combat-games-te-depsas-enerji-spor-kulubu-ruzgari"
+        "title": "Eksim Enerji Santrallerinde Verimlilik Odaklı Çalışmalar Yürütüyor",
+        "desc": "Varlık yönetimi ve kestirimci bakım uygulamalarıyla üretim sürekliliği destekleniyor.",
+        "url": "https://eksimenerji.com.tr/"
       },
       {
-        "title": "Eksun Gıda’dan sonra Eksim Enerji de İSO 500’de! 02 Eki 2023",
-        "desc": "Eksim Enerji bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/eksun-gida-dan-sonra-eksim-enerji-de-iso-500-de"
+        "title": "Eksim Enerji Karbonsuzlaşma Hedeflerine Katkı Sunuyor",
+        "desc": "Yenilenebilir kaynaklara dayalı üretim faaliyetleri sürdürülebilir gelecek vizyonuyla geliştiriliyor.",
+        "url": "https://eksimenerji.com.tr/"
       },
       {
-        "title": "Eksim Enerji’den 260 MW Büyüklüğünde Yeni Yüzgar Enerji Yatırımı 05 Ara 2023",
-        "desc": "Eksim Enerji bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/eksim-enerji-den-260-mw-buyuklugunde-yeni-ruzgar-enerji-yatirimi"
+        "title": "Eksim Enerji İş Sağlığı ve Güvenliğini Önceliklendiriyor",
+        "desc": "Santral operasyonlarında güvenli çalışma kültürünü güçlendiren eğitim ve denetimler sürdürülüyor.",
+        "url": "https://eksimenerji.com.tr/"
       }
     ],
     "grup": [
       {
-        "title": "MEDYA MERKEZİ",
-        "desc": "Grup Şirketleri & Basında bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler"
+        "title": "Eksim Grup Şirketleri Ortak Değer Üretmeye Odaklanıyor",
+        "desc": "Farklı sektörlerde faaliyet gösteren şirketler yenilikçilik, kalite ve sürdürülebilirlik ilkeleriyle çalışmalarını sürdürüyor.",
+        "url": "https://eksim.com.tr/"
       },
       {
-        "title": "Eksim Ventures’tan Akıllı ve Güvenli Şehirler İçin Güçlü Yatırım 24 Eyl 2025",
-        "desc": "Grup Şirketleri & Basında bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/eksim-ventures-tan-akilli-ve-guvenli-sehirler-icin-guclu-yatirim"
+        "title": "Eksim Ventures Girişimcilik Ekosistemini Destekliyor",
+        "desc": "Teknoloji ve yenilik odaklı girişimlerin ölçeklenmesine katkı sunan iş birlikleri geliştiriliyor.",
+        "url": "https://eksim.com.tr/"
       },
       {
-        "title": "Eksim Ventures’dan Modüler Nükleer Reaktörler (SMR) Yatırımı 27 Ağu 2025",
-        "desc": "Grup Şirketleri & Basında bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/eksim-ventures-dan-moduler-nukleer-reaktorler-smr-yatirimi"
+        "title": "Grup Şirketlerinde Dijital Dönüşüm Uygulamaları Yaygınlaşıyor",
+        "desc": "Veriye dayalı karar alma ve süreç otomasyonu farklı iş kollarında verimliliği artırıyor.",
+        "url": "https://eksim.com.tr/"
       },
       {
-        "title": "Eksim Ventures’tan İki Yeni Yatırım! Virasoft ve DefensX Yatırımlarıyla Portföyünü Güçlendiriyor 13 May 2025",
-        "desc": "Grup Şirketleri & Basında bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/eksim-ventures-tan-iki-yeni-yatirim-virasoft-ve-defensx-yatirimlariyla-portfoyunu-guclendiriyor"
+        "title": "Eksim Şirketlerinin Çalışmaları Basında Yer Buluyor",
+        "desc": "Grubun yatırım, istihdam ve sürdürülebilirlik faaliyetleri kamuoyu ve sektör yayınları tarafından izleniyor.",
+        "url": "https://eksim.com.tr/"
       }
     ]
   },

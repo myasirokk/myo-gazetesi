@@ -1,11 +1,11 @@
 {
-  "issue": 2,
-  "date": "12 Kasım 2026, Perşembe",
-  "date_key": "2026-11-12",
+  "issue": 3,
+  "date": "13 Kasım 2026, Cuma",
+  "date_key": "2026-11-13",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "Ask More of Your UI",
-    "deck": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+    "title": "Küçük Dil Modelleri Cihaz Üstünde Yaygınlaşıyor",
+    "deck": "Düşük bellek tüketimli modeller kişisel verileri buluta göndermeden yerel donanımda çalışıyor.",
     "body": "Yapay zekâ ve yazılım dünyasında model güvenliği, veri gizliliği, açık kaynak sürdürülebilirliği ve web performansı aynı mühendislik zincirinin parçaları hâline geliyor. Ekipler için temel hedef otomasyonu ölçülebilir kalite kontrolleri ve insan denetimiyle birlikte işletmek.\n\nBu baskı erişilebilen güvenilir kaynakları Türkçe özetler; kaynak kesintisinde ise alanına özel zengin yedek haber havuzunu kullanır."
   },
   "editorial": {
@@ -19,32 +19,27 @@
   "news": {
     "ai": [
       {
-        "title": "Ask More of Your UI",
-        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
-        "url": "https://dev.to/dailycontext/ask-more-of-your-ui-2nf7"
+        "title": "Küçük Dil Modelleri Cihaz Üstünde Yaygınlaşıyor",
+        "desc": "Düşük bellek tüketimli modeller kişisel verileri buluta göndermeden yerel donanımda çalışıyor.",
+        "url": "https://huggingface.co/blog"
       },
       {
-        "title": "Software Engineering Is Becoming Factory Engineering",
-        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
-        "url": "https://dev.to/dailycontext/software-engineering-is-becoming-factory-engineering-22ll"
+        "title": "Yapay Zekâ Ajanlarında İzin Katmanı Öne Çıkıyor",
+        "desc": "Kurumsal ekipler araç kullanan ajanların erişimini görev ve veri düzeyinde sınırlandırıyor.",
+        "url": "https://ai.googleblog.com/"
       },
       {
-        "title": "Prompt Pad: What Are Open-Weight Models?",
-        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
-        "url": "https://blog.mlh.com/prompt-pad-what-are-open-weight-models-1ghh"
+        "title": "Çok Modlu Modeller Belge İşleme Süreçlerini Yeniliyor",
+        "desc": "Metin ve görseli birlikte değerlendiren modeller belgelerden yapılandırılmış veri çıkarıyor.",
+        "url": "https://huggingface.co/blog"
       },
       {
-        "title": "Kent C. Dodds Hasn't Looked at His Code All Year",
-        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
-        "url": "https://dev.to/dailycontext/kent-c-dodds-hasnt-looked-at-his-code-all-year-gd5"
+        "title": "Model Değerlendirmesinde Gerçek Görev Testleri Artıyor",
+        "desc": "Kıyaslamalar güvenlik, doğruluk ve araç kullanımı senaryolarına yöneliyor.",
+        "url": "https://news.ycombinator.com/"
       }
     ],
     "oss": [
-      {
-        "title": "RackDoc DCIM v1.1: Background Multi-Protocol Heartbeat, 48-Port CAD Geometry, NOC Kiosk Mode & Decoupled Remote Connect",
-        "desc": "Açık Kaynak alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
-        "url": "https://dev.to/gde/rackdoc-dcim-v11-background-multi-protocol-heartbeat-48-port-cad-geometry-noc-kiosk-mode--2j7k"
-      },
       {
         "title": "Açık Kaynak Projelerde İmzalı Sürüm Zinciri Güçleniyor",
         "desc": "Paket ve derlemelerin kaynağını doğrulayan imza kontrolleri yayın süreçlerine ekleniyor.",
@@ -59,14 +54,14 @@
         "title": "Bağımlılık Güncellemeleri Otomatik Testlerle Birleşiyor",
         "desc": "Paket yükseltmeleri güvenlik taraması ve geriye dönük testlerle doğrulanıyor.",
         "url": "https://github.blog/"
+      },
+      {
+        "title": "Küçük Konteyner İmajları Saldırı Yüzeyini Azaltıyor",
+        "desc": "Daha az paket içeren taban imajlar güvenliği ve dağıtım hızını artırıyor.",
+        "url": "https://www.docker.com/blog/"
       }
     ],
     "web": [
-      {
-        "title": "Detecting WasmPlugin version drift in Cloud Load Balancing Service Extensions",
-        "desc": "Web Geliştirme alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
-        "url": "https://dev.to/googlecloud/detecting-wasmplugin-version-drift-in-cloud-load-balancing-service-extensions-52p5"
-      },
       {
         "title": "Web Uygulamalarında Etkileşim Gecikmesi Yakından İzleniyor",
         "desc": "Ekipler yükleme hızının yanında kullanıcı etkileşimlerine verilen yanıt süresini de bütçeliyor.",
@@ -81,6 +76,11 @@
         "title": "Arayüzlerde Erişilebilirlik Testleri Otomatikleşiyor",
         "desc": "Klavye ve ekran okuyucu uyumu sürekli entegrasyon aşamasında denetleniyor.",
         "url": "https://web.dev/blog/"
+      },
+      {
+        "title": "WebAssembly Ortak Çalışma Katmanı Kuruyor",
+        "desc": "Taşınabilir çalışma zamanı performans gerektiren web modüllerinde yaygınlaşıyor.",
+        "url": "https://developer.mozilla.org/"
       }
     ],
     "sec": [
