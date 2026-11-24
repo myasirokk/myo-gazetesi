@@ -5,6 +5,37 @@ const setText = (selector, value) => {
   const element = $(selector);
   if (element) element.textContent = value ?? '';
 };
+const validImageUrl = value => {
+  try {
+    const url = new URL(String(value || ''), window.location.href);
+    return /^https?:$/.test(url.protocol) ? url.href : '';
+  } catch (_) { return ''; }
+};
+function createArticleImage(src, className, alt = '') {
+  const url = validImageUrl(src);
+  if (!url) return null;
+  const image = document.createElement('img');
+  image.className = className;
+  image.src = url;
+  image.alt = alt;
+  image.loading = 'lazy';
+  image.decoding = 'async';
+  image.referrerPolicy = 'no-referrer';
+  image.addEventListener('error', () => image.remove(), {once:true});
+  return image;
+}
+function renderLeadImage(edition) {
+  const lead = $('.lead');
+  if (!lead) return;
+  lead.querySelector('.lead-image')?.remove();
+  if (!edition) return;
+  const leadTitle = String(edition.lead?.title || '').trim().toLocaleLowerCase('tr-TR');
+  const items = Object.values(edition.news || {}).flatMap(group => Array.isArray(group) ? group : []);
+  const featured = items.find(item => String(item.title || '').trim().toLocaleLowerCase('tr-TR') === leadTitle)
+    || items.find(item => validImageUrl(item.image));
+  const image = createArticleImage(featured?.image, 'lead-image', featured?.title || edition.lead?.title || '');
+  if (image) lead.insertBefore(image, lead.querySelector('#leadTitle'));
+}
 const AY = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
 const GUN = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
 const pad = n => String(n).padStart(2, '0');
@@ -78,6 +109,7 @@ function render(){
     setText('#edBody', editorial.body || EDS[0].b);
     setText('#factTitle', fact.title || FACTS[0].t);
     setText('#factBody', fact.body || FACTS[0].b);
+    renderLeadImage(liveEdition);
     return;
   }
 
@@ -88,6 +120,7 @@ function render(){
   setText('#leadTitle', L.h); setText('#leadDeck', L.d); setText('#leadBody', L.b);
   setText('#edTitle', E.t); setText('#edBody', E.b);
   setText('#factTitle', F.t); setText('#factBody', F.b);
+  renderLeadImage(null);
 }
 
 function appendArchiveOption(select, value, label){
@@ -213,7 +246,10 @@ function createNewsCard(cat, item){
   title.textContent = item.title;
   const desc = document.createElement('span');
   desc.textContent = item.desc;
-  li.append(time, title, desc);
+  const image = createArticleImage(item.image, 'news-card-image', item.title || '');
+  li.append(time);
+  if (image) li.appendChild(image);
+  li.append(title, desc);
 
   if (item.url && item.url !== '#') {
     const link = document.createElement('a');

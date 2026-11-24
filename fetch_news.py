@@ -7,10 +7,13 @@ import html
 import hashlib
 import json
 import os
+import random
 import re
 import tempfile
+import time as time_module
 from copy import deepcopy
 from datetime import date, datetime, time, timedelta
+from difflib import SequenceMatcher
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any
@@ -19,35 +22,69 @@ from zoneinfo import ZoneInfo
 
 import requests
 from bs4 import BeautifulSoup
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 START_DATE = date(2026, 11, 11)
 TURKEY_TZ = ZoneInfo("Europe/Istanbul")
 EDITION_HOUR = 7
 ARCHIVE_DAYS = 7
 NEWS_PER_CATEGORY = 4
-TIMEOUT = 15
+TIMEOUT = (4, 12)
+TRANSLATION_DELAY = 0.35
+MAX_CANDIDATES_PER_CATEGORY = 60
+MAX_IMAGE_PAGE_FETCHES = 8
 
 MONTHS = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
 DAYS = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"]
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 ARCHIVE_DIR = DATA_DIR / "archive"
+TRANSLATION_CACHE_PATH = DATA_DIR / ".translation_cache.json"
 
 SESSION = requests.Session()
 SESSION.headers.update({
-    "User-Agent": "MYOGazetesi/1.0 daily-edition-generator",
+    "User-Agent": "Mozilla/5.0 (compatible; MYOGazetesi/2.0; +https://github.com/) Python-requests",
     "Accept": "application/json, application/rss+xml, application/xml, text/xml, text/html;q=0.9,*/*;q=0.8",
+    "Accept-Language": "tr-TR,tr;q=0.9,en;q=0.7",
 })
+RETRY = Retry(
+    total=3,
+    connect=3,
+    read=2,
+    status=3,
+    backoff_factor=0.6,
+    status_forcelist=(408, 425, 429, 500, 502, 503, 504),
+    allowed_methods=frozenset({"GET", "HEAD"}),
+    respect_retry_after_header=True,
+    raise_on_status=False,
+)
+SESSION.mount("https://", HTTPAdapter(max_retries=RETRY, pool_connections=12, pool_maxsize=12))
+SESSION.mount("http://", HTTPAdapter(max_retries=RETRY, pool_connections=12, pool_maxsize=12))
 
 TECH_LABELS = {"ai": "Yapay Zekâ", "oss": "Açık Kaynak", "web": "Web Geliştirme", "sec": "Siber Güvenlik"}
 ENERGY_LABELS = {"grid": "Şebeke & Dağıtım", "ren": "Yenilenebilir Enerji", "bat": "Depolama & Batarya", "mkt": "Piyasa & Regülasyon"}
 EKSIM_LABELS = {"holding": "Eksim Holding", "dicle": "Dicle Elektrik", "enerji": "Eksim Enerji", "grup": "Grup Şirketleri & Basında"}
 
 
-def item(title: str, desc: str, url: str, published_at: str = "") -> dict[str, str]:
-    result = {"title": title, "desc": desc, "url": url}
+def item(
+    title: str,
+    desc: str,
+    url: str,
+    published_at: str = "",
+    image: str = "",
+    source_weight: float = 0.0,
+) -> dict[str, Any]:
+    result: dict[str, Any] = {
+        "title": title,
+        "desc": desc,
+        "url": url,
+        "image": image or "",
+    }
     if published_at:
         result["published_at"] = published_at
+    if source_weight:
+        result["_source_weight"] = source_weight
     return result
 
 
@@ -155,13 +192,43 @@ ENERGY_PUZZLE = [
 ]
 
 RSS_SOURCES = {
-    "tech": ["https://hnrss.org/newest", "https://www.freecodecamp.org/news/rss/"],
-    "energy": [
-        "https://www.power-eng.com/feed/",
-        "https://www.renewableenergyworld.com/feed/",
-        "https://www.energy-storage.news/feed/",
-        "https://www.utilitydive.com/feeds/news/",
+    "tech": [
+        ("https://openai.com/news/rss.xml", 10),
+        ("https://blog.google/feed/", 9),
+        ("https://github.blog/feed/", 8),
+        ("https://www.freecodecamp.org/news/rss/", 7),
+        ("https://hnrss.org/newest", 6),
+        ("https://www.cisa.gov/cybersecurity-advisories/all.xml", 10),
     ],
+    "energy": [
+        ("https://www.irena.org/rssfeed/latestnews", 10),
+        ("https://energy.ec.europa.eu/node/2/rss_en", 9),
+        ("https://www.power-eng.com/feed/", 8),
+        ("https://www.renewableenergyworld.com/feed/", 8),
+        ("https://www.energy-storage.news/feed/", 8),
+        ("https://www.utilitydive.com/feeds/news/", 8),
+    ],
+}
+
+GOOGLE_NEWS_QUERIES = {
+    "tech": {
+        "ai": 'yapay zeka OR "artificial intelligence" OR "yeni model"',
+        "oss": '"açık kaynak" OR "open source" yazılım',
+        "web": 'web geliştirme OR frontend OR tarayıcı teknolojileri',
+        "sec": 'siber güvenlik OR "güvenlik açığı" OR CISA',
+    },
+    "energy": {
+        "grid": 'elektrik şebeke OR trafo OR dağıtım OR iletim',
+        "ren": 'yenilenebilir enerji OR güneş OR rüzgar OR hidroelektrik',
+        "bat": 'enerji depolama OR batarya OR BESS',
+        "mkt": 'enerji piyasası OR EPDK OR elektrik ihale OR tarife',
+    },
+    "eksim": {
+        "holding": '"Eksim Holding"',
+        "dicle": '"Dicle Elektrik"',
+        "enerji": '"Eksim Enerji"',
+        "grup": '"Eksim Ventures" OR "Eksun Gıda" OR "Eksim" şirketleri',
+    },
 }
 
 
@@ -637,16 +704,559 @@ def write_eksim_archive_index() -> None:
     )
 
 
+
+# ---------- V2: DAYANIKLI TOPLAMA, ÇEVİRİ, PUANLAMA VE GÖRSEL ----------
+
+IMPACT_KEYWORDS = {
+    "forbes": 22, "kapak": 18, "cover": 16, "yatırım": 18, "investment": 18,
+    "milyar": 20, "billion": 20, "ihale": 17, "tender": 17, "rekor": 16,
+    "record": 16, "açılış": 14, "opening": 14, "lansman": 14, "launch": 14,
+    "güvenlik açığı": 22, "vulnerability": 22, "zero-day": 25, "kritik": 14,
+    "critical": 14, "yeni model": 18, "new model": 18, "şebeke": 15,
+    "grid": 15, "depolama": 15, "storage": 15, "santral": 15, "power plant": 15,
+    "trafo": 14, "transformer": 14, "satın alma": 14, "acquisition": 14,
+    "ortaklık": 12, "partnership": 12, "ödül": 10, "award": 10,
+}
+TRANSLATION_CACHE: dict[str, str] = {}
+TRANSLATION_CACHE_DIRTY = False
+LAST_TRANSLATION_AT = 0.0
+IMAGE_PAGE_FETCH_COUNT = 0
+IMAGE_CACHE: dict[str, str] = {}
+
+
+def load_translation_cache() -> None:
+    global TRANSLATION_CACHE
+    try:
+        payload = json.loads(TRANSLATION_CACHE_PATH.read_text(encoding="utf-8"))
+        if isinstance(payload, dict):
+            TRANSLATION_CACHE = {str(key): str(value) for key, value in payload.items() if value}
+    except (OSError, json.JSONDecodeError, TypeError):
+        TRANSLATION_CACHE = {}
+
+
+def save_translation_cache() -> None:
+    global TRANSLATION_CACHE_DIRTY
+    if not TRANSLATION_CACHE_DIRTY:
+        return
+    write_json(TRANSLATION_CACHE_PATH, TRANSLATION_CACHE)
+    TRANSLATION_CACHE_DIRTY = False
+
+
+load_translation_cache()
+
+
+def request_response(url: str, *, accept_json: bool = False) -> requests.Response | None:
+    try:
+        headers = {"Accept": "application/json"} if accept_json else None
+        response = SESSION.get(url, timeout=TIMEOUT, headers=headers)
+        if response.status_code == 429:
+            print(f"Hız sınırı nedeniyle kaynak atlandı: {url}")
+            return None
+        if response.status_code >= 400:
+            print(f"Kaynak HTTP {response.status_code} döndürdü: {url}")
+            return None
+        return response
+    except requests.RequestException as exc:
+        print(f"Kaynak kullanılamadı ({url}): {exc}")
+        return None
+
+
+def get_json(url: str) -> Any:
+    response = request_response(url, accept_json=True)
+    if not response:
+        return None
+    try:
+        return response.json()
+    except (ValueError, json.JSONDecodeError) as exc:
+        print(f"JSON çözümlenemedi ({url}): {exc}")
+        return None
+
+
+def get_text(url: str) -> str:
+    response = request_response(url)
+    return response.text if response else ""
+
+
+def valid_image_url(value: str) -> str:
+    url = html.unescape(str(value or "")).strip()
+    if not re.match(r"^https?://", url, flags=re.IGNORECASE):
+        return ""
+    if re.search(r"\.(?:svg|gif)(?:\?|$)", url, flags=re.IGNORECASE):
+        return ""
+    return url
+
+
+def extract_tag_image(tag: Any) -> str:
+    if not tag:
+        return ""
+    for attribute in ("url", "href", "src"):
+        image = valid_image_url(tag.get(attribute, ""))
+        if image:
+            return image
+    return ""
+
+
+def extract_entry_image(entry: Any, description_html: str = "") -> str:
+    for name in ("media:content", "media:thumbnail", "thumbnail", "enclosure"):
+        for tag in entry.find_all(name):
+            medium = str(tag.get("medium", "")).casefold()
+            mime = str(tag.get("type", "")).casefold()
+            if medium and medium != "image":
+                continue
+            if mime and not mime.startswith("image/"):
+                continue
+            image = extract_tag_image(tag)
+            if image:
+                return image
+    if description_html:
+        fragment = BeautifulSoup(description_html, "html.parser")
+        image_tag = fragment.find("img")
+        if image_tag:
+            return valid_image_url(image_tag.get("src", ""))
+    return ""
+
+
+def parse_rss(xml: str, source_weight: float = 0.0) -> list[dict[str, Any]]:
+    if not xml:
+        return []
+    soup = BeautifulSoup(xml, "xml")
+    results: list[dict[str, Any]] = []
+    for entry in soup.find_all(["item", "entry"])[:60]:
+        title_tag = entry.find("title")
+        desc_tag = entry.find("description") or entry.find("summary") or entry.find("content")
+        date_tag = entry.find("pubDate") or entry.find("published") or entry.find("updated") or entry.find("date")
+        link_tag = entry.find("link")
+        link = ""
+        if link_tag:
+            link = link_tag.get("href") or link_tag.get_text(strip=True)
+        raw_desc = str(desc_tag) if desc_tag else ""
+        title = clean_text(title_tag.get_text(" ", strip=True) if title_tag else "", 220)
+        desc = clean_text(desc_tag.get_text(" ", strip=True) if desc_tag else "", 420)
+        if title and link:
+            results.append(item(
+                title,
+                desc,
+                link,
+                publication_iso(date_tag.get_text(" ", strip=True) if date_tag else "", title, desc),
+                extract_entry_image(entry, raw_desc),
+                source_weight,
+            ))
+    return results
+
+
+def google_news_url(query: str) -> str:
+    return "https://news.google.com/rss/search?q=" + quote(query) + "&hl=tr&gl=TR&ceid=TR:tr"
+
+
+def looks_turkish(value: str) -> bool:
+    lowered = f" {value.casefold()} "
+    words = (" ve ", " için ", " ile ", " yeni ", " enerji ", " elektrik ", " güvenlik ", " yapay ")
+    return any(char in value for char in "çğıöşüÇĞİÖŞÜ") or any(word in lowered for word in words)
+
+
+def needs_translation(value: str) -> bool:
+    return bool(value and not looks_turkish(value) and looks_english(value))
+
+
+def safe_turkish_fallback(value: str, label: str, *, title: bool) -> str:
+    lowered = value.casefold()
+    concepts = [
+        (("vulnerability", "security", "cyber", "zero-day"), "kritik siber güvenlik gelişmesi"),
+        (("model", "ai", "artificial intelligence", "llm"), "yeni yapay zeka gelişmesi"),
+        (("grid", "transformer", "substation", "distribution"), "elektrik şebekesi gelişmesi"),
+        (("battery", "storage", "bess"), "enerji depolama gelişmesi"),
+        (("solar", "wind", "renewable"), "yenilenebilir enerji gelişmesi"),
+        (("investment", "billion", "acquisition"), "önemli yatırım gelişmesi"),
+        (("launch", "release", "introducing"), "yeni ürün ve lansman gelişmesi"),
+    ]
+    concept = next((text for keys, text in concepts if any(key in lowered for key in keys)), "uluslararası kaynakta yeni gelişme")
+    if title:
+        return f"{label}: {concept[0].upper() + concept[1:]}"
+    return f"{label} alanındaki bu gelişme, güncellik ve olası etkileri açısından yakından izleniyor."
+
+
+def translate(value: str, label: str = "Gündem", *, title: bool = False) -> str:
+    global LAST_TRANSLATION_AT, TRANSLATION_CACHE_DIRTY
+    text = clean_text(value, 600)
+    if not text or not needs_translation(text):
+        return text
+    cache_material = f"{'title' if title else 'desc'}\0{label}\0{text}"
+    cache_key = hashlib.sha256(cache_material.encode("utf-8")).hexdigest()
+    cached = TRANSLATION_CACHE.get(cache_key)
+    if cached:
+        return cached
+
+    elapsed = time_module.monotonic() - LAST_TRANSLATION_AT
+    if elapsed < TRANSLATION_DELAY:
+        time_module.sleep(TRANSLATION_DELAY - elapsed + random.uniform(0.02, 0.08))
+
+    url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=tr&dt=t&q=" + quote(text)
+    response = request_response(url, accept_json=True)
+    LAST_TRANSLATION_AT = time_module.monotonic()
+    translated = ""
+    if response:
+        try:
+            payload = response.json()
+            translated = clean_text("".join(part[0] for part in payload[0] if part and part[0]), 600)
+        except (ValueError, TypeError, IndexError, KeyError):
+            translated = ""
+
+    if not translated or (needs_translation(translated) and not looks_turkish(translated)):
+        translated = safe_turkish_fallback(text, label, title=title)
+
+    TRANSLATION_CACHE[cache_key] = translated
+    TRANSLATION_CACHE_DIRTY = True
+    return translated
+
+
+def article_date(article: dict[str, Any]) -> date | None:
+    return parse_publication_date(str(article.get("published_at", ""))) or parse_publication_date(
+        f"{article.get('title', '')} {article.get('desc', '')}"
+    )
+
+
+def normalized_title(value: str) -> str:
+    text = clean_text(value, 240).casefold()
+    text = re.sub(r"\s+-\s+[^-]+$", "", text)
+    return re.sub(r"[^a-z0-9çğıöşü]+", " ", text).strip()
+
+
+def similar_titles(first: str, second: str) -> bool:
+    a, b = normalized_title(first), normalized_title(second)
+    if not a or not b:
+        return False
+    if a == b:
+        return True
+    a_words, b_words = set(a.split()), set(b.split())
+    union = a_words | b_words
+    jaccard = len(a_words & b_words) / len(union) if union else 0
+    return jaccard >= 0.72 or SequenceMatcher(None, a, b).ratio() >= 0.84
+
+
+def article_score(article: dict[str, Any], edition_date: date) -> float:
+    published = article_date(article)
+    if published and published > edition_date:
+        return float("-inf")
+    if published:
+        age = max(0, (edition_date - published).days)
+        recency = max(0.0, 48.0 - min(age, 120) * 0.55)
+    else:
+        recency = 5.0
+    text = f"{article.get('title', '')} {article.get('desc', '')}".casefold()
+    impact = sum(weight for keyword, weight in IMPACT_KEYWORDS.items() if keyword in text)
+    source = float(article.get("_source_weight", 0.0) or 0.0)
+    image_bonus = 1.5 if article.get("image") else 0.0
+    return recency + impact + source + image_bonus
+
+
+def add_candidate(bucket: list[dict[str, Any]], candidate: dict[str, Any] | None) -> None:
+    if not candidate or not clean_text(str(candidate.get("title", "")), 220):
+        return
+    if len(bucket) >= MAX_CANDIDATES_PER_CATEGORY:
+        return
+    if any(similar_titles(str(candidate.get("title", "")), str(old.get("title", ""))) for old in bucket):
+        return
+    bucket.append(candidate)
+
+
+def discover_og_image(url: str) -> str:
+    global IMAGE_PAGE_FETCH_COUNT
+    if not url or "news.google.com/" in url:
+        return ""
+    if url in IMAGE_CACHE:
+        return IMAGE_CACHE[url]
+    if IMAGE_PAGE_FETCH_COUNT >= MAX_IMAGE_PAGE_FETCHES:
+        return ""
+    IMAGE_PAGE_FETCH_COUNT += 1
+    page = get_text(url)
+    image = ""
+    if page:
+        soup = BeautifulSoup(page, "html.parser")
+        tag = (
+            soup.find("meta", property="og:image")
+            or soup.find("meta", attrs={"name": "twitter:image"})
+            or soup.find("meta", attrs={"name": "twitter:image:src"})
+        )
+        if tag:
+            image = valid_image_url(urljoin(url, tag.get("content", "")))
+    IMAGE_CACHE[url] = image
+    return image
+
+
+def public_article(article: dict[str, Any], label: str) -> dict[str, Any]:
+    title = translate(str(article.get("title", "")), label, title=True)
+    desc = translate(str(article.get("desc", "")), label, title=False)
+    if not desc:
+        desc = f"{label} alanındaki bu gelişme güncellik ve etkisi açısından yakından izleniyor."
+    image = valid_image_url(str(article.get("image", "")))
+    if not image:
+        image = discover_og_image(str(article.get("url", "")))
+    result: dict[str, Any] = {
+        "title": clean_text(title, 180),
+        "desc": clean_text(desc, 280),
+        "url": str(article.get("url") or "#"),
+        "image": image or "",
+        # JSON'a yazılmadan önce kaldırılan dahili sıralama değeri. Böylece
+        # çeviri başlığı değiştirse bile manşet ham haberin gerçek puanıyla seçilir.
+        "_score": article.get("_score", 0.0),
+    }
+    published = article_date(article)
+    if published:
+        result["published_at"] = published.isoformat()
+    return result
+
+
+def rank_category(
+    candidates: list[dict[str, Any]],
+    fallbacks: list[dict[str, Any]],
+    edition_date: date,
+    label: str,
+) -> list[dict[str, Any]]:
+    pool = [deepcopy(article) for article in candidates]
+    for fallback in fallbacks:
+        fallback_copy = deepcopy(fallback)
+        fallback_copy.setdefault("_source_weight", -2)
+        pool.append(fallback_copy)
+    eligible = [article for article in pool if article_score(article, edition_date) != float("-inf")]
+    eligible.sort(key=lambda article: (
+        article_score(article, edition_date),
+        article_date(article).toordinal() if article_date(article) else 0,
+        normalized_title(str(article.get("title", ""))),
+    ), reverse=True)
+
+    selected: list[dict[str, Any]] = []
+    for article in eligible:
+        if any(similar_titles(str(article.get("title", "")), str(old.get("title", ""))) for old in selected):
+            continue
+        selected.append(article)
+        if len(selected) >= NEWS_PER_CATEGORY:
+            break
+    public_items: list[dict[str, Any]] = []
+    for article in selected:
+        article["_score"] = article_score(article, edition_date)
+        public_items.append(public_article(article, label))
+    return public_items
+
+
+def finalize_news(
+    candidates: dict[str, list[dict[str, Any]]],
+    fallbacks: dict[str, list[dict[str, Any]]],
+    labels: dict[str, str],
+    edition_date: date,
+) -> dict[str, list[dict[str, Any]]]:
+    return {
+        category: rank_category(candidates.get(category, []), fallbacks[category], edition_date, label)
+        for category, label in labels.items()
+    }
+
+
+def classify_tech(title: str, desc: str, tags: list[str] | None = None) -> str | None:
+    text = f" {title} {desc} {' '.join(tags or [])} ".casefold()
+    rules = {
+        "sec": ["security", "cyber", "vulnerability", "malware", "phishing", "passkey", "owasp", "siber", "güvenlik açığı"],
+        "ai": [" ai ", "artificial intelligence", "machine learning", "llm", "model", "agent", "prompt", "yapay zeka", "gemini", "openai"],
+        "oss": ["open source", "linux", "github", " git ", "kernel", "docker", "kubernetes", "açık kaynak"],
+        "web": ["web", "javascript", "typescript", "react", "css", "html", "browser", "frontend", "tarayıcı"],
+    }
+    return next((category for category, words in rules.items() if any(word in text for word in words)), None)
+
+
+def classify_energy(title: str, desc: str) -> str:
+    text = f"{title} {desc}".casefold()
+    rules = {
+        "bat": ["battery", "storage", "lithium", "bess", "cell", "thermal runaway", "batarya", "depolama"],
+        "ren": ["solar", "wind", "renewable", "photovoltaic", "geothermal", "hydrogen", "güneş", "rüzgar", "rüzgâr", "yenilenebilir", "hidroelektrik"],
+        "mkt": ["market", "regulation", "policy", "tariff", "price", "auction", "utility", "piyasa", "regülasyon", "tarife", "ihale", "epdk"],
+        "grid": ["grid", "transformer", "substation", "transmission", "distribution", "scada", "relay", "outage", "şebeke", "trafo", "dağıtım", "iletim"],
+    }
+    return next((category for category, words in rules.items() if any(word in text for word in words)), "grid")
+
+
+def fetch_google_category_news(
+    queries: dict[str, str],
+    buckets: dict[str, list[dict[str, Any]]],
+    source_weight: float = 7,
+) -> None:
+    for category, query in queries.items():
+        for article in parse_rss(get_text(google_news_url(query)), source_weight):
+            article["title"] = re.sub(r"\s+-\s+[^-]+$", "", str(article.get("title", ""))).strip()
+            add_candidate(buckets[category], article)
+
+
+def fetch_tech_news(edition_date: date) -> dict[str, list[dict[str, Any]]]:
+    news: dict[str, list[dict[str, Any]]] = {key: [] for key in TECH_LABELS}
+    articles = get_json("https://dev.to/api/articles?per_page=80") or []
+    if isinstance(articles, list):
+        for article_data in articles:
+            category = classify_tech(
+                str(article_data.get("title", "")),
+                str(article_data.get("description", "")),
+                article_data.get("tag_list") or [],
+            )
+            if category:
+                add_candidate(news[category], item(
+                    str(article_data.get("title", "")),
+                    str(article_data.get("description", "")),
+                    str(article_data.get("url") or "#"),
+                    publication_iso(str(article_data.get("published_at", ""))),
+                    valid_image_url(str(article_data.get("cover_image") or article_data.get("social_image") or "")),
+                    6,
+                ))
+    for source, weight in RSS_SOURCES["tech"]:
+        for article in parse_rss(get_text(source), weight):
+            category = classify_tech(str(article.get("title", "")), str(article.get("desc", "")))
+            if category:
+                add_candidate(news[category], article)
+    fetch_google_category_news(GOOGLE_NEWS_QUERIES["tech"], news)
+    return finalize_news(news, TECH_FALLBACKS, TECH_LABELS, edition_date)
+
+
+def fetch_energy_news(edition_date: date) -> dict[str, list[dict[str, Any]]]:
+    news: dict[str, list[dict[str, Any]]] = {key: [] for key in ENERGY_LABELS}
+    for source, weight in RSS_SOURCES["energy"]:
+        for article in parse_rss(get_text(source), weight):
+            add_candidate(news[classify_energy(str(article.get("title", "")), str(article.get("desc", "")))], article)
+    fetch_google_category_news(GOOGLE_NEWS_QUERIES["energy"], news)
+    return finalize_news(news, ENERGY_FALLBACKS, ENERGY_LABELS, edition_date)
+
+
+def eksim_site_articles() -> list[dict[str, Any]]:
+    base_url = "https://eksim.com.tr/"
+    queue = [base_url, urljoin(base_url, "medya-merkezi/haberler")]
+    seen_pages: set[str] = set()
+    articles: list[dict[str, Any]] = []
+    section_words = ("haber", "medya", "duyuru", "basin", "basın", "bulten", "bülten")
+    while queue and len(seen_pages) < 8:
+        page_url = queue.pop(0)
+        if page_url in seen_pages:
+            continue
+        seen_pages.add(page_url)
+        page = get_text(page_url)
+        if not page:
+            continue
+        soup = BeautifulSoup(page, "html.parser")
+        page_og = soup.find("meta", property="og:image")
+        page_image = valid_image_url(urljoin(page_url, page_og.get("content", ""))) if page_og else ""
+        for anchor in soup.find_all("a", href=True):
+            full_url = urljoin(page_url, anchor.get("href", ""))
+            if not full_url.startswith(base_url):
+                continue
+            path_text = full_url.casefold()
+            if any(word in path_text for word in section_words) and full_url not in seen_pages and full_url not in queue:
+                queue.append(full_url)
+            title = clean_text(anchor.get_text(" ", strip=True), 180)
+            if len(title) < 12 or is_eksim_navigation_title(title) or full_url.rstrip("/") == page_url.rstrip("/"):
+                continue
+            container = anchor.find_parent(["article", "li", "div"])
+            summary_tag = container.find("p") if container else None
+            time_tag = container.find("time") if container else None
+            image_tag = container.find("img") if container else None
+            desc = clean_text(summary_tag.get_text(" ", strip=True) if summary_tag else "", 320)
+            image = valid_image_url(urljoin(page_url, image_tag.get("src", ""))) if image_tag else page_image
+            if any(word in path_text for word in section_words) or (container and container.find(["h1", "h2", "h3", "h4"])):
+                articles.append(item(
+                    title,
+                    desc,
+                    full_url,
+                    publication_iso(
+                        time_tag.get("datetime", "") if time_tag else "",
+                        time_tag.get_text(" ", strip=True) if time_tag else "",
+                        title,
+                    ),
+                    image,
+                    11,
+                ))
+    return articles
+
+
+def fetch_eksim_news(edition_date: date) -> dict[str, list[dict[str, Any]]]:
+    news: dict[str, list[dict[str, Any]]] = {key: [] for key in EKSIM_LABELS}
+    for article in eksim_site_articles():
+        category = classify_eksim(str(article.get("title", "")), str(article.get("desc", "")))
+        if not article.get("desc"):
+            article["desc"] = f"{EKSIM_LABELS[category]} bünyesindeki bu gelişme kurumsal kanallardan paylaşıldı."
+        add_candidate(news[category], article)
+    fetch_google_category_news(GOOGLE_NEWS_QUERIES["eksim"], news, source_weight=8)
+    return finalize_news(news, EKSIM_FALLBACKS, EKSIM_LABELS, edition_date)
+
+
+def best_lead(news: dict[str, list[dict[str, Any]]], edition_date: date) -> dict[str, Any]:
+    candidates = [article for articles in news.values() for article in articles]
+    if not candidates:
+        return item("Günün öne çıkan gelişmesi", "Günün haber akışı hazırlanıyor.", "#")
+    return max(candidates, key=lambda article: float(article.get("_score", article_score(article, edition_date))))
+
+
+def strip_internal_fields(news: dict[str, list[dict[str, Any]]]) -> dict[str, list[dict[str, Any]]]:
+    return {
+        category: [
+            {key: value for key, value in article.items() if not key.startswith("_")}
+            for article in articles
+        ]
+        for category, articles in news.items()
+    }
+
+
+def make_edition(kind: str, edition_date: date, issue: int, news: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
+    lead = best_lead(news, edition_date)
+    public_news = strip_internal_fields(news)
+    if kind == "tech":
+        puzzle = deepcopy(AI_PUZZLE)
+        quote_text = "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\""
+        editorial = item("Ajanlar Çağında Kodu Okumak Yazmaktan Değerli", "Kod üretimi hızlanırken niyeti, güvenlik sınırlarını, testleri ve ortaya çıkan davranışı birlikte değerlendirmek gerekir.", "")
+        fact = item("Zero-Shot Inference", "Bir modelin görevi daha önce örnek görmeden yalnızca bağlam ve talimatla tamamlayabilme yeteneğidir.", "")
+        body = "Yapay zekâ ve yazılım dünyasında model güvenliği, veri gizliliği, açık kaynak sürdürülebilirliği ve web performansı aynı mühendislik zincirinin parçaları hâline geliyor. Ekipler için temel hedef otomasyonu ölçülebilir kalite kontrolleri ve insan denetimiyle birlikte işletmek.\n\nBu baskı güvenilir Türkçe ve uluslararası kaynakları önem ve güncellik puanıyla sıralar."
+    elif kind == "energy":
+        puzzle = deepcopy(ENERGY_PUZZLE)
+        quote_text = "\"Güvenilir şebeke, ölçülen ve yönetilen şebekedir.\""
+        editorial = item("Dağıtım Şebekesinin Dijital İkizi Sahadaki Disiplindir", "SCADA şeması, koruma ayarları ve fiziksel bağlantılar aynı gerçeği göstermediğinde otomasyon güvenilir sonuç üretemez.", "")
+        fact = item("Güç Katsayısı (cosφ)", "Aktif gücün görünür güce oranıdır; düşük değer daha yüksek akım, kayıp ve gerilim düşümü oluşturur.", "")
+        body = "Elektrik şebekesinin dönüşümü koruma, otomasyon, yenilenebilir üretim, depolama ve piyasa tasarımını aynı işletme disiplini içinde buluşturuyor. Doğru zaman damgalı saha verisi hızlı ve güvenli kararın temelidir.\n\nBu baskı güvenilir enerji kaynaklarını önem ve güncellik puanıyla sıralar."
+    elif kind == "eksim":
+        puzzle = []
+        quotes = [
+            "\"İnsana, topluma ve geleceğe değer katan yatırımlar kalıcı iz bırakır.\"",
+            "\"Ortak vizyon, farklı yetkinlikleri güçlü bir gelecekte buluşturur.\"",
+            "\"Sürdürülebilir büyüme, bugünün başarısını yarının sorumluluğuyla birleştirir.\"",
+            "\"Güçlü kurumlar değişimi veriye, insana ve ortak değere dönüştürür.\"",
+        ]
+        facts = [
+            item("Sürdürülebilir Değer", "Bir kurumun ekonomik performansını çevresel sorumluluk, toplumsal fayda ve güçlü yönetişimle birlikte uzun vadeli olarak geliştirmesidir.", ""),
+            item("Dağıtım Şebekesi", "Elektriği iletim sisteminden alıp tüketicilere güvenli, sürekli ve kaliteli biçimde ulaştıran altyapı bütünüdür.", ""),
+            item("Yenilenebilir Üretim", "Rüzgâr, güneş ve su gibi doğal olarak yenilenen kaynaklardan düşük karbonlu elektrik üretimidir.", ""),
+            item("Kurumsal Yönetişim", "Yetki, sorumluluk, şeffaflık ve hesap verebilirlik ilkeleriyle kurumun karar süreçlerini düzenleyen yapıdır.", ""),
+        ]
+        quote_text = quotes[(issue - 1) % len(quotes)]
+        editorial = item("Ortak Vizyon, Sürdürülebilir Değer", "Eksim Holding ve grup şirketlerinin farklı sektörlerdeki yetkinliği; güven, yenilikçilik ve sorumlu büyüme yaklaşımıyla ortak bir kurumsal vizyonda buluşuyor.", "")
+        fact = facts[(issue - 1) % len(facts)]
+        body = "Eksim Holding ve grup şirketleri; enerji, elektrik dağıtımı, gıda ve girişimcilik alanlarındaki faaliyetlerini sürdürülebilir büyüme ve toplumsal fayda anlayışıyla yürütüyor.\n\nBu baskı kurumsal kanallar ile güncel Türkçe basın kaynaklarını önem ve güncellik puanıyla sıralar."
+    else:
+        raise ValueError(f"Bilinmeyen baskı türü: {kind}")
+    if kind != "eksim":
+        validate_puzzle(puzzle)
+    return {
+        "issue": issue,
+        "date": date_label(edition_date),
+        "date_key": edition_date.isoformat(),
+        "quote": quote_text,
+        "lead": {"title": lead["title"], "deck": lead["desc"], "body": body},
+        "editorial": {"title": editorial["title"], "body": editorial["desc"]},
+        "fact": {"title": fact["title"], "body": fact["desc"]},
+        "news": public_news,
+        "puzzle": puzzle,
+    }
+
+
 def generate() -> None:
     edition_date, issue = edition_info()
     print(f"Baskı hazırlanıyor: {date_label(edition_date)} — Sayı {issue}")
     try:
-        tech_news = fetch_tech_news()
+        tech_news = fetch_tech_news(edition_date)
     except Exception as exc:
         print(f"Teknoloji akışı yedek havuza geçti: {exc}")
         tech_news = complete({key: [] for key in TECH_LABELS}, TECH_FALLBACKS)
     try:
-        energy_news = fetch_energy_news()
+        energy_news = fetch_energy_news(edition_date)
     except Exception as exc:
         print(f"Enerji akışı yedek havuza geçti: {exc}")
         energy_news = complete({key: [] for key in ENERGY_LABELS}, ENERGY_FALLBACKS)
@@ -670,6 +1280,7 @@ def generate() -> None:
     write_eksim_archive_index()
     if deleted:
         print("Silinen eski arşivler: " + ", ".join(sorted(deleted)))
+    save_translation_cache()
     print(f"Tamamlandı: Sayı {issue}; üç güncel baskı ve üç arşiv üretildi.")
 
 
@@ -681,9 +1292,9 @@ def main() -> int:
         print(f"Beklenmeyen üretim hatası: {exc}")
         try:
             edition_date, issue = edition_info()
-            tech_news = complete({key: [] for key in TECH_LABELS}, TECH_FALLBACKS)
-            energy_news = complete({key: [] for key in ENERGY_LABELS}, ENERGY_FALLBACKS)
-            eksim_news = prepare_eksim_news({key: [] for key in EKSIM_LABELS}, edition_date)
+            tech_news = finalize_news({key: [] for key in TECH_LABELS}, TECH_FALLBACKS, TECH_LABELS, edition_date)
+            energy_news = finalize_news({key: [] for key in ENERGY_LABELS}, ENERGY_FALLBACKS, ENERGY_LABELS, edition_date)
+            eksim_news = finalize_news({key: [] for key in EKSIM_LABELS}, EKSIM_FALLBACKS, EKSIM_LABELS, edition_date)
             key = edition_date.isoformat()
             tech = make_edition("tech", edition_date, issue, tech_news)
             energy = make_edition("energy", edition_date, issue, energy_news)
@@ -696,6 +1307,7 @@ def main() -> int:
             write_json(ARCHIVE_DIR / f"eksim_{key}.json", eksim)
             cleanup_archives(edition_date)
             write_eksim_archive_index()
+            save_translation_cache()
             print("Acil durum yedek havuzuyla geçerli baskılar üretildi.")
             return 0
         except Exception as fallback_exc:

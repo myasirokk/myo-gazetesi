@@ -6,6 +6,39 @@ const setText = (selector, value) => {
   const element = $(selector);
   if (element) element.textContent = value ?? '';
 };
+const validImageUrl = value => {
+  try {
+    const url = new URL(String(value || ''), window.location.href);
+    return /^https?:$/.test(url.protocol) ? url.href : '';
+  } catch (_) { return ''; }
+};
+function createArticleImage(src, className, alt = '') {
+  const url = validImageUrl(src);
+  if (!url) return null;
+  const image = document.createElement('img');
+  image.className = className;
+  image.src = url;
+  image.alt = alt;
+  image.loading = 'lazy';
+  image.decoding = 'async';
+  image.referrerPolicy = 'no-referrer';
+  image.addEventListener('error', () => image.remove(), {once:true});
+  return image;
+}
+function findFeaturedItem(edition) {
+  const leadTitle = String(edition?.lead?.title || '').trim().toLocaleLowerCase('tr-TR');
+  const items = Object.values(edition?.news || {}).flatMap(group => Array.isArray(group) ? group : []);
+  return items.find(item => String(item.title || '').trim().toLocaleLowerCase('tr-TR') === leadTitle)
+    || items.find(item => validImageUrl(item.image));
+}
+function renderLeadImage(edition) {
+  const lead = $('.lead');
+  if (!lead) return;
+  lead.querySelector('.lead-image')?.remove();
+  const item = findFeaturedItem(edition);
+  const image = createArticleImage(item?.image, 'lead-image', item?.title || edition?.lead?.title || '');
+  if (image) lead.insertBefore(image, lead.querySelector('#leadTitle'));
+}
 
 const MONTHS = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
 const DAYS = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
@@ -226,6 +259,8 @@ function renderLead() {
   const featuredEdition = editionFor(featuredSource);
   const featuredLead = featuredEdition.lead || FALLBACK[featuredSource.key].lead;
 
+  renderLeadImage(featuredEdition);
+
   setText('#leadTitle', featuredLead.title || 'Günün Öne Çıkanları');
   setText(
     '#leadDeck',
@@ -278,6 +313,8 @@ function createSummaryItem(item) {
 
   const description = document.createElement('p');
   description.textContent = item.desc || '';
+  const image = createArticleImage(item.image, 'summary-item-image', item.title || '');
+  if (image) li.appendChild(image);
   li.append(title, description);
   return li;
 }
