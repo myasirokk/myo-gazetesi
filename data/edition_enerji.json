@@ -4,8 +4,8 @@
   "date_key": "2026-11-24",
   "quote": "\"Güvenilir şebeke, ölçülen ve yönetilen şebekedir.\"",
   "lead": {
-    "title": "Kapasite Planlamasında Dağıtık Kaynaklar Birlikte Ele Alınıyor",
-    "deck": "Elektrikli araç, güneş ve depolama senaryoları şebeke yatırımlarına giriyor.",
+    "title": "Australia’s remaining BESS gap to 2030 could be in construction within 18 months, IEEFA scorecard finds",
+    "deck": "Australia committed a record 2. 4GW of renewable energy projects to construction in the third quarter of 2026, while battery energy storage systems (BESS) committed in the quarter covered 13% of the new storage capacity needed by 2030.",
     "body": "Elektrik şebekesinin dönüşümü koruma, otomasyon, yenilenebilir üretim, depolama ve piyasa tasarımını aynı işletme disiplini içinde buluşturuyor. Doğru zaman damgalı saha verisi hızlı ve güvenli kararın temelidir.\n\nBu baskı güvenilir enerji kaynaklarını önem ve güncellik puanıyla sıralar."
   },
   "editorial": {
@@ -19,106 +19,122 @@
   "news": {
     "grid": [
       {
-        "title": "Fider Otomasyonu Kesinti Alanını Daraltıyor",
-        "desc": "Uzaktan kumandalı ayırıcılar sağlam hat kesimlerinin hızla enerjilendirilmesini sağlıyor.",
-        "url": "https://www.power-grid.com/",
-        "image": ""
+        "title": "Elektrik dağıtım şebekelerine 2040'a kadar 80 milyar dolarlık yatırım öngörülüyor",
+        "desc": "Elektrik dağıtım şebekelerine 2040'a kadar 80 milyar dolarlık yatırım öngörülüyor Anadolu Ajansı",
+        "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNeG9uTDNpZnZLWXJQVzlONHNZSXI5RUowdkEtY3BVYnhfZVZmUnN3d0xpT0h2NG51b1VHTWZwTERNc1lrYW1UX2xBdXp2LXNpZzlRb1hHcE8xdkRoejMwclhVRFByck9zak9leVRsZTRSemEwQTh4WjNrYy1sbkNPQ1FmSGJvNXZRZ2xjYno1VF9rVUJBbVhUa3V4RU84V1VqN0liZU1RT2dEdm50YmZEcTd3QUIxNXBIS1ZQSTB3?oc=5",
+        "image": "",
+        "published_at": "2026-11-09"
       },
       {
-        "title": "Dağıtım Trafalarında Çevrim İçi Sıcaklık İzleme Artıyor",
-        "desc": "Sargı sıcaklığı ve yük akımı eğilimleri aşırı yük riskini erken gösteriyor.",
-        "url": "https://www.power-eng.com/",
-        "image": ""
+        "title": "Bakan Bayraktar: İletim altyapımıza 36 milyar dolarlık yatırım öngörüyoruz",
+        "desc": "Bakan Bayraktar: İletim altyapımıza 36 milyar dolarlık yatırım öngörüyoruz DHA | Demirören Haber Ajansı",
+        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOWHViM1VTQ3RUZUhubk5yV2I1WkNHSVRYR3VjQUhfemk2SDRYTHhmNDUwY3lLbHI0YlV3Y0ZDNHJ3MW4zMk1Bc2JuN29fa2ZIbmZkRWRrcGw0dzVfM2xwbHJwV2ZSMmRwa0xtQ1BUV3VDck9zN0tfTUlqLWVCTmM5MnhGbndGUThIV2NtLXdHa2c1cGdJR1dPa3d2UFJuRTJP?oc=5",
+        "image": "",
+        "published_at": "2026-11-23"
       },
       {
-        "title": "SCADA Olay Kayıtlarında Zaman Senkronizasyonu Öne Çıkıyor",
-        "desc": "Ortak zaman damgası röle ve kesici olaylarının doğru analiz edilmesini kolaylaştırıyor.",
-        "url": "https://www.power-grid.com/",
-        "image": ""
+        "title": "Elektrik dağıtım ve iletimine 100 milyar dolar yatırım planlanıyor",
+        "desc": "Elektrik dağıtım ve iletimine 100 milyar dolar yatırım planlanıyor Ekonomi Gazetesi",
+        "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOOExwOThJRXUtX0NuTjNDZHp1dGlkX1lXRWtiME5kSzFHb0NVaTBRd1RCdUxoNExCcTR0R1MyR1JhZVA3NUFqZDVUV25YeURkQWs4V3Y5N19LdVlOc3lGcUQ3QThQa21Ua0VMWGlkOHNkdTQ4aXBZbEdyZklWMDlSUnhMUXd3UUpJZklhRmZGdjhxZERjZHAtLWZRNHhOcnJOVDdWdkVKem9fenBQcWJvYjNIckg4WEItVDNJSF9B?oc=5",
+        "image": "",
+        "published_at": "2026-10-27"
       },
       {
-        "title": "Orta Gerilim Şebekelerinde Dijital Koruma Yaygınlaşıyor",
-        "desc": "Yeni röleler haberleşme destekli seçicilik ve uzaktan ayar yönetimi sunuyor.",
-        "url": "https://www.power-eng.com/",
-        "image": ""
+        "title": "Elektrik dağıtım altyapısında gelecek 10 yılda en az 50 milyar dolarlık yatırım ihtiyacı öngörülüyor",
+        "desc": "Elektrik dağıtım altyapısında gelecek 10 yılda en az 50 milyar dolarlık yatırım ihtiyacı öngörülüyor Anadolu Ajansı",
+        "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNUDVXYk9UeXpkYmxfMkU3c1Z4VG1qaFZwNHJCbVQzSEtQVmJ4TEVFcDB1Q3lZRlQ5X3dtMUp6VnktdFpUNm9FTXVuTkY2WnpBODEwU2QyVENxbW5xaENzMmw5ejhFMTVrc3ZnMHpsaXlEWElwa3JBbkc5SktRR29oa3ZBcjJFWElyNjVITWh6amNCVU1qVVNJWnpheVFMWDFDb0pWTTBUcTRJV2VLY2UxTjhoOVZqdFZaOFRqNUItNVRaODVkOHlQTFRmZmJyNzZIRVAtMFk4T04?oc=5",
+        "image": "",
+        "published_at": "2026-10-26"
       }
     ],
     "ren": [
       {
-        "title": "Çatı GES Tahminleri Gerilim Yönetimine Bağlanıyor",
-        "desc": "Işınım tahmini ve trafo yükü birlikte değerlendirilerek ters güç akışı hesaplanıyor.",
-        "url": "https://www.renewableenergyworld.com/",
-        "image": ""
+        "title": "Antalya'da kritik anlaşma: CATL ve BYD öncülüğünde küresel enerji depolama ittifakı kuruldu",
+        "desc": "Antalya'da kritik anlaşma: CATL ve BYD öncülüğünde küresel enerji depolama ittifakı kuruldu DonanımHaber",
+        "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNcVlhYzJBRWtIQ25uM1BXeTV4T2g5WVlLSUdINjdUb3RvTkUtYUUyNzlTTjFkTVh1MFZONXAwei1DbVR3ckgxZzNTSG9tbUdLWXFGVWlsdlBONzJQUlBPNkpwZ25VaTItY2hKRk4yMWFkOUJ1MlRBN1FHQXJUYU9oVm9BbGlRUjZWNkJ0MG9nQ0R5UzBZQllRalVmbVdHTWNadWhV?oc=5",
+        "image": "",
+        "published_at": "2026-11-23"
       },
       {
-        "title": "Rüzgâr Santrallerinde Reaktif Güç Desteği Öne Çıkıyor",
-        "desc": "Modern konvertörler üretim değişirken bağlantı noktasındaki gerilimi destekliyor.",
-        "url": "https://www.renewableenergyworld.com/",
-        "image": ""
+        "title": "Commission approves €9. 5 billion Dutch State aid to support offshore wind energy",
+        "desc": "The European Commission has approved, under EU State aid rules, a €9. 5 billion Dutch scheme to support renewable electricity production from two offshore wind farms in the North Sea.",
+        "url": "https://ec.europa.eu/commission/presscorner/detail/en/ip_26_2457",
+        "image": "https://energy.ec.europa.eu/sites/default/files/media_avportal_thumbnails/WIwpRmxRZNqDBBt9UIMS1NloMpck9uRzL4l2qhNqICI.jpg",
+        "published_at": "2026-11-17"
       },
       {
-        "title": "Güneş Santrallerinde İnverter Verisi Bakımı Yönlendiriyor",
-        "desc": "Dizi akımı ve sıcaklık sapmaları üretim kaybına yol açan arızaları erken gösteriyor.",
-        "url": "https://www.pv-magazine.com/",
-        "image": ""
+        "title": "Türkiye ile Çin arasında 15 milyar dolarlık yenilenebilir enerji mutabakatı",
+        "desc": "Türkiye ile Çin arasında 15 milyar dolarlık yenilenebilir enerji mutabakatı Bursa Saati Gazetesi",
+        "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPT1d4OERTbEJscXV1b2prQlo4U0VHV1dUYnV5M0R6SE10NGlJeDRzRzdtMmFCeFpGRWxwcG10SndPb2p4RXdwa3NIdEpCams2WTE2R3dCbjlNWEpLNk1pRW5fT2ZOeDdKMWlDdlJ4Tm9Cb2VYMUdCNWtQVFNuSjZWZWFnS2RLN3dZOGIydW5wNXF0Q2toZ051aTlvb3RKRzlRZ19IT05LWnE?oc=5",
+        "image": "",
+        "published_at": "2026-11-23"
       },
       {
-        "title": "Hibrit Santraller Üretim Profilini Dengeliyor",
-        "desc": "Güneş, rüzgâr ve depolamanın ortak kontrolü bağlantı kapasitesini verimli kullanıyor.",
-        "url": "https://www.renewableenergyworld.com/",
-        "image": ""
+        "title": "İhale Dergisi | İhale Haberleri | İhale Sonuçları | İhale Bülteni",
+        "desc": "İhale Dergisi | İhale Haberleri | İhale Sonuçları | İhale Bülteni Yatırımlar Dergisi",
+        "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPNDFVQ3BlejFSOUwxRjhfc25yNUk2R2U0cUpvX0JzZ0NOVk1IczZGRnF4bkQzVXlhakljYWVlcEZCMkI2aFJfdVRnOWNRSGliMG9mb3h5Ti03SlVEWW13NGdKMkpReWlqV2FGQV9tV09lVTRXcENWT1lZMjhObHg4d0ZfWmZTYzM3aTZzMmJIbUp5LTBPQng0YVZGcmROSE5MenF1ajh6dVNKQUlLZEFFX1YyLWZQTEpfclE?oc=5",
+        "image": "",
+        "published_at": "2026-11-24"
       }
     ],
     "bat": [
       {
-        "title": "Batarya Yönetim Sistemleri Hücre Sapmasını Erken Yakalıyor",
-        "desc": "Gerilim, sıcaklık ve iç direnç eğilimleri dengesiz hücreleri belirliyor.",
-        "url": "https://www.energy-storage.news/",
-        "image": ""
+        "title": "Australia’s remaining BESS gap to 2030 could be in construction within 18 months, IEEFA scorecard finds",
+        "desc": "Australia committed a record 2. 4GW of renewable energy projects to construction in the third quarter of 2026, while battery energy storage systems (BESS) committed in the quarter covered 13% of the new storage capacity needed by 2030.",
+        "url": "https://www.energy-storage.news/australia-bess-storage-gap-2030-construction-18-months-ieefa-scorecard/",
+        "image": "https://www.energy-storage.news/wp-content/uploads/2026/11/Eku-Energy_250MW-500-MWh-Williamsdale-BESS-in-Tuggeranong-ACT_1-768x575.jpg",
+        "published_at": "2026-11-20"
       },
       {
-        "title": "Şebeke Ölçekli Depolamada Yangın Bölümlendirmesi Kritik",
-        "desc": "Gaz algılama, havalandırma ve termal kaçak sınırları birlikte tasarlanıyor.",
-        "url": "https://www.energy-storage.news/",
-        "image": ""
+        "title": "New York launches second annual 1GW ‘bulk’ energy storage solicitation",
+        "desc": "New York’s second competitive solicitation for large-scale energy storage has launched, seeking a gigawatt (1GW) of grid-connected resources.",
+        "url": "https://www.energy-storage.news/new-york-launches-second-annual-1gw-bulk-energy-storage-solicitation/",
+        "image": "https://www.energy-storage.news/wp-content/uploads/2026/11/NY-Kathy-Hochul-MTA-2022-flickr-768x544.jpg",
+        "published_at": "2026-11-16"
       },
       {
-        "title": "Depolama Tesislerinde Çevrim Ömrü Gelir Modelini Etkiliyor",
-        "desc": "Şarj derinliği ve sıcaklık yönetimi kullanılabilir kapasiteyi belirliyor.",
-        "url": "https://www.energy-storage.news/",
-        "image": ""
+        "title": "Chinese listed energy storage firms Chint Power, EVE Energy announce UPS, LFP capacity additions",
+        "desc": "Chint Power and EVE Energy have unveiled revised capacity investment plans, pursuing a UPS production facility and pivoting ternary battery production to LFP.",
+        "url": "https://www.energy-storage.news/chinese-listed-energy-storage-firms-chint-power-eve-energy-announce-ups-lfp-capacity-additions/",
+        "image": "https://www.energy-storage.news/wp-content/uploads/2026/11/EVE-Mr-Giant-SNEC-768x512.jpg",
+        "published_at": "2026-11-24"
       },
       {
-        "title": "İkinci Ömür Bataryalarda Sağlık Ölçümü Standartlaşıyor",
-        "desc": "Hücre geçmişi ve kapasite testleri yeni kullanım alanına uygunluğu doğruluyor.",
-        "url": "https://www.energy-storage.news/",
-        "image": ""
+        "title": "FERC approves MISO plan to speed legacy interconnection study process",
+        "desc": "Without the rule changes, the Midcontinent Independent System Operator’s queue cycles — totaling about 125 GW of generation and storage — would have been delayed, according to the grid operator.",
+        "url": "https://www.utilitydive.com/news/ferc-miso-interconnection-queue-study/875449/",
+        "image": "https://imgproxy.divecdn.com/ZhQf6qmb1MPh89crVZYpBgx8XlxyHHrMGxKG4NCPxMU/g:ce/rs:fit:770:435/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0xNTI1NDI0MjAuanBn.webp",
+        "published_at": "2026-11-23"
       }
     ],
     "mkt": [
       {
-        "title": "Esneklik Hizmetleri Dağıtım Seviyesine İniyor",
-        "desc": "Dağıtık üretim ve tüketim katılımı yerel şebeke sıkışıklığını azaltıyor.",
-        "url": "https://www.utilitydive.com/",
-        "image": ""
+        "title": "İhale Dergisi | İhale Haberleri | İhale Sonuçları | İhale Bülteni",
+        "desc": "İhale Dergisi | İhale Haberleri | İhale Sonuçları | İhale Bülteni Yatırımlar Dergisi",
+        "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPcWFqaWZIRi1LMWE3c1lsYzNvZEgyVkd1Z29HeFhHVDZGNjh6bVhnSWZRT1lsTXl4YUtxNWlFckdMUV9FMnoyR1QxOGowVmhnOU9RRFJRZGJZc21oQlVVVVJXSkxDWG9WQ3lybjdPVzBwelppeDcyMm9WUUtySC15T05DSHZfUzg1Q085SlFXWWVBM2ZrcWJvTEtVY1Fiby1VeFk3UG8zY2gtU0h4NlNVemJEN2hCTm9Ha19tY0pSZGg?oc=5",
+        "image": "",
+        "published_at": "2026-11-23"
       },
       {
-        "title": "Çeyrek Saatlik Ölçüm Verisi Uzlaştırmada Önem Kazanıyor",
-        "desc": "Kısa zaman çözünürlüğü üretim ve tüketim sapmalarını hassas yansıtıyor.",
-        "url": "https://www.utilitydive.com/",
-        "image": ""
+        "title": "New Jersey utilities have less than a year to implement virtual power plants",
+        "desc": "Data from the two-year interim version of PowerUp NJ will inform the development of a long-term, open-access virtual power plant tariff, state utility regulators said on Nov. 12.",
+        "url": "https://www.utilitydive.com/news/new-jersey-utilities-have-less-than-a-year-to-implement-virtual-power-plant/875482/",
+        "image": "https://imgproxy.divecdn.com/k_aTxuUgPY7SxI3vl6EqN5hqSPkiNGGKWeEgA-0ds6k/g:ce/rs:fit:770:435/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMjcyMzk0OTgyLmpwZw==.webp",
+        "published_at": "2026-11-23"
       },
       {
-        "title": "Kapasite Planlamasında Dağıtık Kaynaklar Birlikte Ele Alınıyor",
-        "desc": "Elektrikli araç, güneş ve depolama senaryoları şebeke yatırımlarına giriyor.",
-        "url": "https://www.utilitydive.com/",
-        "image": ""
+        "title": "Market reforms bolster grid, may lower costs this winter: FERC",
+        "desc": "Improved coordination in the West will help offset lower hydropower output due to historically low water levels in the Colorado River basin, while New England risks overreliance on oil, FERC’s winter market and reliability report says.",
+        "url": "https://www.utilitydive.com/news/western-northeast-market-reforms-drought-grid-ferc/875311/",
+        "image": "https://imgproxy.divecdn.com/4Bn2syEdR_XSr4DmK-Xk5w7yaST2vqkeY068QnPgCo0/g:ce/rs:fit:770:435/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL2RpdmVpbWFnZS9HZXR0eUltYWdlcy0yMjg3NjUyNzQwLmpwZw==.webp",
+        "published_at": "2026-11-20"
       },
       {
-        "title": "Talep Tarafı Katılımında Doğrulama Ölçütleri Netleşiyor",
-        "desc": "Referans tüketim ve gerçekleşen azaltım piyasa ödemelerinin temelini oluşturuyor.",
-        "url": "https://www.utilitydive.com/",
-        "image": ""
+        "title": "Grid operators need data center ride-through rules that protect reliability",
+        "desc": "The first facilities built to Texas’ new standard are about to come online, proving that firm, predictable regulation can protect reliability without slowing market development, writes ON. energy CEO Alan Cooper.",
+        "url": "https://www.utilitydive.com/news/grid-operators-data-center-ride-through-rules-ercot-nerc/873466/",
+        "image": "",
+        "published_at": "2026-11-19"
       }
     ]
   },

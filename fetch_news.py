@@ -17,7 +17,7 @@ from difflib import SequenceMatcher
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote, urljoin
+from urllib.parse import parse_qs, quote, unquote, urljoin, urlparse
 from zoneinfo import ZoneInfo
 
 import requests
@@ -31,9 +31,10 @@ EDITION_HOUR = 7
 ARCHIVE_DAYS = 7
 NEWS_PER_CATEGORY = 4
 TIMEOUT = (4, 12)
-TRANSLATION_DELAY = 0.35
+TRANSLATION_DELAY = 0.75
+TRANSLATION_RETRY_DELAY = 1.5
 MAX_CANDIDATES_PER_CATEGORY = 60
-MAX_IMAGE_PAGE_FETCHES = 8
+MAX_IMAGE_PAGE_FETCHES = 30
 
 MONTHS = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
 DAYS = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"]
@@ -54,7 +55,9 @@ RETRY = Retry(
     read=2,
     status=3,
     backoff_factor=0.6,
-    status_forcelist=(408, 425, 429, 500, 502, 503, 504),
+    # 429 kaynak bazında ele alınır; genel adapter'ın aynı isteği art arda
+    # yineleyip hız sınırını ağırlaştırmasına izin verilmez.
+    status_forcelist=(408, 425, 500, 502, 503, 504),
     allowed_methods=frozenset({"GET", "HEAD"}),
     respect_retry_after_header=True,
     raise_on_status=False,
@@ -722,6 +725,24 @@ TRANSLATION_CACHE_DIRTY = False
 LAST_TRANSLATION_AT = 0.0
 IMAGE_PAGE_FETCH_COUNT = 0
 IMAGE_CACHE: dict[str, str] = {}
+ARTICLE_URL_CACHE: dict[str, str] = {}
+
+GENERIC_TRANSLATION_MARKERS = (
+    "uluslararası kaynakta yeni gelişme",
+    "kritik siber güvenlik gelişmesi",
+    "yeni yapay zeka gelişmesi",
+    "elektrik şebekesi gelişmesi",
+    "enerji depolama gelişmesi",
+    "yenilenebilir enerji gelişmesi",
+    "önemli yatırım gelişmesi",
+    "yeni ürün ve lansman gelişmesi",
+    "güncellik ve olası etkileri açısından yakından izleniyor",
+)
+
+
+def is_generic_translation(value: str) -> bool:
+    lowered = str(value or "").casefold()
+    return any(marker in lowered for marker in GENERIC_TRANSLATION_MARKERS)
 
 
 def load_translation_cache() -> None:
@@ -729,7 +750,11 @@ def load_translation_cache() -> None:
     try:
         payload = json.loads(TRANSLATION_CACHE_PATH.read_text(encoding="utf-8"))
         if isinstance(payload, dict):
-            TRANSLATION_CACHE = {str(key): str(value) for key, value in payload.items() if value}
+            TRANSLATION_CACHE = {
+                str(key): str(value)
+                for key, value in payload.items()
+                if value and not is_generic_translation(str(value))
+            }
     except (OSError, json.JSONDecodeError, TypeError):
         TRANSLATION_CACHE = {}
 
@@ -777,26 +802,44 @@ def get_text(url: str) -> str:
     return response.text if response else ""
 
 
-def valid_image_url(value: str) -> str:
+def valid_image_url(value: str, *, width: int | None = None, height: int | None = None) -> str:
     url = html.unescape(str(value or "")).strip()
     if not re.match(r"^https?://", url, flags=re.IGNORECASE):
         return ""
-    if re.search(r"\.(?:svg|gif)(?:\?|$)", url, flags=re.IGNORECASE):
+    path = unquote(urlparse(url).path).casefold()
+    if re.search(r"\.(?:svg|gif)(?:$|[/?#])", path, flags=re.IGNORECASE):
+        return ""
+    if any(token in path for token in (
+        "favicon", "sprite", "avatar", "badge", "emoji", "icon-", "/icons/",
+        "/logo/", "site-logo", "brand-logo", "placeholder", "tracking-pixel",
+    )):
+        return ""
+    if width is not None and width > 0 and width < 280:
+        return ""
+    if height is not None and height > 0 and height < 140:
         return ""
     return url
 
 
-def extract_tag_image(tag: Any) -> str:
+def positive_int(value: Any) -> int | None:
+    match = re.fullmatch(r"\s*(\d+)(?:px)?\s*", str(value or ""), flags=re.IGNORECASE)
+    return int(match.group(1)) if match else None
+
+
+def extract_tag_image(tag: Any, base_url: str = "") -> str:
     if not tag:
         return ""
+    width = positive_int(tag.get("width"))
+    height = positive_int(tag.get("height"))
     for attribute in ("url", "href", "src"):
-        image = valid_image_url(tag.get(attribute, ""))
+        candidate = urljoin(base_url, tag.get(attribute, "")) if base_url else tag.get(attribute, "")
+        image = valid_image_url(candidate, width=width, height=height)
         if image:
             return image
     return ""
 
 
-def extract_entry_image(entry: Any, description_html: str = "") -> str:
+def extract_entry_image(entry: Any, description_html: str = "", base_url: str = "") -> str:
     for name in ("media:content", "media:thumbnail", "thumbnail", "enclosure"):
         for tag in entry.find_all(name):
             medium = str(tag.get("medium", "")).casefold()
@@ -805,14 +848,25 @@ def extract_entry_image(entry: Any, description_html: str = "") -> str:
                 continue
             if mime and not mime.startswith("image/"):
                 continue
-            image = extract_tag_image(tag)
+            image = extract_tag_image(tag, base_url)
             if image:
                 return image
     if description_html:
         fragment = BeautifulSoup(description_html, "html.parser")
         image_tag = fragment.find("img")
         if image_tag:
-            return valid_image_url(image_tag.get("src", ""))
+            candidates = [
+                image_tag.get("src", ""),
+                image_tag.get("data-src", ""),
+                image_tag.get("data-original", ""),
+            ]
+            width = positive_int(image_tag.get("width"))
+            height = positive_int(image_tag.get("height"))
+            for candidate in candidates:
+                candidate = urljoin(base_url, candidate) if base_url else candidate
+                image = valid_image_url(candidate, width=width, height=height)
+                if image:
+                    return image
     return ""
 
 
@@ -838,7 +892,7 @@ def parse_rss(xml: str, source_weight: float = 0.0) -> list[dict[str, Any]]:
                 desc,
                 link,
                 publication_iso(date_tag.get_text(" ", strip=True) if date_tag else "", title, desc),
-                extract_entry_image(entry, raw_desc),
+                extract_entry_image(entry, raw_desc, link),
                 source_weight,
             ))
     return results
@@ -858,21 +912,42 @@ def needs_translation(value: str) -> bool:
     return bool(value and not looks_turkish(value) and looks_english(value))
 
 
-def safe_turkish_fallback(value: str, label: str, *, title: bool) -> str:
-    lowered = value.casefold()
-    concepts = [
-        (("vulnerability", "security", "cyber", "zero-day"), "kritik siber güvenlik gelişmesi"),
-        (("model", "ai", "artificial intelligence", "llm"), "yeni yapay zeka gelişmesi"),
-        (("grid", "transformer", "substation", "distribution"), "elektrik şebekesi gelişmesi"),
-        (("battery", "storage", "bess"), "enerji depolama gelişmesi"),
-        (("solar", "wind", "renewable"), "yenilenebilir enerji gelişmesi"),
-        (("investment", "billion", "acquisition"), "önemli yatırım gelişmesi"),
-        (("launch", "release", "introducing"), "yeni ürün ve lansman gelişmesi"),
-    ]
-    concept = next((text for keys, text in concepts if any(key in lowered for key in keys)), "uluslararası kaynakta yeni gelişme")
+def preserved_original(value: str, *, title: bool) -> str:
+    """Çeviri yoksa anlamı uydurmadan kaynak metni okunaklı biçimde korur."""
+    limit = 180 if title else 280
+    text = clean_text(value, limit)
+    text = re.sub(r"\s+([,.;:!?])", r"\1", text)
+    text = re.sub(r"([,.;:!?])(?=[^\s])", r"\1 ", text)
     if title:
-        return f"{label}: {concept[0].upper() + concept[1:]}"
-    return f"{label} alanındaki bu gelişme, güncellik ve olası etkileri açısından yakından izleniyor."
+        return text.rstrip(". ")
+    if text and text[-1] not in ".!?":
+        text += "."
+    return text
+
+
+def translation_request(url: str) -> requests.Response | None:
+    """429 durumunda yalnızca bir kez, kontrollü bekleme sonrası yeniden dener."""
+    for attempt in range(2):
+        try:
+            response = SESSION.get(url, timeout=TIMEOUT, headers={"Accept": "application/json"})
+        except requests.RequestException as exc:
+            print(f"Çeviri hizmeti kullanılamadı: {exc}")
+            return None
+        if response.status_code != 429:
+            if response.status_code >= 400:
+                print(f"Çeviri hizmeti HTTP {response.status_code} döndürdü.")
+                return None
+            return response
+        if attempt == 0:
+            retry_after = response.headers.get("Retry-After", "")
+            try:
+                wait_seconds = min(4.0, max(TRANSLATION_RETRY_DELAY, float(retry_after)))
+            except (TypeError, ValueError):
+                wait_seconds = TRANSLATION_RETRY_DELAY
+            time_module.sleep(wait_seconds)
+        else:
+            print("Çeviri hizmetinin hız sınırı sürdüğü için özgün metin korunuyor.")
+    return None
 
 
 def translate(value: str, label: str = "Gündem", *, title: bool = False) -> str:
@@ -883,7 +958,7 @@ def translate(value: str, label: str = "Gündem", *, title: bool = False) -> str
     cache_material = f"{'title' if title else 'desc'}\0{label}\0{text}"
     cache_key = hashlib.sha256(cache_material.encode("utf-8")).hexdigest()
     cached = TRANSLATION_CACHE.get(cache_key)
-    if cached:
+    if cached and not is_generic_translation(cached):
         return cached
 
     elapsed = time_module.monotonic() - LAST_TRANSLATION_AT
@@ -891,7 +966,7 @@ def translate(value: str, label: str = "Gündem", *, title: bool = False) -> str
         time_module.sleep(TRANSLATION_DELAY - elapsed + random.uniform(0.02, 0.08))
 
     url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=tr&dt=t&q=" + quote(text)
-    response = request_response(url, accept_json=True)
+    response = translation_request(url)
     LAST_TRANSLATION_AT = time_module.monotonic()
     translated = ""
     if response:
@@ -901,8 +976,12 @@ def translate(value: str, label: str = "Gündem", *, title: bool = False) -> str
         except (ValueError, TypeError, IndexError, KeyError):
             translated = ""
 
-    if not translated or (needs_translation(translated) and not looks_turkish(translated)):
-        translated = safe_turkish_fallback(text, label, title=title)
+    if (
+        not translated
+        or is_generic_translation(translated)
+        or (needs_translation(translated) and not looks_turkish(translated))
+    ):
+        translated = preserved_original(text, title=title)
 
     TRANSLATION_CACHE[cache_key] = translated
     TRANSLATION_CACHE_DIRTY = True
@@ -959,27 +1038,89 @@ def add_candidate(bucket: list[dict[str, Any]], candidate: dict[str, Any] | None
     bucket.append(candidate)
 
 
+def is_google_news_url(url: str) -> bool:
+    host = (urlparse(str(url or "")).hostname or "").casefold()
+    return host == "news.google.com" or host.endswith(".news.google.com")
+
+
+def resolve_article_url(url: str) -> str:
+    """Google Haberler ara bağlantısından mümkünse gerçek yayıncı URL'sini çıkarır."""
+    if not is_google_news_url(url):
+        return url
+    if url in ARTICLE_URL_CACHE:
+        return ARTICLE_URL_CACHE[url]
+    resolved = ""
+    try:
+        response = SESSION.get(url, timeout=TIMEOUT, allow_redirects=True)
+        if response.status_code < 400 and not is_google_news_url(response.url):
+            resolved = response.url
+        elif response.status_code < 400:
+            soup = BeautifulSoup(response.text, "html.parser")
+            candidates: list[str] = []
+            for tag in soup.find_all(["a", "link", "meta"]):
+                candidate = tag.get("href") or tag.get("content") or ""
+                if candidate.startswith("//"):
+                    candidate = "https:" + candidate
+                if candidate.startswith("/"):
+                    query_url = parse_qs(urlparse(candidate).query).get("url", [""])[0]
+                    candidate = query_url or ""
+                candidate = unquote(candidate)
+                host = (urlparse(candidate).hostname or "").casefold()
+                if candidate.startswith("http") and host and not (
+                    host.endswith("google.com") or host.endswith("gstatic.com")
+                ):
+                    candidates.append(candidate)
+            resolved = candidates[0] if candidates else ""
+    except requests.RequestException as exc:
+        print(f"Google Haberler bağlantısı çözümlenemedi: {exc}")
+    ARTICLE_URL_CACHE[url] = resolved or url
+    return ARTICLE_URL_CACHE[url]
+
+
+def meta_image_dimensions(soup: Any) -> tuple[int | None, int | None]:
+    width = height = None
+    for meta in soup.find_all("meta"):
+        name = str(meta.get("property") or meta.get("name") or "").casefold()
+        if name in {"og:image:width", "twitter:image:width"}:
+            width = positive_int(meta.get("content"))
+        elif name in {"og:image:height", "twitter:image:height"}:
+            height = positive_int(meta.get("content"))
+    return width, height
+
+
 def discover_og_image(url: str) -> str:
     global IMAGE_PAGE_FETCH_COUNT
-    if not url or "news.google.com/" in url:
+    if not url:
         return ""
     if url in IMAGE_CACHE:
         return IMAGE_CACHE[url]
     if IMAGE_PAGE_FETCH_COUNT >= MAX_IMAGE_PAGE_FETCHES:
         return ""
     IMAGE_PAGE_FETCH_COUNT += 1
-    page = get_text(url)
+    article_url = resolve_article_url(url)
+    if is_google_news_url(article_url):
+        IMAGE_CACHE[url] = ""
+        return ""
+    response = request_response(article_url)
+    page = response.text if response else ""
     image = ""
     if page:
         soup = BeautifulSoup(page, "html.parser")
-        tag = (
-            soup.find("meta", property="og:image")
-            or soup.find("meta", attrs={"name": "twitter:image"})
-            or soup.find("meta", attrs={"name": "twitter:image:src"})
-        )
-        if tag:
-            image = valid_image_url(urljoin(url, tag.get("content", "")))
+        width, height = meta_image_dimensions(soup)
+        for tag in soup.find_all("meta"):
+            name = str(tag.get("property") or tag.get("name") or "").casefold()
+            if name not in {"og:image", "og:image:url", "og:image:secure_url", "twitter:image", "twitter:image:src"}:
+                continue
+            image = valid_image_url(
+                urljoin(article_url, tag.get("content", "")),
+                width=width,
+                height=height,
+            )
+            if image:
+                break
     IMAGE_CACHE[url] = image
+    if article_url != url:
+        IMAGE_CACHE[article_url] = image
     return image
 
 

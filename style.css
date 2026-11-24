@@ -1384,3 +1384,134 @@ footer {
   }
 }
 
+/* ---------- ADIM 2: ÖLÇÜLÜ GÖRSELLER, SIKI KARTLAR, AKICI GÜNCELLEME ---------- */
+main {
+  transition: opacity 0.12s ease-out;
+}
+
+.edition-updating main {
+  opacity: 0.965;
+}
+
+.lead-image {
+  display: block;
+  width: 100%;
+  height: clamp(190px, 22vw, 240px);
+  max-height: 240px;
+  margin: 0 0 0.85rem;
+  border: 1px solid #cfc9bb;
+  object-fit: cover;
+  object-position: center;
+  background: transparent;
+  overflow: hidden;
+}
+
+.news-card-image,
+.summary-item-image {
+  display: block;
+  width: 100%;
+  height: 108px;
+  max-height: 108px;
+  margin: 0.1rem 0 0.6rem;
+  border: 1px solid #d9d4c8;
+  object-fit: cover;
+  object-position: center;
+  background: transparent;
+  overflow: hidden;
+}
+
+.news-cols {
+  gap: 0.55rem;
+  align-items: start;
+  min-height: 0;
+}
+
+.news-grid-heading {
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+}
+
+.news-grid-list {
+  gap: 0.55rem;
+  align-items: start;
+  grid-auto-rows: auto;
+}
+
+.news-grid-list li {
+  align-self: start;
+  padding: 0.72rem 0.78rem;
+}
+
+.news-grid-list .news-card-empty {
+  min-height: 0;
+  border-color: transparent;
+  background: transparent;
+  visibility: hidden;
+}
+
+.ozet-page .ozet-columns {
+  gap: 0.65rem;
+  align-items: start;
+}
+
+.ozet-page .ozet-column {
+  align-self: start;
+}
+
+.ozet-page .ozet-column ul {
+  flex: 0 0 auto;
+}
+
+.ozet-page .ozet-column li {
+  padding: 0.72rem 0.78rem;
+}
+
+.ozet-page .summary-all-link {
+  margin-top: 0;
+  padding: 0.62rem 0.78rem;
+}
+
+@media (max-width: 760px) {
+  .lead-image {
+    height: clamp(170px, 48vw, 220px);
+    max-height: 220px;
+  }
+
+  .news-card-image,
+  .summary-item-image {
+    height: 104px;
+    max-height: 104px;
+  }
+
+  .news-cols,
+  .news-grid-list,
+  .ozet-page .ozet-columns {
+    gap: 0.45rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main {
+    transition: none;
+  }
+}
+
+@media print {
+  .lead-image,
+  .news-card-image,
+  .summary-item-image {
+    display: none !important;
+  }
+
+  .news-cols,
+  .news-grid-list,
+  .ozet-page .ozet-columns {
+    gap: 0;
+  }
+
+  .news-grid-list li,
+  .ozet-page .ozet-column {
+    align-self: stretch;
+  }
+}
+

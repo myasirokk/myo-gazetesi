@@ -28,8 +28,10 @@ function createArticleImage(src, className, alt = '') {
 function findFeaturedItem(edition) {
   const leadTitle = String(edition?.lead?.title || '').trim().toLocaleLowerCase('tr-TR');
   const items = Object.values(edition?.news || {}).flatMap(group => Array.isArray(group) ? group : []);
-  return items.find(item => String(item.title || '').trim().toLocaleLowerCase('tr-TR') === leadTitle)
-    || items.find(item => validImageUrl(item.image));
+  return items.find(item =>
+    String(item.title || '').trim().toLocaleLowerCase('tr-TR') === leadTitle
+    && validImageUrl(item.image)
+  );
 }
 function renderLeadImage(edition) {
   const lead = $('.lead');
@@ -39,6 +41,27 @@ function renderLeadImage(edition) {
   const image = createArticleImage(item?.image, 'lead-image', item?.title || edition?.lead?.title || '');
   if (image) lead.insertBefore(image, lead.querySelector('#leadTitle'));
 }
+function setupNavigationFeedback() {
+  const prefetched = new Set();
+  document.querySelectorAll('.nav-tab[href]').forEach(link => {
+    const prefetch = () => {
+      const href = link.href;
+      if (!href || prefetched.has(href)) return;
+      prefetched.add(href);
+      const hint = document.createElement('link');
+      hint.rel = 'prefetch';
+      hint.href = href;
+      document.head.appendChild(hint);
+    };
+    link.addEventListener('mouseenter', prefetch, {once:true, passive:true});
+    link.addEventListener('touchstart', prefetch, {once:true, passive:true});
+    link.addEventListener('pointerdown', () => link.classList.add('is-navigating'), {passive:true});
+  });
+  window.addEventListener('pageshow', () => {
+    document.querySelectorAll('.nav-tab.is-navigating').forEach(link => link.classList.remove('is-navigating'));
+  });
+}
+setupNavigationFeedback();
 
 const MONTHS = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
 const DAYS = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
@@ -202,10 +225,12 @@ function readCachedEditionSet() {
 function applyEditionSet(editions, dateKey = 'current', cacheCurrent = false) {
   const signature = JSON.stringify({dateKey, editions});
   if (signature === renderedSignature) return;
+  document.documentElement.classList.add('edition-updating');
   activeEditions = editions;
   selectedDateKey = dateKey;
   render();
   renderedSignature = signature;
+  requestAnimationFrame(() => document.documentElement.classList.remove('edition-updating'));
   if (cacheCurrent) {
     try { sessionStorage.setItem(SUMMARY_CACHE_KEY, JSON.stringify(editions)); } catch (_) {}
   }

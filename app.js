@@ -31,11 +31,34 @@ function renderLeadImage(edition) {
   if (!edition) return;
   const leadTitle = String(edition.lead?.title || '').trim().toLocaleLowerCase('tr-TR');
   const items = Object.values(edition.news || {}).flatMap(group => Array.isArray(group) ? group : []);
-  const featured = items.find(item => String(item.title || '').trim().toLocaleLowerCase('tr-TR') === leadTitle)
-    || items.find(item => validImageUrl(item.image));
+  const featured = items.find(item =>
+    String(item.title || '').trim().toLocaleLowerCase('tr-TR') === leadTitle
+    && validImageUrl(item.image)
+  );
   const image = createArticleImage(featured?.image, 'lead-image', featured?.title || edition.lead?.title || '');
   if (image) lead.insertBefore(image, lead.querySelector('#leadTitle'));
 }
+function setupNavigationFeedback() {
+  const prefetched = new Set();
+  document.querySelectorAll('.nav-tab[href]').forEach(link => {
+    const prefetch = () => {
+      const href = link.href;
+      if (!href || prefetched.has(href)) return;
+      prefetched.add(href);
+      const hint = document.createElement('link');
+      hint.rel = 'prefetch';
+      hint.href = href;
+      document.head.appendChild(hint);
+    };
+    link.addEventListener('mouseenter', prefetch, {once:true, passive:true});
+    link.addEventListener('touchstart', prefetch, {once:true, passive:true});
+    link.addEventListener('pointerdown', () => link.classList.add('is-navigating'), {passive:true});
+  });
+  window.addEventListener('pageshow', () => {
+    document.querySelectorAll('.nav-tab.is-navigating').forEach(link => link.classList.remove('is-navigating'));
+  });
+}
+setupNavigationFeedback();
 const AY = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
 const GUN = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
 const pad = n => String(n).padStart(2, '0');
@@ -488,6 +511,7 @@ function readCachedEdition(){
 function applyEdition(data, cacheCurrent = false){
   const signature = JSON.stringify(data);
   if (signature === renderedSignature) return;
+  document.documentElement.classList.add('edition-updating');
   liveEdition = data;
   render();
   if (data.puzzle && Array.isArray(data.puzzle) && data.puzzle.length) {
@@ -498,6 +522,7 @@ function applyEdition(data, cacheCurrent = false){
   renderNews(data.news);
   renderedSignature = signature;
   hasRenderedContent = true;
+  requestAnimationFrame(() => document.documentElement.classList.remove('edition-updating'));
   if (cacheCurrent) {
     try { sessionStorage.setItem(EDITION_CACHE_KEY, signature); } catch (_) {}
   }
