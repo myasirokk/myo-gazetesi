@@ -1,11 +1,11 @@
 {
-  "issue": 6,
-  "date": "16 Kasım 2026, Pazartesi",
-  "date_key": "2026-11-16",
+  "issue": 14,
+  "date": "24 Kasım 2026, Salı",
+  "date_key": "2026-11-24",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "Küçük Dil Modelleri Cihaz Üstünde Yaygınlaşıyor",
-    "deck": "Düşük bellek tüketimli modeller kişisel verileri buluta göndermeden yerel donanımda çalışıyor.",
+    "title": "E2B, E4B or 12B? On an 8 GB RTX 3050, Serve Gemma 4 E4B",
+    "deck": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
     "body": "Yapay zekâ ve yazılım dünyasında model güvenliği, veri gizliliği, açık kaynak sürdürülebilirliği ve web performansı aynı mühendislik zincirinin parçaları hâline geliyor. Ekipler için temel hedef otomasyonu ölçülebilir kalite kontrolleri ve insan denetimiyle birlikte işletmek.\n\nBu baskı erişilebilen güvenilir kaynakları Türkçe özetler; kaynak kesintisinde ise alanına özel zengin yedek haber havuzunu kullanır."
   },
   "editorial": {
@@ -19,24 +19,24 @@
   "news": {
     "ai": [
       {
-        "title": "Küçük Dil Modelleri Cihaz Üstünde Yaygınlaşıyor",
-        "desc": "Düşük bellek tüketimli modeller kişisel verileri buluta göndermeden yerel donanımda çalışıyor.",
-        "url": "https://huggingface.co/blog"
+        "title": "E2B, E4B or 12B? On an 8 GB RTX 3050, Serve Gemma 4 E4B",
+        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://dev.to/gde/e2b-e4b-or-12b-on-an-8-gb-rtx-3050-serve-gemma-4-e4b-1eji"
       },
       {
-        "title": "Yapay Zekâ Ajanlarında İzin Katmanı Öne Çıkıyor",
-        "desc": "Kurumsal ekipler araç kullanan ajanların erişimini görev ve veri düzeyinde sınırlandırıyor.",
-        "url": "https://ai.googleblog.com/"
+        "title": "Prompt Pad: What Are Open-Weight Models?",
+        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://blog.mlh.com/prompt-pad-what-are-open-weight-models-1ghh"
       },
       {
-        "title": "Çok Modlu Modeller Belge İşleme Süreçlerini Yeniliyor",
-        "desc": "Metin ve görseli birlikte değerlendiren modeller belgelerden yapılandırılmış veri çıkarıyor.",
-        "url": "https://huggingface.co/blog"
+        "title": "Kent C. Dodds Hasn't Looked at His Code All Year",
+        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://dev.to/dailycontext/kent-c-dodds-hasnt-looked-at-his-code-all-year-gd5"
       },
       {
-        "title": "Model Değerlendirmesinde Gerçek Görev Testleri Artıyor",
-        "desc": "Kıyaslamalar güvenlik, doğruluk ve araç kullanımı senaryolarına yöneliyor.",
-        "url": "https://news.ycombinator.com/"
+        "title": "Ultimate AI Roast! 😂😹",
+        "desc": "Yapay Zekâ alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://dev.to/annavi11arrea1/ultimate-ai-roast-168b"
       }
     ],
     "oss": [
@@ -63,24 +63,24 @@
     ],
     "web": [
       {
+        "title": "Detecting WasmPlugin version drift in Cloud Load Balancing Service Extensions",
+        "desc": "Web Geliştirme alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://dev.to/googlecloud/detecting-wasmplugin-version-drift-in-cloud-load-balancing-service-extensions-52p5"
+      },
+      {
+        "title": "Recover a WebMCP Update After Its Response Disappears",
+        "desc": "Web Geliştirme alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://dev.to/gde/recover-a-webmcp-update-after-its-response-disappears-2hp"
+      },
+      {
+        "title": "India's opposition storms Meta's offices to get its Instagram accounts back",
+        "desc": "Article URL: https://korben.info/en/india-opposition-storms-meta-offices-instagram-accounts.html Comments URL: https://news.ycombinator.com/item?id=50624487 Points: 29 # Comments: 1",
+        "url": "https://korben.info/en/india-opposition-storms-meta-offices-instagram-accounts.html"
+      },
+      {
         "title": "Web Uygulamalarında Etkileşim Gecikmesi Yakından İzleniyor",
         "desc": "Ekipler yükleme hızının yanında kullanıcı etkileşimlerine verilen yanıt süresini de bütçeliyor.",
         "url": "https://web.dev/blog/"
-      },
-      {
-        "title": "Tarayıcıda Yerel Yapay Zekâ Denemeleri Hızlanıyor",
-        "desc": "Yeni web arayüzleri küçük modellerin kullanıcı cihazında çalıştırılmasına olanak tanıyor.",
-        "url": "https://developer.chrome.com/blog/"
-      },
-      {
-        "title": "Arayüzlerde Erişilebilirlik Testleri Otomatikleşiyor",
-        "desc": "Klavye ve ekran okuyucu uyumu sürekli entegrasyon aşamasında denetleniyor.",
-        "url": "https://web.dev/blog/"
-      },
-      {
-        "title": "WebAssembly Ortak Çalışma Katmanı Kuruyor",
-        "desc": "Taşınabilir çalışma zamanı performans gerektiren web modüllerinde yaygınlaşıyor.",
-        "url": "https://developer.mozilla.org/"
       }
     ],
     "sec": [

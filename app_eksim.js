@@ -46,7 +46,14 @@ let liveEdition = null;
 
 /* ---------- BASKI / TARİH & HAREKETLİ ARŞİV ---------- */
 const CURRENT_EDITION = 'data/edition_eksim.json';
+const ARCHIVE_INDEX = 'data/archive/eksim_index.json';
+const EDITION_CACHE_KEY = 'myo:edition:eksim:v1';
+const ARCHIVE_CACHE_KEY = 'myo:archive:eksim:v1';
 const START_DATE = new Date(2026, 10, 11);
+let activeEditionPath = CURRENT_EDITION;
+let editionRequestId = 0;
+let renderedSignature = '';
+let hasRenderedContent = false;
 function editionBase(n){ const d = new Date(n.getFullYear(), n.getMonth(), n.getDate()); if (n.getHours() < 7) d.setDate(d.getDate() - 1); return d < START_DATE ? new Date(START_DATE) : d; }
 function dayIndex(d){ return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5); }
 function dateStr(d){ return `${d.getDate()} ${AY[d.getMonth()]} ${d.getFullYear()}, ${GUN[d.getDay()]}`; }
@@ -90,18 +97,54 @@ function appendArchiveOption(select, value, label){
   select.appendChild(option);
 }
 
-function fillArchive(){
+async function archiveEntries(){
+  try {
+    const cached = JSON.parse(sessionStorage.getItem(ARCHIVE_CACHE_KEY) || 'null');
+    if (cached && cached.date_key === isoDate(editionBase(new Date())) && Array.isArray(cached.editions)) {
+      return cached.editions;
+    }
+  } catch (_) {}
+
+  if (location.protocol === 'file:') return [];
+
+  let timeout;
+  try {
+    const controller = new AbortController();
+    timeout = setTimeout(() => controller.abort(), 1200);
+    const response = await fetch(`${ARCHIVE_INDEX}?t=${Date.now()}`, {
+      cache:'no-store',
+      signal:controller.signal
+    });
+    if (!response.ok) throw new Error('Arşiv listesi alınamadı');
+    const payload = await response.json();
+    if (!payload || !Array.isArray(payload.editions)) throw new Error('Arşiv listesi geçersiz');
+    try {
+      sessionStorage.setItem(ARCHIVE_CACHE_KEY, JSON.stringify({
+        date_key: isoDate(editionBase(new Date())),
+        editions: payload.editions
+      }));
+    } catch (_) {}
+    return payload.editions;
+  } catch (error) {
+    console.warn('EKSİM arşiv manifesti kullanılamadı:', error);
+    return [];
+  } finally {
+    if (timeout) clearTimeout(timeout);
+  }
+}
+
+async function fillArchive(){
   const select = $('#archive');
   if (!select) return;
   select.innerHTML = '';
   appendArchiveOption(select, CURRENT_EDITION, 'Bugünkü baskı');
-  const base = editionBase(new Date());
-  const availableArchiveDays = Math.min(7, Math.max(0, dayIndex(base) - dayIndex(START_DATE)));
-  for (let daysAgo = 1; daysAgo <= availableArchiveDays; daysAgo++) {
-    const archiveDate = new Date(base);
-    archiveDate.setDate(archiveDate.getDate() - daysAgo);
-    appendArchiveOption(select, `data/archive/eksim_${isoDate(archiveDate)}.json`, `Arşiv: ${archiveDateStr(archiveDate)}`);
-  }
+  const currentKey = isoDate(editionBase(new Date()));
+  const entries = await archiveEntries();
+  entries
+    .filter(entry => entry && entry.file && entry.date_key && entry.date_key !== currentKey)
+    .sort((a, b) => String(b.date_key).localeCompare(String(a.date_key)))
+    .slice(0, 7)
+    .forEach(entry => appendArchiveOption(select, entry.file, `Arşiv: ${entry.date || entry.date_key}`));
   select.value = CURRENT_EDITION;
 }
 
@@ -109,11 +152,13 @@ const archiveSelect = $('#archive');
 if (archiveSelect) {
   archiveSelect.addEventListener('change', async event => {
     const requestedFile = event.target.value || CURRENT_EDITION;
-    const loaded = await loadEdition(requestedFile);
-    if (!loaded && requestedFile !== CURRENT_EDITION) {
-      event.target.value = CURRENT_EDITION;
-      await loadEdition(CURRENT_EDITION);
-    }
+    const previousFile = activeEditionPath;
+    event.target.disabled = true;
+    event.target.setAttribute('aria-busy', 'true');
+    const loaded = await loadEdition(requestedFile, {preserveOnError:true});
+    if (!loaded) event.target.value = previousFile;
+    event.target.disabled = false;
+    event.target.removeAttribute('aria-busy');
   });
 }
 
@@ -163,14 +208,14 @@ function createNewsCard(cat, item){
 
   if (item.live) li.classList.add('fresh');
   const time = document.createElement('time');
-  time.textContent = item.time;
+  time.textContent = item.time || '';
   const title = document.createElement('b');
   title.textContent = item.title;
   const desc = document.createElement('span');
   desc.textContent = item.desc;
   li.append(time, title, desc);
 
-  if (item.url && item.url !== '#' && item.isTruncated) {
+  if (item.url && item.url !== '#') {
     const link = document.createElement('a');
     link.href = item.url;
     link.target = '_blank';
@@ -216,7 +261,10 @@ function renderNews(news = FALLBACK_NEWS){
     const suppliedItems = news && Array.isArray(news[cat]) ? news[cat] : [];
     const items = suppliedItems.length ? suppliedItems : FALLBACK_NEWS[cat];
     items.forEach(item => {
-      newsByCategory[cat].push({...item, live:false, time:'07:00'});
+      const published = /^\d{4}-\d{2}-\d{2}$/.test(item.published_at || '')
+        ? item.published_at.split('-').reverse().join('.')
+        : '';
+      newsByCategory[cat].push({...item, live:false, time:published});
       if (item.title) feed.push(`${CAT[cat]}: ${item.title}`);
     });
   });
@@ -259,28 +307,80 @@ function showStaticFallback(){
   liveEdition = null;
   render();
   renderNews(FALLBACK_NEWS);
+  renderedSignature = 'fallback';
+  hasRenderedContent = true;
 }
 
-async function loadEdition(filePath = CURRENT_EDITION){
+function readCachedEdition(){
   try {
-    const res = await fetch(filePath + '?t=' + Date.now());
-    if (!res.ok) throw new Error('Veri alinamadi: ' + filePath);
+    const data = JSON.parse(sessionStorage.getItem(EDITION_CACHE_KEY) || 'null');
+    return data && data.date_key === isoDate(editionBase(new Date())) ? data : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function applyEdition(data, filePath = CURRENT_EDITION){
+  const signature = JSON.stringify(data);
+  if (signature === renderedSignature) {
+    activeEditionPath = filePath;
+    return;
+  }
+  liveEdition = data;
+  activeEditionPath = filePath;
+  render();
+  renderNews(data.news);
+  renderedSignature = signature;
+  hasRenderedContent = true;
+  if (filePath === CURRENT_EDITION) {
+    try { sessionStorage.setItem(EDITION_CACHE_KEY, signature); } catch (_) {}
+  }
+}
+
+function validateEdition(data, requestedFile){
+  if (!data || typeof data !== 'object') throw new Error('Geçersiz baskı verisi');
+  if (!data.lead || !data.fact || !data.news) throw new Error('Eksik baskı alanları');
+  NEWS_CATEGORIES.forEach(cat => {
+    if (!Array.isArray(data.news[cat])) throw new Error(`Eksik haber kategorisi: ${cat}`);
+  });
+  const archiveMatch = requestedFile.match(/eksim_(\d{4}-\d{2}-\d{2})\.json(?:\?|$)/);
+  if (archiveMatch && data.date_key !== archiveMatch[1]) {
+    throw new Error(`Arşiv tarihi uyuşmuyor: ${archiveMatch[1]}`);
+  }
+}
+
+async function loadEdition(filePath = CURRENT_EDITION, options = {}){
+  const requestId = ++editionRequestId;
+  try {
+    const separator = filePath.includes('?') ? '&' : '?';
+    const res = await fetch(`${filePath}${separator}t=${Date.now()}`, {cache:'no-store'});
+    if (!res.ok) throw new Error('Veri alınamadı: ' + filePath);
     const data = await res.json();
-    if (!data || typeof data !== 'object') throw new Error('Gecersiz baski verisi: ' + filePath);
-    liveEdition = data;
-    render();
-    renderNews(liveEdition.news || {});
+    validateEdition(data, filePath);
+    if (requestId !== editionRequestId) return false;
+
+    applyEdition(data, filePath);
     return true;
   } catch (err) {
-    console.warn('Veri yüklenemedi, statik içerik gösteriliyor:', err);
-    showStaticFallback();
+    console.warn('EKSİM baskısı yüklenemedi:', err);
+    if (!options.preserveOnError && !hasRenderedContent && requestId === editionRequestId) showStaticFallback();
     return false;
   }
 }
 
-/* ---------- BAŞLAT ---------- */
-showStaticFallback();
-fillArchive();
-loadEdition(CURRENT_EDITION);
-loadAdminNote();
+async function init(){
+  const cachedEdition = readCachedEdition();
+  if (cachedEdition) applyEdition(cachedEdition);
+  else showStaticFallback();
+
+  const editionPromise = loadEdition(CURRENT_EDITION);
+  const archivePromise = fillArchive();
+  const loaded = await editionPromise;
+  if (archiveSelect) archiveSelect.value = loaded ? CURRENT_EDITION : activeEditionPath;
+  archivePromise.catch(error => console.warn('Arşiv seçici hazırlanamadı:', error));
+  loadAdminNote();
+}
+
+init();
+
 })();

@@ -1,0 +1,53 @@
+{
+  "updated_at": "2026-11-24T10:00:59+03:00",
+  "editions": [
+    {
+      "date_key": "2026-11-24",
+      "date": "24 Kasım 2026, Salı",
+      "issue": 14,
+      "file": "data/archive/eksim_2026-11-24.json"
+    },
+    {
+      "date_key": "2026-11-23",
+      "date": "23 Kasım 2026, Pazartesi",
+      "issue": 13,
+      "file": "data/archive/eksim_2026-11-23.json"
+    },
+    {
+      "date_key": "2026-11-22",
+      "date": "22 Kasım 2026, Pazar",
+      "issue": 12,
+      "file": "data/archive/eksim_2026-11-22.json"
+    },
+    {
+      "date_key": "2026-11-21",
+      "date": "21 Kasım 2026, Cumartesi",
+      "issue": 11,
+      "file": "data/archive/eksim_2026-11-21.json"
+    },
+    {
+      "date_key": "2026-11-20",
+      "date": "20 Kasım 2026, Cuma",
+      "issue": 10,
+      "file": "data/archive/eksim_2026-11-20.json"
+    },
+    {
+      "date_key": "2026-11-19",
+      "date": "19 Kasım 2026, Perşembe",
+      "issue": 9,
+      "file": "data/archive/eksim_2026-11-19.json"
+    },
+    {
+      "date_key": "2026-11-18",
+      "date": "18 Kasım 2026, Çarşamba",
+      "issue": 8,
+      "file": "data/archive/eksim_2026-11-18.json"
+    },
+    {
+      "date_key": "2026-11-17",
+      "date": "17 Kasım 2026, Salı",
+      "issue": 7,
+      "file": "data/archive/eksim_2026-11-17.json"
+    }
+  ]
+}

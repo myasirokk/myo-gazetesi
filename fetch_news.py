@@ -4,12 +4,14 @@
 from __future__ import annotations
 
 import html
+import hashlib
 import json
 import os
 import re
 import tempfile
 from copy import deepcopy
 from datetime import date, datetime, time, timedelta
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote, urljoin
@@ -42,8 +44,11 @@ ENERGY_LABELS = {"grid": "Şebeke & Dağıtım", "ren": "Yenilenebilir Enerji", 
 EKSIM_LABELS = {"holding": "Eksim Holding", "dicle": "Dicle Elektrik", "enerji": "Eksim Enerji", "grup": "Grup Şirketleri & Basında"}
 
 
-def item(title: str, desc: str, url: str) -> dict[str, str]:
-    return {"title": title, "desc": desc, "url": url}
+def item(title: str, desc: str, url: str, published_at: str = "") -> dict[str, str]:
+    result = {"title": title, "desc": desc, "url": url}
+    if published_at:
+        result["published_at"] = published_at
+    return result
 
 
 TECH_FALLBACKS = {
@@ -220,18 +225,74 @@ def get_text(url: str) -> str:
         return ""
 
 
+
+TURKISH_MONTH_NUMBERS = {
+    "ocak": 1, "oca": 1, "şubat": 2, "subat": 2, "şub": 2, "sub": 2,
+    "mart": 3, "mar": 3, "nisan": 4, "nis": 4, "mayıs": 5, "mayis": 5,
+    "may": 5, "haziran": 6, "haz": 6, "temmuz": 7, "tem": 7,
+    "ağustos": 8, "agustos": 8, "ağu": 8, "agu": 8, "eylül": 9,
+    "eylul": 9, "eyl": 9, "ekim": 10, "eki": 10, "kasım": 11,
+    "kasim": 11, "kas": 11, "aralık": 12, "aralik": 12, "ara": 12,
+}
+
+
+def parse_publication_date(value: str) -> date | None:
+    text = clean_text(value, 240)
+    if not text:
+        return None
+    try:
+        parsed = parsedate_to_datetime(text)
+        if parsed:
+            return parsed.date()
+    except (TypeError, ValueError, OverflowError):
+        pass
+    iso_match = re.search(r"\b(20\d{2})-(\d{2})-(\d{2})\b", text)
+    if iso_match:
+        try:
+            return date.fromisoformat(iso_match.group(0))
+        except ValueError:
+            pass
+    tr_match = re.search(
+        r"\b(\d{1,2})\s+"
+        r"(Ocak|Oca|Şubat|Subat|Şub|Sub|Mart|Mar|Nisan|Nis|Mayıs|Mayis|May|"
+        r"Haziran|Haz|Temmuz|Tem|Ağustos|Agustos|Ağu|Agu|Eylül|Eylul|Eyl|"
+        r"Ekim|Eki|Kasım|Kasim|Kas|Aralık|Aralik|Ara)"
+        r"(?:\s+(20\d{2}))?\b",
+        text,
+        flags=re.IGNORECASE,
+    )
+    if tr_match:
+        try:
+            month = TURKISH_MONTH_NUMBERS[tr_match.group(2).casefold()]
+            year = int(tr_match.group(3) or datetime.now(TURKEY_TZ).year)
+            return date(year, month, int(tr_match.group(1)))
+        except (KeyError, ValueError):
+            pass
+    return None
+
+
+def publication_iso(*values: str) -> str:
+    for value in values:
+        parsed = parse_publication_date(value)
+        if parsed:
+            return parsed.isoformat()
+    return ""
+
+
 def parse_rss(xml: str) -> list[dict[str, str]]:
     soup = BeautifulSoup(xml, "xml")
     results = []
     for entry in soup.find_all(["item", "entry"])[:30]:
         title_tag = entry.find("title")
         desc_tag = entry.find("description") or entry.find("summary") or entry.find("content")
+        date_tag = entry.find("pubDate") or entry.find("published") or entry.find("updated") or entry.find("date")
         link_tag = entry.find("link")
         link = (link_tag.get("href") or link_tag.get_text(strip=True)) if link_tag else ""
         title = clean_text(title_tag.get_text(" ", strip=True) if title_tag else "", 180)
         desc = clean_text(desc_tag.get_text(" ", strip=True) if desc_tag else "", 280)
         if title and link:
-            results.append(item(title, desc, link))
+            published_at = publication_iso(date_tag.get_text(" ", strip=True) if date_tag else "", title, desc)
+            results.append(item(title, desc, link, published_at))
     return results
 
 
@@ -267,8 +328,12 @@ def turkish_item(raw: dict[str, str], label: str) -> dict[str, str] | None:
     return item(clean_text(title, 180), clean_text(desc, 280), raw.get("url") or "#")
 
 
-def add_unique(bucket: list[dict[str, str]], candidate: dict[str, str] | None) -> None:
-    if not candidate or len(bucket) >= NEWS_PER_CATEGORY:
+def add_unique(
+    bucket: list[dict[str, str]],
+    candidate: dict[str, str] | None,
+    limit: int = NEWS_PER_CATEGORY,
+) -> None:
+    if not candidate or len(bucket) >= limit:
         return
     key = re.sub(r"\W+", "", candidate["title"].casefold())
     if key and all(re.sub(r"\W+", "", old["title"].casefold()) != key for old in bucket):
@@ -321,6 +386,18 @@ def classify_eksim(title: str, desc: str, default: str = "holding") -> str:
     return default
 
 
+
+EKSIM_IGNORED_TITLES = {
+    "tüm haberleri gör", "tum haberleri gor", "medya merkezi", "haberler",
+    "detay", "detaylı bilgi", "devamını oku", "devamini oku", "daha fazla",
+}
+
+
+def is_eksim_navigation_title(value: str) -> bool:
+    normalized = re.sub(r"\s+", " ", clean_text(value, 180).casefold()).strip()
+    return normalized in EKSIM_IGNORED_TITLES
+
+
 def eksim_site_articles() -> list[dict[str, str]]:
     base_url = "https://eksim.com.tr/"
     pages = [base_url]
@@ -343,30 +420,95 @@ def eksim_site_articles() -> list[dict[str, str]]:
             if any(word in path_text for word in section_words) and full_url not in pages and len(pages) < 8:
                 pages.append(full_url)
             title = clean_text(anchor.get_text(" ", strip=True), 180)
-            if len(title) < 12 or full_url.rstrip("/") == page_url.rstrip("/"):
+            normalized_title = re.sub(r"\s+", " ", title.casefold()).strip()
+            if (
+                len(title) < 12
+                or is_eksim_navigation_title(normalized_title)
+                or full_url.rstrip("/") == page_url.rstrip("/")
+            ):
                 continue
             container = anchor.find_parent(["article", "li", "div"])
             summary_tag = container.find("p") if container else None
+            time_tag = container.find("time") if container else None
             desc = clean_text(summary_tag.get_text(" ", strip=True) if summary_tag else "", 280)
             if any(word in path_text for word in section_words) or (container and container.find(["h1", "h2", "h3", "h4"])):
-                articles.append(item(title, desc, full_url))
+                published_at = publication_iso(
+                    time_tag.get("datetime", "") if time_tag else "",
+                    time_tag.get_text(" ", strip=True) if time_tag else "",
+                    title,
+                    desc,
+                )
+                articles.append(item(title, desc, full_url, published_at))
     return articles
 
 
-def fetch_eksim_news() -> dict[str, list[dict[str, str]]]:
+def eksim_sort_key(article: dict[str, str], edition_date: date) -> tuple[int, int, str]:
+    published = parse_publication_date(article.get("published_at", ""))
+    if published:
+        return (1, published.toordinal(), article.get("title", "").casefold())
+    digest = hashlib.sha256(
+        f"{edition_date.isoformat()}|{article.get('title', '')}".encode("utf-8")
+    ).hexdigest()
+    return (0, 0, digest)
+
+
+def prepare_eksim_news(
+    candidates: dict[str, list[dict[str, str]]],
+    edition_date: date,
+) -> dict[str, list[dict[str, str]]]:
+    prepared: dict[str, list[dict[str, str]]] = {key: [] for key in EKSIM_LABELS}
+    for category in EKSIM_LABELS:
+        eligible = []
+        for article in candidates.get(category, []):
+            if is_eksim_navigation_title(article.get("title", "")):
+                continue
+            published = parse_publication_date(article.get("published_at", "")) or parse_publication_date(
+                f"{article.get('title', '')} {article.get('desc', '')}"
+            )
+            if published and published > edition_date:
+                continue
+            normalized = deepcopy(article)
+            if published:
+                normalized["published_at"] = published.isoformat()
+            eligible.append(normalized)
+        eligible.sort(key=lambda article: eksim_sort_key(article, edition_date), reverse=True)
+
+        for article in eligible:
+            add_unique(prepared[category], article)
+        fallback_offset = (edition_date - START_DATE).days % len(EKSIM_FALLBACKS[category])
+        rotated_fallbacks = (
+            EKSIM_FALLBACKS[category][fallback_offset:]
+            + EKSIM_FALLBACKS[category][:fallback_offset]
+        )
+        for fallback in rotated_fallbacks:
+            add_unique(prepared[category], deepcopy(fallback))
+        prepared[category] = prepared[category][:NEWS_PER_CATEGORY]
+    return prepared
+
+
+def fetch_eksim_news(edition_date: date) -> dict[str, list[dict[str, str]]]:
     news = {key: [] for key in EKSIM_LABELS}
     for raw in eksim_site_articles():
         category = classify_eksim(raw["title"], raw["desc"])
         desc = clean_text(raw["desc"], 280) or f"{EKSIM_LABELS[category]} bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı."
-        add_unique(news[category], item(clean_text(raw["title"], 180), desc, raw["url"]))
+        add_unique(
+            news[category],
+            item(clean_text(raw["title"], 180), desc, raw["url"], raw.get("published_at", "")),
+            limit=40,
+        )
     queries = {"holding": '"Eksim Holding"', "dicle": '"Dicle Elektrik"', "enerji": '"Eksim Enerji"', "grup": '("Eksim Ventures" OR "Eksim" şirketleri)'}
     for category, query in queries.items():
         rss_url = "https://news.google.com/rss/search?q=" + quote(query) + "&hl=tr&gl=TR&ceid=TR:tr"
         for raw in parse_rss(get_text(rss_url)):
             title = re.sub(r"\s+-\s+[^-]+$", "", raw["title"]).strip()
             desc = clean_text(raw["desc"], 280) or f"{EKSIM_LABELS[category]} hakkında yayımlanan güncel gelişme sektör gündeminde yer aldı."
-            add_unique(news[category], item(clean_text(title, 180), desc, raw["url"]))
-    return complete(news, EKSIM_FALLBACKS)
+            add_unique(
+                news[category],
+                item(clean_text(title, 180), desc, raw["url"], raw.get("published_at", "")),
+                limit=40,
+            )
+    return prepare_eksim_news(news, edition_date)
+
 
 
 def validate_puzzle(words: list[list[Any]], rows: int = 10, cols: int = 11) -> None:
@@ -400,10 +542,25 @@ def make_edition(kind: str, edition_date: date, issue: int, news: dict[str, list
         fact = item("Güç Katsayısı (cosφ)", "Aktif gücün görünür güce oranıdır; düşük değer daha yüksek akım, kayıp ve gerilim düşümü oluşturur.", "")
         body = "Elektrik şebekesinin dönüşümü koruma, otomasyon, yenilenebilir üretim, depolama ve piyasa tasarımını aynı işletme disiplini içinde buluşturuyor. Doğru zaman damgalı saha verisi hızlı ve güvenli kararın temelidir.\n\nBu baskı erişilebilen enerji kaynaklarını Türkçe özetler; kaynak kesintisinde ise şebeke, trafo, yenilenebilir enerji, batarya ve piyasa havuzunu kullanır."
     elif kind == "eksim":
-        puzzle, lead = [], news["holding"][0]
-        quote_text = "\"İnsana, topluma ve geleceğe değer katan yatırımlar kalıcı iz bırakır.\""
+        puzzle = []
+        lead_categories = ["holding", "dicle", "enerji", "grup"]
+        lead_category = lead_categories[(issue - 1) % len(lead_categories)]
+        lead = news[lead_category][0]
+        quotes = [
+            "\"İnsana, topluma ve geleceğe değer katan yatırımlar kalıcı iz bırakır.\"",
+            "\"Ortak vizyon, farklı yetkinlikleri güçlü bir gelecekte buluşturur.\"",
+            "\"Sürdürülebilir büyüme, bugünün başarısını yarının sorumluluğuyla birleştirir.\"",
+            "\"Güçlü kurumlar değişimi veriye, insana ve ortak değere dönüştürür.\"",
+        ]
+        facts = [
+            item("Sürdürülebilir Değer", "Bir kurumun ekonomik performansını çevresel sorumluluk, toplumsal fayda ve güçlü yönetişimle birlikte uzun vadeli olarak geliştirmesidir.", ""),
+            item("Dağıtım Şebekesi", "Elektriği iletim sisteminden alıp tüketicilere güvenli, sürekli ve kaliteli biçimde ulaştıran altyapı bütünüdür.", ""),
+            item("Yenilenebilir Üretim", "Rüzgâr, güneş ve su gibi doğal olarak yenilenen kaynaklardan düşük karbonlu elektrik üretimidir.", ""),
+            item("Kurumsal Yönetişim", "Yetki, sorumluluk, şeffaflık ve hesap verebilirlik ilkeleriyle kurumun karar süreçlerini düzenleyen yapıdır.", ""),
+        ]
+        quote_text = quotes[(issue - 1) % len(quotes)]
         editorial = item("Ortak Vizyon, Sürdürülebilir Değer", "Eksim Holding ve grup şirketlerinin farklı sektörlerdeki yetkinliği; güven, yenilikçilik ve sorumlu büyüme yaklaşımıyla ortak bir kurumsal vizyonda buluşuyor.", "")
-        fact = item("Sürdürülebilir Değer", "Bir kurumun ekonomik performansını çevresel sorumluluk, toplumsal fayda ve güçlü yönetişimle birlikte uzun vadeli olarak geliştirmesidir.", "")
+        fact = facts[(issue - 1) % len(facts)]
         body = "Eksim Holding ve grup şirketleri; enerji, elektrik dağıtımı, gıda ve girişimcilik alanlarındaki faaliyetlerini sürdürülebilir büyüme ve toplumsal fayda anlayışıyla yürütüyor. Kurumsal yetkinliklerin paylaşılması, dijital dönüşüm ve insan kaynağına yatırım bu ortak vizyonun temelini oluşturuyor.\n\nBu baskı Eksim'in kurumsal kanalları ile güncel Türkçe basın kaynaklarını bir araya getirir; kaynak kesintisinde ise kategoriye özel kurumsal yedek haber havuzunu kullanır."
     else:
         raise ValueError(f"Bilinmeyen baskı türü: {kind}")
@@ -450,6 +607,36 @@ def cleanup_archives(edition_date: date) -> list[str]:
     return deleted
 
 
+
+def write_eksim_archive_index() -> None:
+    editions = []
+    if ARCHIVE_DIR.exists():
+        for path in ARCHIVE_DIR.glob("eksim_*.json"):
+            match = re.fullmatch(r"eksim_(\d{4}-\d{2}-\d{2})\.json", path.name)
+            if not match:
+                continue
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+                date_key = str(payload.get("date_key") or match.group(1))
+                date.fromisoformat(date_key)
+            except (OSError, ValueError, json.JSONDecodeError, TypeError):
+                continue
+            editions.append({
+                "date_key": date_key,
+                "date": payload.get("date") or date_key,
+                "issue": payload.get("issue"),
+                "file": f"data/archive/{path.name}",
+            })
+    editions.sort(key=lambda entry: entry["date_key"], reverse=True)
+    write_json(
+        ARCHIVE_DIR / "eksim_index.json",
+        {
+            "updated_at": datetime.now(TURKEY_TZ).isoformat(timespec="seconds"),
+            "editions": editions,
+        },
+    )
+
+
 def generate() -> None:
     edition_date, issue = edition_info()
     print(f"Baskı hazırlanıyor: {date_label(edition_date)} — Sayı {issue}")
@@ -464,10 +651,10 @@ def generate() -> None:
         print(f"Enerji akışı yedek havuza geçti: {exc}")
         energy_news = complete({key: [] for key in ENERGY_LABELS}, ENERGY_FALLBACKS)
     try:
-        eksim_news = fetch_eksim_news()
+        eksim_news = fetch_eksim_news(edition_date)
     except Exception as exc:
         print(f"Eksim akışı yedek havuza geçti: {exc}")
-        eksim_news = complete({key: [] for key in EKSIM_LABELS}, EKSIM_FALLBACKS)
+        eksim_news = prepare_eksim_news({key: [] for key in EKSIM_LABELS}, edition_date)
 
     tech = make_edition("tech", edition_date, issue, tech_news)
     energy = make_edition("energy", edition_date, issue, energy_news)
@@ -480,6 +667,7 @@ def generate() -> None:
     write_json(ARCHIVE_DIR / f"enerji_{key}.json", energy)
     write_json(ARCHIVE_DIR / f"eksim_{key}.json", eksim)
     deleted = cleanup_archives(edition_date)
+    write_eksim_archive_index()
     if deleted:
         print("Silinen eski arşivler: " + ", ".join(sorted(deleted)))
     print(f"Tamamlandı: Sayı {issue}; üç güncel baskı ve üç arşiv üretildi.")
@@ -495,7 +683,7 @@ def main() -> int:
             edition_date, issue = edition_info()
             tech_news = complete({key: [] for key in TECH_LABELS}, TECH_FALLBACKS)
             energy_news = complete({key: [] for key in ENERGY_LABELS}, ENERGY_FALLBACKS)
-            eksim_news = complete({key: [] for key in EKSIM_LABELS}, EKSIM_FALLBACKS)
+            eksim_news = prepare_eksim_news({key: [] for key in EKSIM_LABELS}, edition_date)
             key = edition_date.isoformat()
             tech = make_edition("tech", edition_date, issue, tech_news)
             energy = make_edition("energy", edition_date, issue, energy_news)
@@ -507,6 +695,7 @@ def main() -> int:
             write_json(ARCHIVE_DIR / f"enerji_{key}.json", energy)
             write_json(ARCHIVE_DIR / f"eksim_{key}.json", eksim)
             cleanup_archives(edition_date)
+            write_eksim_archive_index()
             print("Acil durum yedek havuzuyla geçerli baskılar üretildi.")
             return 0
         except Exception as fallback_exc:

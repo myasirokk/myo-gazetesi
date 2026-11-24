@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="MYO Gazetesi: Günlük bağımsız teknoloji, kodlama ve yapay zeka gazetesi.">
-<title>MYO GAZETESİ</title>
+<meta name="description" content="MYO Gazetesi günlük özet sayfası.">
+<title>MYO Gazetesi</title>
 
 <!-- PWA & İkon Bağlantıları -->
 <link rel="manifest" href="manifest.json">
@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Playfair+Display:wght@700;900&family=Special+Elite&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="ozet-page">
 <div class="ticker" aria-label="Canlı Radar">
   <span class="ticker-tag">CANLI RADAR</span>
   <div class="ticker-wrap"><div class="ticker-track" id="tickerTrack"></div></div>
@@ -30,11 +30,12 @@
     <span id="clock" aria-live="off">00:00:00</span>
   </div>
   <h1>MYO GAZETESİ</h1>
-  <p class="slogan">Günlük Bağımsız Teknoloji, Kodlama ve Yapay Zeka Gazetesi</p>
+  <p class="slogan">Günün Gündeminden Öne Çıkanlar</p>
   <nav class="section-nav" aria-label="Gazete bölümleri">
-    <a href="index.html" class="nav-tab active" aria-current="page">YAPAY ZEKA</a>
-    <a href="elektrik-enerji.html" class="nav-tab">ELEKTRİK & ENERJİ</a>
+    <a href="index.html" class="nav-tab active" aria-current="page">ÖZET</a>
     <a href="eksim.html" class="nav-tab">EKSİM</a>
+    <a href="yapay-zeka.html" class="nav-tab">YAPAY ZEKA</a>
+    <a href="elektrik-enerji.html" class="nav-tab">ELEKTRİK &amp; ENERJİ</a>
   </nav>
   <div class="mast-bottom">
     <span class="quote" id="quote"></span>
@@ -61,23 +62,34 @@
       </article>
       <!-- Günün Sözü / Odak Notu Kartı -->
       <article class="focus-note">
-        <p class="box-title">Günün Sözü</p>
-        <blockquote class="focus-quote">Kodu okumak, yazmaktan değerlidir.</blockquote>
+        <p class="box-title">Üç Alanda Gündem</p>
+        <blockquote class="focus-quote" id="focusQuote">Günün ortak gündemi hazırlanıyor.</blockquote>
         <p class="focus-source">— MYO Gazetesi Masası</p>
         <p class="focus-ornament" aria-hidden="true">◆</p>
-        <p class="focus-label">Odak Notu</p>
-        <p class="focus-text">Yapay zeka araçları ne kadar gelişirse gelişsin; mimari tasarım, güvenlik sınırları ve kodun amaca uygunluğu her zaman mühendisin kavrayışına bağlı kalır.</p>
+        <p class="focus-label">Özet Notu</p>
+        <p class="focus-text" id="focusText">EKSİM, Yapay Zeka ve Elektrik &amp; Enerji başlıkları tek baskıda bir araya getiriliyor.</p>
       </article>
     </aside>
   </section>
 
   <section class="breaking">
-    <h2 class="section-title">Son Dakika Kolonu</h2>
-    <div class="news-cols">
-      <div><h3>Yapay Zeka</h3><ul id="list-ai"></ul></div>
-      <div><h3>Açık Kaynak</h3><ul id="list-oss"></ul></div>
-      <div><h3>Web Geliştirme</h3><ul id="list-web"></ul></div>
-      <div><h3>Siber Güvenlik</h3><ul id="list-sec"></ul></div>
+    <h2 class="section-title">Son Dakika / Özet Kolonları</h2>
+    <div class="ozet-columns">
+      <article class="ozet-column">
+        <h3>EKSİM Öne Çıkanlar</h3>
+        <ul id="summaryEksim"></ul>
+        <a class="summary-all-link" href="eksim.html">Tümünü Gör →</a>
+      </article>
+      <article class="ozet-column">
+        <h3>YAPAY ZEKA Öne Çıkanlar</h3>
+        <ul id="summaryAi"></ul>
+        <a class="summary-all-link" href="yapay-zeka.html">Tümünü Gör →</a>
+      </article>
+      <article class="ozet-column">
+        <h3>ELEKTRİK &amp; ENERJİ Öne Çıkanlar</h3>
+        <ul id="summaryEnergy"></ul>
+        <a class="summary-all-link" href="elektrik-enerji.html">Tümünü Gör →</a>
+      </article>
     </div>
   </section>
 
@@ -109,6 +121,6 @@
   <span>MYO GAZETESİ — Kurucu ve Künye: <strong>Yasir Ok</strong></span>
 </footer>
 
-<script src="app.js"></script>
+<script src="app_ozet.js"></script>
 </body>
 </html>

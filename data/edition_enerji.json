@@ -1,11 +1,11 @@
 {
-  "issue": 13,
-  "date": "23 Kasım 2026, Pazartesi",
-  "date_key": "2026-11-23",
+  "issue": 14,
+  "date": "24 Kasım 2026, Salı",
+  "date_key": "2026-11-24",
   "quote": "\"Güvenilir şebeke, ölçülen ve yönetilen şebekedir.\"",
   "lead": {
-    "title": "Fider Otomasyonu Kesinti Alanını Daraltıyor",
-    "deck": "Uzaktan kumandalı ayırıcılar sağlam hat kesimlerinin hızla enerjilendirilmesini sağlıyor.",
+    "title": "Off-grid costs will push data centers back to utilities: Mitsubishi Heavy Industries CEO",
+    "deck": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
     "body": "Elektrik şebekesinin dönüşümü koruma, otomasyon, yenilenebilir üretim, depolama ve piyasa tasarımını aynı işletme disiplini içinde buluşturuyor. Doğru zaman damgalı saha verisi hızlı ve güvenli kararın temelidir.\n\nBu baskı erişilebilen enerji kaynaklarını Türkçe özetler; kaynak kesintisinde ise şebeke, trafo, yenilenebilir enerji, batarya ve piyasa havuzunu kullanır."
   },
   "editorial": {
@@ -19,24 +19,24 @@
   "news": {
     "grid": [
       {
+        "title": "Off-grid costs will push data centers back to utilities: Mitsubishi Heavy Industries CEO",
+        "desc": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/data-centers-mitsubishi-gas-turbines-earnings/875146/"
+      },
+      {
+        "title": "Permitting reform bill heads to House as Democratic divisions persist",
+        "desc": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/senate-passes-baaja-permitting-bill/875334/"
+      },
+      {
+        "title": "Texas finalizes ERCOT CEO contract extension, pay raise tied to performance",
+        "desc": "Şebeke & Dağıtım alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/texas-finalizes-ercot-ceo-contract-extension-pay-raise-tied-to-performance/875318/"
+      },
+      {
         "title": "Fider Otomasyonu Kesinti Alanını Daraltıyor",
         "desc": "Uzaktan kumandalı ayırıcılar sağlam hat kesimlerinin hızla enerjilendirilmesini sağlıyor.",
         "url": "https://www.power-grid.com/"
-      },
-      {
-        "title": "Dağıtım Trafalarında Çevrim İçi Sıcaklık İzleme Artıyor",
-        "desc": "Sargı sıcaklığı ve yük akımı eğilimleri aşırı yük riskini erken gösteriyor.",
-        "url": "https://www.power-eng.com/"
-      },
-      {
-        "title": "SCADA Olay Kayıtlarında Zaman Senkronizasyonu Öne Çıkıyor",
-        "desc": "Ortak zaman damgası röle ve kesici olaylarının doğru analiz edilmesini kolaylaştırıyor.",
-        "url": "https://www.power-grid.com/"
-      },
-      {
-        "title": "Orta Gerilim Şebekelerinde Dijital Koruma Yaygınlaşıyor",
-        "desc": "Yeni röleler haberleşme destekli seçicilik ve uzaktan ayar yönetimi sunuyor.",
-        "url": "https://www.power-eng.com/"
       }
     ],
     "ren": [
@@ -63,27 +63,37 @@
     ],
     "bat": [
       {
-        "title": "Batarya Yönetim Sistemleri Hücre Sapmasını Erken Yakalıyor",
-        "desc": "Gerilim, sıcaklık ve iç direnç eğilimleri dengesiz hücreleri belirliyor.",
-        "url": "https://www.energy-storage.news/"
+        "title": "Italy’s recent electricity market decree could reduce BESS revenues in 2027/28",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/italys-recent-electricity-market-decree-could-reduce-bess-revenues-in-2027-28/"
       },
       {
-        "title": "Şebeke Ölçekli Depolamada Yangın Bölümlendirmesi Kritik",
-        "desc": "Gaz algılama, havalandırma ve termal kaçak sınırları birlikte tasarlanıyor.",
-        "url": "https://www.energy-storage.news/"
+        "title": "BESS overbuild or augmentation: which strategy wins?",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/bess-overbuild-or-augmentation-which-strategy-wins/"
       },
       {
-        "title": "Depolama Tesislerinde Çevrim Ömrü Gelir Modelini Etkiliyor",
-        "desc": "Şarj derinliği ve sıcaklık yönetimi kullanılabilir kapasiteyi belirliyor.",
-        "url": "https://www.energy-storage.news/"
+        "title": "Germany: operators progress over 4GWh of BESS towards construction ahead of year-end FID deadline",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/germany-operators-4gwh-large-scale-bess-construction-fid-deadline/"
       },
       {
-        "title": "İkinci Ömür Bataryalarda Sağlık Ölçümü Standartlaşıyor",
-        "desc": "Hücre geçmişi ve kapasite testleri yeni kullanım alanına uygunluğu doğruluyor.",
-        "url": "https://www.energy-storage.news/"
+        "title": "BESS Industry Buzz: RE+, EU-made premiums, European revenue variability",
+        "desc": "Depolama & Batarya alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.energy-storage.news/bess-industry-buzz-re-eu-made-premiums-european-revenue-variability/"
       }
     ],
     "mkt": [
+      {
+        "title": "Market reforms bolster grid, may lower costs this winter: FERC",
+        "desc": "Piyasa & Regülasyon alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/western-northeast-market-reforms-drought-grid-ferc/875311/"
+      },
+      {
+        "title": "Grid operators need data center ride-through rules that protect reliability",
+        "desc": "Piyasa & Regülasyon alanındaki bu gelişme işletme, güvenlik ve teknik uygulamalar açısından yakından izleniyor.",
+        "url": "https://www.utilitydive.com/news/grid-operators-data-center-ride-through-rules-ercot-nerc/873466/"
+      },
       {
         "title": "Esneklik Hizmetleri Dağıtım Seviyesine İniyor",
         "desc": "Dağıtık üretim ve tüketim katılımı yerel şebeke sıkışıklığını azaltıyor.",
@@ -92,16 +102,6 @@
       {
         "title": "Çeyrek Saatlik Ölçüm Verisi Uzlaştırmada Önem Kazanıyor",
         "desc": "Kısa zaman çözünürlüğü üretim ve tüketim sapmalarını hassas yansıtıyor.",
-        "url": "https://www.utilitydive.com/"
-      },
-      {
-        "title": "Kapasite Planlamasında Dağıtık Kaynaklar Birlikte Ele Alınıyor",
-        "desc": "Elektrikli araç, güneş ve depolama senaryoları şebeke yatırımlarına giriyor.",
-        "url": "https://www.utilitydive.com/"
-      },
-      {
-        "title": "Talep Tarafı Katılımında Doğrulama Ölçütleri Netleşiyor",
-        "desc": "Referans tüketim ve gerçekleşen azaltım piyasa ödemelerinin temelini oluşturuyor.",
         "url": "https://www.utilitydive.com/"
       }
     ]

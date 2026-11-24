@@ -44,9 +44,12 @@ const FALLBACK_NEWS = {
 
 const CAT = {ai:'Yapay Zeka', oss:'Açık Kaynak', web:'Web Geliştirme', sec:'Siber Güvenlik'};
 let liveEdition = null;
+let renderedSignature = '';
+let hasRenderedContent = false;
 
 /* ---------- BASKI / TARİH & HAREKETLİ ARŞİV ---------- */
 const CURRENT_EDITION = 'data/edition.json';
+const EDITION_CACHE_KEY = 'myo:edition:ai:v1';
 const START_DATE = new Date(2026, 10, 11);
 
 function editionBase(n){ const d = new Date(n.getFullYear(), n.getMonth(), n.getDate()); if (n.getHours() < 7) d.setDate(d.getDate() - 1); return d < START_DATE ? new Date(START_DATE) : d; }
@@ -433,35 +436,56 @@ function showStaticFallback(){
   render();
   initPuzzle(currentPuzzleWords);
   renderNews(FALLBACK_NEWS);
+  renderedSignature = 'fallback';
+  hasRenderedContent = true;
+}
+
+function readCachedEdition(){
+  try {
+    const data = JSON.parse(sessionStorage.getItem(EDITION_CACHE_KEY) || 'null');
+    return data && data.date_key === isoDate(editionBase(new Date())) ? data : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function applyEdition(data, cacheCurrent = false){
+  const signature = JSON.stringify(data);
+  if (signature === renderedSignature) return;
+  liveEdition = data;
+  render();
+  if (data.puzzle && Array.isArray(data.puzzle) && data.puzzle.length) {
+    initPuzzle(data.puzzle);
+  } else {
+    initPuzzle(currentPuzzleWords);
+  }
+  renderNews(data.news);
+  renderedSignature = signature;
+  hasRenderedContent = true;
+  if (cacheCurrent) {
+    try { sessionStorage.setItem(EDITION_CACHE_KEY, signature); } catch (_) {}
+  }
 }
 
 async function loadEdition(filePath = CURRENT_EDITION){
   try {
-    const res = await fetch(filePath + '?t=' + Date.now());
+    const res = await fetch(filePath + '?t=' + Date.now(), {cache:'no-store'});
     if (!res.ok) throw new Error('Veri alinamadi: ' + filePath);
     const data = await res.json();
     if (!data || typeof data !== 'object') throw new Error('Gecersiz baski verisi: ' + filePath);
-    liveEdition = data;
-    render();
-    
-    // O güne ait bulmaca
-    if (liveEdition.puzzle && Array.isArray(liveEdition.puzzle) && liveEdition.puzzle.length) {
-      initPuzzle(liveEdition.puzzle);
-    } else {
-      initPuzzle(currentPuzzleWords);
-    }
-
-    renderNews(liveEdition.news);
+    applyEdition(data, filePath === CURRENT_EDITION);
     return true;
   } catch (err) {
     console.warn('Veri yüklenemedi, statik içerik gösteriliyor:', err);
-    showStaticFallback();
+    if (!hasRenderedContent) showStaticFallback();
     return false;
   }
 }
 
 /* ---------- BAŞLAT ---------- */
-showStaticFallback();
+const cachedEdition = readCachedEdition();
+if (cachedEdition) applyEdition(cachedEdition);
+else showStaticFallback();
 fillArchive();
 loadEdition(CURRENT_EDITION);
 })();
