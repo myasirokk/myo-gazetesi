@@ -33,6 +33,9 @@ NEWS_PER_CATEGORY = 4
 TIMEOUT = (4, 12)
 TRANSLATION_DELAY = 0.75
 TRANSLATION_RETRY_DELAY = 1.5
+TRANSLATION_ATTEMPTS = 3
+ARTICLE_SIMILARITY_THRESHOLD = 0.78
+GOOGLE_TRANSLATE_COOLDOWN_SECONDS = 300
 MAX_CANDIDATES_PER_CATEGORY = 60
 MAX_IMAGE_PAGE_FETCHES = 30
 
@@ -256,43 +259,24 @@ def clean_text(value: str, limit: int = 280) -> str:
 
 
 def looks_english(value: str) -> bool:
-    words = set(re.findall(r"[a-z]+", value.lower()))
-    return bool(words & {"the", "and", "for", "with", "from", "into", "how", "why", "energy", "power", "security"})
+    """Kısa başlıklarda da çalışan, temkinli İngilizce metin algılayıcısı."""
+    words = re.findall(r"[a-z]+(?:'[a-z]+)?", str(value or "").casefold())
+    if not words:
+        return False
+    markers = {
+        "the", "and", "for", "with", "from", "into", "how", "why", "what",
+        "after", "before", "over", "under", "will", "has", "have", "its",
+        "new", "says", "launches", "announces", "energy", "power", "security",
+        "model", "software", "open", "source", "grid", "battery", "market",
+    }
+    marker_count = sum(word in markers for word in words)
+    return marker_count >= (1 if len(words) <= 5 else 2)
 
 
-def translate(value: str) -> str | None:
-    text = clean_text(value, 500)
-    if not text or not looks_english(text):
-        return text
-    try:
-        url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=tr&dt=t&q=" + quote(text)
-        response = SESSION.get(url, timeout=TIMEOUT)
-        response.raise_for_status()
-        result = response.json()
-        return clean_text("".join(part[0] for part in result[0] if part and part[0]), 500) or None
-    except Exception as exc:
-        print(f"Çeviri kullanılamadı: {exc}")
-        return None
 
 
-def get_json(url: str) -> Any:
-    try:
-        response = SESSION.get(url, timeout=TIMEOUT)
-        response.raise_for_status()
-        return response.json()
-    except Exception as exc:
-        print(f"JSON kaynağı kullanılamadı ({url}): {exc}")
-        return None
 
 
-def get_text(url: str) -> str:
-    try:
-        response = SESSION.get(url, timeout=TIMEOUT)
-        response.raise_for_status()
-        return response.text
-    except Exception as exc:
-        print(f"RSS kaynağı kullanılamadı ({url}): {exc}")
-        return ""
 
 
 
@@ -349,43 +333,10 @@ def publication_iso(*values: str) -> str:
     return ""
 
 
-def parse_rss(xml: str) -> list[dict[str, str]]:
-    soup = BeautifulSoup(xml, "xml")
-    results = []
-    for entry in soup.find_all(["item", "entry"])[:30]:
-        title_tag = entry.find("title")
-        desc_tag = entry.find("description") or entry.find("summary") or entry.find("content")
-        date_tag = entry.find("pubDate") or entry.find("published") or entry.find("updated") or entry.find("date")
-        link_tag = entry.find("link")
-        link = (link_tag.get("href") or link_tag.get_text(strip=True)) if link_tag else ""
-        title = clean_text(title_tag.get_text(" ", strip=True) if title_tag else "", 180)
-        desc = clean_text(desc_tag.get_text(" ", strip=True) if desc_tag else "", 280)
-        if title and link:
-            published_at = publication_iso(date_tag.get_text(" ", strip=True) if date_tag else "", title, desc)
-            results.append(item(title, desc, link, published_at))
-    return results
 
 
-def classify_tech(title: str, desc: str, tags: list[str] | None = None) -> str | None:
-    text = f" {title} {desc} {' '.join(tags or [])} ".lower()
-    rules = {
-        "sec": ["security", "cyber", "vulnerability", "malware", "phishing", "passkey", "owasp"],
-        "ai": [" ai ", "artificial intelligence", "machine learning", "llm", "model", "agent", "prompt"],
-        "oss": ["open source", "linux", "github", " git ", "kernel", "docker", "kubernetes"],
-        "web": ["web", "javascript", "typescript", "react", "css", "html", "browser", "frontend"],
-    }
-    return next((key for key, words in rules.items() if any(word in text for word in words)), None)
 
 
-def classify_energy(title: str, desc: str) -> str:
-    text = f"{title} {desc}".lower()
-    rules = {
-        "bat": ["battery", "storage", "lithium", "bess", "cell", "thermal runaway"],
-        "ren": ["solar", "wind", "renewable", "photovoltaic", "geothermal", "hydrogen"],
-        "mkt": ["market", "regulation", "policy", "tariff", "price", "auction", "utility"],
-        "grid": ["grid", "transformer", "substation", "transmission", "distribution", "scada", "relay", "outage"],
-    }
-    return next((key for key, words in rules.items() if any(word in text for word in words)), "grid")
 
 
 def turkish_item(raw: dict[str, str], label: str) -> dict[str, str] | None:
@@ -418,31 +369,8 @@ def complete(news: dict[str, list[dict[str, str]]], fallbacks: dict[str, list[di
     return news
 
 
-def fetch_tech_news() -> dict[str, list[dict[str, str]]]:
-    news = {key: [] for key in TECH_LABELS}
-    articles = get_json("https://dev.to/api/articles?per_page=50") or []
-    if isinstance(articles, list):
-        for article in articles:
-            category = classify_tech(article.get("title", ""), article.get("description", ""), article.get("tag_list") or [])
-            if category and len(news[category]) < NEWS_PER_CATEGORY:
-                raw = item(article.get("title", ""), article.get("description", ""), article.get("url", "#"))
-                add_unique(news[category], turkish_item(raw, TECH_LABELS[category]))
-    for source in RSS_SOURCES["tech"]:
-        for raw in parse_rss(get_text(source)):
-            category = classify_tech(raw["title"], raw["desc"])
-            if category and len(news[category]) < NEWS_PER_CATEGORY:
-                add_unique(news[category], turkish_item(raw, TECH_LABELS[category]))
-    return complete(news, TECH_FALLBACKS)
 
 
-def fetch_energy_news() -> dict[str, list[dict[str, str]]]:
-    news = {key: [] for key in ENERGY_LABELS}
-    for source in RSS_SOURCES["energy"]:
-        for raw in parse_rss(get_text(source)):
-            category = classify_energy(raw["title"], raw["desc"])
-            if len(news[category]) < NEWS_PER_CATEGORY:
-                add_unique(news[category], turkish_item(raw, ENERGY_LABELS[category]))
-    return complete(news, ENERGY_FALLBACKS)
 
 
 def classify_eksim(title: str, desc: str, default: str = "holding") -> str:
@@ -468,48 +396,6 @@ def is_eksim_navigation_title(value: str) -> bool:
     return normalized in EKSIM_IGNORED_TITLES
 
 
-def eksim_site_articles() -> list[dict[str, str]]:
-    base_url = "https://eksim.com.tr/"
-    pages = [base_url]
-    seen_pages: set[str] = set()
-    articles: list[dict[str, str]] = []
-    section_words = ("haber", "medya", "duyuru", "basin", "basın", "bulten", "bülten")
-    for page_url in pages:
-        if page_url in seen_pages or len(seen_pages) >= 8:
-            continue
-        seen_pages.add(page_url)
-        page = get_text(page_url)
-        if not page:
-            continue
-        soup = BeautifulSoup(page, "html.parser")
-        for anchor in soup.find_all("a", href=True):
-            full_url = urljoin(page_url, anchor.get("href", ""))
-            if not full_url.startswith(base_url):
-                continue
-            path_text = full_url.casefold()
-            if any(word in path_text for word in section_words) and full_url not in pages and len(pages) < 8:
-                pages.append(full_url)
-            title = clean_text(anchor.get_text(" ", strip=True), 180)
-            normalized_title = re.sub(r"\s+", " ", title.casefold()).strip()
-            if (
-                len(title) < 12
-                or is_eksim_navigation_title(normalized_title)
-                or full_url.rstrip("/") == page_url.rstrip("/")
-            ):
-                continue
-            container = anchor.find_parent(["article", "li", "div"])
-            summary_tag = container.find("p") if container else None
-            time_tag = container.find("time") if container else None
-            desc = clean_text(summary_tag.get_text(" ", strip=True) if summary_tag else "", 280)
-            if any(word in path_text for word in section_words) or (container and container.find(["h1", "h2", "h3", "h4"])):
-                published_at = publication_iso(
-                    time_tag.get("datetime", "") if time_tag else "",
-                    time_tag.get_text(" ", strip=True) if time_tag else "",
-                    title,
-                    desc,
-                )
-                articles.append(item(title, desc, full_url, published_at))
-    return articles
 
 
 def eksim_sort_key(article: dict[str, str], edition_date: date) -> tuple[int, int, str]:
@@ -556,28 +442,6 @@ def prepare_eksim_news(
     return prepared
 
 
-def fetch_eksim_news(edition_date: date) -> dict[str, list[dict[str, str]]]:
-    news = {key: [] for key in EKSIM_LABELS}
-    for raw in eksim_site_articles():
-        category = classify_eksim(raw["title"], raw["desc"])
-        desc = clean_text(raw["desc"], 280) or f"{EKSIM_LABELS[category]} bünyesindeki bu güncel gelişme kurumsal çalışmalar kapsamında kamuoyuyla paylaşıldı."
-        add_unique(
-            news[category],
-            item(clean_text(raw["title"], 180), desc, raw["url"], raw.get("published_at", "")),
-            limit=40,
-        )
-    queries = {"holding": '"Eksim Holding"', "dicle": '"Dicle Elektrik"', "enerji": '"Eksim Enerji"', "grup": '("Eksim Ventures" OR "Eksim" şirketleri)'}
-    for category, query in queries.items():
-        rss_url = "https://news.google.com/rss/search?q=" + quote(query) + "&hl=tr&gl=TR&ceid=TR:tr"
-        for raw in parse_rss(get_text(rss_url)):
-            title = re.sub(r"\s+-\s+[^-]+$", "", raw["title"]).strip()
-            desc = clean_text(raw["desc"], 280) or f"{EKSIM_LABELS[category]} hakkında yayımlanan güncel gelişme sektör gündeminde yer aldı."
-            add_unique(
-                news[category],
-                item(clean_text(title, 180), desc, raw["url"], raw.get("published_at", "")),
-                limit=40,
-            )
-    return prepare_eksim_news(news, edition_date)
 
 
 
@@ -598,55 +462,6 @@ def validate_puzzle(words: list[list[Any]], rows: int = 10, cols: int = 11) -> N
             grid[(r, c)] = char
 
 
-def make_edition(kind: str, edition_date: date, issue: int, news: dict[str, list[dict[str, str]]]) -> dict[str, Any]:
-    if kind == "tech":
-        puzzle, lead = deepcopy(AI_PUZZLE), news["ai"][0]
-        quote_text = "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\""
-        editorial = item("Ajanlar Çağında Kodu Okumak Yazmaktan Değerli", "Kod üretimi hızlanırken niyeti, güvenlik sınırlarını, testleri ve ortaya çıkan davranışı birlikte değerlendirmek gerekir.", "")
-        fact = item("Zero-Shot Inference", "Bir modelin görevi daha önce örnek görmeden yalnızca bağlam ve talimatla tamamlayabilme yeteneğidir.", "")
-        body = "Yapay zekâ ve yazılım dünyasında model güvenliği, veri gizliliği, açık kaynak sürdürülebilirliği ve web performansı aynı mühendislik zincirinin parçaları hâline geliyor. Ekipler için temel hedef otomasyonu ölçülebilir kalite kontrolleri ve insan denetimiyle birlikte işletmek.\n\nBu baskı erişilebilen güvenilir kaynakları Türkçe özetler; kaynak kesintisinde ise alanına özel zengin yedek haber havuzunu kullanır."
-    elif kind == "energy":
-        puzzle, lead = deepcopy(ENERGY_PUZZLE), news["grid"][0]
-        quote_text = "\"Güvenilir şebeke, ölçülen ve yönetilen şebekedir.\""
-        editorial = item("Dağıtım Şebekesinin Dijital İkizi Sahadaki Disiplindir", "SCADA şeması, koruma ayarları ve fiziksel bağlantılar aynı gerçeği göstermediğinde otomasyon güvenilir sonuç üretemez.", "")
-        fact = item("Güç Katsayısı (cosφ)", "Aktif gücün görünür güce oranıdır; düşük değer daha yüksek akım, kayıp ve gerilim düşümü oluşturur.", "")
-        body = "Elektrik şebekesinin dönüşümü koruma, otomasyon, yenilenebilir üretim, depolama ve piyasa tasarımını aynı işletme disiplini içinde buluşturuyor. Doğru zaman damgalı saha verisi hızlı ve güvenli kararın temelidir.\n\nBu baskı erişilebilen enerji kaynaklarını Türkçe özetler; kaynak kesintisinde ise şebeke, trafo, yenilenebilir enerji, batarya ve piyasa havuzunu kullanır."
-    elif kind == "eksim":
-        puzzle = []
-        lead_categories = ["holding", "dicle", "enerji", "grup"]
-        lead_category = lead_categories[(issue - 1) % len(lead_categories)]
-        lead = news[lead_category][0]
-        quotes = [
-            "\"İnsana, topluma ve geleceğe değer katan yatırımlar kalıcı iz bırakır.\"",
-            "\"Ortak vizyon, farklı yetkinlikleri güçlü bir gelecekte buluşturur.\"",
-            "\"Sürdürülebilir büyüme, bugünün başarısını yarının sorumluluğuyla birleştirir.\"",
-            "\"Güçlü kurumlar değişimi veriye, insana ve ortak değere dönüştürür.\"",
-        ]
-        facts = [
-            item("Sürdürülebilir Değer", "Bir kurumun ekonomik performansını çevresel sorumluluk, toplumsal fayda ve güçlü yönetişimle birlikte uzun vadeli olarak geliştirmesidir.", ""),
-            item("Dağıtım Şebekesi", "Elektriği iletim sisteminden alıp tüketicilere güvenli, sürekli ve kaliteli biçimde ulaştıran altyapı bütünüdür.", ""),
-            item("Yenilenebilir Üretim", "Rüzgâr, güneş ve su gibi doğal olarak yenilenen kaynaklardan düşük karbonlu elektrik üretimidir.", ""),
-            item("Kurumsal Yönetişim", "Yetki, sorumluluk, şeffaflık ve hesap verebilirlik ilkeleriyle kurumun karar süreçlerini düzenleyen yapıdır.", ""),
-        ]
-        quote_text = quotes[(issue - 1) % len(quotes)]
-        editorial = item("Ortak Vizyon, Sürdürülebilir Değer", "Eksim Holding ve grup şirketlerinin farklı sektörlerdeki yetkinliği; güven, yenilikçilik ve sorumlu büyüme yaklaşımıyla ortak bir kurumsal vizyonda buluşuyor.", "")
-        fact = facts[(issue - 1) % len(facts)]
-        body = "Eksim Holding ve grup şirketleri; enerji, elektrik dağıtımı, gıda ve girişimcilik alanlarındaki faaliyetlerini sürdürülebilir büyüme ve toplumsal fayda anlayışıyla yürütüyor. Kurumsal yetkinliklerin paylaşılması, dijital dönüşüm ve insan kaynağına yatırım bu ortak vizyonun temelini oluşturuyor.\n\nBu baskı Eksim'in kurumsal kanalları ile güncel Türkçe basın kaynaklarını bir araya getirir; kaynak kesintisinde ise kategoriye özel kurumsal yedek haber havuzunu kullanır."
-    else:
-        raise ValueError(f"Bilinmeyen baskı türü: {kind}")
-    if kind != "eksim":
-        validate_puzzle(puzzle)
-    return {
-        "issue": issue,
-        "date": date_label(edition_date),
-        "date_key": edition_date.isoformat(),
-        "quote": quote_text,
-        "lead": {"title": lead["title"], "deck": lead["desc"], "body": body},
-        "editorial": {"title": editorial["title"], "body": editorial["desc"]},
-        "fact": {"title": fact["title"], "body": fact["desc"]},
-        "news": news,
-        "puzzle": puzzle,
-    }
 
 
 def write_json(path: Path, payload: dict[str, Any]) -> None:
@@ -723,6 +538,7 @@ IMPACT_KEYWORDS = {
 TRANSLATION_CACHE: dict[str, str] = {}
 TRANSLATION_CACHE_DIRTY = False
 LAST_TRANSLATION_AT = 0.0
+GOOGLE_TRANSLATE_COOLDOWN_UNTIL = 0.0
 IMAGE_PAGE_FETCH_COUNT = 0
 IMAGE_CACHE: dict[str, str] = {}
 ARTICLE_URL_CACHE: dict[str, str] = {}
@@ -776,6 +592,8 @@ def request_response(url: str, *, accept_json: bool = False) -> requests.Respons
         response = SESSION.get(url, timeout=TIMEOUT, headers=headers)
         if response.status_code == 429:
             print(f"Hız sınırı nedeniyle kaynak atlandı: {url}")
+            return None
+        if response.status_code == 403:
             return None
         if response.status_code >= 400:
             print(f"Kaynak HTTP {response.status_code} döndürdü: {url}")
@@ -909,48 +727,62 @@ def looks_turkish(value: str) -> bool:
 
 
 def needs_translation(value: str) -> bool:
-    return bool(value and not looks_turkish(value) and looks_english(value))
+    text = clean_text(value, 600)
+    if not text or looks_turkish(text):
+        return False
+    return looks_english(text)
 
 
-def preserved_original(value: str, *, title: bool) -> str:
-    """Çeviri yoksa anlamı uydurmadan kaynak metni okunaklı biçimde korur."""
-    limit = 180 if title else 280
-    text = clean_text(value, limit)
-    text = re.sub(r"\s+([,.;:!?])", r"\1", text)
-    text = re.sub(r"([,.;:!?])(?=[^\s])", r"\1 ", text)
-    if title:
-        return text.rstrip(". ")
-    if text and text[-1] not in ".!?":
-        text += "."
-    return text
+def valid_translation(value: str) -> str | None:
+    translated = clean_text(value, 600)
+    if not translated or is_generic_translation(translated) or needs_translation(translated):
+        return None
+    return translated
 
 
-def translation_request(url: str) -> requests.Response | None:
-    """429 durumunda yalnızca bir kez, kontrollü bekleme sonrası yeniden dener."""
+def google_translate(text: str) -> str | None:
+    global GOOGLE_TRANSLATE_COOLDOWN_UNTIL
+    if time_module.monotonic() < GOOGLE_TRANSLATE_COOLDOWN_UNTIL:
+        return None
+    url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=tr&dt=t&q=" + quote(text)
+    try:
+        response = SESSION.get(url, timeout=TIMEOUT, headers={"Accept": "application/json"})
+    except requests.RequestException:
+        return None
+    if response.status_code == 429:
+        GOOGLE_TRANSLATE_COOLDOWN_UNTIL = time_module.monotonic() + GOOGLE_TRANSLATE_COOLDOWN_SECONDS
+        print("Google çeviri hız sınırına ulaştı; geçici olarak yedek servis kullanılacak.")
+        return None
+    if response.status_code >= 400:
+        return None
+    try:
+        payload = response.json()
+        return valid_translation("".join(part[0] for part in payload[0] if part and part[0]))
+    except (ValueError, TypeError, IndexError, KeyError):
+        return None
+
+
+def mymemory_translate(text: str) -> str | None:
+    url = "https://api.mymemory.translated.net/get?q=" + quote(text) + "&langpair=en|tr"
     for attempt in range(2):
         try:
             response = SESSION.get(url, timeout=TIMEOUT, headers={"Accept": "application/json"})
-        except requests.RequestException as exc:
-            print(f"Çeviri hizmeti kullanılamadı: {exc}")
-            return None
-        if response.status_code != 429:
-            if response.status_code >= 400:
-                print(f"Çeviri hizmeti HTTP {response.status_code} döndürdü.")
+            if response.status_code in {403, 429}:
                 return None
-            return response
+            response.raise_for_status()
+            payload = response.json()
+            translated = payload.get("responseData", {}).get("translatedText", "")
+            result = valid_translation(html.unescape(str(translated)))
+            if result:
+                return result
+        except (requests.RequestException, ValueError, TypeError, AttributeError):
+            pass
         if attempt == 0:
-            retry_after = response.headers.get("Retry-After", "")
-            try:
-                wait_seconds = min(4.0, max(TRANSLATION_RETRY_DELAY, float(retry_after)))
-            except (TypeError, ValueError):
-                wait_seconds = TRANSLATION_RETRY_DELAY
-            time_module.sleep(wait_seconds)
-        else:
-            print("Çeviri hizmetinin hız sınırı sürdüğü için özgün metin korunuyor.")
+            time_module.sleep(TRANSLATION_RETRY_DELAY)
     return None
 
 
-def translate(value: str, label: str = "Gündem", *, title: bool = False) -> str:
+def translate(value: str, label: str = "Gündem", *, title: bool = False) -> str | None:
     global LAST_TRANSLATION_AT, TRANSLATION_CACHE_DIRTY
     text = clean_text(value, 600)
     if not text or not needs_translation(text):
@@ -958,30 +790,19 @@ def translate(value: str, label: str = "Gündem", *, title: bool = False) -> str
     cache_material = f"{'title' if title else 'desc'}\0{label}\0{text}"
     cache_key = hashlib.sha256(cache_material.encode("utf-8")).hexdigest()
     cached = TRANSLATION_CACHE.get(cache_key)
-    if cached and not is_generic_translation(cached):
+    if cached and not is_generic_translation(cached) and not needs_translation(cached):
         return cached
 
     elapsed = time_module.monotonic() - LAST_TRANSLATION_AT
     if elapsed < TRANSLATION_DELAY:
         time_module.sleep(TRANSLATION_DELAY - elapsed + random.uniform(0.02, 0.08))
 
-    url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=tr&dt=t&q=" + quote(text)
-    response = translation_request(url)
+    translated = google_translate(text)
     LAST_TRANSLATION_AT = time_module.monotonic()
-    translated = ""
-    if response:
-        try:
-            payload = response.json()
-            translated = clean_text("".join(part[0] for part in payload[0] if part and part[0]), 600)
-        except (ValueError, TypeError, IndexError, KeyError):
-            translated = ""
-
-    if (
-        not translated
-        or is_generic_translation(translated)
-        or (needs_translation(translated) and not looks_turkish(translated))
-    ):
-        translated = preserved_original(text, title=title)
+    if not translated:
+        translated = mymemory_translate(text)
+    if not translated:
+        return None
 
     TRANSLATION_CACHE[cache_key] = translated
     TRANSLATION_CACHE_DIRTY = True
@@ -998,6 +819,38 @@ def normalized_title(value: str) -> str:
     text = clean_text(value, 240).casefold()
     text = re.sub(r"\s+-\s+[^-]+$", "", text)
     return re.sub(r"[^a-z0-9çğıöşü]+", " ", text).strip()
+
+
+def normalized_article_text(article: dict[str, Any]) -> str:
+    combined = f"{article.get('title', '')} {article.get('desc', '')}"
+    text = clean_text(combined, 900).casefold()
+    text = re.sub(r"\b(?:ve|ile|için|bir|bu|the|and|for|with|from|of|to|in)\b", " ", text)
+    return re.sub(r"[^a-z0-9çğıöşü]+", " ", text).strip()
+
+
+def article_richness(article: dict[str, Any]) -> tuple[int, int, int, float]:
+    """Benzer kayıtlarda daha açıklayıcı ve kullanılabilir olanı seçer."""
+    desc = clean_text(str(article.get("desc", "")), 900)
+    title = clean_text(str(article.get("title", "")), 300)
+    return (
+        int(bool(desc)),
+        len(desc),
+        int(bool(article.get("image"))) + int(bool(article.get("published_at"))),
+        float(article.get("_source_weight", 0.0) or 0.0) + len(title) / 1000,
+    )
+
+
+def similar_articles(first: dict[str, Any], second: dict[str, Any]) -> bool:
+    if similar_titles(str(first.get("title", "")), str(second.get("title", ""))):
+        return True
+    a, b = normalized_article_text(first), normalized_article_text(second)
+    if not a or not b:
+        return False
+    a_words, b_words = set(a.split()), set(b.split())
+    union = a_words | b_words
+    jaccard = len(a_words & b_words) / len(union) if union else 0.0
+    sequence = SequenceMatcher(None, a, b).ratio()
+    return jaccard >= ARTICLE_SIMILARITY_THRESHOLD or sequence >= 0.86
 
 
 def similar_titles(first: str, second: str) -> bool:
@@ -1031,9 +884,12 @@ def article_score(article: dict[str, Any], edition_date: date) -> float:
 def add_candidate(bucket: list[dict[str, Any]], candidate: dict[str, Any] | None) -> None:
     if not candidate or not clean_text(str(candidate.get("title", "")), 220):
         return
+    for index, old in enumerate(bucket):
+        if similar_articles(candidate, old):
+            if article_richness(candidate) > article_richness(old):
+                bucket[index] = candidate
+            return
     if len(bucket) >= MAX_CANDIDATES_PER_CATEGORY:
-        return
-    if any(similar_titles(str(candidate.get("title", "")), str(old.get("title", ""))) for old in bucket):
         return
     bucket.append(candidate)
 
@@ -1124,11 +980,11 @@ def discover_og_image(url: str) -> str:
     return image
 
 
-def public_article(article: dict[str, Any], label: str) -> dict[str, Any]:
+def public_article(article: dict[str, Any], label: str) -> dict[str, Any] | None:
     title = translate(str(article.get("title", "")), label, title=True)
     desc = translate(str(article.get("desc", "")), label, title=False)
-    if not desc:
-        desc = f"{label} alanındaki bu gelişme güncellik ve etkisi açısından yakından izleniyor."
+    if not title or not desc:
+        return None
     image = valid_image_url(str(article.get("image", "")))
     if not image:
         image = discover_og_image(str(article.get("url", "")))
@@ -1152,6 +1008,7 @@ def rank_category(
     fallbacks: list[dict[str, Any]],
     edition_date: date,
     label: str,
+    global_seen: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     pool = [deepcopy(article) for article in candidates]
     for fallback in fallbacks:
@@ -1166,16 +1023,31 @@ def rank_category(
     ), reverse=True)
 
     selected: list[dict[str, Any]] = []
+    public_items: list[dict[str, Any]] = []
+    translated_seen: list[dict[str, Any]] = []
     for article in eligible:
-        if any(similar_titles(str(article.get("title", "")), str(old.get("title", ""))) for old in selected):
+        duplicate_index = next((
+            index for index, old in enumerate(selected) if similar_articles(article, old)
+        ), None)
+        if duplicate_index is not None:
+            if article_richness(article) > article_richness(selected[duplicate_index]):
+                selected[duplicate_index] = article
             continue
         selected.append(article)
-        if len(selected) >= NEWS_PER_CATEGORY:
-            break
-    public_items: list[dict[str, Any]] = []
-    for article in selected:
         article["_score"] = article_score(article, edition_date)
-        public_items.append(public_article(article, label))
+        public = public_article(article, label)
+        if not public:
+            continue
+        if any(similar_articles(public, old) for old in translated_seen):
+            continue
+        if global_seen is not None and any(similar_articles(public, old) for old in global_seen):
+            continue
+        translated_seen.append(public)
+        if global_seen is not None:
+            global_seen.append(public)
+        public_items.append(public)
+        if len(public_items) >= NEWS_PER_CATEGORY:
+            break
     return public_items
 
 
@@ -1185,10 +1057,13 @@ def finalize_news(
     labels: dict[str, str],
     edition_date: date,
 ) -> dict[str, list[dict[str, Any]]]:
-    return {
-        category: rank_category(candidates.get(category, []), fallbacks[category], edition_date, label)
-        for category, label in labels.items()
-    }
+    result: dict[str, list[dict[str, Any]]] = {}
+    global_seen: list[dict[str, Any]] = []
+    for category, label in labels.items():
+        result[category] = rank_category(
+            candidates.get(category, []), fallbacks[category], edition_date, label, global_seen
+        )
+    return result
 
 
 def classify_tech(title: str, desc: str, tags: list[str] | None = None) -> str | None:
@@ -1216,11 +1091,13 @@ def classify_energy(title: str, desc: str) -> str:
 def fetch_google_category_news(
     queries: dict[str, str],
     buckets: dict[str, list[dict[str, Any]]],
-    source_weight: float = 7,
+    source_weight: float = 12,
 ) -> None:
     for category, query in queries.items():
         for article in parse_rss(get_text(google_news_url(query)), source_weight):
             article["title"] = re.sub(r"\s+-\s+[^-]+$", "", str(article.get("title", ""))).strip()
+            if looks_turkish(f"{article.get('title', '')} {article.get('desc', '')}"):
+                article["_source_weight"] = float(article.get("_source_weight", 0.0) or 0.0) + 5
             add_candidate(buckets[category], article)
 
 
@@ -1389,7 +1266,8 @@ def make_edition(kind: str, edition_date: date, issue: int, news: dict[str, list
 
 
 def generate() -> None:
-    edition_date, issue = edition_info()
+    run_started_at = datetime.now(TURKEY_TZ)
+    edition_date, issue = edition_info(run_started_at)
     print(f"Baskı hazırlanıyor: {date_label(edition_date)} — Sayı {issue}")
     try:
         tech_news = fetch_tech_news(edition_date)

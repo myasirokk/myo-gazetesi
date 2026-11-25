@@ -1,11 +1,11 @@
 {
-  "issue": 14,
-  "date": "24 Kasım 2026, Salı",
-  "date_key": "2026-11-24",
+  "issue": 15,
+  "date": "25 Kasım 2026, Çarşamba",
+  "date_key": "2026-11-25",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "Siemens Desigo, Gridscale",
-    "deck": "View CSAF Summary On October 21, 2026, the Node. js project released security updates addressing a critical vulnerability in the Brotli decoder bundled with Node. js, commonly referred to as \"Node2Shell\" (tracked as CVE-2026-111497). The vulnerability is an out-of-bounds write.",
+    "title": "Siemens Endüstriyel Otomasyon Yazılım Ürünleri",
+    "deck": "CSAF Özetini Görüntüle 21 Ekim 2026 tarihinde Node.js projesi, Node.js ile birlikte gelen Brotli kod çözücüsünde bulunan ve genellikle \"Node2Shell\" olarak adlandırılan (CVE-2026-111497 olarak izlenen) kritik bir güvenlik açığını ele alan güvenlik güncellemelerini yayımlamıştır.",
     "body": "Yapay zekâ ve yazılım dünyasında model güvenliği, veri gizliliği, açık kaynak sürdürülebilirliği ve web performansı aynı mühendislik zincirinin parçaları hâline geliyor. Ekipler için temel hedef otomasyonu ölçülebilir kalite kontrolleri ve insan denetimiyle birlikte işletmek.\n\nBu baskı güvenilir Türkçe ve uluslararası kaynakları önem ve güncellik puanıyla sıralar."
   },
   "editorial": {
@@ -26,51 +26,51 @@
       },
       {
         "title": "Zombie Sweep on Google Cloud: A Daily Waste Report on AlloyDB Express, With a Database Bill You Can Predict",
-        "desc": "Cloud Scheduler, Workflows and Cloud Run sweep a project every day with zombiescan's 20 checks beside Google's idle-resource recommenders, store the findings in AlloyDB Express, and an ADK agent writes a briefing from SQL. The database scales to zero, caps its own storage and.",
+        "desc": "Cloud Scheduler, Workflows ve Cloud Run, Google'ın kullanılmayan kaynak önericilerinin yanı sıra zombiescan'in 20 kontrolüyle her gün bir projeyi tarar, bulguları AlloyDB Express'te depolar ve bir ADK aracısı SQL'den bir bilgilendirme raporu yazar. Veritabanı sıfıra kadar.",
         "url": "https://dev.to/gde/zombie-sweep-on-google-cloud-a-daily-waste-report-on-alloydb-express-with-a-database-bill-you-can-305g",
         "image": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fraw.githubusercontent.com%2Fxbill9%2Fzombie-sweep-gcp%2Fmain%2Fdocs%2Fdevto-cover.696c5b30.jpg"
       },
       {
         "title": "Stop Asking LLMs to Do Math: Client-Side Functions in Flutter GenUI with bloc_signals",
-        "desc": "Why Andrew 'Red' Brogdon's insight on client-side functions is critical for Generative UI—and how bloc_signals_genui turns catalog functions into 0ms synchronous reactive signals.",
+        "desc": "Andrew \"Red\" Brogdon'ın istemci tarafı fonksiyonları hakkındaki görüşü neden Üretken Kullanıcı Arayüzü için kritik öneme sahiptir ve bloc_signals_genui katalog fonksiyonlarını nasıl 0 ms eş zamanlı reaktif sinyallere dönüştürür?",
         "url": "https://dev.to/gde/stop-asking-llms-to-do-math-client-side-functions-in-flutter-genui-with-blocsignals-23bh",
         "image": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fk8y3gkk7ib2778kh57mp.jpg"
       },
       {
-        "title": "Why millions of agents don't need millions of VMs on Agent Substrate",
-        "desc": "How stateful agent harnesses run, suspend, and wake in under a second on Agent Substrate 1. 0, from one VM to millions of actors.",
-        "url": "https://dev.to/googlecloud/why-millions-of-agents-dont-need-millions-of-vms-on-agent-substrate-2ech",
-        "image": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto/https%3A%2F%2Feliasecchig.github.io%2F_astro%2Fjourney.B8FF4Gwi_1AhrgO.webp"
+        "title": "Yapay Zekâ Temsilciniz Neden Sürekli Unutuyor (ve Yavaşlıyor)? 4 Bellek Seçeneği ve 3 Bağlam Düzeltmesi",
+        "desc": "Çoğu yapay zekâ aracının iki hafıza sorunu vardır. Bir kullanıcının onlara geçen hafta söylediklerini ve her seferde...",
+        "url": "https://dev.to/googleai/why-your-ai-agent-keeps-forgetting-and-getting-slower-4-memory-options-and-3-context-fixes-2e02",
+        "image": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fq2bv4d1ae2jaj0f9b5gw.png"
       }
     ],
     "oss": [
       {
-        "title": "How to Use the GitHub CLI with GitHub Actions",
-        "desc": "GitHub CLI is a command-line tool that lets you manage GitHub's web features right in your local terminal. You can manage repositories, issues, pull requests, and automation workflows without needing.",
-        "url": "https://www.freecodecamp.org/news/how-to-use-the-github-cli-with-github-actions/",
-        "image": "https://cdn.hashnode.com/uploads/covers/5e1e335a7a1d3fcc59028c64/4765e26b-1a6a-4ad7-9030-ac357eea5432.png",
-        "published_at": "2026-11-23"
-      },
-      {
-        "title": "Inside the Codex sandbox",
-        "desc": "See how Codex runs commands on your machine while enforcing the filesystem and network limits you control across macOS, Linux, and Windows.",
-        "url": "https://openai.com/index/inside-the-codex-sandbox",
-        "image": "https://images.ctfassets.net/kftzwdyauwt9/1PnylD7lJwgUw7jYNP8wLh/7fa5553001136f3982e8d4db44146de3/inside-the-codex-sandbox-social.png?w=1600&h=900&fit=fill",
-        "published_at": "2026-11-18"
-      },
-      {
-        "title": "Show HN: PHP-WebVPN – Turn any shared PHP hosting into a stealth VPN and proxy",
-        "desc": "Article URL: https://github.com/zenkdom/php-webvpn Comments URL: https://news.ycombinator.com/item?id=50628400 Points: 1 # Comments: 0",
-        "url": "https://github.com/zenkdom/php-webvpn",
+        "title": "SanDisk, Ceph'e Katkıda Bulunacağını Duyurdu",
+        "desc": "SanDisk, Ceph'e Katkıda Bulunacağını Duyurdu StorageReview.com",
+        "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOUkNxcE0zaThaMmsxMlQyZTJ2ekRZdGxna2lOV0txVmF0dnpKYkdVVUNzek5yeEpRdk9uNkIybDlRWUFvcUNXWXlrUm5XTWE1M2d2a0E2R0M4aXZILXFfT2xEQzVDMC1CWWxIS2ZZaHRKNTdBQnNOaE5BOWt2V0w4MGhLVVFhc2V60gGIAUFVX3lxTE5SQ3FwTTNpOFoyazEyVDJlMnZ6RFl0bGdraU5XS3FWYXR2ekpiR1VVQ3N6TnJ4SlF2T242QjJsOVFZQW9xQ1dZeWtSbldNYTUzZ3ZrQTZHQzhpdkgtcV9PbERDNUMwLUJZbEhLZllodEo1N0FCc05oTkE5a3ZXTDgwaEtVUWFzZXo?oc=5",
         "image": "",
         "published_at": "2026-11-24"
       },
       {
-        "title": "The best things in open source are built together",
-        "desc": "Introducing Replica and the Open Source Accessibility Framework, new open source projects for collaboration and inclusion. The post The best things in open source are built together appeared first on The GitHub Blog.",
-        "url": "https://github.blog/open-source/maintainers/the-best-things-in-open-source-are-built-together/",
-        "image": "https://github.blog/wp-content/uploads/2026/11/67977d9dac0cf6bc4f8b12cd3a64c4867b87c2f1a9fffa39fc77255b7c0247c3-1920x1080-1.png",
-        "published_at": "2026-11-19"
+        "title": "OccupySaaS ve ArtCraft, yapay zeka ajanlarının yazdığı yazılım kimin?",
+        "desc": "OccupySaaS ve ArtCraft, yapay zeka ajanlarının yazdığı yazılım kimin? Pasquale Pillitteri",
+        "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNVG94elNGTmpOSlVkZjBueEpJbG5TamVPWnYtenJEbkstQW1taXhrZkEyRkNjMHltTEZoUlMwOHZOVW4yczJJQktCQ1NUQks3S0otbHAzNDhmaWZrSnZaUEpUR1poai1rVHNyeFNmV3E1bDZpcndDOUl1dXNvVFJ1c0M4Z25BdFNSWkJSdWhxT0hYMjFkc3RfR2hOTmJoQQ?oc=5",
+        "image": "",
+        "published_at": "2026-11-17"
+      },
+      {
+        "title": "Codex open source mu? Neler serbest, neler kapalı kalıyor",
+        "desc": "Codex open source mu? Neler serbest, neler kapalı kalıyor Pasquale Pillitteri",
+        "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE5NSURpLWxRenVFR2pBM2wyMjJfYVJFcHlxcXBJenBHSEhLM3ZzTzFITU5nTDlIemZvWHE3d2FkMzJBTEtYUzhxbnBPMXpId1RnaktoSGgwSlFqTlNEZW45TTZHOUdEN0R5N0l4YlM3dXJ3UQ?oc=5",
+        "image": "",
+        "published_at": "2026-11-09"
+      },
+      {
+        "title": "macOS Görünümlü Linux Dağıtımları Çoğalıyor: Apple Tasarımı Açık Kaynak Dünyasına Taşınıyor",
+        "desc": "macOS Görünümlü Linux Dağıtımları Çoğalıyor: Apple Tasarımı Açık Kaynak Dünyasına Taşınıyor ÇözümPark",
+        "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNOXYwX1g3bENyMktZLXJEclhlUjhkc0VFaGQwbXNDMHVJQXJuRDdoTVFYNFBpQzRXMlNaVi04NUpJaUVRdURXdDQ2SFMwcmFFU1JLNWRQT3ZGNjk4d3BCNWg2UHhQUkQxQmNZYlJLWkJHV3FCWEZXaS1BdlVyZUp4OU52YmkzQ1N5bU5YcDBuU1QzcE5mR0sza1Njc3RCZjJ6dFFQa0tnbjR0ZEFzbTRWbUQyMldpbDUt?oc=5",
+        "image": "",
+        "published_at": "2026-11-08"
       }
     ],
     "web": [
@@ -82,52 +82,52 @@
         "published_at": "2026-11-23"
       },
       {
-        "title": "Siemens. NET Client Library for SIMATIC S7 Webserver API",
-        "desc": "View CSAF Summary. NET Client Library for SIMATIC S7 Webserver API contains multiple vulnerabilities that could allow an attacker to obtain sensitive information or write arbitrary files outside the intended download directory. Siemens has released a new version for. NET Client.",
-        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-321-02",
+        "title": "X yeniden yazdığı web uygulamasını duyurdu, ilk gönderi 22 yerine 2,7 saniyede geliyor",
+        "desc": "X yeniden yazdığı web uygulamasını duyurdu, ilk gönderi 22 yerine 2,7 saniyede geliyor Pasquale Pillitteri",
+        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPV1dFR0NreFJWaTFobmZmb2ZENUVlNjlBQVVaSzZpampLQVhyNC1qejBkdjNidl95UXNnNmJPV3Y4LXdxM080Z0hZX2RxMDhFelZoWUtqeU8wVFZWckp6WmRQcW96eEpyUUMxRXp4ZHNPX2hXeDRtUWQ4SXNYb2FYbV9NSVRxdVl1SlB4UlF0WlhBN05LWVZUTFQtM21qdC1o?oc=5",
         "image": "",
-        "published_at": "2026-11-17"
+        "published_at": "2026-11-13"
       },
       {
-        "title": "Siemens Mendix Studio Pro",
-        "desc": "View CSAF Summary Mendix Studio Pro contains multiple vulnerabilities in the MCP Server, that could allow an attacker with network access to interact with the server remotely or trick a user's browser into sending unauthorized requests, potentially leading to unauthorized data.",
-        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-321-05",
+        "title": "Microsoft, Windows Server’da Chrome ve Edge Erişim Sorununu Giderdi",
+        "desc": "Microsoft, Windows Server’da Chrome ve Edge Erişim Sorununu Giderdi ÇözümPark",
+        "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNaWVYa0VYR2xLbktjMkV0OXFkWXlqdE5yTVNaUUdabDdUaE9YSDJwZzRKcTFPaDlQTUJjMEE0YU1FNmhsVzZGQWg4WGZZVUNDbi1aM1pnZGhTY1d0ei1UTjFmbGU2MTlOeUpkMno0QVRUcEVtZlplNDdkS1p1cW5sdDB3bnE0bHE2V1h1T1ozeE1EaVBxSF9v?oc=5",
         "image": "",
-        "published_at": "2026-11-17"
+        "published_at": "2026-11-13"
       },
       {
-        "title": "Watermelon Merge, a Suika-style browser game",
-        "desc": "Article URL: https://watermelonmerge.com/ Comments URL: https://news.ycombinator.com/item?id=50628479 Points: 1 # Comments: 0",
-        "url": "https://watermelonmerge.com/",
-        "image": "https://watermelonmerge.com/assets/seo/social-preview.png",
+        "title": "Intentful, büyüme için daha fazla zaman yaratmak amacıyla noktaları nasıl kullanıyor?",
+        "desc": "Marina Petrova'nın dot Aria'sı, mesajları proaktif olarak işaretleyip sorunları çözerken web sitelerinin araştırılmasına ve tekliflerin oluşturulmasına yardımcı oluyor.",
+        "url": "https://openai.com/business/customer-stories/intentful-dots",
+        "image": "https://images.ctfassets.net/kftzwdyauwt9/2DH2aby1xmlzvADCraI7Xi/bbe8b8956578492f2c3fd7326ecbd9e1/intentful-dots-social-c.png?w=1600&h=900&fit=fill",
         "published_at": "2026-11-24"
       }
     ],
     "sec": [
       {
-        "title": "Siemens Desigo, Gridscale",
-        "desc": "View CSAF Summary On October 21, 2026, the Node. js project released security updates addressing a critical vulnerability in the Brotli decoder bundled with Node. js, commonly referred to as \"Node2Shell\" (tracked as CVE-2026-111497). The vulnerability is an out-of-bounds write.",
-        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-316-02",
-        "image": "",
-        "published_at": "2026-11-12"
-      },
-      {
-        "title": "Siemens Industrial Software Products",
-        "desc": "View CSAF Summary On October 21, 2026, the Node. js project released security updates addressing a critical vulnerability in the Brotli decoder bundled with Node. js, commonly referred to as \"Node2Shell\" (tracked as CVE-2026-111497). The vulnerability is an out-of-bounds write.",
-        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-321-04",
+        "title": "Siemens Endüstriyel Otomasyon Yazılım Ürünleri",
+        "desc": "CSAF Özetini Görüntüle 21 Ekim 2026 tarihinde Node.js projesi, Node.js ile birlikte gelen Brotli kod çözücüsünde bulunan ve genellikle \"Node2Shell\" olarak adlandırılan (CVE-2026-111497 olarak izlenen) kritik bir güvenlik açığını ele alan güvenlik güncellemelerini yayımlamıştır.",
+        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-321-03",
         "image": "",
         "published_at": "2026-11-17"
       },
       {
+        "title": "Danfoss AK-SM 8xxA Series",
+        "desc": "CSAF Özetini Görüntüle Bu güvenlik açığından başarılı bir şekilde yararlanılması, saldırganın web sunucusu ayrıcalıklarıyla keyfi kod yürütmesine olanak sağlayabilir. Danfoss AK-SM 8xxA Serisinin aşağıdaki sürümleri etkilenmektedir: AK-SM8xxA <=5.4.0 (CVE-2026-129713) CVSS Satıcı.",
+        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-328-03",
+        "image": "",
+        "published_at": "2026-11-24"
+      },
+      {
         "title": "libumqtt",
-        "desc": "View CSAF Summary Successful exploitation of this vulnerability could allow a remote attacker to cause a denial of service, memory corruption, or information disclosure. The following versions of libumqtt are affected: libumqtt <=1. 1. 1 (CVE-2026-125132) CVSS Vendor Equipment.",
+        "desc": "View CSAF Summary Successful exploitation of this vulnerability could allow a remote attacker to cause a denial of service, memory corruption, or information disclosure. The following versions of libumqtt are affected: libumqtt <=1.1.1 (CVE-2026-125132) CVSS Vendor Equipment v3.",
         "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-323-03",
         "image": "",
         "published_at": "2026-11-19"
       },
       {
         "title": "Siemens SIMATIC WinCC",
-        "desc": "View CSAF Summary Graphics Designer of SIMATIC WinCC before V8. 2 contains an implicit active content execution vulnerability upon opening files, which could allow an attacker to cause arbitrary code execution on the device. Siemens is preparing fixes and recommends specific.",
+        "desc": "CSAF Özetini Görüntüle V8.2 öncesi SIMATIC WinCC'nin Graphics Designer bileşeni, dosyalar açıldığında örtük bir etkin içerik yürütme güvenlik açığı içerir; bu da bir saldırganın cihazda keyfi kod yürütmesine neden olmasını sağlayabilir. Siemens, düzeltmeler hazırlamakta ve.",
         "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-321-09",
         "image": "",
         "published_at": "2026-11-17"

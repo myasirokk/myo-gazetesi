@@ -1,6 +1,12 @@
 {
-  "updated_at": "2026-11-24T17:18:57+03:00",
+  "updated_at": "2026-11-25T11:32:56+03:00",
   "editions": [
+    {
+      "date_key": "2026-11-25",
+      "date": "25 Kasım 2026, Çarşamba",
+      "issue": 15,
+      "file": "data/archive/eksim_2026-11-25.json"
+    },
     {
       "date_key": "2026-11-24",
       "date": "24 Kasım 2026, Salı",
@@ -42,12 +48,6 @@
       "date": "18 Kasım 2026, Çarşamba",
       "issue": 8,
       "file": "data/archive/eksim_2026-11-18.json"
-    },
-    {
-      "date_key": "2026-11-17",
-      "date": "17 Kasım 2026, Salı",
-      "issue": 7,
-      "file": "data/archive/eksim_2026-11-17.json"
     }
   ]
 }

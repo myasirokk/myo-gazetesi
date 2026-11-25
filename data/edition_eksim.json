@@ -1,11 +1,11 @@
 {
-  "issue": 14,
-  "date": "24 Kasım 2026, Salı",
-  "date_key": "2026-11-24",
-  "quote": "\"Ortak vizyon, farklı yetkinlikleri güçlü bir gelecekte buluşturur.\"",
+  "issue": 15,
+  "date": "25 Kasım 2026, Çarşamba",
+  "date_key": "2026-11-25",
+  "quote": "\"Sürdürülebilir büyüme, bugünün başarısını yarının sorumluluğuyla birleştirir.\"",
   "lead": {
-    "title": "Forbes Kasım Sayısı Eksim Holding Yönetim Kurulu Başkanı Ebubekir Tivnikli Kapağı İle Yayınlandı 06 Kas 2026",
-    "deck": "Eksim Holding bünyesindeki bu gelişme kurumsal kanallardan paylaşıldı.",
+    "title": "Dicle Elektrik'ten Dijital Dönüşüme 12 Milyar Liralık Yatırım",
+    "deck": "Dicle Elektrik'ten Dijital Dönüşüme 12 Milyar Liralık Yatırım Afyon Postası",
     "body": "Eksim Holding ve grup şirketleri; enerji, elektrik dağıtımı, gıda ve girişimcilik alanlarındaki faaliyetlerini sürdürülebilir büyüme ve toplumsal fayda anlayışıyla yürütüyor.\n\nBu baskı kurumsal kanallar ile güncel Türkçe basın kaynaklarını önem ve güncellik puanıyla sıralar."
   },
   "editorial": {
@@ -13,24 +13,24 @@
     "body": "Eksim Holding ve grup şirketlerinin farklı sektörlerdeki yetkinliği; güven, yenilikçilik ve sorumlu büyüme yaklaşımıyla ortak bir kurumsal vizyonda buluşuyor."
   },
   "fact": {
-    "title": "Dağıtım Şebekesi",
-    "body": "Elektriği iletim sisteminden alıp tüketicilere güvenli, sürekli ve kaliteli biçimde ulaştıran altyapı bütünüdür."
+    "title": "Yenilenebilir Üretim",
+    "body": "Rüzgâr, güneş ve su gibi doğal olarak yenilenen kaynaklardan düşük karbonlu elektrik üretimidir."
   },
   "news": {
     "holding": [
-      {
-        "title": "Forbes Kasım Sayısı Eksim Holding Yönetim Kurulu Başkanı Ebubekir Tivnikli Kapağı İle Yayınlandı 06 Kas 2026",
-        "desc": "Eksim Holding bünyesindeki bu gelişme kurumsal kanallardan paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/forbes-kasim-sayisi-eksim-holding-yonetim-kurulu-baskani-ebubekir-tivnikli-kapagi-ile-yayinlandi",
-        "image": "",
-        "published_at": "2026-11-06"
-      },
       {
         "title": "Eksim Holding elektrik dağıtımının ötesinde yeni büyüme alanları arıyor",
         "desc": "Eksim Holding elektrik dağıtımının ötesinde yeni büyüme alanları arıyor Forbes Türkiye",
         "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQU2hDTUNaMzFoaUFYeEEzckROcUlSVEhpa0FHWm8yYzRRZWw2OENpWDBtLWR6QkZnSlBRbXBNamlWSG1zY0t5NVJaZU9TcmhuUXAtQUNQQmV6bVhwcjZpSUZKRktVQ3JleVFXTWowWVdWejROWFo0Y1h5RmVoemtfYjJ3cmYwRWlOZURVSkkwbjFDdTA0Q2xTZndGalM0UnFvSG5ORjln?oc=5",
         "image": "",
         "published_at": "2026-11-04"
+      },
+      {
+        "title": "Forbes Kasım Sayısı Eksim Holding Yönetim Kurulu Başkanı Ebubekir Tivnikli Kapağı İle Yayınlandı 06 Kas 2026",
+        "desc": "Eksim Holding bünyesindeki bu gelişme kurumsal kanallardan paylaşıldı.",
+        "url": "https://eksim.com.tr/medya-merkezi/haberler/forbes-kasim-sayisi-eksim-holding-yonetim-kurulu-baskani-ebubekir-tivnikli-kapagi-ile-yayinlandi",
+        "image": "",
+        "published_at": "2026-11-06"
       },
       {
         "title": "Eksim Holding ile Özbekistan Cumhurbaşkanı Şavkat Mirziyoyev Görüşmesinde Yatırımlar Değerlendirildi",
@@ -49,49 +49,35 @@
     ],
     "dicle": [
       {
+        "title": "Dicle Elektrik'ten Dijital Dönüşüme 12 Milyar Liralık Yatırım",
+        "desc": "Dicle Elektrik'ten Dijital Dönüşüme 12 Milyar Liralık Yatırım Afyon Postası",
+        "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQRjN0WnE2UFlNNXFrYXd5eHRfWXMtall5MEVwS3JlNTM5dlpVVTlBZG9ZLWs5Q3RqVnZyZ2NINWZzdW9KNzZ4R09oN3BUczV1UE5qR3ZFdTlYNWw5RmN6WENaWlNzcHJyMTJCXzFYYWxObThqMG1pNXJkRjdYUE9WUXktS1lvRnkxdkJkT1NhREZ6YnVOVmlr?oc=5",
+        "image": "",
+        "published_at": "2026-11-11"
+      },
+      {
+        "title": "Diyarbakır’da 750 milyonluk enerji yatırımında sona gelindi",
+        "desc": "Diyarbakır’da 750 milyonluk enerji yatırımında sona gelindi Amida Haber",
+        "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNMHlyajU0UzFQSl9ZWHl6ZDdTajJIZWs3M1FHQkhQQkVJMkxKUGpqOTY3bjE5bGt1ck8zWXhuT09OdW9SbkVXTjlwQnFDclo2UDByV1Y4RUQzR3VVdkFXRUFINHA0VUdtWnVuZ0dIMWdvRHdlemZ5Vk84eTVJajUwYklaNFRmc041OXpmZHdzaXI3ZFpsSnZtUjJJUk9oUlhRZ1E?oc=5",
+        "image": "",
+        "published_at": "2026-11-25"
+      },
+      {
+        "title": "Elektrik’ten 12 Milyarlık Teknoloji Hamlesi",
+        "desc": "Elektrik’ten 12 Milyarlık Teknoloji Hamlesi Akdeniz Gazetesi",
+        "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9McndFQmxlS2xMXzFWTEVLeUptMWoxVURuWXBYZG1zX18xS19NRm93RWo2Vjl0R2JpaTd2OVBianpDLWpwQTUwbUN3MHVlQ2dmNDRqdzNaaFA1eFNXQnRSN25NRUFCR1BQQnFuYUVxM0JZZHVSVVBwS1lkOU92ME0?oc=5",
+        "image": "",
+        "published_at": "2026-11-12"
+      },
+      {
         "title": "Dicle Elektrik'ten 13 yılda enerji altyapısına 85 milyar liralık yatırım",
         "desc": "Dicle Elektrik'ten 13 yılda enerji altyapısına 85 milyar liralık yatırım Anadolu Ajansı",
         "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQa2Z2enRjZjdJN25SeFBLV2RyTXhKdTVzYWdzUnlXc2g5bjZ6VWtuRUxDX1lpTmp4OWlEM3R3MlpScW1uTTBLbXpZajVjeDZzWDQyRURjUUZPYTY2Y0ZRQThSbVRaZW9ldHRqaFE5RE1SeDJQSzRMWHhiYWVxbGJTcGh3a2tfejlmbGtsNzBTdWg2RWNNYk9qX2xVZ0ZYWTVCcTBabVN1d3pwdnBxbGE4WURfdEZRMzIwN0k5WUtFRTVia0J0ck1BdVhhVUExVUVG0gHYAUFVX3lxTE5nX1FEdmlpWnBqVlFaLWV4b1hSZlUzR2hlMV9yMHVsbDBCeUJkbHhKcXVNM1o3TXZRYXJ2ZTRlZXVXZE9iOWlhMHQ1Z2pIVnhVSlJXODZXVmEzRVdSMktUa3Y5M19KOFNrWkZVV1YzR3hqR0E3N0NXYzJtaDZibGNvUWkzU29JVmxWcHlZUmtQQ3A1T3Nkd3U3eE1vSmpXb1lHSjc0OURMeTdvTWJTQ1FFTmlveEpOWlZkY241NUoxbmVmZTBYRHhVSWdsM2p4R1FsRlRMa3RDVA?oc=5",
         "image": "",
         "published_at": "2026-10-08"
-      },
-      {
-        "title": "Dicle Elektrik, Şanlıurfa'da LED aydınlatma için 102,5 milyon lira yatırım yaptı",
-        "desc": "Dicle Elektrik, Şanlıurfa'da LED aydınlatma için 102,5 milyon lira yatırım yaptı Anadolu Ajansı",
-        "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNcDgtaTdzc2RDSTFwaHYyTFFFSW5RcTJaTHVmZmJPb2ZCUG9XdGM2dWpoeUhHWnA5YURMTlhMS0dJdFFOR2V0MFVLTVRZcUduMUl0cUUzd3pkR3J2OFNpaTVIcnFGZDlzYkx6ZmNlTG5hUHBPeVp6WkFmMGxzeGVyVlBMWlB3amJ0OHE4bzZUeFMzQWRBWk12dS1WdXowa21qMDdjWFlGYWhKYXk3LXNmNkdrVlUyMy1wYkc5V0M3X2NfcGxsWjVVMXY2N0ZxUGfSAdcBQVVfeXFMUEFrcTFXRFEySW1CQWZrckttWXE1c0RDYnVqbGhsWEVkVDk0T09DeTVLRjl5a1VGbzAyT2Jsa2xnd3ROcFpOZEd0WGFQMlk1MDFjc0hwcnpmdEpDRXBzYW4yR1Y5ZFphS2FLZkRWVmwtQklzZUF1Vm5xcXdvLWpRM1J3bjRIdEZ2SXRubjVDLUdlczdwc3VNVFptNEFwMUFWVzRFMmNJNzU4Z0xzRDFaT1RLbFE1a1hLbXNkUGNKSWZybzJfbXc3RS1Yd2xaUWNXY1ZaSmN3STQ?oc=5",
-        "image": "",
-        "published_at": "2026-10-26"
-      },
-      {
-        "title": "Sur'da bakım çalışması yapan Dicle Elektrik ekibine saldırı: Ölümle tehdit ettiler",
-        "desc": "Sur'da bakım çalışması yapan Dicle Elektrik ekibine saldırı: Ölümle tehdit ettiler Diyarbakir.Net",
-        "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNRlE1eWlPaFRvNFlkSjA0OW5uSTJpdk9HYXk0ZkppSU5BTjQwbWxDTmFyNm9PN2NMakRQcHZIa3k2eFBQOVpNWW9iZ2xWazdrQjFjeXRZNVFYa2VsTngyTDZ0em1SQXl0UjdwV3lQVFFmUWQ3S2FTYmpQaFpRci1GU19EcHRER29IRDdxWi1XcTktY2hhdWJtaGNxMDExYUxhQjFReE5STXBTWTlTWDNEeVdMQTI1R0QySXhZazhjSURudWVlRi13Tk5lRVk?oc=5",
-        "image": "",
-        "published_at": "2026-11-23"
-      },
-      {
-        "title": "Elektrik ekibini denetçi sandı, saldırdı!",
-        "desc": "Elektrik ekibini denetçi sandı, saldırdı! Manşet Haber",
-        "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1fTkFmNmtGX3ZhLVUwc2pjUWk1QmpFTlhtZFdvSWdxOXZmeHNRelNoUE9OWkN2cGRRbFoxM0JzMEN6VHJCZ1o3ek9MUWo3RHU4YldEVjh2eHJzdkRBNFh0bDJSYjdmNGdNcGFhSHVnazZPNWpNd0U5QmJ3?oc=5",
-        "image": "",
-        "published_at": "2026-11-23"
       }
     ],
     "enerji": [
-      {
-        "title": "İhale Dergisi | İhale Haberleri | İhale Sonuçları | İhale Bülteni",
-        "desc": "İhale Dergisi | İhale Haberleri | İhale Sonuçları | İhale Bülteni Yatırımlar Dergisi",
-        "url": "https://news.google.com/rss/articles/CBMioAJBVV95cUxNM3lzVHN2V2ZQZkljejBuTVF3TndsUlh2WnZ1SXdGbWl6U1FPd0UwbTlJU0c0Z2ozZGNKQ2ZWcy15RG9IN19fdnM1aWlYWWRfSkxKcFg3TFM3cmt5SUt3dVlqWGh0UWxDbjhPMlpIM0FkZjJLeFV5SUpPYnd2SzlHNjZwdGc5a0JncGRGc2tYemtWNlpKakdaYzdGUzQxb3FmOW1MR1AtUVkxOG9aMkFScnBJZHgtT1lTTndkaC16ZjNfOExHYU1weGFxMGwxMk9sMkNMWDVEUDNGR1EtNUZzaHpvUjhOd1lCSXRzT0k3X2VURjdzMFBLUnJ4UVdXOTdpZ2xtZElFOW5uY0Y5SlFfclprRGtrUFFCa2phMXBUZ3Y?oc=5",
-        "image": "",
-        "published_at": "2026-11-11"
-      },
-      {
-        "title": "Eksim Holding ile Özbekistan Cumhurbaşkanı Şavkat Mirziyoyev Görüşmesinde Yatırımlar Değerlendirildi",
-        "desc": "Eksim Holding ile Özbekistan Cumhurbaşkanı Şavkat Mirziyoyev Görüşmesinde Yatırımlar Değerlendirildi Yatırımlar Dergisi",
-        "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQdGlvU1d6LWdHVXp2TndkdGVNRW1HWE9ud0JUNVVxVGY1cVpPMFZHVl9MbjhDTXIzN1kwNW5FTmZ2NjJuWkw3SlRJaEVRY25lcml0aEh3VmU2S09tSGlXQlFkbFlvazZ6WnVrVlRNU0loSGtQbnNCbTFnaXpZcHB6N1NaMWhNbDhsdG1ycVZxOUE2TXh6S3dJc1h2WWgyX1c5TFBCYkFLelpzcF9QN2xhSmg5NF9pd1R5OVo0MWdJNGU5UTRQSkxtQXRwbk5ZNDVnS2c?oc=5",
-        "image": "",
-        "published_at": "2026-10-30"
-      },
       {
         "title": "Eksim Enerji Üst Yöneticisi Akbay'dan enerji dönüşümünde bütüncül yaklaşım çağrısı",
         "desc": "Eksim Enerji Üst Yöneticisi Akbay'dan enerji dönüşümünde bütüncül yaklaşım çağrısı Anadolu Ajansı",
@@ -105,36 +91,50 @@
         "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNamFZSE1qOTBvZTJxY0tvOEhidUVkQmpMYUVibS1XRnNUM25ZdjFyaDV3dk9hOWVMSWR2Q3cwYWlELUlUWUU1VDBWRzhtelRJVklVMnp4VU01aURPU0t3UWFUNzlNdHRYaHZGdkoxRC1QRlFhdElBVXo2SV9IRF9QMzBOX2tmQzJWeEtXdS1DaFZLQVk3OFE3SWVCRU9SY04wSEpUQk9oTjdPLTNpZFE2MVp3Y1VlTUN2S3NB?oc=5",
         "image": "",
         "published_at": "2026-11-11"
+      },
+      {
+        "title": "Rüzgarda devler yarıştı... İzmir'e milyarlık yatırımın önü açıldı",
+        "desc": "Rüzgarda devler yarıştı... İzmir'e milyarlık yatırımın önü açıldı Tek Referans",
+        "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE4taVpJd1BneFdIQnFMYk9SbzhmOERWR0VCQzB3cUk1NXV3b09adk5UdUl3N1ZUMFdNZjlSTWZvd3ZCVDhlNmoxOXZ1THhKSHlZcU9kNkt4ckZsOXJQYWR3QTlXNA?oc=5",
+        "image": "",
+        "published_at": "2025-12-09"
+      },
+      {
+        "title": "Eksim Enerji'den 3. Uçurtma Festivali",
+        "desc": "Eksim Enerji'den 3. Uçurtma Festivali Enerji Günlüğü",
+        "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNWUFuRnVReVZzNVR6V0pPWXVrSDAxMkdYQU5aZm43VzczN2IxZEtUVEdZem1SX1VCaDNHWGUwTjEtTEFUUEZ6SF8xbkVuM0d6SzhxcEJ0YVRXalhVOTdJOFBtU2sxcHN4d3FFU3ptZ2R1ODBQdUVDQzhldTBJM2hiOEx3OTdtZEY3Znkzd3pXMEptS3p2cVk5N0JZdEzSAawBQVVfeXFMTm1ZN0lKbE5oMTdHZEsySDNObGRqTS1pSkhDTmt1Z3lqTThpdHlDZXFGNnB1OG02c3diSDNUVFg4NnRaWHc3a2dZYmtfak9aV3VPdkY2M2ZCcDVNS1dFSVVFbzRTaXZxZ3R1M3Z3ZENBR1ZpZkZOVnBYWmxQRzJlX2hBYzBNcGNLcjhwZlI4LXByd1lpa3p5Q2daYW0xYmdNcGc4Q1NyYXJNcWlsZg?oc=5",
+        "image": "",
+        "published_at": "2026-10-26"
       }
     ],
     "grup": [
       {
-        "title": "Eksim Holding'in elektrik dağıtımında toplam yatırımı 30 milyar TL'yi aştı",
-        "desc": "Eksim Holding'in elektrik dağıtımında toplam yatırımı 30 milyar TL'yi aştı platinonline.com",
-        "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOSnk3WEk3dDJoVjBtdFNFcWs5bXF3Mkp1dzFCdEpoejlsMk40M0RDdWlGMU1VSTBPeFAwb0lKSjZTWE9Jd0lVQ0hMeVhOVkRfSlNTdi1KblNjQXBOMUVYUHpQODZoX1dyc28zYUFHNGo4c2tESDlBcDV6TktVTFRINGdrU0pmSG1HUm9xOHdsdDNfSC1BdXVaM3JuSlFWOEVCaUNJTkhqTG5adDRSdWtFWjdRbVJYZE16X3NB?oc=5",
+        "title": "Eksun Gıda ilk 9 ayda brüt kârını 1,25 milyar TL’ye çıkardı",
+        "desc": "Eksun Gıda ilk 9 ayda brüt kârını 1,25 milyar TL’ye çıkardı Ekonomist",
+        "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPTGo4VnNWYjdDQkZIb2VNeUh3N00xcmJMa3Y5allnWTRaMm9WenNCdkxHMGwwTWpLWGR1MFMxbHlUb2hKcklvbk9sVnpvZUFscUNWMFlxeFJoUWp3akFDdUhydXZxN3FjbHVFaEV3RkV1NEVmS0g4c05RaEhGd0hyNEU1cGxQUDNSeFptbzZpTmxuNHVBbUxUdXA2a2J4M1E?oc=5",
         "image": "",
-        "published_at": "2024-01-16"
+        "published_at": "2026-11-11"
       },
       {
-        "title": "Eksim Holding 40. yılını özel davetle kutladı",
-        "desc": "Eksim Holding 40. yılını özel davetle kutladı Ekonomim",
-        "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOa2hjalhxXzlrWTdrdFc0SGVMcDRqUG9aemRpeF90SXMyUmdXbzM5eVc4dFBmMDJldWw2VXJJYUF0enRjb0xkX3hQaVlHajBaSVNoMjRUSWdseWw4ZEFlOGkxVDE0OUEzeWFUZ1NaSi1WQW9zVVlmUmIwSzhGZzdNR3ZGSzhVVHQ0UEs5N0UzOWJyaFRxa25QZg?oc=5",
+        "title": "Eksun Gıda, yılın ilk dokuz ayında brüt kârını 1,25 milyar TL’ye yükseltti",
+        "desc": "Eksun Gıda, yılın ilk dokuz ayında brüt kârını 1,25 milyar TL’ye yükseltti Para Analiz",
+        "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQclRKZUJEVkNfN1dpNEJZYS1odTFkRDZ1WTY4YVpZS0tiWEp5UUYzR0Q4VFBkY3JaWVVsQkJfMElpU19xbWdMT1VfcFQwR2xzeGI5dG1QQVhDWExMWGtELU9LZHVycElSZE93ZXZ6MFlmTUZYZ0ZpclZlNm9LRWdGWWFoNC1RZlhGNDBwNlNrYVZ5ampDTm0zSDdrSHN2dEZVR1BuVlQ0bXc?oc=5",
         "image": "",
-        "published_at": "2026-10-16"
+        "published_at": "2026-11-10"
       },
       {
-        "title": "Eksim her şirketi için ayrı iletişim stratejisi açıkladı",
-        "desc": "Eksim her şirketi için ayrı iletişim stratejisi açıkladı Forbes Türkiye",
-        "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOQ0NMUGIzQ29wdXZsZXVkd2M0Y0NCX3hkaXZUdl9fbThCY0ZVcV95MjhsYjJTdElUeEkzbkhLODFKRDBZQ2l2LVFkWnE1bjdrcVRWUkNpOEVPcWVCcUhtd1NUY1hVT1UwRTFkallna01CUUtvVElXLXc2bzBLVWZwa2FYaHkyNmRBbEl0bUQ1TmxWYmZhU2c?oc=5",
+        "title": "Eksun Gıdadan ilk dokuz ayda güçlü performans İhlas Haber Ajansı",
+        "desc": "Eksun Gıdadan ilk dokuz ayda güçlü performans İhlas Haber Ajansı İhlas Haber Ajansı",
+        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNTWFEMUxINTNVOXNXOWxoNmlBXzV0dXpuNnFlN0VidmJKbU9mc1FuMzNGZTRkY3VRTmF0cEJDeWRhMkt3QXBYbTM2cXVlRHRpbGU3SXphTWJjanR6MEZpUXdURFdFOEFzOFNzNVV6RERQZDhtbWwxYkRGNnpNSGpjQkozX1V1SlFabVdYdE5wQlp1ZXBuSEQ2RmpfZFdTeU1U?oc=5",
         "image": "",
-        "published_at": "2026-07-09"
+        "published_at": "2026-11-10"
       },
       {
-        "title": "Eksim Ventures’tan Akıllı ve Güvenli Şehirler İçin Güçlü Yatırım 24 Eyl 2025",
-        "desc": "Grup Şirketleri & Basında bünyesindeki bu gelişme kurumsal kanallardan paylaşıldı.",
-        "url": "https://eksim.com.tr/medya-merkezi/haberler/eksim-ventures-tan-akilli-ve-guvenli-sehirler-icin-guclu-yatirim",
+        "title": "Eksun Gıdadan ilk dokuz ayda güçlü performans - Ekonomi - Adana Haber",
+        "desc": "Eksun Gıdadan ilk dokuz ayda güçlü performans - Ekonomi - Adana Haber Adana Masası",
+        "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPTi1vMDdoTUtZTkgyeWhlNjFZbzY1QjBxYTlVenNPZ1dmZW5kY3JQeldTUHphQVZOUm9IS25jLWRScGxET0RrYzAzYXV2RG5aVDVqWXgxX0M5SUg2dlFadW43Q09paDhSeTgyLVQ2ZFhBVElDQ1JCWXN3Q185UG1vcHJFblNwazdh?oc=5",
         "image": "",
-        "published_at": "2025-09-24"
+        "published_at": "2026-11-10"
       }
     ]
   },
