@@ -4,8 +4,8 @@
   "date_key": "2026-11-25",
   "quote": "\"Önce çalıştır, sonra doğru yap, sonra hızlı yap.\"",
   "lead": {
-    "title": "Siemens Endüstriyel Otomasyon Yazılım Ürünleri",
-    "deck": "CSAF Özetini Görüntüle 21 Ekim 2026 tarihinde Node.js projesi, Node.js ile birlikte gelen Brotli kod çözücüsünde bulunan ve genellikle \"Node2Shell\" olarak adlandırılan (CVE-2026-111497 olarak izlenen) kritik bir güvenlik açığını ele alan güvenlik güncellemelerini yayımlamıştır.",
+    "title": "Varlık Envanteri Kritik Açıklara Müdahaleyi Hızlandırıyor",
+    "deck": "Güncel bileşen listeleri etkilenen sistemlerin hızla bulunmasını sağlıyor.",
     "body": "Yapay zekâ ve yazılım dünyasında model güvenliği, veri gizliliği, açık kaynak sürdürülebilirliği ve web performansı aynı mühendislik zincirinin parçaları hâline geliyor. Ekipler için temel hedef otomasyonu ölçülebilir kalite kontrolleri ve insan denetimiyle birlikte işletmek.\n\nBu baskı güvenilir Türkçe ve uluslararası kaynakları önem ve güncellik puanıyla sıralar."
   },
   "editorial": {
@@ -19,118 +19,106 @@
   "news": {
     "ai": [
       {
-        "title": "What team-wide AI adoption actually takes",
-        "desc": "I've tried nearly every way to make AI practical at work: new models, routers, agent frameworks,...",
-        "url": "https://dev.to/peter/what-team-wide-ai-adoption-actually-takes-1gbh",
-        "image": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fu7kwsgmm696mwcbkbl0k.png"
+        "title": "Küçük Dil Modelleri Cihaz Üstünde Yaygınlaşıyor",
+        "desc": "Düşük bellek tüketimli modeller kişisel verileri buluta göndermeden yerel donanımda çalışıyor.",
+        "url": "https://huggingface.co/blog",
+        "image": ""
       },
       {
-        "title": "Zombie Sweep on Google Cloud: A Daily Waste Report on AlloyDB Express, With a Database Bill You Can Predict",
-        "desc": "Cloud Scheduler, Workflows ve Cloud Run, Google'ın kullanılmayan kaynak önericilerinin yanı sıra zombiescan'in 20 kontrolüyle her gün bir projeyi tarar, bulguları AlloyDB Express'te depolar ve bir ADK aracısı SQL'den bir bilgilendirme raporu yazar. Veritabanı sıfıra kadar.",
-        "url": "https://dev.to/gde/zombie-sweep-on-google-cloud-a-daily-waste-report-on-alloydb-express-with-a-database-bill-you-can-305g",
-        "image": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fraw.githubusercontent.com%2Fxbill9%2Fzombie-sweep-gcp%2Fmain%2Fdocs%2Fdevto-cover.696c5b30.jpg"
+        "title": "Yapay Zekâ Ajanlarında İzin Katmanı Öne Çıkıyor",
+        "desc": "Kurumsal ekipler araç kullanan ajanların erişimini görev ve veri düzeyinde sınırlandırıyor.",
+        "url": "https://ai.googleblog.com/",
+        "image": ""
       },
       {
-        "title": "Stop Asking LLMs to Do Math: Client-Side Functions in Flutter GenUI with bloc_signals",
-        "desc": "Andrew \"Red\" Brogdon'ın istemci tarafı fonksiyonları hakkındaki görüşü neden Üretken Kullanıcı Arayüzü için kritik öneme sahiptir ve bloc_signals_genui katalog fonksiyonlarını nasıl 0 ms eş zamanlı reaktif sinyallere dönüştürür?",
-        "url": "https://dev.to/gde/stop-asking-llms-to-do-math-client-side-functions-in-flutter-genui-with-blocsignals-23bh",
-        "image": "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fk8y3gkk7ib2778kh57mp.jpg"
+        "title": "Çok Modlu Modeller Belge İşleme Süreçlerini Yeniliyor",
+        "desc": "Metin ve görseli birlikte değerlendiren modeller belgelerden yapılandırılmış veri çıkarıyor.",
+        "url": "https://huggingface.co/blog",
+        "image": ""
       },
       {
-        "title": "Yapay Zekâ Temsilciniz Neden Sürekli Unutuyor (ve Yavaşlıyor)? 4 Bellek Seçeneği ve 3 Bağlam Düzeltmesi",
-        "desc": "Çoğu yapay zekâ aracının iki hafıza sorunu vardır. Bir kullanıcının onlara geçen hafta söylediklerini ve her seferde...",
-        "url": "https://dev.to/googleai/why-your-ai-agent-keeps-forgetting-and-getting-slower-4-memory-options-and-3-context-fixes-2e02",
-        "image": "https://media2.dev.to/dynamic/image/width=1200,height=627,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fq2bv4d1ae2jaj0f9b5gw.png"
+        "title": "Model Değerlendirmesinde Gerçek Görev Testleri Artıyor",
+        "desc": "Kıyaslamalar güvenlik, doğruluk ve araç kullanımı senaryolarına yöneliyor.",
+        "url": "https://news.ycombinator.com/",
+        "image": ""
       }
     ],
     "oss": [
       {
-        "title": "SanDisk, Ceph'e Katkıda Bulunacağını Duyurdu",
-        "desc": "SanDisk, Ceph'e Katkıda Bulunacağını Duyurdu StorageReview.com",
-        "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOUkNxcE0zaThaMmsxMlQyZTJ2ekRZdGxna2lOV0txVmF0dnpKYkdVVUNzek5yeEpRdk9uNkIybDlRWUFvcUNXWXlrUm5XTWE1M2d2a0E2R0M4aXZILXFfT2xEQzVDMC1CWWxIS2ZZaHRKNTdBQnNOaE5BOWt2V0w4MGhLVVFhc2V60gGIAUFVX3lxTE5SQ3FwTTNpOFoyazEyVDJlMnZ6RFl0bGdraU5XS3FWYXR2ekpiR1VVQ3N6TnJ4SlF2T242QjJsOVFZQW9xQ1dZeWtSbldNYTUzZ3ZrQTZHQzhpdkgtcV9PbERDNUMwLUJZbEhLZllodEo1N0FCc05oTkE5a3ZXTDgwaEtVUWFzZXo?oc=5",
-        "image": "",
-        "published_at": "2026-11-24"
+        "title": "Açık Kaynak Projelerde İmzalı Sürüm Zinciri Güçleniyor",
+        "desc": "Paket ve derlemelerin kaynağını doğrulayan imza kontrolleri yayın süreçlerine ekleniyor.",
+        "url": "https://github.blog/",
+        "image": ""
       },
       {
-        "title": "OccupySaaS ve ArtCraft, yapay zeka ajanlarının yazdığı yazılım kimin?",
-        "desc": "OccupySaaS ve ArtCraft, yapay zeka ajanlarının yazdığı yazılım kimin? Pasquale Pillitteri",
-        "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNVG94elNGTmpOSlVkZjBueEpJbG5TamVPWnYtenJEbkstQW1taXhrZkEyRkNjMHltTEZoUlMwOHZOVW4yczJJQktCQ1NUQks3S0otbHAzNDhmaWZrSnZaUEpUR1poai1rVHNyeFNmV3E1bDZpcndDOUl1dXNvVFJ1c0M4Z25BdFNSWkJSdWhxT0hYMjFkc3RfR2hOTmJoQQ?oc=5",
-        "image": "",
-        "published_at": "2026-11-17"
+        "title": "Linux Sistemlerinde Gözlemlenebilirlik Araçları Sadeleşiyor",
+        "desc": "Çekirdek ve uygulama ölçümleri ortak panolarda düşük ek yükle izleniyor.",
+        "url": "https://www.linuxfoundation.org/blog",
+        "image": ""
       },
       {
-        "title": "Codex open source mu? Neler serbest, neler kapalı kalıyor",
-        "desc": "Codex open source mu? Neler serbest, neler kapalı kalıyor Pasquale Pillitteri",
-        "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE5NSURpLWxRenVFR2pBM2wyMjJfYVJFcHlxcXBJenBHSEhLM3ZzTzFITU5nTDlIemZvWHE3d2FkMzJBTEtYUzhxbnBPMXpId1RnaktoSGgwSlFqTlNEZW45TTZHOUdEN0R5N0l4YlM3dXJ3UQ?oc=5",
-        "image": "",
-        "published_at": "2026-11-09"
+        "title": "Bağımlılık Güncellemeleri Otomatik Testlerle Birleşiyor",
+        "desc": "Paket yükseltmeleri güvenlik taraması ve geriye dönük testlerle doğrulanıyor.",
+        "url": "https://github.blog/",
+        "image": ""
       },
       {
-        "title": "macOS Görünümlü Linux Dağıtımları Çoğalıyor: Apple Tasarımı Açık Kaynak Dünyasına Taşınıyor",
-        "desc": "macOS Görünümlü Linux Dağıtımları Çoğalıyor: Apple Tasarımı Açık Kaynak Dünyasına Taşınıyor ÇözümPark",
-        "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNOXYwX1g3bENyMktZLXJEclhlUjhkc0VFaGQwbXNDMHVJQXJuRDdoTVFYNFBpQzRXMlNaVi04NUpJaUVRdURXdDQ2SFMwcmFFU1JLNWRQT3ZGNjk4d3BCNWg2UHhQUkQxQmNZYlJLWkJHV3FCWEZXaS1BdlVyZUp4OU52YmkzQ1N5bU5YcDBuU1QzcE5mR0sza1Njc3RCZjJ6dFFQa0tnbjR0ZEFzbTRWbUQyMldpbDUt?oc=5",
-        "image": "",
-        "published_at": "2026-11-08"
+        "title": "Küçük Konteyner İmajları Saldırı Yüzeyini Azaltıyor",
+        "desc": "Daha az paket içeren taban imajlar güvenliği ve dağıtım hızını artırıyor.",
+        "url": "https://www.docker.com/blog/",
+        "image": ""
       }
     ],
     "web": [
       {
-        "title": "Bilişim Teknolojileri MYO’dan mikrokredi kazandıran yapay zekâ destekli geliştirme eğitimi",
-        "desc": "Bilişim Teknolojileri MYO’dan mikrokredi kazandıran yapay zekâ destekli geliştirme eğitimi Haberes",
-        "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPM014dE5pUTdUZ19WWDB2LW50ODUzMGZXUzB2MWJQbWlHR1lhVUxQSmNrVGNILWdqLUEtZGtJRGhSN1NLZmdPWGtKU240RER4Y3lydVgwMF83N0wyUEdKRFl0bGM3Z1hsanROU2g3N2p2dGV1NnVLQmhmN3ZyR0JPMXNaTVJXUjVWOTJCVm40RWI2TWFmalFkQnR1MzI1YVExbGhnY3BEeVZndkRrN1JRM0h6MUZJNG8?oc=5",
-        "image": "",
-        "published_at": "2026-11-23"
+        "title": "Web Uygulamalarında Etkileşim Gecikmesi Yakından İzleniyor",
+        "desc": "Ekipler yükleme hızının yanında kullanıcı etkileşimlerine verilen yanıt süresini de bütçeliyor.",
+        "url": "https://web.dev/blog/",
+        "image": ""
       },
       {
-        "title": "X yeniden yazdığı web uygulamasını duyurdu, ilk gönderi 22 yerine 2,7 saniyede geliyor",
-        "desc": "X yeniden yazdığı web uygulamasını duyurdu, ilk gönderi 22 yerine 2,7 saniyede geliyor Pasquale Pillitteri",
-        "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPV1dFR0NreFJWaTFobmZmb2ZENUVlNjlBQVVaSzZpampLQVhyNC1qejBkdjNidl95UXNnNmJPV3Y4LXdxM080Z0hZX2RxMDhFelZoWUtqeU8wVFZWckp6WmRQcW96eEpyUUMxRXp4ZHNPX2hXeDRtUWQ4SXNYb2FYbV9NSVRxdVl1SlB4UlF0WlhBN05LWVZUTFQtM21qdC1o?oc=5",
-        "image": "",
-        "published_at": "2026-11-13"
+        "title": "Tarayıcıda Yerel Yapay Zekâ Denemeleri Hızlanıyor",
+        "desc": "Yeni web arayüzleri küçük modellerin kullanıcı cihazında çalıştırılmasına olanak tanıyor.",
+        "url": "https://developer.chrome.com/blog/",
+        "image": ""
       },
       {
-        "title": "Microsoft, Windows Server’da Chrome ve Edge Erişim Sorununu Giderdi",
-        "desc": "Microsoft, Windows Server’da Chrome ve Edge Erişim Sorununu Giderdi ÇözümPark",
-        "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNaWVYa0VYR2xLbktjMkV0OXFkWXlqdE5yTVNaUUdabDdUaE9YSDJwZzRKcTFPaDlQTUJjMEE0YU1FNmhsVzZGQWg4WGZZVUNDbi1aM1pnZGhTY1d0ei1UTjFmbGU2MTlOeUpkMno0QVRUcEVtZlplNDdkS1p1cW5sdDB3bnE0bHE2V1h1T1ozeE1EaVBxSF9v?oc=5",
-        "image": "",
-        "published_at": "2026-11-13"
+        "title": "Arayüzlerde Erişilebilirlik Testleri Otomatikleşiyor",
+        "desc": "Klavye ve ekran okuyucu uyumu sürekli entegrasyon aşamasında denetleniyor.",
+        "url": "https://web.dev/blog/",
+        "image": ""
       },
       {
-        "title": "Intentful, büyüme için daha fazla zaman yaratmak amacıyla noktaları nasıl kullanıyor?",
-        "desc": "Marina Petrova'nın dot Aria'sı, mesajları proaktif olarak işaretleyip sorunları çözerken web sitelerinin araştırılmasına ve tekliflerin oluşturulmasına yardımcı oluyor.",
-        "url": "https://openai.com/business/customer-stories/intentful-dots",
-        "image": "https://images.ctfassets.net/kftzwdyauwt9/2DH2aby1xmlzvADCraI7Xi/bbe8b8956578492f2c3fd7326ecbd9e1/intentful-dots-social-c.png?w=1600&h=900&fit=fill",
-        "published_at": "2026-11-24"
+        "title": "WebAssembly Ortak Çalışma Katmanı Kuruyor",
+        "desc": "Taşınabilir çalışma zamanı performans gerektiren web modüllerinde yaygınlaşıyor.",
+        "url": "https://developer.mozilla.org/",
+        "image": ""
       }
     ],
     "sec": [
       {
-        "title": "Siemens Endüstriyel Otomasyon Yazılım Ürünleri",
-        "desc": "CSAF Özetini Görüntüle 21 Ekim 2026 tarihinde Node.js projesi, Node.js ile birlikte gelen Brotli kod çözücüsünde bulunan ve genellikle \"Node2Shell\" olarak adlandırılan (CVE-2026-111497 olarak izlenen) kritik bir güvenlik açığını ele alan güvenlik güncellemelerini yayımlamıştır.",
-        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-321-03",
-        "image": "",
-        "published_at": "2026-11-17"
+        "title": "Yazılım Tedarik Zincirinde Kaynak Doğrulaması Artıyor",
+        "desc": "Bağımlılıkların, derlemelerin ve paketlerin kökeni kayıt altına alınıyor.",
+        "url": "https://www.cisa.gov/",
+        "image": ""
       },
       {
-        "title": "Danfoss AK-SM 8xxA Series",
-        "desc": "CSAF Özetini Görüntüle Bu güvenlik açığından başarılı bir şekilde yararlanılması, saldırganın web sunucusu ayrıcalıklarıyla keyfi kod yürütmesine olanak sağlayabilir. Danfoss AK-SM 8xxA Serisinin aşağıdaki sürümleri etkilenmektedir: AK-SM8xxA <=5.4.0 (CVE-2026-129713) CVSS Satıcı.",
-        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-328-03",
-        "image": "",
-        "published_at": "2026-11-24"
+        "title": "Parolasız Kimlik Doğrulama Kurumsal Uygulamalara Yayılıyor",
+        "desc": "Geçiş anahtarları oltalama saldırılarına karşı donanım destekli oturum açma sağlıyor.",
+        "url": "https://www.cisa.gov/",
+        "image": ""
       },
       {
-        "title": "libumqtt",
-        "desc": "View CSAF Summary Successful exploitation of this vulnerability could allow a remote attacker to cause a denial of service, memory corruption, or information disclosure. The following versions of libumqtt are affected: libumqtt <=1.1.1 (CVE-2026-125132) CVSS Vendor Equipment v3.",
-        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-323-03",
-        "image": "",
-        "published_at": "2026-11-19"
+        "title": "API Anahtarlarında Kısa Ömürlü Yetkilendirme Öneriliyor",
+        "desc": "Sürekli sırlar yerine görev bazlı ve otomatik yenilenen kimlik bilgileri kullanılıyor.",
+        "url": "https://owasp.org/",
+        "image": ""
       },
       {
-        "title": "Siemens SIMATIC WinCC",
-        "desc": "CSAF Özetini Görüntüle V8.2 öncesi SIMATIC WinCC'nin Graphics Designer bileşeni, dosyalar açıldığında örtük bir etkin içerik yürütme güvenlik açığı içerir; bu da bir saldırganın cihazda keyfi kod yürütmesine neden olmasını sağlayabilir. Siemens, düzeltmeler hazırlamakta ve.",
-        "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-321-09",
-        "image": "",
-        "published_at": "2026-11-17"
+        "title": "Varlık Envanteri Kritik Açıklara Müdahaleyi Hızlandırıyor",
+        "desc": "Güncel bileşen listeleri etkilenen sistemlerin hızla bulunmasını sağlıyor.",
+        "url": "https://www.cisa.gov/",
+        "image": ""
       }
     ]
   },
