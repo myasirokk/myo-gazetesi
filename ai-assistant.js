@@ -3,6 +3,7 @@
 
   let triggerButton = null;
 
+  const API_TIMEOUT_MS = 28000;   // /api/chat için en az 25000 ms
   const DATASETS = [
     {key:'eksim', label:'EKSİM', path:'data/edition_eksim.json'},
     {key:'ai', label:'YAPAY ZEKA', path:'data/edition.json'},
@@ -10,7 +11,9 @@
   ];
   const TEXT_TYPES = new Set(['text/plain','text/csv','text/markdown','application/json']);
   const TEXT_EXTENSIONS = /\.(?:txt|csv|md|markdown|json)$/i;
-  const STOP_WORDS = new Set(['acaba','ama','bir','bu','da','de','daha','en','gibi','hakkında','hangi','için','ile','mi','mı','mu','mü','ne','nedir','olan','olarak','ve','veya']);
+  const STOP_WORDS = new Set(['acaba','ama','bir','bu','şu','o','da','de','daha','en','gibi','hakkında','hangi','için','ile','mi','mı','mu','mü','ne','nedir','olan','olarak','ve','veya','ya','çok','kadar','var','yok','bana','benim','lütfen']);
+  // Sorunun konusunu taşımayan, yalnızca isteğin biçimini anlatan kelimeler.
+  const GENERIC_WORDS = new Set(['haber','haberi','haberini','haberleri','haberlerini','haberlerinden','haberlerden','verir','ver','verin','özetler','özetle','özetleyin','özet','misin','mısın','musun','müsün','anlat','anlatır','söyle','söyler','göster','gösterir','birini','biri','bazı','etkili','önemli','büyük','güncel','yılındaki','yılında','yılı','yıl','son','bulur','bul','araştır','nedir','kimdir','nasıl','neler','neydi','oldu']);
 
   const state = {
     panel:null, editions:[], articles:[], attachments:[], previousFocus:null,
@@ -35,20 +38,34 @@
     }
   };
 
-  const clean = value => String(value || '').replace(/\s+/g, ' ').trim();
+  /* ---------- Metin yardımcıları ---------- */
+
+  const clean = value => String(value ?? '').replace(/\s+/g, ' ').trim();
+  // Satır sonlarını koruyan temizleyici (mesaj gövdeleri için).
+  const cleanText = value => String(value ?? '')
+    .replace(/\r/g, '').replace(/[ \t]+/g, ' ').replace(/ *\n */g, '\n').replace(/\n{3,}/g, '\n\n').trim();
   const safeUrl = value => {
     try {
       const url = new URL(String(value || ''), location.href);
       return /^(?:https?:|blob:)$/.test(url.protocol) ? url.href : '';
     } catch (_) { return ''; }
   };
-  const tokens = value => clean(value).toLocaleLowerCase('tr-TR')
+  // Aksan/büyük-küçük harf farklarını eşitler (zekâ → zeka, yapayzeka → yapay zeka).
+  const fold = value => clean(value).toLocaleLowerCase('tr-TR')
+    .replace(/â/g, 'a').replace(/î/g, 'i').replace(/û/g, 'u')
+    .replace(/yapay\s*zek[aâ]/g, 'yapay zeka');
+  const tokens = value => fold(value)
     .replace(/[^a-z0-9çğıöşü\s]/gi, ' ')
     .split(/\s+/).filter(word => word.length > 2 && !STOP_WORDS.has(word));
+  const contentTokens = value => [...new Set(tokens(value).filter(word => !GENERIC_WORDS.has(word)))];
+  const stem = word => word.length > 5 ? word.slice(0, Math.max(4, word.length - 3)) : word;
+  const pick = list => list[Math.floor(Math.random() * list.length)];
+
+  /* ---------- Yerel baskılar ---------- */
 
   async function fetchEdition(source) {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 800);
+    const timeout = setTimeout(() => controller.abort(), 4000);
     try {
       const response = await fetch(`${source.path}?t=${Date.now()}`, {cache:'no-store', signal:controller.signal});
       if (!response.ok) throw new Error(source.path);
@@ -65,7 +82,7 @@
         desc:clean(lead.deck || lead.body), body:clean(lead.body), url:'', image:''
       }] : [];
       const news = Object.entries(edition?.news || {}).flatMap(([category, items]) =>
-        Array.isArray(items) ? items.map(item => ({
+        Array.isArray(items) ? items.filter(item => item && typeof item === 'object').map(item => ({
           section:source.label, category, title:clean(item.title), desc:clean(item.desc),
           body:'', url:safeUrl(item.url), image:safeUrl(item.image)
         })) : []
@@ -86,32 +103,7 @@
     await state.loading;
   }
 
-  function localSearch(query, limit = 5) {
-    const queryTokens = tokens(query);
-    if (!queryTokens.length) return [];
-    return state.articles.map(article => {
-      const title = article.title.toLocaleLowerCase('tr-TR');
-      const body = `${article.title} ${article.desc} ${article.body} ${article.section} ${article.category}`.toLocaleLowerCase('tr-TR');
-      const score = queryTokens.reduce((total, token) => total + (title.includes(token) ? 5 : 0) + (body.includes(token) ? 2 : 0), 0);
-      return {article, score};
-    }).filter(result => result.score > 0)
-      .sort((a,b) => b.score - a.score || b.article.desc.length - a.article.desc.length)
-      .slice(0, limit).map(result => result.article);
-  }
-
-  function articleKey(article) {
-    return clean(article.url || article.title).toLocaleLowerCase('tr-TR').replace(/[^a-z0-9çğıöşü]/gi, '');
-  }
-
-  function uniqueArticles(items, limit = 8) {
-    const seen = new Set();
-    return items.filter(item => {
-      const key = articleKey(item);
-      if (!key || seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    }).slice(0, limit);
-  }
+  /* ---------- İlgililik süzgeci ---------- */
 
   function yearRange(query) {
     const match = clean(query).match(/\b(19\d{2}|20\d{2})\b/);
@@ -119,8 +111,68 @@
     return {year:match[1], start:`${match[1]}0101000000`, end:`${match[1]}1231235959`};
   }
 
+  function relevanceOf(item, stems) {
+    const title = fold(item?.title);
+    const rest = fold(`${item?.desc || ''} ${item?.body || ''} ${item?.category || ''} ${item?.section || ''} ${item?.publishedAt || ''}`);
+    let matches = 0, titleMatches = 0;
+    stems.forEach(word => {
+      const inTitle = title.includes(word);
+      if (inTitle || rest.includes(word)) matches++;
+      if (inTitle) titleMatches++;
+    });
+    return {matches, titleMatches, score:titleMatches * 5 + (matches - titleMatches) * 2, text:`${title} ${rest}`};
+  }
+
+  // Yalnızca soru kelimeleriyle gerçekten eşleşen kayıtları döndürür.
+  function relevantItems(question, items, limit = 5) {
+    const stems = contentTokens(question).map(stem);
+    if (!stems.length || !Array.isArray(items)) return [];
+    const required = stems.length >= 3 ? 2 : 1;
+    const year = yearRange(question).year;
+    const pastYear = year && Number(year) < new Date().getFullYear();
+    return items.filter(item => item && typeof item === 'object').map(item => ({item, ...relevanceOf(item, stems)}))
+      .filter(result => result.matches >= required && (!pastYear || result.text.includes(year)))
+      .sort((a, b) => b.score - a.score || clean(b.item.desc).length - clean(a.item.desc).length)
+      .slice(0, limit).map(result => result.item);
+  }
+
+  function localSearch(query, limit = 5) {
+    return relevantItems(query, state.articles, limit);
+  }
+
+  function articleKey(article) {
+    return clean(article?.url || article?.title).toLocaleLowerCase('tr-TR').replace(/[^a-z0-9çğıöşü]/gi, '');
+  }
+
+  function uniqueArticles(items, limit = 8) {
+    const seen = new Set();
+    return (Array.isArray(items) ? items : []).filter(item => {
+      if (!item || typeof item !== 'object') return false;
+      const key = articleKey(item);
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0, limit);
+  }
+
+  function detectIntent(question) {
+    const text = fold(question);
+    const news = /(haber|gündem|manşet|son dakika|gelişme|duyuru|açıklandı|gazete|baskı|ne oldu|piyasa)/.test(text) || Boolean(yearRange(question).year);
+    const encyclopedic = /(nedir|kimdir|ne demek|anlamı|tarihçesi|hakkında bilgi)/.test(text);
+    return {news, encyclopedic};
+  }
+
+  /* ---------- Web arama ---------- */
+
+  function searchQuery(question) {
+    const words = contentTokens(question);
+    return words.length ? words.join(' ') : clean(question);
+  }
+
   async function googleNewsSearch(query, signal) {
-    const rss = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=tr&gl=TR&ceid=TR:tr`;
+    const year = yearRange(query).year;
+    const dated = year ? `${query} after:${year}-01-01 before:${Number(year) + 1}-01-01` : query;
+    const rss = `https://news.google.com/rss/search?q=${encodeURIComponent(dated)}&hl=tr&gl=TR&ceid=TR:tr`;
     const response = await fetch(rss, {signal, headers:{Accept:'application/rss+xml, application/xml, text/xml'}});
     if (!response.ok) return [];
     const xml = new DOMParser().parseFromString(await response.text(), 'application/xml');
@@ -163,25 +215,28 @@
     }));
   }
 
-  async function webSearch(query, signal) {
+  async function webSearch(query, signal, options = {}) {
+    const useWikipedia = options.wikipedia !== false;
     const timeoutController = new AbortController();
     const abort = () => timeoutController.abort();
     signal?.addEventListener('abort', abort, {once:true});
-    const timeout = setTimeout(abort, 1500);
+    const timeout = setTimeout(abort, 2500);
     try {
       const searches = [
         googleNewsSearch(query, timeoutController.signal),
-        gdeltSearch(query, timeoutController.signal),
-        wikipediaSearch(query, timeoutController.signal)
+        gdeltSearch(query, timeoutController.signal)
       ];
+      if (useWikipedia) searches.push(wikipediaSearch(query, timeoutController.signal));
       const results = await Promise.allSettled(searches);
       if (signal?.aborted) throw new DOMException('Arama iptal edildi.', 'AbortError');
-      return uniqueArticles(results.flatMap(result => result.status === 'fulfilled' ? result.value : []), 8);
+      return uniqueArticles(results.flatMap(result => result.status === 'fulfilled' ? result.value : []), 10);
     } finally {
       clearTimeout(timeout);
       signal?.removeEventListener('abort', abort);
     }
   }
+
+  /* ---------- Güvenli mesaj biçimlendirme ---------- */
 
   function createNode(tag, className, value) {
     const node = document.createElement(tag);
@@ -190,21 +245,36 @@
     return node;
   }
 
+  function safeCards(value, limit = 10) {
+    if (!Array.isArray(value)) return [];
+    return value.slice(0, limit).map(card => {
+      if (typeof card === 'string') return {section:'WEB', category:'Kaynak', title:'', desc:'', url:safeUrl(card), image:''};
+      if (!card || typeof card !== 'object' || Array.isArray(card)) return null;
+      return {
+        section:clean(card.section || card.source),
+        category:clean(card.category || card.publisher),
+        title:clean(card.title || card.name),
+        desc:clean(card.desc || card.description || card.summary || card.snippet),
+        url:safeUrl(card.url || card.link),
+        image:safeUrl(card.image || card.imageUrl || card.thumbnail)
+      };
+    }).filter(card => card && (card.title || card.desc || card.url));
+  }
+
   function safeMessagePayload(payload) {
-    const fallback = {text:'Şu an yanıt oluşturulamadı, lütfen tekrar deneyin.', cards:[]};
-    if (typeof payload === 'string') return {text:clean(payload) || fallback.text, cards:[]};
-    if (!payload || typeof payload !== 'object') return fallback;
-    const link = payload?.link && typeof payload.link === 'object'
-      ? {url:safeUrl(payload.link.url), label:clean(payload.link.label || 'Bağlantıyı aç ↗')}
-      : null;
-    return {
-      ...payload,
-      text:clean(payload.text || payload.message || payload.answer) || (Array.isArray(payload.cards) && payload.cards.length ? 'İlgili sonuçları aşağıda bulabilirsiniz.' : fallback.text),
-      cards:Array.isArray(payload.cards) ? payload.cards.filter(Boolean) : [],
-      link,
-      image:safeUrl(payload.image),
-      imageAlt:clean(payload.imageAlt)
-    };
+    const fallbackText = 'Şu an yanıt oluşturulamadı, lütfen tekrar deneyin.';
+    const empty = {text:fallbackText, cards:[], link:null, image:'', imageAlt:''};
+    try {
+      if (typeof payload === 'string') return {...empty, text:cleanText(payload) || fallbackText};
+      if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return empty;
+      const cards = safeCards(payload.cards);
+      const rawLink = payload.link;
+      const linkUrl = safeUrl(typeof rawLink === 'string' ? rawLink : rawLink?.url);
+      const link = linkUrl ? {url:linkUrl, label:clean(rawLink?.label) || 'Bağlantıyı aç ↗'} : null;
+      const text = cleanText(payload.text ?? payload.message ?? payload.answer)
+        || (cards.length ? 'İlgili sonuçları aşağıda bulabilirsiniz.' : fallbackText);
+      return {text, cards, link, image:safeUrl(payload.image), imageAlt:clean(payload.imageAlt)};
+    } catch (_) { return empty; }
   }
 
   function renderCard(card) {
@@ -235,50 +305,61 @@
   }
 
   function addMessage(role, payload) {
-    const history = state.panel?.querySelector('#aiAssistantHistory');
+    const safeRole = role === 'user' ? 'user' : 'assistant';
     const safePayload = safeMessagePayload(payload);
+    const history = state.panel?.querySelector('#aiAssistantHistory');
     if (!history) return safePayload;
-    const wrapper = createNode('article', `ai-message ai-message-${role}`);
-    wrapper.setAttribute('aria-label', role === 'user' ? 'Siz' : 'Yapay Zekâ Asistanı');
-    const label = createNode('span', 'ai-message-label', role === 'user' ? 'SİZ' : 'MYO ASİSTAN');
-    wrapper.appendChild(label);
-    {
-      if (safePayload.text) wrapper.appendChild(createNode('p', '', safePayload.text));
-      const messageImage = safeUrl(safePayload.image);
-      if (messageImage) {
-        const image = createNode('img', 'ai-message-image');
-        image.src = messageImage;
-        image.alt = safePayload.imageAlt || '';
-        image.loading = 'lazy';
-        wrapper.appendChild(image);
-      }
-      const linkData = safePayload?.link && typeof safePayload.link === 'object' ? safePayload.link : null;
-      const messageUrl = safeUrl(linkData?.url);
-      if (messageUrl) {
-        const link = createNode('a', 'ai-message-link', linkData?.label || 'Bağlantıyı aç ↗');
-        link.href = messageUrl;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        wrapper.appendChild(link);
-      }
-      if (safePayload.cards.length) {
-        const cards = createNode('div', 'ai-news-cards');
-        safePayload.cards.forEach(card => cards.appendChild(renderCard(card)));
-        wrapper.appendChild(cards);
-      }
+    const wrapper = createNode('article', `ai-message ai-message-${safeRole}`);
+    wrapper.setAttribute('aria-label', safeRole === 'user' ? 'Siz' : 'Yapay Zekâ Asistanı');
+    wrapper.appendChild(createNode('span', 'ai-message-label', safeRole === 'user' ? 'SİZ' : 'MYO ASİSTAN'));
+    if (safePayload.text) {
+      const paragraph = createNode('p', '', safePayload.text);
+      paragraph.style.whiteSpace = 'pre-line';
+      wrapper.appendChild(paragraph);
+    }
+    if (safePayload.image) {
+      const image = createNode('img', 'ai-message-image');
+      image.src = safePayload.image;
+      image.alt = safePayload.imageAlt || '';
+      image.loading = 'lazy';
+      wrapper.appendChild(image);
+    }
+    if (safePayload.link?.url) {
+      const link = createNode('a', 'ai-message-link', safePayload.link.label || 'Bağlantıyı aç ↗');
+      link.href = safePayload.link.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      wrapper.appendChild(link);
+    }
+    if (safePayload.cards.length) {
+      const cards = createNode('div', 'ai-news-cards');
+      safePayload.cards.forEach(card => cards.appendChild(renderCard(card)));
+      wrapper.appendChild(cards);
     }
     history.appendChild(wrapper);
     history.scrollTop = history.scrollHeight;
     state.history.push({
-      role,
+      role:safeRole,
       content:safePayload.text,
       sources:safePayload.cards.map(card => ({
-        title:card.title || '', url:card.url || '', image:card.image || ''
+        title:card?.title || '', url:card?.url || '', image:card?.image || ''
       }))
     });
     if (state.history.length > 30) state.history.splice(0, state.history.length - 30);
-    if (role === 'assistant' && state.speakResponses) speak(safePayload.text);
+    if (safeRole === 'assistant' && state.speakResponses) speak(safePayload.text);
     return safePayload;
+  }
+
+  function showTyping() {
+    const history = state.panel?.querySelector('#aiAssistantHistory');
+    if (!history) return null;
+    const node = createNode('article', 'ai-message ai-message-assistant ai-message-typing');
+    node.setAttribute('aria-label', 'Yapay Zekâ Asistanı yanıt hazırlıyor');
+    node.appendChild(createNode('span', 'ai-message-label', 'MYO ASİSTAN'));
+    node.appendChild(createNode('p', '', 'Yanıt hazırlanıyor…'));
+    history.appendChild(node);
+    history.scrollTop = history.scrollHeight;
+    return node;
   }
 
   function setStatus(message, isError = false) {
@@ -288,10 +369,40 @@
     status.classList.toggle('is-error', isError);
   }
 
+  /* ---------- Dosya ekleri ---------- */
+
   function attachmentContext() {
     return state.attachments.map(file => ({
       name:file.name, type:file.type, size:file.size, text:file.text || '',
       image:file.image || '', note:file.note || ''
+    }));
+  }
+
+  // Uzun belgelerden yalnızca soruyla ilgili bölümleri API'ye gönderir.
+  function pickExcerpt(text, stems, limit = 9000) {
+    if (text.length <= limit) return text;
+    const chunks = [];
+    for (let start = 0; start < text.length; start += 1000) chunks.push(text.slice(start, start + 1000));
+    const scored = chunks.map((chunk, index) => {
+      const folded = fold(chunk);
+      return {index, size:chunk.length, score:stems.reduce((total, word) => total + (folded.includes(word) ? 1 : 0), 0)};
+    });
+    const chosen = new Set([0]);
+    let size = chunks[0].length;
+    [...scored].sort((a, b) => b.score - a.score || a.index - b.index).forEach(item => {
+      if (chosen.has(item.index) || size + item.size > limit) return;
+      chosen.add(item.index);
+      size += item.size;
+    });
+    return [...chosen].sort((a, b) => a - b).map(index => chunks[index]).join('\n…\n');
+  }
+
+  function attachmentsForApi(question) {
+    const stems = contentTokens(question).map(stem);
+    return state.attachments.map(file => ({
+      name:file.name, type:file.type, size:file.size,
+      text:file.text ? pickExcerpt(file.text, stems) : '',
+      note:file.note || ''
     }));
   }
 
@@ -316,7 +427,7 @@
   }
 
   async function handleFiles(fileList) {
-    for (const file of [...fileList]) {
+    for (const file of [...(fileList || [])]) {
       const record = {name:file.name, type:file.type || 'bilinmiyor', size:file.size, text:'', image:'', note:''};
       if (TEXT_TYPES.has(file.type) || TEXT_EXTENSIONS.test(file.name)) {
         try { record.text = (await file.text()).slice(0, 100000); }
@@ -345,68 +456,72 @@
     setStatus(`${state.attachments.length} dosya bağlama eklendi.`);
   }
 
+  /* ---------- Gündelik sohbet ---------- */
+
   function casualReply(question) {
-    const value = clean(question).toLocaleLowerCase('tr-TR').replace(/[!?.,]/g, '');
-    if (/^(merhaba|selam|selamlar|hey|günaydın|iyi akşamlar|iyi geceler)( nasılsın| nasılsınız)?$/.test(value)) {
-      return {text:'Merhaba! Ben MYO Gazetesi Asistanıyım. Güncel veya geçmiş haberleri arayabilir, EKSİM, Yapay Zeka ve enerji baskılarını tarayabilir ya da eklediğiniz belgeler üzerinde çalışabilirim.'};
+    const value = clean(question).toLocaleLowerCase('tr-TR').replace(/[!?.,;:]/g, '').replace(/\s+/g, ' ').trim();
+    if (!value || value.length > 40) return {text:'', cards:[]};
+    if (/^(merhaba|merhabalar|selam|selamlar|selamün aleyküm|hey|hi|hello|günaydın|tünaydın|iyi günler|iyi akşamlar|iyi geceler)( nasılsın| nasılsınız| asistan)?$/.test(value)) {
+      return {text:pick([
+        'Merhaba! Bugün size nasıl yardımcı olabilirim?',
+        'Merhaba, buradayım. Bir haber, belge ya da merak ettiğiniz bir konu hakkında sorabilirsiniz.'
+      ])};
     }
-    if (/^(naber|ne haber|nasılsın|nasılsınız)$/.test(value)) {
-      return {text:'İyiyim, teşekkür ederim. Gazete gündemini taramaya hazırım. İsterseniz “en güncel yazılım haberi ne?” gibi bir soru sorabilirsiniz.'};
+    if (/^(naber|ne haber|nasılsın|nasılsınız|nasıl gidiyor|ne var ne yok|nbr)$/.test(value)) {
+      return {text:pick([
+        'İyiyim, teşekkür ederim. Siz nasılsınız? Aklınızda bir soru varsa dinliyorum.',
+        'Gayet iyiyim, sağ olun. Sizin için ne arayabilirim?'
+      ])};
     }
     if (/^(duy|duydun mu|orada mısın|burada mısın)$/.test(value)) {
-      return {text:'Buradayım, sizi duyuyorum. Bir haber başlığı, kurum adı, tarih veya gündelik bir soru yazabilirsiniz.'};
+      return {text:'Buradayım, sizi duyuyorum. Sorunuzu yazabilirsiniz.'};
     }
-    if (/^(teşekkürler|teşekkür ederim|sağ ol|sağol|eyvallah)$/.test(value)) {
-      return {text:'Rica ederim. Başka bir haber, tarih veya belge hakkında da yardımcı olabilirim.'};
+    if (/^(teşekkürler|teşekkür ederim|çok teşekkürler|sağ ol|sağol|eyvallah|tşk)$/.test(value)) {
+      return {text:pick(['Rica ederim!', 'Ne demek, her zaman. Başka bir şey sormak isterseniz buradayım.'])};
     }
-    if (/^(sen kimsin|kimsin|ne yapabilirsin)$/.test(value)) {
-      return {text:'Ben MYO Gazetesi Asistanıyım. Yerel baskılarda, web haber kaynaklarında ve açık ansiklopedide arama yapar; kaynakları görsel ve bağlantılı kartlarla sunarım.'};
+    if (/^(sen kimsin|kimsin|kim bu|ne yapabilirsin|neler yapabilirsin|adın ne|ismin ne|sen nesin)$/.test(value)) {
+      return {text:'Ben MYO Gazetesi\'nin yapay zekâ asistanıyım. Sohbet edebilir, gazetedeki haberleri ve geçmiş haberleri özetleyebilir, eklediğiniz belgeler üzerinde soruları yanıtlayabilirim.'};
+    }
+    if (/^(görüşürüz|hoşça kal|hoşçakal|bay bay|hoşça kalın)$/.test(value)) {
+      return {text:'Görüşmek üzere, iyi günler!'};
+    }
+    if (/^(tamam|ok|okey|peki|anladım|harika|süper)$/.test(value)) {
+      return {text:'Tamam. Aklınıza takılan başka bir şey olursa yazabilirsiniz.'};
     }
     return {text:'', cards:[]};
   }
 
-  function normalizeCards(value) {
-    if (!Array.isArray(value)) return [];
-    return value.map(item => typeof item === 'string' ? {
-      section:'WEB', category:'Kaynak', title:'Kaynak bağlantısı', desc:'', url:safeUrl(item), image:''
-    } : ({
-      section:clean(item.section || item.source || 'WEB'),
-      category:clean(item.category || item.publisher || 'Kaynak'),
-      title:clean(item.title || item.name),
-      desc:clean(item.desc || item.description || item.summary || item.snippet),
-      url:safeUrl(item.url || item.link),
-      image:safeUrl(item.image || item.imageUrl || item.thumbnail)
-    })).filter(item => item.title || item.desc || item.url);
-  }
+  /* ---------- Yanıt normalizasyonu ---------- */
 
-  function normalizeProviderResponse(value, fallbackCards = []) {
+  function normalizeProviderResponse(value) {
     if (!value) return null;
-    if (typeof value === 'string') return {text:clean(value), cards:fallbackCards};
-    const text = clean(value.text || value.message || value.answer || value.content || value.reply || value.response || value.output);
-    const cards = uniqueArticles([
-      ...normalizeCards(value.cards),
-      ...normalizeCards(value.sources),
-      ...normalizeCards(value.results),
-      ...fallbackCards
-    ], 10);
+    if (typeof value === 'string') return {text:cleanText(value), cards:[]};
+    if (typeof value !== 'object') return null;
+    const text = cleanText(value.text ?? value.message ?? value.answer ?? value.content ?? value.reply ?? value.response ?? value.output);
+    const cards = uniqueArticles(safeCards([
+      ...(Array.isArray(value.cards) ? value.cards : []),
+      ...(Array.isArray(value.sources) ? value.sources : []),
+      ...(Array.isArray(value.results) ? value.results : [])
+    ]), 10);
     const images = Array.isArray(value.images) ? value.images : [];
     const image = safeUrl(value.image || value.imageUrl || images[0]?.url || images[0]);
-    const firstSource = Array.isArray(value.sources) ? value.sources.find(source => source?.url || source?.link) : null;
+    const sources = Array.isArray(value.sources) ? value.sources : [];
+    const firstSource = sources.find(source => source && typeof source === 'object' && (source.url || source.link));
     return {
       text:text || (cards.length ? 'İlgili sonuçları aşağıda bulabilirsiniz.' : ''),
       cards,
       image,
       imageAlt:clean(value.imageAlt || value.title),
-      link:firstSource ? {url:safeUrl(firstSource.url || firstSource.link), label:clean(firstSource.label || firstSource.title || 'Kaynağı aç ↗')} : undefined
+      link:firstSource ? {url:safeUrl(firstSource.url || firstSource.link), label:clean(firstSource.label || firstSource.title) || 'Kaynağı aç ↗'} : null
     };
   }
 
   async function askRegisteredProvider(request) {
     if (!Providers.active || !Providers.registry.has(Providers.active)) return null;
-    try { return normalizeProviderResponse(await Providers.ask(request), request.webResults); }
+    try { return normalizeProviderResponse(await Providers.ask(request)); }
     catch (error) {
       if (error?.name === 'AbortError') throw error;
-      console.warn('Kayıtlı asistan sağlayıcısı kullanılamadı; yedek akışa geçiliyor.');
+      console.warn('Kayıtlı asistan sağlayıcısı kullanılamadı; sıradaki yönteme geçiliyor.');
       return null;
     }
   }
@@ -415,25 +530,32 @@
     let timer;
     try {
       return await Promise.race([
-        Promise.resolve(promise).catch(() => null),
+        Promise.resolve(promise).catch(error => { if (error?.name === 'AbortError') throw error; return null; }),
         new Promise(resolve => { timer = setTimeout(() => resolve(null), milliseconds); })
       ]);
     } finally { clearTimeout(timer); }
+  }
+
+  function historyForApi(question) {
+    const items = state.history.map(entry => ({role:entry.role, content:entry.content}));
+    const last = items[items.length - 1];
+    if (last && last.role === 'user' && clean(last.content) === clean(question)) items.pop();
+    return items.slice(-12);
   }
 
   async function askApiChat(request, signal) {
     const timeoutController = new AbortController();
     const abort = () => timeoutController.abort();
     signal?.addEventListener('abort', abort, {once:true});
-    const timeout = setTimeout(abort, 3000);
+    const timeout = setTimeout(abort, API_TIMEOUT_MS);
     try {
       const response = await fetch('/api/chat', {
         method:'POST', signal:timeoutController.signal,
         headers:{'Content-Type':'application/json', Accept:'application/json'},
         body:JSON.stringify({
           message:request.question,
-          history:state.history.slice(-20),
-          attachments:request.attachments,
+          history:historyForApi(request.question),
+          attachments:attachmentsForApi(request.question),
           webResults:request.webResults,
           localArticles:request.localMatches
         })
@@ -441,7 +563,9 @@
       if (!response.ok) return null;
       const contentType = response.headers.get('content-type') || '';
       const payload = contentType.includes('application/json') ? await response.json() : {text:await response.text()};
-      return normalizeProviderResponse(payload, request.webResults);
+      if (!payload || payload.fallback === true) return null;
+      const result = normalizeProviderResponse(payload);
+      return result?.text ? result : null;
     } catch (error) {
       if (error?.name === 'AbortError' && signal?.aborted) throw error;
       return null;
@@ -451,44 +575,54 @@
     }
   }
 
+  /* ---------- Yedek akış (yalnızca /api/chat yanıt veremezse) ---------- */
+
   function localFallback(question, localMatches = [], webMatches = []) {
-    const cards = uniqueArticles([
+    const cards = relevantItems(question, uniqueArticles([
       ...(Array.isArray(localMatches) ? localMatches : []),
       ...(Array.isArray(webMatches) ? webMatches : [])
-    ], 10);
+    ], 10), 3);
     if (cards.length) {
       const first = cards[0];
       const summary = clean(first.desc || first.body);
       return {
-        text:`En ilgili sonuç: “${first.title || 'Güncel haber'}”.${summary ? ` ${summary}` : ''} Aşağıdaki kartlardan kaynak bağlantılarına ulaşabilirsiniz.`,
+        text:`Yapay zekâ servisine şu an ulaşamadım; sorunuzla eşleşen kaynakları aşağıya ekledim. “${first.title || 'Haber'}”${summary ? `: ${summary}` : '.'}`,
         cards
       };
     }
     const images = state.attachments.filter(file => file.image);
     if (images.length) return {
-      text:'Görsel dosyanız bağlama eklendi. Bu soruyla eşleşen yerel veya web haberi bulunamadı; görseli aşağıda görebilirsiniz.',
+      text:'Görsel dosyanız bağlama eklendi, ancak yapay zekâ servisine şu an ulaşılamıyor. Görseli aşağıda görebilirsiniz.',
       image:images[0].image, imageAlt:images[0].name
     };
-    return {text:`“${clean(question)}” için şu anda doğrulanabilir bir haber sonucu bulamadım. Farklı bir anahtar kelime, kurum adı veya tarih belirterek tekrar deneyebilirsiniz.`};
+    return {text:'Yapay zekâ servisine şu an ulaşılamıyor ve sorunuzla eşleşen bir kaynak bulamadım. Birkaç saniye sonra tekrar deneyebilir ya da sorunuzu farklı kelimelerle yazabilirsiniz.'};
   }
 
   async function answerUnsafe(question, signal) {
-    const greeting = casualReply(question);
-    if (greeting?.text) return safeMessagePayload(greeting);
+    const casual = casualReply(question);
+    if (casual?.text) return safeMessagePayload(casual);
+
     try { await ensureLocalData(); } catch (_) {}
-    const matches = localSearch(question);
-    let attachmentExcerpts = [];
+    const intent = detectIntent(question);
+    const matches = localSearch(question, 5);
+
     const textAttachments = state.attachments.filter(file => file.text);
+    let attachmentExcerpts = [];
     if (textAttachments.length) {
       const terms = tokens(question);
       attachmentExcerpts = textAttachments.map(file => {
-        const lines = file.text.split(/\r?\n/).filter(line => terms.some(term => line.toLocaleLowerCase('tr-TR').includes(term)));
+        const lines = file.text.split(/\r?\n/).filter(line => terms.some(term => fold(line).includes(term)));
         return lines.slice(0, 3).join(' ').slice(0, 700);
       }).filter(Boolean);
     }
+
     let webMatches = [];
-    try { webMatches = await webSearch(question, signal); }
-    catch (error) { if (error?.name === 'AbortError') throw error; }
+    if (intent.news || intent.encyclopedic) {
+      try {
+        const found = await webSearch(searchQuery(question), signal, {wikipedia:intent.encyclopedic && !intent.news});
+        webMatches = relevantItems(question, found, 6);
+      } catch (error) { if (error?.name === 'AbortError') throw error; }
+    }
 
     const request = {
       question, localEditions:state.editions, localArticles:state.articles,
@@ -496,16 +630,20 @@
       attachmentExcerpts, history:state.history.slice(-20),
       searchLocal:localSearch, searchWeb:webSearch, signal
     };
+
+    // 1) Kayıtlı sağlayıcı varsa önce o denenir.
     if (Providers.active && Providers.registry.has(Providers.active)) {
-      const providerResponse = await settleWithin(askRegisteredProvider(request), 1000);
+      const providerResponse = await settleWithin(askRegisteredProvider(request), API_TIMEOUT_MS);
       if (providerResponse?.text || providerResponse?.cards?.length) return safeMessagePayload(providerResponse);
-    } else {
-      const apiResponse = await askApiChat(request, signal);
-      if (apiResponse?.text || apiResponse?.cards?.length) return safeMessagePayload(apiResponse);
     }
+    // 2) /api/chat geçerli bir metin döndürdüyse yanıt budur.
+    const apiResponse = await askApiChat(request, signal);
+    if (apiResponse?.text) return safeMessagePayload(apiResponse);
+
+    // 3) Yalnızca buraya düşülürse yedek akış çalışır.
     if (attachmentExcerpts.length) return safeMessagePayload({
-      text:`Eklediğiniz dosyalarda sorunuzla ilgili şu bölümleri buldum: ${attachmentExcerpts.join(' … ')}`,
-      cards:matches
+      text:`Yapay zekâ servisine ulaşamadım; eklediğiniz dosyalarda sorunuzla ilgili şu bölümleri buldum: ${attachmentExcerpts.join(' … ')}`,
+      cards:matches.slice(0, 3)
     });
     return safeMessagePayload(localFallback(question, matches, webMatches));
   }
@@ -520,7 +658,7 @@
   }
 
   async function submitQuestion(event) {
-    event?.preventDefault();
+    event?.preventDefault?.();
     const input = state.panel?.querySelector('#aiAssistantInput');
     const question = clean(input?.value);
     if (!question || !input) return safeMessagePayload({text:'Lütfen bir soru yazın.'});
@@ -529,23 +667,29 @@
     const requestId = ++state.requestNo;
     const controller = new AbortController();
     state.pending.set(requestId, controller);
-    setStatus(`${state.pending.size} arama sürüyor… Yerel baskılar ve web kaynakları taranıyor.`);
+    const typing = showTyping();
+    setStatus(`${state.pending.size} istek işleniyor…`);
     let finalPayload = safeMessagePayload(null);
     try {
       finalPayload = safeMessagePayload(await answer(question, controller.signal));
+      typing?.remove();
       if (state.panel && !controller.signal.aborted) addMessage('assistant', finalPayload);
     } catch (error) {
+      typing?.remove();
       finalPayload = safeMessagePayload(localFallback(question, localSearch(question), []));
       if (state.panel && !controller.signal.aborted) addMessage('assistant', finalPayload);
     } finally {
+      typing?.remove();
       state.pending.delete(requestId);
       if (state.panel) {
-        setStatus(state.pending.size ? `${state.pending.size} arama sürüyor…` : 'Hazır.');
+        setStatus(state.pending.size ? `${state.pending.size} istek işleniyor…` : 'Hazır.');
         state.panel.querySelector('#aiAssistantInput')?.focus();
       }
     }
     return finalPayload;
   }
+
+  /* ---------- Ses ---------- */
 
   function speak(value) {
     if (!value || !('speechSynthesis' in window)) return;
@@ -570,7 +714,8 @@
       state.recognition.maxAlternatives = 1;
       state.recognition.addEventListener('result', event => {
         const input = state.panel?.querySelector('#aiAssistantInput');
-        if (input) input.value = event.results[0][0].transcript;
+        const transcript = event.results?.[0]?.[0]?.transcript;
+        if (input && transcript) input.value = transcript;
         setStatus('Sesli soru yazıya aktarıldı.');
       });
       state.recognition.addEventListener('end', () => { state.listening = false; mic.classList.remove('is-listening'); mic.textContent = '🎙️ Sesle Sor'; });
@@ -594,6 +739,8 @@
     } else voice.addEventListener('change', () => { state.speakResponses = voice.checked; if (!voice.checked) speechSynthesis.cancel(); });
   }
 
+  /* ---------- Panel ---------- */
+
   function createPanel() {
     const panel = createNode('section', 'ai-assistant is-opening');
     panel.id = 'aiAssistantPanel';
@@ -602,7 +749,7 @@
     panel.setAttribute('aria-labelledby', 'aiAssistantTitle');
     panel.innerHTML = `
       <header class="ai-assistant-header">
-        <div><span class="ai-assistant-mark">🤖</span><div><h2 id="aiAssistantTitle">Yapay Zekâ Asistanı</h2><p>MYO Gazetesi yerel baskı araması</p></div></div>
+        <div><span class="ai-assistant-mark">🤖</span><div><h2 id="aiAssistantTitle">Yapay Zekâ Asistanı</h2><p>MYO Gazetesi haber ve sohbet asistanı</p></div></div>
         <button type="button" id="aiAssistantClose" aria-label="Yapay Zekâ Asistanını kapat">✕</button>
       </header>
       <div class="ai-assistant-history" id="aiAssistantHistory" aria-live="polite"></div>
@@ -610,7 +757,7 @@
       <p class="ai-assistant-status" id="aiAssistantStatus" role="status"></p>
       <form class="ai-assistant-composer" id="aiAssistantForm">
         <label class="sr" for="aiAssistantInput">Sorunuzu yazın</label>
-        <textarea id="aiAssistantInput" rows="2" placeholder="Gazetedeki haberler hakkında sorun…"></textarea>
+        <textarea id="aiAssistantInput" rows="2" placeholder="Bir soru sorun veya haberleri arayın…"></textarea>
         <div class="ai-assistant-actions">
           <label class="ai-file-button">📎 Dosya Ekle<input id="aiAssistantFile" type="file" multiple accept=".txt,.json,.csv,.md,.markdown,.pdf,image/*,text/plain,text/csv,text/markdown,application/json,application/pdf"></label>
           <button type="button" id="aiAssistantMic">🎙️ Sesle Sor</button>
@@ -622,7 +769,7 @@
     panel.querySelector('#aiAssistantClose').addEventListener('click', closePanel);
     panel.querySelector('#aiAssistantForm').addEventListener('submit', submitQuestion);
     panel.querySelector('#aiAssistantInput').addEventListener('keydown', event => {
-      if (event.key === 'Enter' && !event.shiftKey) submitQuestion(event);
+      if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) submitQuestion(event);
     });
     panel.querySelector('#aiAssistantFile').addEventListener('change', event => { handleFiles(event.target.files); event.target.value = ''; });
     setupSpeech(panel);
@@ -649,7 +796,7 @@
     setStatus('Güncel baskılar hazırlanıyor…');
     try {
       await ensureLocalData();
-      setStatus(state.pending.size ? `${state.pending.size} arama sürüyor…` : `${state.articles.length} yerel haber aramaya hazır.`);
+      setStatus(state.pending.size ? `${state.pending.size} istek işleniyor…` : `${state.articles.length} yerel haber aramaya hazır.`);
     }
     catch (_) { setStatus('Bazı yerel baskılar yüklenemedi.', true); }
   }
@@ -689,8 +836,9 @@
     searchLocal:localSearch,
     getContext:() => ({editions:state.editions, articles:state.articles, attachments:attachmentContext()}),
     searchWeb:webSearch,
-    renderMessage:(payload, role='assistant') => addMessage(role, payload)
+    renderMessage:(payload, role = 'assistant') => addMessage(role, payload)
   });
+
   function bindAssistantButton() {
     const current = document.querySelector('#aiAssistantBtn');
     if (!current || current.dataset.aiAssistantBound === 'true') return;
