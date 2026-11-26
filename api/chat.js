@@ -220,9 +220,12 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const upstreamMessage = clean(payload?.error?.message, 500);
+      const upstreamStatus = Number(payload?.error?.code) || response.status;
+      console.error('GEMINI ERROR:', upstreamStatus, upstreamMessage);
       return res.status(response.status === 429 ? 429 : 502).json({
-        error:upstreamMessage || 'Gemini API isteği başarısız oldu.',
-        fallback:true,
+        error: upstreamMessage || 'Gemini API isteği başarısız oldu.',
+        geminiStatus: upstreamStatus,
+        fallback: true,
         text:'Yapay zekâ servisine şu anda ulaşılamıyor; yerel ve web sonuçları kullanılabilir.'
       });
     }
