@@ -190,7 +190,25 @@
     return node;
   }
 
+  function safeMessagePayload(payload) {
+    const fallback = {text:'Şu an yanıt oluşturulamadı, lütfen tekrar deneyin.', cards:[]};
+    if (typeof payload === 'string') return {text:clean(payload) || fallback.text, cards:[]};
+    if (!payload || typeof payload !== 'object') return fallback;
+    const link = payload?.link && typeof payload.link === 'object'
+      ? {url:safeUrl(payload.link.url), label:clean(payload.link.label || 'Bağlantıyı aç ↗')}
+      : null;
+    return {
+      ...payload,
+      text:clean(payload.text || payload.message || payload.answer) || (Array.isArray(payload.cards) && payload.cards.length ? 'İlgili sonuçları aşağıda bulabilirsiniz.' : fallback.text),
+      cards:Array.isArray(payload.cards) ? payload.cards.filter(Boolean) : [],
+      link,
+      image:safeUrl(payload.image),
+      imageAlt:clean(payload.imageAlt)
+    };
+  }
+
   function renderCard(card) {
+    card = card && typeof card === 'object' ? card : {};
     const article = createNode('article', 'ai-news-card');
     const cardImage = safeUrl(card.image);
     if (cardImage) {
@@ -218,33 +236,34 @@
 
   function addMessage(role, payload) {
     const history = state.panel?.querySelector('#aiAssistantHistory');
-    if (!history) return;
+    const safePayload = safeMessagePayload(payload);
+    if (!history) return safePayload;
     const wrapper = createNode('article', `ai-message ai-message-${role}`);
     wrapper.setAttribute('aria-label', role === 'user' ? 'Siz' : 'Yapay Zekâ Asistanı');
     const label = createNode('span', 'ai-message-label', role === 'user' ? 'SİZ' : 'MYO ASİSTAN');
     wrapper.appendChild(label);
-    if (typeof payload === 'string') wrapper.appendChild(createNode('p', '', payload));
-    else {
-      if (payload.text) wrapper.appendChild(createNode('p', '', payload.text));
-      const messageImage = safeUrl(payload.image);
+    {
+      if (safePayload.text) wrapper.appendChild(createNode('p', '', safePayload.text));
+      const messageImage = safeUrl(safePayload.image);
       if (messageImage) {
         const image = createNode('img', 'ai-message-image');
         image.src = messageImage;
-        image.alt = payload.imageAlt || '';
+        image.alt = safePayload.imageAlt || '';
         image.loading = 'lazy';
         wrapper.appendChild(image);
       }
-      const messageUrl = safeUrl(payload.link?.url);
+      const linkData = safePayload?.link && typeof safePayload.link === 'object' ? safePayload.link : null;
+      const messageUrl = safeUrl(linkData?.url);
       if (messageUrl) {
-        const link = createNode('a', 'ai-message-link', payload.link.label || 'Bağlantıyı aç ↗');
+        const link = createNode('a', 'ai-message-link', linkData?.label || 'Bağlantıyı aç ↗');
         link.href = messageUrl;
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
         wrapper.appendChild(link);
       }
-      if (Array.isArray(payload.cards) && payload.cards.length) {
+      if (safePayload.cards.length) {
         const cards = createNode('div', 'ai-news-cards');
-        payload.cards.forEach(card => cards.appendChild(renderCard(card)));
+        safePayload.cards.forEach(card => cards.appendChild(renderCard(card)));
         wrapper.appendChild(cards);
       }
     }
@@ -252,13 +271,14 @@
     history.scrollTop = history.scrollHeight;
     state.history.push({
       role,
-      content:clean(typeof payload === 'string' ? payload : payload?.text),
-      sources:Array.isArray(payload?.cards) ? payload.cards.map(card => ({
+      content:safePayload.text,
+      sources:safePayload.cards.map(card => ({
         title:card.title || '', url:card.url || '', image:card.image || ''
-      })) : []
+      }))
     });
     if (state.history.length > 30) state.history.splice(0, state.history.length - 30);
-    if (role === 'assistant' && state.speakResponses) speak(clean(typeof payload === 'string' ? payload : payload.text));
+    if (role === 'assistant' && state.speakResponses) speak(safePayload.text);
+    return safePayload;
   }
 
   function setStatus(message, isError = false) {
@@ -328,21 +348,21 @@
   function casualReply(question) {
     const value = clean(question).toLocaleLowerCase('tr-TR').replace(/[!?.,]/g, '');
     if (/^(merhaba|selam|selamlar|hey|günaydın|iyi akşamlar|iyi geceler)( nasılsın| nasılsınız)?$/.test(value)) {
-      return 'Merhaba! Ben MYO Gazetesi Asistanıyım. Güncel veya geçmiş haberleri arayabilir, EKSİM, Yapay Zeka ve enerji baskılarını tarayabilir ya da eklediğiniz belgeler üzerinde çalışabilirim.';
+      return {text:'Merhaba! Ben MYO Gazetesi Asistanıyım. Güncel veya geçmiş haberleri arayabilir, EKSİM, Yapay Zeka ve enerji baskılarını tarayabilir ya da eklediğiniz belgeler üzerinde çalışabilirim.'};
     }
     if (/^(naber|ne haber|nasılsın|nasılsınız)$/.test(value)) {
-      return 'İyiyim, teşekkür ederim. Gazete gündemini taramaya hazırım. İsterseniz “en güncel yazılım haberi ne?” gibi bir soru sorabilirsiniz.';
+      return {text:'İyiyim, teşekkür ederim. Gazete gündemini taramaya hazırım. İsterseniz “en güncel yazılım haberi ne?” gibi bir soru sorabilirsiniz.'};
     }
     if (/^(duy|duydun mu|orada mısın|burada mısın)$/.test(value)) {
-      return 'Buradayım, sizi duyuyorum. Bir haber başlığı, kurum adı, tarih veya gündelik bir soru yazabilirsiniz.';
+      return {text:'Buradayım, sizi duyuyorum. Bir haber başlığı, kurum adı, tarih veya gündelik bir soru yazabilirsiniz.'};
     }
     if (/^(teşekkürler|teşekkür ederim|sağ ol|sağol|eyvallah)$/.test(value)) {
-      return 'Rica ederim. Başka bir haber, tarih veya belge hakkında da yardımcı olabilirim.';
+      return {text:'Rica ederim. Başka bir haber, tarih veya belge hakkında da yardımcı olabilirim.'};
     }
     if (/^(sen kimsin|kimsin|ne yapabilirsin)$/.test(value)) {
-      return 'Ben MYO Gazetesi Asistanıyım. Yerel baskılarda, web haber kaynaklarında ve açık ansiklopedide arama yapar; kaynakları görsel ve bağlantılı kartlarla sunarım.';
+      return {text:'Ben MYO Gazetesi Asistanıyım. Yerel baskılarda, web haber kaynaklarında ve açık ansiklopedide arama yapar; kaynakları görsel ve bağlantılı kartlarla sunarım.'};
     }
-    return '';
+    return {text:'', cards:[]};
   }
 
   function normalizeCards(value) {
@@ -431,8 +451,11 @@
     }
   }
 
-  function localFallback(question, localMatches, webMatches) {
-    const cards = uniqueArticles([...localMatches, ...webMatches], 10);
+  function localFallback(question, localMatches = [], webMatches = []) {
+    const cards = uniqueArticles([
+      ...(Array.isArray(localMatches) ? localMatches : []),
+      ...(Array.isArray(webMatches) ? webMatches : [])
+    ], 10);
     if (cards.length) {
       const first = cards[0];
       const summary = clean(first.desc || first.body);
@@ -449,9 +472,9 @@
     return {text:`“${clean(question)}” için şu anda doğrulanabilir bir haber sonucu bulamadım. Farklı bir anahtar kelime, kurum adı veya tarih belirterek tekrar deneyebilirsiniz.`};
   }
 
-  async function answer(question, signal) {
+  async function answerUnsafe(question, signal) {
     const greeting = casualReply(question);
-    if (greeting) return {text:greeting};
+    if (greeting?.text) return safeMessagePayload(greeting);
     try { await ensureLocalData(); } catch (_) {}
     const matches = localSearch(question);
     let attachmentExcerpts = [];
@@ -475,37 +498,45 @@
     };
     if (Providers.active && Providers.registry.has(Providers.active)) {
       const providerResponse = await settleWithin(askRegisteredProvider(request), 1000);
-      if (providerResponse?.text || providerResponse?.cards?.length) return providerResponse;
+      if (providerResponse?.text || providerResponse?.cards?.length) return safeMessagePayload(providerResponse);
     } else {
       const apiResponse = await askApiChat(request, signal);
-      if (apiResponse?.text || apiResponse?.cards?.length) return apiResponse;
+      if (apiResponse?.text || apiResponse?.cards?.length) return safeMessagePayload(apiResponse);
     }
-    if (attachmentExcerpts.length) return {
+    if (attachmentExcerpts.length) return safeMessagePayload({
       text:`Eklediğiniz dosyalarda sorunuzla ilgili şu bölümleri buldum: ${attachmentExcerpts.join(' … ')}`,
       cards:matches
-    };
-    return localFallback(question, matches, webMatches);
+    });
+    return safeMessagePayload(localFallback(question, matches, webMatches));
+  }
+
+  async function answer(question, signal) {
+    try {
+      return safeMessagePayload(await answerUnsafe(question, signal));
+    } catch (error) {
+      if (error?.name !== 'AbortError') console.warn('Asistan güvenli yedek yanıta geçti.');
+      return safeMessagePayload(localFallback(question, localSearch(question), []));
+    }
   }
 
   async function submitQuestion(event) {
     event?.preventDefault();
     const input = state.panel?.querySelector('#aiAssistantInput');
     const question = clean(input?.value);
-    if (!question || !input) return;
+    if (!question || !input) return safeMessagePayload({text:'Lütfen bir soru yazın.'});
     input.value = '';
     addMessage('user', question);
     const requestId = ++state.requestNo;
     const controller = new AbortController();
     state.pending.set(requestId, controller);
     setStatus(`${state.pending.size} arama sürüyor… Yerel baskılar ve web kaynakları taranıyor.`);
+    let finalPayload = safeMessagePayload(null);
     try {
-      const response = await answer(question, controller.signal);
-      if (state.panel && !controller.signal.aborted) addMessage('assistant', response);
+      finalPayload = safeMessagePayload(await answer(question, controller.signal));
+      if (state.panel && !controller.signal.aborted) addMessage('assistant', finalPayload);
     } catch (error) {
-      if (error?.name !== 'AbortError' && state.panel) {
-        console.error('Asistan yanıt hatası:', error);
-        addMessage('assistant', localFallback(question, localSearch(question), []));
-      }
+      finalPayload = safeMessagePayload(localFallback(question, localSearch(question), []));
+      if (state.panel && !controller.signal.aborted) addMessage('assistant', finalPayload);
     } finally {
       state.pending.delete(requestId);
       if (state.panel) {
@@ -513,6 +544,7 @@
         state.panel.querySelector('#aiAssistantInput')?.focus();
       }
     }
+    return finalPayload;
   }
 
   function speak(value) {
